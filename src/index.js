@@ -17,8 +17,8 @@ const store = createStore(MainReducer,{
     user : '',
     ticketList: {tickets:[],
         isLoadingScreen : false,
-        isCreateTicketFormVisible: false,
-        isCreateTicketSuccessFormVisible : true,
+        isCreateTicketFormVisible: true,
+        isCreateTicketSuccessFormVisible : false,
         isCreateTicketFailureFormVisible : false}    
 },allStoreEnhancers);
 
