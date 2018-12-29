@@ -20,7 +20,7 @@ export function createTicketAPICall(ticket){
         formData.append(name, ticket[name]);
       }
     return function (dispatch) {      
-        fetch(`https://15e23b61-e331-41c0-9725-2c46ebe98828.mock.pstmn.io/v0/ticket-management/tickets`,{
+        return fetch(`https://15e23b61-e331-41c0-9725-2c46ebe98828.mock.pstmn.io/v0/ticket-management/tickets`,{
             method : 'POST',
             body : formData
         })
@@ -33,7 +33,7 @@ export function createTicketAPICall(ticket){
        )
         .then((statusMessage) => {
             console.log(statusMessage);
-           //dispatch(addProduct({name: json.headers.host}));
+           dispatch(createTicketSuccess());
         },
        );
       };

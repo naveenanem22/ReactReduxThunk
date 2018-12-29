@@ -6,11 +6,9 @@ export default class CreateTicketSuccessForm extends React.Component {
   constructor(props){
     super(props);
 
-    //State
     this.state = {
       
     }
-
   }
 
   
@@ -21,9 +19,7 @@ export default class CreateTicketSuccessForm extends React.Component {
       <Form>
         <FormGroup>
           <h3>Ticket Created successfully.</h3>
-          <p> Need help with something? 
-            Create a request right here. For faster service, 
-            please add as much information as possible.</p>
+          <p> Next steps: You will receive an auto generated e-Mail with ticket details.</p>
         </FormGroup>
         <FormGroup>
           <Label for="ticketTitle">Title</Label>

@@ -6,6 +6,6 @@ import {ticketReducer} from './TicketReducer';
 export const MainReducer = combineReducers(
     {products : productReducer,
     user : userReducer,
-    tickets : ticketReducer}
+    ticketList : ticketReducer}
 
 )

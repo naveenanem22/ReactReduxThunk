@@ -15,7 +15,11 @@ const allStoreEnhancers = compose(
 const store = createStore(MainReducer,{
     products : [],
     user : '',
-    tickets: []    
+    ticketList: {tickets:[],
+        isLoadingScreen : false,
+        isCreateTicketFormVisible: false,
+        isCreateTicketSuccessFormVisible : true,
+        isCreateTicketFailureFormVisible : false}    
 },allStoreEnhancers);
 
 
