@@ -3,7 +3,6 @@ import CreateNewTicketForm from "./CreateTicketForm";
 import HeaderNavBar from "../components/HeaderNavBar";
 import SideNavBar from '../components/SideNavBar';
 import {connect} from 'react-redux';
-import CreateTicketSuccessForm from './CreateTicketSuccessForm';
 import { Alert } from 'reactstrap';
 
 class CreateNewTicketPage extends React.Component {

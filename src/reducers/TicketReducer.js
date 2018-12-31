@@ -13,7 +13,8 @@ export function ticketReducer(state = {}, action){
         return state;
 
         case FETCH_TICKETS_SUCCESS:
-        return { ...state, isLoadingScreen: false, isViewTicketsFormVisible: true};
+        return { ...state, tickets:action.payload.tickets,isLoadingScreenInViewTicketspage: false, 
+            isViewTicketsFormVisible: true};
 
         default :
         return state;

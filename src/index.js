@@ -20,7 +20,8 @@ const store = createStore(MainReducer,{
         isCreateTicketFormVisible: true,
         isCreateTicketSuccessFormVisible : false,
         isCreateTicketFailureFormVisible : false,        
-        isViewTicketsFormVisible: false}    
+        isViewTicketsFormVisible: false,
+        isLoadingScreenInViewTicketspage: true}    
 },allStoreEnhancers);
 
 

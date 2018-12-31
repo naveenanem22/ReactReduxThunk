@@ -3,14 +3,23 @@ import HeaderNavBar from "../components/HeaderNavBar";
 import SideNavBar from '../components/SideNavBar';
 import ViewTicketsForm from './ViewTicketsForm';
 import { RingLoader, ScaleLoader } from 'react-spinners';
+import {connect} from 'react-redux';
+import {fetchTicketsAPICall} from '../actions/TicketActions'
 
-export default class ViewTicketsPage extends React.Component {
+class ViewTicketsPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
         }
     }
 
+    componentDidMount() {
+        this.props.fetchTickets({
+          userId:"naveen.anem@kony.com",
+          status:'all',
+          sortBy:'ticketId'
+        });
+  }
    
     render(){
         return (
@@ -21,10 +30,10 @@ export default class ViewTicketsPage extends React.Component {
                 <div class = 'new-ticket-side-nav'>
                 <SideNavBar></SideNavBar>
                 </div >
-                {true && <div class = 'view-ticket-form'>
+                {this.props.isViewTicketsFormVisible && <div class = 'view-ticket-form'>
                 <ViewTicketsForm ></ViewTicketsForm>
                 </div>}
-                {false && <div className='sweet-loading'>
+                {this.props.isLoadingScreenInViewTicketspage && <div className='sweet-loading'>
                 <ScaleLoader
                 color={'#123abc'} 
                 loading = 'true' 
@@ -37,3 +46,16 @@ export default class ViewTicketsPage extends React.Component {
         );
     }
 }
+
+const mapStateToProps = function (state){
+    return {
+        isViewTicketsFormVisible: state.ticketList.isViewTicketsFormVisible,
+        isLoadingScreenInViewTicketspage : state.ticketList.isLoadingScreenInViewTicketspage
+    }
+  }
+
+  const mapActionsToProps = {  
+    fetchTickets : fetchTicketsAPICall  
+  }
+
+  export default connect(mapStateToProps,mapActionsToProps)(ViewTicketsPage);

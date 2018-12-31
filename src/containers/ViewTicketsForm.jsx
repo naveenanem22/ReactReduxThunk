@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { Table } from 'reactstrap';
 
+
 class ViewTicketsForm extends React.Component {
 
   constructor(props){
@@ -14,7 +15,10 @@ class ViewTicketsForm extends React.Component {
   }
 
   
+  
   render() {
+    
+    
     return (
         <Table hover bordered className="rounded mb-0">
           <thead>
@@ -26,26 +30,14 @@ class ViewTicketsForm extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">122121</th>
-              <td>Closed</td>
-              <td>Internet to be available on the personal device. 
-                  Internet to be available on the personal device.
-                  Internet to be available on the personal device.</td>
-              <td>21st Jan 2018</td>
-            </tr>
-            <tr>
-              <th scope="row">223333</th>
-              <td>Open</td>
-              <td>Printer not working</td>
-              <td>31st Jan 2019</td>
-            </tr>
-            <tr>
-              <th scope="row">34567</th>
-              <td>New</td>
-              <td>Mouse not working</td>
-              <td>31st Jan 2019</td>
-            </tr>
+            {this.props.tickets.map((ticket) =>
+               <tr>
+               <th scope="row">{ticket.id}</th>
+               <td>{ticket.status}</td>
+               <td>{ticket.title}</td>
+               <td>{ticket.updatedDate}</td>
+              </tr>
+              )}
           </tbody>
         </Table>
       );
@@ -59,7 +51,6 @@ const mapStateToProps = function (state){
       tickets: state.ticketList.tickets
     }
   }
-
 
 
 

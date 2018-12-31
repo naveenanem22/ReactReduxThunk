@@ -13,9 +13,12 @@ export function createTicketSuccess(){
     }
 }
 
-export function fetchTicketsSuccess(){
+export function fetchTicketsSuccess(tickets){
     return {
-        type : FETCH_TICKETS_SUCCESS
+        type : FETCH_TICKETS_SUCCESS,
+        payload: {
+            tickets:tickets
+        }
     }
 }
 
@@ -46,7 +49,7 @@ export function createTicketAPICall(ticket){
 }
 
 export function fetchTicketsAPICall(queryParams){
-    var url = new URL("");
+    var url = new URL("https://15e23b61-e331-41c0-9725-2c46ebe98828.mock.pstmn.io/v0/ticket-management/tickets");
     var params = {userId:queryParams.userId, status:queryParams.status, sortBy:queryParams.sortBy};
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
         
@@ -55,16 +58,15 @@ export function fetchTicketsAPICall(queryParams){
             method : 'GET'           
         })
         .then(
-           response => {
-               console.log(response);
+           response => {               
                if(response.status === 200)
-               return response.statusText;
+               return response.json();
            },
            error => console.log('An error occurred.', error),
        )
-        .then((statusMessage) => {
-            console.log(statusMessage);
-           dispatch(fetchTicketsSuccess());
+        .then((tickets) => {
+           // console.log(tickets);
+           dispatch(fetchTicketsSuccess(tickets));
         },
        );
       };
