@@ -33,11 +33,14 @@ class ViewTicketsPage extends React.Component {
                 {this.props.isViewTicketsFormVisible && <div class = 'view-ticket-form'>
                 <ViewTicketsForm ></ViewTicketsForm>
                 </div>}
-                {this.props.isLoadingScreenInViewTicketspage && <div className='sweet-loading'>
-                <ScaleLoader
-                color={'#123abc'} 
+                {this.props.isLoadingScreenInViewTicketspage && <div className='view-ticket-form'>
+                <div className='view-ticket-loading'>
+                <ScaleLoader 
+                color='#00d8ff'
                 loading = 'true' 
                 />
+                </div>
+                
                 </div>
                 }
                 
