@@ -7,7 +7,7 @@ import {MainReducer} from './reducers/MainReducer'
 import thunk from 'redux-thunk';
 import { BrowserRouter, Route, Link } from 'react-router-dom'
 import registerServiceWorker from './registerServiceWorker';
-import CreateTicketSuccessPage from './containers/CreateTIcketSuccessPage';
+import ViewTicketsPage from './containers/ViewTicketsPage';
 
 const allStoreEnhancers = compose(
     applyMiddleware(thunk)
@@ -16,10 +16,11 @@ const store = createStore(MainReducer,{
     products : [],
     user : '',
     ticketList: {tickets:[],
-        isLoadingScreen : false,
+        isLoadingScreen : true,
         isCreateTicketFormVisible: true,
         isCreateTicketSuccessFormVisible : false,
-        isCreateTicketFailureFormVisible : false}    
+        isCreateTicketFailureFormVisible : false,        
+        isViewTicketsFormVisible: false}    
 },allStoreEnhancers);
 
 
@@ -31,7 +32,7 @@ ReactDOM.render(
     <BrowserRouter>
     <div>
     <Route path = "/newticket" component = {App}></Route>
-    <Route path = "/createticketsuccess" component = {CreateTicketSuccessPage}></Route> 
+    <Route path = "/tickets" component = {ViewTicketsPage}></Route> 
     </div>
    </BrowserRouter>
    </Provider>,document.getElementById('root'));

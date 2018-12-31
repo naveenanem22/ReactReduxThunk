@@ -17,7 +17,7 @@ class CreateNewTicketPage extends React.Component {
     }
 
     onDismiss() {
-        this.setState({ visible: false });
+        this.setState({ isAlertVisible: false });
       }
 
     render(){
@@ -34,7 +34,7 @@ class CreateNewTicketPage extends React.Component {
                 <CreateNewTicketForm ></CreateNewTicketForm>
                 </div>}                
                 {this.props.isCreateTicketSuccessFormVisible && <div class = 'new-ticket-success-header'>
-                <Alert color="success" isOpen={this.state.visible} toggle={this.onDismiss}>
+                <Alert color="success" isOpen={this.state.isAlertVisible} toggle={this.onDismiss}>
                 <h4 className="alert-heading">Success!</h4>
                 <p>
                 A new ticket has been raised successfully. An auto generated eMail is already triggered

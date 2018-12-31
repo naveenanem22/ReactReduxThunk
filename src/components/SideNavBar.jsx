@@ -11,7 +11,7 @@ export default class SideNavBar extends React.Component {
             <NavLink href="/newticket">New Ticket</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="/createticketsuccess">My Tickets</NavLink>
+            <NavLink href="/tickets">My Tickets</NavLink>
           </NavItem>
           <NavItem>
             <NavLink href="#">Closed Tickets</NavLink>

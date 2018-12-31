@@ -1,5 +1,5 @@
 import { CREATE_TICKET } from './ActionTypes';
-import { CREATE_TICKET_SUCCESS } from './ActionTypes';
+import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS } from './ActionTypes';
 
 export function createTicket(){
     return {
@@ -10,6 +10,12 @@ export function createTicket(){
 export function createTicketSuccess(){
     return {
         type : CREATE_TICKET_SUCCESS
+    }
+}
+
+export function fetchTicketsSuccess(){
+    return {
+        type : FETCH_TICKETS_SUCCESS
     }
 }
 
@@ -34,6 +40,31 @@ export function createTicketAPICall(ticket){
         .then((statusMessage) => {
             console.log(statusMessage);
            dispatch(createTicketSuccess());
+        },
+       );
+      };
+}
+
+export function fetchTicketsAPICall(queryParams){
+    var url = new URL("");
+    var params = {userId:queryParams.userId, status:queryParams.status, sortBy:queryParams.sortBy};
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+        
+    return function (dispatch) {      
+        return fetch(url,{
+            method : 'GET'           
+        })
+        .then(
+           response => {
+               console.log(response);
+               if(response.status === 200)
+               return response.statusText;
+           },
+           error => console.log('An error occurred.', error),
+       )
+        .then((statusMessage) => {
+            console.log(statusMessage);
+           dispatch(fetchTicketsSuccess());
         },
        );
       };
