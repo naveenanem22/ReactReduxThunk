@@ -7,6 +7,8 @@
   height: 80px;
 }
 
+
+
 .App-header {
   background-color: #222;
   height: 150px;
@@ -34,20 +36,25 @@
   margin:5px;
 }
 .new-ticket-side-nav{
+  background-color: #F8F9FA;
   width:20%;
   height:auto;
 }
 
 .new-ticket-form{
   width:75%;
-  border-radius: 10px;
-  border: 2px solid #CED4DA;
+  /*border-radius: 1px;*/
+  border: 1px solid #CED4DA;
   padding: 20px;
   
 }
 
 .view-ticket-form{
   width:75%;
+}
+
+.ticket-details-form{
+  background-color: #F8F9FA;
 }
 
 .view-ticket-loading{
@@ -64,7 +71,17 @@
   width:100%;
 }
 
+.btn-group-vertical{
+  width:100%;
+}
+
+.btn-group-vertical .btn-outline-secondary{
+  text-align: left;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css");

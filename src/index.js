@@ -8,6 +8,7 @@ import thunk from 'redux-thunk';
 import { BrowserRouter, Route, Link } from 'react-router-dom'
 import registerServiceWorker from './registerServiceWorker';
 import ViewTicketsPage from './containers/ViewTicketsPage';
+import ViewTicketDetailsPage from './containers/ViewTicketDetailsPage';
 
 const allStoreEnhancers = compose(
     applyMiddleware(thunk)
@@ -33,7 +34,8 @@ ReactDOM.render(
     <BrowserRouter>
     <div>
     <Route path = "/newticket" component = {App}></Route>
-    <Route path = "/tickets" component = {ViewTicketsPage}></Route> 
+    <Route path = "/tickets" component = {ViewTicketsPage}></Route>
+    <Route path = "/ticketdetails" component = {ViewTicketDetailsPage}></Route> 
     </div>
    </BrowserRouter>
    </Provider>,document.getElementById('root'));

@@ -1,13 +1,12 @@
 import React from 'react';
 import HeaderNavBar from "../components/HeaderNavBar";
 import SideNavBar from '../components/SideNavBar';
-import ViewTicketsForm from './ViewTicketsForm';
-import { RingLoader, ScaleLoader } from 'react-spinners';
+import { ScaleLoader } from 'react-spinners';
+import ViewTicketDetailsForm from './ViewTicketDetailsForm';
 import {connect} from 'react-redux';
 import {fetchTicketsAPICall} from '../actions/TicketActions'
-import SideNavButtons from '../components/SideNavButtons';
 
-class ViewTicketsPage extends React.Component {
+class ViewTicketDetailsPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -31,10 +30,10 @@ class ViewTicketsPage extends React.Component {
                 <div class = 'new-ticket-side-nav'>
                 <SideNavBar></SideNavBar>
                 </div >
-                {this.props.isViewTicketsFormVisible && <div class = 'view-ticket-form'>
-                <ViewTicketsForm ></ViewTicketsForm>
+                {true && <div class = 'new-ticket-form'>
+                <ViewTicketDetailsForm ></ViewTicketDetailsForm>
                 </div>}
-                {this.props.isLoadingScreenInViewTicketspage && <div className='view-ticket-form'>
+                {false && <div className='view-ticket-form'>
                 <div className='view-ticket-loading'>
                 <ScaleLoader 
                 color='#00d8ff'
@@ -62,4 +61,4 @@ const mapStateToProps = function (state){
     fetchTickets : fetchTicketsAPICall  
   }
 
-  export default connect(mapStateToProps,mapActionsToProps)(ViewTicketsPage);
+  export default connect(mapStateToProps,mapActionsToProps)(ViewTicketDetailsPage);

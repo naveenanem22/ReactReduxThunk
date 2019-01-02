@@ -1,30 +1,29 @@
 import React from 'react';
-import { Nav, NavItem, NavLink } from 'reactstrap';
+import { Nav, NavItem, NavLink, Navbar } from 'reactstrap';
 
 export default class SideNavBar extends React.Component {
   render() {
     return (
       <div class = 'sidenavbar'>
-        <p>My Actions</p>
-        <Nav vertical>
+        <h5>My Actions</h5>
+        <Nav vertical pills>
           <NavItem>
-            <NavLink href="/newticket">New Ticket</NavLink>
+            <NavLink href="/newticket" style={{ textDecoration: 'none', color: 'black' }}>New Ticket</NavLink>
           </NavItem>
+          
           <NavItem>
-            <NavLink href="/tickets">My Tickets</NavLink>
+            <NavLink href="/tickets" style={{ textDecoration: 'none', color: 'black' }}>My Tickets</NavLink>
           </NavItem>
+          
           <NavItem>
-            <NavLink href="#">Closed Tickets</NavLink>
+            <NavLink href="#" style={{ textDecoration: 'none', color: 'black' }}>Closed Tickets</NavLink>
           </NavItem>
+          
           <NavItem>
-            <NavLink disabled href="#">Disabled Link</NavLink>
+            <NavLink disabled href="#" style={{ textDecoration: 'none', color: 'black' }}>Disabled Link</NavLink>
           </NavItem>
         </Nav>
-        <hr />
-        <p>Organization Tickets</p>
-        <Nav vertical>
-          <NavLink href="#">Link</NavLink> <NavLink href="#">Link</NavLink> <NavLink href="#">Another Link</NavLink> <NavLink disabled href="#">Disabled Link</NavLink>
-        </Nav>
+        
       </div>
     );
   }
