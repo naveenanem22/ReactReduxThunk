@@ -1,7 +1,8 @@
 import React from 'react';
 import {createTicketAPICall} from '../actions/TicketActions'
 import {connect} from 'react-redux';
-import {Glyphicon, Button} from 'react-bootstrap';
+import {Glyphicon} from 'react-bootstrap';
+import {Label} from 'reactstrap';
 
 class ViewTicketDetailsForm extends React.Component {
 
@@ -56,9 +57,11 @@ class ViewTicketDetailsForm extends React.Component {
         <hr/>
       </div>
       <div class = "ticket-details-form">
-      <Button>
-        <Glyphicon glyph="star" /> Star
-      </Button>
+      <Glyphicon glyph="glyphicon glyphicon-user" />
+      <Label for="userFullName">
+      <strong>Naveen Kumar Anem</strong>
+      - naveen.anem@kony.com
+      </Label>
       </div>
       </div>
     );
