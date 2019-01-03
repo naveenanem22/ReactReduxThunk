@@ -7,7 +7,10 @@
   height: 80px;
 }
 
-
+hr{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
 
 .App-header {
   background-color: #222;
@@ -62,10 +65,25 @@
   padding-top: 20%;
 }
 
+.ticket-conv-block {
+  border: 1px solid #CED4DA;
+  margin-top: 20px;
+
+}
+
+.ticket-conv-block > .author{
+  background-color: #F8F9FA;
+}
+
+.ticket-conv-block > .message{
+  background-color: rgb(255, 255, 255);
+}
+
 .new-ticket-success-header{
   width:75%;
   
 }
+
 
 .new-ticket-header{
   width:100%;

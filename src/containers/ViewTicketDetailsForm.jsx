@@ -1,9 +1,9 @@
 import React from 'react';
 import {createTicketAPICall} from '../actions/TicketActions'
 import {connect} from 'react-redux';
-import {Glyphicon} from 'react-bootstrap';
-import {Label} from 'reactstrap';
-
+import {Label, Row, Col, Container} from 'reactstrap';
+import { FaUser } from 'react-icons/fa';
+import { Table } from 'reactstrap';
 class ViewTicketDetailsForm extends React.Component {
 
   constructor(props){
@@ -57,12 +57,95 @@ class ViewTicketDetailsForm extends React.Component {
         <hr/>
       </div>
       <div class = "ticket-details-form">
-      <Glyphicon glyph="glyphicon glyphicon-user" />
       <Label for="userFullName">
-      <strong>Naveen Kumar Anem</strong>
+      <FaUser /><strong>Naveen Kumar Anem</strong>
       - naveen.anem@kony.com
       </Label>
+      <h6>Internet connectivity to Personal Mobile</h6>
+      <hr></hr>
+      <Row>
+          <Col>Solved</Col>
+          <Col>Updated: 2018-12-26</Col>
+          <Col>Ticket ID: 21820281</Col>
+        </Row>
+        <hr></hr>
+      <div class = "ticket-description">
+      Internet connectivity to Personal Mobile
+      IMEI
+      356478083778876
+      356478083778884
+      wifi MAC
+      d0:04:01:cd:f1:d2
       </div>
+      <hr/>
+      <Table  bordered className="rounded mb-0">
+          
+          <tbody>
+               <tr>
+               <td><strong>Category:</strong></td>
+               <td>Internet / Email / Sharepoint</td>
+              </tr>
+              <tr>
+               <td><strong>Category:</strong></td>
+               <td>Internet / Email / Sharepoint</td>
+              </tr>
+              <tr>
+               <td><strong>Category:</strong></td>
+               <td>Internet / Email / Sharepoint</td>
+              </tr>
+              <tr>
+               <td><strong>Category:</strong></td>
+               <td>Internet / Email / Sharepoint</td>
+              </tr>
+              <tr>
+               <td><strong>Category:</strong></td>
+               <td>Internet / Email / Sharepoint</td>
+              </tr>
+            
+          </tbody>
+        </Table>
+        <div class = "ticket-conv-block">
+        <div class="author">
+        <Row style={{'height': '50px'}}>
+        <Col md={6} style={{'text-align': 'left','padding-top': '.75rem','padding-bottom': '.75rem'}}>Naveen Kumar Anem</Col>
+        <Col md={6} style={{'text-align': 'right','padding-top': '.75rem','padding-bottom': '.75rem'}}>2018-09-17 13:14:04</Col>
+        </Row> 
+        </div>
+        <hr/>
+        <div class="message">
+        <Row >
+          <Col style={{'height': '200px'}}>Hi Naveen
+
+given 1 monitor completed check it and close your ticket
+
+regards
+
+Naveen</Col>
+        </Row>
+        </div>
+        </div>
+        <div class = "ticket-conv-block">
+        <div class="author">
+        <Row style={{'height': '50px'}}>
+        <Col md={6} style={{'text-align': 'left','padding-top': '.75rem','padding-bottom': '.75rem'}}>Naveen Kumar Anem</Col>
+        <Col md={6} style={{'text-align': 'right','padding-top': '.75rem','padding-bottom': '.75rem'}}>2018-09-17 13:14:04</Col>
+        </Row> 
+        </div>
+        <hr/>
+        <div class="message">
+        <Row >
+          <Col style={{'height': '200px'}}>Hi Naveen
+
+given 1 monitor completed check it and close your ticket
+
+regards
+
+Naveen</Col>
+        </Row>
+        </div>
+        </div>
+      </div>
+      
       </div>
     );
   }
