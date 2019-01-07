@@ -31,7 +31,7 @@ export default class HeaderNavBar extends React.Component {
   render() {
     return (
       
-        <Navbar color="light" light expand="md">
+        <Navbar color="light" light expand="md" fixed="top">
           <NavbarBrand href="/"><h3>ITS Helpdesk</h3></NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>

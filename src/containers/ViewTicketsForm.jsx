@@ -17,7 +17,7 @@ class ViewTicketsForm extends React.Component {
     
     
     return (
-        <Table hover bordered className="rounded mb-0">
+        <Table hover bordered class="rounded mb-0">
           <thead>
             <tr>
               <th>Ticket#</th>

@@ -52,12 +52,27 @@ hr{
   
 }
 
+.view-ticket-body{
+  padding-top: 4%;
+  margin:5px;
+  width:100%;
+}
+
 .view-ticket-form{
   width:75%;
+  border: 1px solid #CED4DA;
+  padding: 20px;
 }
 
 .ticket-details-form{
   background-color: #F8F9FA;
+}
+
+.ticket-details-body{
+  border-radius: 4px;
+  border: 1px solid #CED4DA;
+  padding: 20px;
+  background-color: rgb(255, 255, 255);
 }
 
 .view-ticket-loading{
@@ -68,6 +83,7 @@ hr{
 .ticket-conv-block {
   border: 1px solid #CED4DA;
   margin-top: 20px;
+  
 
 }
 
@@ -79,11 +95,39 @@ hr{
   background-color: rgb(255, 255, 255);
 }
 
+
+.ticket-table-summary > td {
+  -height:"100px";
+}
+
+.view-ticket-header{
+  width:100%;
+}
+
+.view-ticket-side-nav{
+  background-color: #F8F9FA;
+  width:20%;
+  height:auto;
+}
+
+.view-ticket-page{
+  position:absolute;
+  width:100%;
+  height:100%;  
+  padding:5px;
+  
+}
+
+.view-ticket-body > div{
+  float:left;
+  margin:5px;
+}
+
+
 .new-ticket-success-header{
   width:75%;
   
 }
-
 
 .new-ticket-header{
   width:100%;

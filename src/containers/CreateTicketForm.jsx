@@ -56,6 +56,7 @@ class CreateNewTicketForm extends React.Component {
           <p> Need help with something? 
             Create a request right here. For faster service, 
             please add as much information as possible.</p>
+          <hr/>
         </FormGroup>
         <FormGroup>
           <Label for="ticketTitle">Title</Label>

@@ -42,7 +42,7 @@ class App extends Component {
     //console.log(this.props);
     
     return (
-      <div className="App">      
+      <div className="App">         
       <CreateTicketPage></CreateTicketPage>
     </div>
       /*<div >

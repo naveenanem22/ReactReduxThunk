@@ -5,6 +5,7 @@ import { ScaleLoader } from 'react-spinners';
 import ViewTicketDetailsForm from './ViewTicketDetailsForm';
 import {connect} from 'react-redux';
 import {fetchTicketsAPICall} from '../actions/TicketActions'
+import {Container} from 'reactstrap';
 
 class ViewTicketDetailsPage extends React.Component {
     constructor(props){
@@ -23,14 +24,16 @@ class ViewTicketDetailsPage extends React.Component {
    
     render(){
         return (
-            <div class = 'new-ticket-page'>
-                <div class = 'new-ticket-header'>
+            <div class = 'view-ticket-page'>
+            
+                <div class = 'view-ticket-header'>
                 <HeaderNavBar></HeaderNavBar>
                 </div>
-                <div class = 'new-ticket-side-nav'>
+                <div class = 'view-ticket-body'>
+                <div class = 'view-ticket-side-nav'>
                 <SideNavBar></SideNavBar>
                 </div >
-                {true && <div class = 'new-ticket-form'>
+                {true && <div class = 'view-ticket-form'>
                 <ViewTicketDetailsForm ></ViewTicketDetailsForm>
                 </div>}
                 {false && <div className='view-ticket-form'>
@@ -43,9 +46,9 @@ class ViewTicketDetailsPage extends React.Component {
                 
                 </div>
                 }
-                
+                </div>
             </div>
-        
+           
         );
     }
 }
