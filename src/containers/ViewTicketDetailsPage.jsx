@@ -5,7 +5,8 @@ import { ScaleLoader } from 'react-spinners';
 import ViewTicketDetailsForm from './ViewTicketDetailsForm';
 import {connect} from 'react-redux';
 import {fetchTicketsAPICall} from '../actions/TicketActions'
-import {Container} from 'reactstrap';
+import {Table} from 'reactstrap';
+
 
 class ViewTicketDetailsPage extends React.Component {
     constructor(props){
@@ -23,17 +24,21 @@ class ViewTicketDetailsPage extends React.Component {
   }
    
     render(){
+        var bg=require('../testpagebg2.jpg');
+        
         return (
-            <div class = 'view-ticket-page'>
             
-                <div class = 'view-ticket-header'>
-                <HeaderNavBar></HeaderNavBar>
-                </div>
-                <div class = 'view-ticket-body'>
-                <div class = 'view-ticket-side-nav'>
-                <SideNavBar></SideNavBar>
-                </div >
-                {true && <div class = 'view-ticket-form'>
+           <div>
+               
+               <div class="sticky">
+               <HeaderNavBar></HeaderNavBar>
+               </div >
+                <div  style ={ /*{ backgroundImage: "url("+bg+")" }*/ { background:'rgba(0,0,0,0.3)' }} class = "view-ticket-body">
+                <Table borderless>          
+                <tbody>
+               <tr >
+               <td><SideNavBar ></SideNavBar></td>
+               <td>{true && <div class = 'view-ticket-form'>
                 <ViewTicketDetailsForm ></ViewTicketDetailsForm>
                 </div>}
                 {false && <div className='view-ticket-form'>
@@ -45,9 +50,18 @@ class ViewTicketDetailsPage extends React.Component {
                 </div>
                 
                 </div>
-                }
-                </div>
-            </div>
+                }</td>
+              </tr>             
+            
+          </tbody>
+        </Table>
+        </div>
+
+        
+
+				
+				
+           </div>
            
         );
     }

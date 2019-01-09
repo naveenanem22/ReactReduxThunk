@@ -31,7 +31,7 @@ export default class HeaderNavBar extends React.Component {
   render() {
     return (
       
-        <Navbar color="light" light expand="md" fixed="top">
+        <Navbar color="dark" dark expand="md">
           <NavbarBrand href="/"><h3>ITS Helpdesk</h3></NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
@@ -40,7 +40,7 @@ export default class HeaderNavBar extends React.Component {
                 <NavLink href="/components/">Components</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+                <NavLink  href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
@@ -54,7 +54,7 @@ export default class HeaderNavBar extends React.Component {
                   {this.state.options[1]}
                   </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem>
+                  <DropdownItem >
                   {this.state.options[2]}
                   </DropdownItem>
                 </DropdownMenu>
