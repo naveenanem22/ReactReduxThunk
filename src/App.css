@@ -152,3 +152,11 @@ div.sticky {
   position: sticky;
   top: 0;  
 }
+
+body {
+  -background-color: #b63c3c;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-image: url('./testpagebg.jpg');
+}
