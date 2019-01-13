@@ -48,7 +48,7 @@ class ViewTicketDetailsForm extends React.Component {
   render() {
     console.log(this.state);
     return (
-      <div>
+      <div class = "ticket-details-form">
       <div class = "ticket-details-header">
         <h3>Ticket Details</h3>
         <p> Ticket details such as - attachments, converstaion and status.</p>
