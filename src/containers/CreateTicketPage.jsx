@@ -23,7 +23,7 @@ class CreateNewTicketPage extends React.Component {
         console.log(this.props);
         return (
             <div class = 'new-ticket-page'>
-                <div class = 'new-ticket-header'>
+                <div class = 'sticky'  >
                 <HeaderNavBar></HeaderNavBar>
                 </div>
                 <div class = 'new-ticket-side-nav'>

@@ -53,12 +53,15 @@ class ViewTicketDetailsForm extends React.Component {
         <h3>Ticket Details</h3>
         <p> Ticket details such as - attachments, converstaion and status.</p>
       </div>
-
       <div class = "ticket-details-body">
+      
+      <div>
       <Row>
-        <Col md={6} style={{'text-align': 'left','padding-top': '.75rem'}}><FaUser /><strong>Naveen Anem</strong> - naveen.anem@kony.com</Col>
+        <Col md={6} style={{'text-align': 'left','padding-top': '.75rem'}}><strong>Naveen Anem</strong> - naveen.anem@kony.com</Col>
         <Col md={6} style={{'text-align': 'right','padding-top': '.75rem'}}>2018-08-22</Col>
       </Row>
+      </div>
+      
       <Row>
         <Col md={12}><h4>Need 2 monitors Keyboard and Mouse</h4></Col>
       </Row>
@@ -74,24 +77,24 @@ class ViewTicketDetailsForm extends React.Component {
           
           <tbody>
                <tr >
-               <td><strong>Category:</strong></td>
-               <td>Internet / Email / Sharepoint</td>
+               <td style={{width: '20%'}}><strong>Category:</strong></td>
+               <td style={{fontStyle: 'italic'}}>Internet / Email / Sharepoint</td>
               </tr>
               <tr>
-               <td><strong>Category:</strong></td>
-               <td>Internet / Email / Sharepoint</td>
+               <td><strong>Priority:</strong></td>
+               <td style={{fontStyle: 'italic'}}>Normal</td>
               </tr>
               <tr>
-               <td><strong>Category:</strong></td>
-               <td>Internet / Email / Sharepoint</td>
+               <td><strong>Department:</strong></td>
+               <td style={{fontStyle: 'italic'}}>Helpdesk</td>
               </tr>
               <tr>
-               <td><strong>Category:</strong></td>
-               <td>Internet / Email / Sharepoint</td>
+               <td><strong>Office:</strong></td>
+               <td style={{fontStyle: 'italic'}}>Hyderabad-DS</td>
               </tr>
               <tr>
-               <td><strong>Category:</strong></td>
-               <td>Internet / Email / Sharepoint</td>
+               <td><strong>Service Type:</strong></td>
+               <td style={{fontStyle: 'italic'}}>Task</td>
               </tr>
             
           </tbody>
@@ -133,95 +136,7 @@ class ViewTicketDetailsForm extends React.Component {
         </div>
 
         </div>
-      {/* <div class = "ticket-details-form">
-      <Label for="userFullName">
-      <FaUser /><strong>Naveen Kumar Anem</strong>
-      - naveen.anem@kony.com
-      </Label>
-      <h6>Internet connectivity to Personal Mobile</h6>
-      <hr></hr>
-      <Row>
-          <Col>Solved</Col>
-          <Col>Updated: 2018-12-26</Col>
-          <Col>Ticket ID: 21820281</Col>
-        </Row>
-        <hr></hr>
-      <div class = "ticket-description">
-      Internet connectivity to Personal Mobile
-      IMEI
-      356478083778876
-      356478083778884
-      wifi MAC
-      d0:04:01:cd:f1:d2
-      </div>
-      <hr/>
-      <Table  bordered className="rounded mb-0">
-          
-          <tbody>
-               <tr>
-               <td><strong>Category:</strong></td>
-               <td>Internet / Email / Sharepoint</td>
-              </tr>
-              <tr>
-               <td><strong>Category:</strong></td>
-               <td>Internet / Email / Sharepoint</td>
-              </tr>
-              <tr>
-               <td><strong>Category:</strong></td>
-               <td>Internet / Email / Sharepoint</td>
-              </tr>
-              <tr>
-               <td><strong>Category:</strong></td>
-               <td>Internet / Email / Sharepoint</td>
-              </tr>
-              <tr>
-               <td><strong>Category:</strong></td>
-               <td>Internet / Email / Sharepoint</td>
-              </tr>
-            
-          </tbody>
-        </Table>
-        <div class = "ticket-conv-block">
-        <div class="author">
-        <Row style={{'height': '50px'}}>
-        <Col md={6} style={{'text-align': 'left','padding-top': '.75rem','padding-bottom': '.75rem'}}>Naveen Kumar Anem</Col>
-        <Col md={6} style={{'text-align': 'right','padding-top': '.75rem','padding-bottom': '.75rem'}}>2018-09-17 13:14:04</Col>
-        </Row> 
-        </div>
-        <hr/>
-        <div class="message">
-        <Row >
-          <Col style={{'height': '200px'}}>Hi Naveen
-
-given 1 monitor completed check it and close your ticket
-
-regards
-
-Naveen</Col>
-        </Row>
-        </div>
-        </div>
-        <div class = "ticket-conv-block">
-        <div class="author">
-        <Row style={{'height': '50px'}}>
-        <Col md={6} style={{'text-align': 'left','padding-top': '.75rem','padding-bottom': '.75rem'}}>Naveen Kumar Anem</Col>
-        <Col md={6} style={{'text-align': 'right','padding-top': '.75rem','padding-bottom': '.75rem'}}>2018-09-17 13:14:04</Col>
-        </Row> 
-        </div>
-        <hr/>
-        <div class="message">
-        <Row >
-          <Col style={{'height': '200px'}}>Hi Naveen
-
-given 1 monitor completed check it and close your ticket
-
-regards
-
-Naveen</Col>
-        </Row>
-        </div>
-        </div>
-      </div> */}
+      
       
       </div>
     );
