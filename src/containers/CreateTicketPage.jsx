@@ -1,9 +1,11 @@
 import React from 'react';
 import CreateNewTicketForm from "./CreateTicketForm";
+import ViewTicketDetailForm from './ViewTicketDetailsForm';
 import HeaderNavBar from "../components/HeaderNavBar";
 import SideNavBar from '../components/SideNavBar';
 import {connect} from 'react-redux';
-import { Alert } from 'reactstrap';
+import { Alert, Table } from 'reactstrap';
+import { ScaleLoader } from 'react-spinners';
 
 class CreateNewTicketPage extends React.Component {
     constructor(props){
@@ -22,17 +24,33 @@ class CreateNewTicketPage extends React.Component {
     render(){
         console.log(this.props);
         return (
-            <div class = 'new-ticket-page'>
+            <div >
                 <div class = 'sticky'  >
                 <HeaderNavBar></HeaderNavBar>
                 </div>
-                <div class = 'new-ticket-side-nav'>
-                <SideNavBar></SideNavBar>
-                </div>            
-                {this.props.isCreateTicketFormVisible && <div class = 'new-ticket-form'>
+                
+                <div  style ={{ background:'rgba(0,0,0,0.3)' }} class = "view-ticket-body">
+                <Table borderless>          
+                <tbody>
+               <tr >
+               <td style ={{ width:'20%' }}><SideNavBar ></SideNavBar></td>
+               <td>
+               {this.props.isCreateTicketFormVisible && <div class = 'view-ticket-form'>
                 <CreateNewTicketForm ></CreateNewTicketForm>
-                </div>}                
-                {this.props.isCreateTicketSuccessFormVisible && <div class = 'new-ticket-success-header'>
+                </div>}
+                
+                {false && <div className='view-ticket-form'>
+                <div className='view-ticket-loading'>
+                <ScaleLoader 
+                color='#00d8ff'
+                loading = 'true' 
+                />
+                </div>
+                
+                </div>
+                }
+                
+                {this.props.isCreateTicketSuccessFormVisible && <div >
                 <Alert color="success" isOpen={this.state.isAlertVisible} toggle={this.onDismiss}>
                 <h4 className="alert-heading">Success!</h4>
                 <p>
@@ -46,8 +64,13 @@ class CreateNewTicketPage extends React.Component {
                 at itshelpdesk@compnay.com.
                 </p>
                 </Alert>
-                </div>}
+                </div>}</td>
+              </tr>             
+            
+            </tbody>
+            </Table>
             </div>
+        </div>
         
         );
     }

@@ -49,7 +49,6 @@ class CreateNewTicketForm extends React.Component {
   render() {
     console.log(this.state);
     return (
-      
       <Form>
         <FormGroup>
           <h3>New Ticket</h3>

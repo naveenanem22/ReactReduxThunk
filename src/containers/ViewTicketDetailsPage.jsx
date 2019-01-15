@@ -33,12 +33,12 @@ class ViewTicketDetailsPage extends React.Component {
                <div class="sticky">
                <HeaderNavBar></HeaderNavBar>
                </div >
-                <div  style ={ /*{ backgroundImage: "url("+bg+")" }*/ { background:'rgba(0,0,0,0.3)' }} class = "view-ticket-body">
+                <div  style ={{ background:'rgba(0,0,0,0.3)' }} class = "view-ticket-body">
                 <Table borderless>          
                 <tbody>
                <tr >
-               <td><SideNavBar ></SideNavBar></td>
-               <td>{true && <div class = 'view-ticket-form'>
+               <td style ={{ width:'20%' }}><SideNavBar ></SideNavBar></td>
+               <td >{true && <div class = 'view-ticket-form'>
                 <ViewTicketDetailsForm ></ViewTicketDetailsForm>
                 </div>}
                 {false && <div className='view-ticket-form'>
