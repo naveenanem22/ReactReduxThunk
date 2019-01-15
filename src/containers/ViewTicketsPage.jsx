@@ -5,7 +5,7 @@ import ViewTicketsForm from './ViewTicketsForm';
 import { RingLoader, ScaleLoader } from 'react-spinners';
 import {connect} from 'react-redux';
 import {fetchTicketsAPICall} from '../actions/TicketActions'
-import SideNavButtons from '../components/SideNavButtons';
+import {Table} from 'reactstrap';
 
 class ViewTicketsPage extends React.Component {
     constructor(props){
@@ -24,27 +24,36 @@ class ViewTicketsPage extends React.Component {
    
     render(){
         return (
-            <div class = 'new-ticket-page'>
-                <div class = 'new-ticket-header'>
+            <div >
+                <div class = 'sticky'>
                 <HeaderNavBar></HeaderNavBar>
                 </div>
-                <div class = 'new-ticket-side-nav'>
-                <SideNavBar></SideNavBar>
-                </div >
-                {this.props.isViewTicketsFormVisible && <div class = 'view-ticket-form'>
+
+                <div  style ={{ background:'rgba(0,0,0,0.3)' }} class = "view-ticket-body">
+                <Table borderless>          
+                <tbody>
+               <tr >
+               <td style ={{ width:'20%' }}><SideNavBar ></SideNavBar></td>
+               <td>
+               {this.props.isViewTicketsFormVisible && <div class = 'view-ticket-form'>
                 <ViewTicketsForm ></ViewTicketsForm>
                 </div>}
-                {this.props.isLoadingScreenInViewTicketspage && <div className='view-ticket-form'>
+                
+                {this.props.isLoadingScreenInViewTicketspage && 
                 <div className='view-ticket-loading'>
                 <ScaleLoader 
                 color='#00d8ff'
                 loading = 'true' 
                 />
                 </div>
-                
-                </div>
                 }
                 
+                </td>
+              </tr>             
+            
+            </tbody>
+            </Table>
+            </div>
             </div>
         
         );
