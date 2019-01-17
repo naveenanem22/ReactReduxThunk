@@ -46,7 +46,7 @@ class ViewTicketDetailsForm extends React.Component {
     })
   }
   render() {
-    console.log(this.state);
+    console.log(this.props);
     return (
       <div class = "ticket-details-form">
       <div class = "ticket-details-header">
@@ -69,7 +69,7 @@ class ViewTicketDetailsForm extends React.Component {
       <Row>
           <Col style={{'text-align': 'left','padding-top': '.30rem','padding-bottom': '.75rem'}}>Solved</Col>
           <Col style={{'text-align': 'left','padding-top': '.30rem','padding-bottom': '.75rem'}}>Updated: 2018-12-26</Col>
-          <Col style={{'text-align': 'right','padding-top': '.30rem','padding-bottom': '.75rem'}}>Ticket ID: 21820281</Col>
+          <Col style={{'text-align': 'right','padding-top': '.30rem','padding-bottom': '.75rem'}}>Ticket ID: 12345</Col>
       </Row>
       
       <div class = "ticket-table-summary">

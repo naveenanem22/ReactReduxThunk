@@ -147,7 +147,7 @@ class CreateNewTicketForm extends React.Component {
             Any files that can assist the corresponding team to resolve the issues at the earliest.
           </FormText>
         </FormGroup>        
-        <Button type="submit" bsStyle="primary" bsSize="large" color="info" 
+        <Button type="submit" bsStyle="primary" bsSize="large" style = {{backgroundColor:'orange'}} 
         onClick = {this.onSubmitCreateTicket}>Create Ticket</Button>
       </Form>
     );

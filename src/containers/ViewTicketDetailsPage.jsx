@@ -24,8 +24,11 @@ class ViewTicketDetailsPage extends React.Component {
   }
    
     render(){
-        var bg=require('../testpagebg2.jpg');
+        const queryParams = new URLSearchParams(this.props.location.search);
+        const ticketId = queryParams.get('ticketId');
         
+        var bg=require('../testpagebg2.jpg');
+
         return (
             
            <div>
@@ -39,7 +42,7 @@ class ViewTicketDetailsPage extends React.Component {
                <tr >
                <td style ={{ width:'20%' }}><SideNavBar ></SideNavBar></td>
                <td >{true && <div class = 'view-ticket-form'>
-                <ViewTicketDetailsForm ></ViewTicketDetailsForm>
+                <ViewTicketDetailsForm ticketId={ticketId} ></ViewTicketDetailsForm>
                 </div>}
                 {false && <div className='view-ticket-form'>
                 <div className='view-ticket-loading'>

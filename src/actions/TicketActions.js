@@ -49,7 +49,7 @@ export function createTicketAPICall(ticket){
 }
 
 export function fetchTicketsAPICall(queryParams){
-    var url = new URL("https://15e23b61-e331-41c0-9725-2c46ebe98828.mock.pstmn.io/v0/ticket-management/tickets");
+    var url = new URL("http://localhost:8089/v0/ticket-management/tickets");
     var params = {userId:queryParams.userId, status:queryParams.status, sortBy:queryParams.sortBy};
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
         
