@@ -92,39 +92,23 @@ class ViewTicketDetailsForm extends React.Component {
         </Table>
         </div>
 
-
-        <div class = "ticket-conv-block">
-        <div class="author">
-        <Row style={{'height': '50px'}}>
-        <Col md={6} style={{'text-align': 'left','padding-top': '.75rem','padding-bottom': '.75rem'}}>Naveen Kumar Anem</Col>
-        <Col md={6} style={{'text-align': 'right','padding-top': '.75rem','padding-bottom': '.75rem'}}>2018-09-17 13:14:04</Col>
-        </Row> 
-        </div>
-        <hr/>
-
-        <div class="message">
-        <Row >
-          <Col style={{'height': '200px'}}>Hi Naveen given 1 monitor completed check it and close your ticket regards
-          Naveen</Col>
-        </Row>
-        </div>
-        </div>
-
-        <div class = "ticket-conv-block">
-        <div class="author">
-        <Row style={{'height': '50px'}}>
-        <Col md={6} style={{'text-align': 'left','padding-top': '.75rem','padding-bottom': '.75rem'}}>Naveen Kumar Anem</Col>
-        <Col md={6} style={{'text-align': 'right','padding-top': '.75rem','padding-bottom': '.75rem'}}>2018-09-17 13:14:04</Col>
-        </Row> 
-        </div>
-        <hr/>
-        <div class="message">
-        <Row >
-          <Col style={{'height': '200px'}}>Hi Naveen given 1 monitor completed check it and close your ticket regards
-          Naveen</Col>
-        </Row>
-        </div>
-        </div>
+        {ticket.ticketHistory.map((item) =>
+               <div class = "ticket-conv-block">
+               <div class="author">
+               <Row style={{'height': '50px'}}>
+               <Col md={6} style={{'text-align': 'left','padding-top': '.75rem','padding-bottom': '.75rem'}}>{item.authorName}</Col>
+               <Col md={6} style={{'text-align': 'right','padding-top': '.75rem','padding-bottom': '.75rem'}}>{item.commentedOn}</Col>
+               </Row> 
+               </div>
+               <hr/>
+       
+               <div class="message">
+               <Row >
+                 <Col style={{'height': '200px'}}>{item.comment}</Col>
+               </Row>
+               </div>
+               </div>
+        )}
 
         </div>
       
