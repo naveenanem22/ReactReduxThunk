@@ -1,5 +1,5 @@
 import { CREATE_TICKET } from './ActionTypes';
-import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS } from './ActionTypes';
+import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS, FETCH_TICKET_DETAILS_SUCCESS } from './ActionTypes';
 
 export function createTicket(){
     return {
@@ -18,6 +18,15 @@ export function fetchTicketsSuccess(tickets){
         type : FETCH_TICKETS_SUCCESS,
         payload: {
             tickets:tickets
+        }
+    }
+}
+
+export function fetchTicketDetailsSuccess(ticket){
+    return {
+        type : FETCH_TICKET_DETAILS_SUCCESS,
+        payload: {
+            ticket:ticket
         }
     }
 }
@@ -65,8 +74,28 @@ export function fetchTicketsAPICall(queryParams){
            error => console.log('An error occurred.', error),
        )
         .then((tickets) => {
-           // console.log(tickets);
            dispatch(fetchTicketsSuccess(tickets));
+        },
+       );
+      };
+}
+
+export function fetchTicketDetailsAPICall(pathParams){
+    var url = new URL("http://localhost:8089/v0/ticket-management/tickets/123456");
+    console.log(url);
+    return function (dispatch) {      
+        return fetch(url,{
+            method : 'GET'           
+        })
+        .then(
+           response => {               
+               if(response.status === 200)
+               return response.json();
+           },
+           error => console.log('An error occurred.', error),
+       )
+        .then((ticket) => {
+           dispatch(fetchTicketDetailsSuccess(ticket));
         },
        );
       };

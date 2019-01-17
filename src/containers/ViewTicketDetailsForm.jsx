@@ -10,17 +10,8 @@ class ViewTicketDetailsForm extends React.Component {
     super(props);
 
     this.state = {
-      ticketTitle:'',
-      ticketDescription:'',
-      department:'',
-      priority:'',
-      serviceCategory:'',
-      officeLocation:'',
-      deskNumber:'',
-      serviceType:'',
-      additionalInfo:'',
-      file1:''
-    }
+      
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.onSubmitCreateTicket = this.onSubmitCreateTicket.bind(this);
@@ -46,7 +37,7 @@ class ViewTicketDetailsForm extends React.Component {
     })
   }
   render() {
-    console.log(this.props);
+    const ticket = this.props.ticket;    
     return (
       <div class = "ticket-details-form">
       <div class = "ticket-details-header">
@@ -58,18 +49,18 @@ class ViewTicketDetailsForm extends React.Component {
       <div>
       <Row>
         <Col md={6} style={{'text-align': 'left','padding-top': '.75rem'}}><strong>Naveen Anem</strong> - naveen.anem@kony.com</Col>
-        <Col md={6} style={{'text-align': 'right','padding-top': '.75rem'}}>2018-08-22</Col>
+        <Col md={6} style={{'text-align': 'right','padding-top': '.75rem'}}>{ticket.createdDate}</Col>
       </Row>
       </div>
       
       <Row>
-        <Col md={12}><h4>Need 2 monitors Keyboard and Mouse</h4></Col>
+        <Col md={12}><h4>{ticket.title}</h4></Col>
       </Row>
       <hr/>      
       <Row>
-          <Col style={{'text-align': 'left','padding-top': '.30rem','padding-bottom': '.75rem'}}>Solved</Col>
-          <Col style={{'text-align': 'left','padding-top': '.30rem','padding-bottom': '.75rem'}}>Updated: 2018-12-26</Col>
-          <Col style={{'text-align': 'right','padding-top': '.30rem','padding-bottom': '.75rem'}}>Ticket ID: 12345</Col>
+          <Col style={{'text-align': 'left','padding-top': '.30rem','padding-bottom': '.75rem'}}>{ticket.status}</Col>
+          <Col style={{'text-align': 'left','padding-top': '.30rem','padding-bottom': '.75rem'}}>Updated: {ticket.updatedDate}</Col>
+          <Col style={{'text-align': 'right','padding-top': '.30rem','padding-bottom': '.75rem'}}>Ticket ID: {ticket.id}</Col>
       </Row>
       
       <div class = "ticket-table-summary">
@@ -78,23 +69,23 @@ class ViewTicketDetailsForm extends React.Component {
           <tbody>
                <tr >
                <td style={{width: '20%'}}><strong>Category:</strong></td>
-               <td style={{fontStyle: 'italic'}}>Internet / Email / Sharepoint</td>
+               <td style={{fontStyle: 'italic'}}>{ticket.serviceCategory}</td>
               </tr>
               <tr>
                <td><strong>Priority:</strong></td>
-               <td style={{fontStyle: 'italic'}}>Normal</td>
+               <td style={{fontStyle: 'italic'}}>{ticket.priority}</td>
               </tr>
               <tr>
                <td><strong>Department:</strong></td>
-               <td style={{fontStyle: 'italic'}}>Helpdesk</td>
+               <td style={{fontStyle: 'italic'}}>{ticket.department}</td>
               </tr>
               <tr>
                <td><strong>Office:</strong></td>
-               <td style={{fontStyle: 'italic'}}>Hyderabad-DS</td>
+               <td style={{fontStyle: 'italic'}}>{ticket.officeLocation}</td>
               </tr>
               <tr>
                <td><strong>Service Type:</strong></td>
-               <td style={{fontStyle: 'italic'}}>Task</td>
+               <td style={{fontStyle: 'italic'}}>{ticket.ticketType}</td>
               </tr>
             
           </tbody>
@@ -143,8 +134,14 @@ class ViewTicketDetailsForm extends React.Component {
   }
 }
 
-const mapActionsToProps = {  
-  onCreateTicket : createTicketAPICall  
+const mapStateToProps = function (state){
+  return {
+    ticket: state.ticketDetails.ticket
+  }
 }
 
-export default connect(null, mapActionsToProps)(ViewTicketDetailsForm);
+const mapActionsToProps = {  
+  
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(ViewTicketDetailsForm);

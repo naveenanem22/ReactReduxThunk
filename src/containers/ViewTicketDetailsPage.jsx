@@ -4,7 +4,7 @@ import SideNavBar from '../components/SideNavBar';
 import { ScaleLoader } from 'react-spinners';
 import ViewTicketDetailsForm from './ViewTicketDetailsForm';
 import {connect} from 'react-redux';
-import {fetchTicketsAPICall} from '../actions/TicketActions'
+import {fetchTicketDetailsAPICall} from '../actions/TicketActions'
 import {Table} from 'reactstrap';
 
 
@@ -16,17 +16,15 @@ class ViewTicketDetailsPage extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchTickets({
-          userId:"naveen.anem@kony.com",
-          status:'all',
-          sortBy:'ticketId'
+        const queryParams = new URLSearchParams(this.props.location.search);
+        const ticketId = queryParams.get('ticketId');
+
+        this.props.fetchTicketDetails({
+          ticketId:ticketId
         });
   }
    
     render(){
-        const queryParams = new URLSearchParams(this.props.location.search);
-        const ticketId = queryParams.get('ticketId');
-        
         var bg=require('../testpagebg2.jpg');
 
         return (
@@ -41,10 +39,10 @@ class ViewTicketDetailsPage extends React.Component {
                 <tbody>
                <tr >
                <td style ={{ width:'20%' }}><SideNavBar ></SideNavBar></td>
-               <td >{true && <div class = 'view-ticket-form'>
-                <ViewTicketDetailsForm ticketId={ticketId} ></ViewTicketDetailsForm>
+               <td >{this.props.isViewTicketDetailsFormVisible && <div class = 'view-ticket-form'>
+                <ViewTicketDetailsForm ></ViewTicketDetailsForm>
                 </div>}
-                {false && <div className='view-ticket-form'>
+                {this.props.isLoadingScreenInViewTicketDetailsPage && <div className='view-ticket-form'>
                 <div className='view-ticket-loading'>
                 <ScaleLoader 
                 color='#00d8ff'
@@ -72,13 +70,13 @@ class ViewTicketDetailsPage extends React.Component {
 
 const mapStateToProps = function (state){
     return {
-        isViewTicketsFormVisible: state.ticketList.isViewTicketsFormVisible,
-        isLoadingScreenInViewTicketspage : state.ticketList.isLoadingScreenInViewTicketspage
+        isViewTicketDetailsFormVisible: state.ticketDetails.isViewTicketDetailsFormVisible,
+        isLoadingScreenInViewTicketDetailsPage : state.ticketDetails.isLoadingScreenInViewTicketDetailsPage
     }
   }
 
   const mapActionsToProps = {  
-    fetchTickets : fetchTicketsAPICall  
+    fetchTicketDetails : fetchTicketDetailsAPICall  
   }
 
   export default connect(mapStateToProps,mapActionsToProps)(ViewTicketDetailsPage);
