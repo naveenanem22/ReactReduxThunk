@@ -1,7 +1,7 @@
 import React from 'react';
 import {createTicketAPICall} from '../actions/TicketActions'
 import {connect} from 'react-redux';
-import {Label, Row, Col, Container} from 'reactstrap';
+import {Button, Row, Col, Container, Input} from 'reactstrap';
 import { FaUser } from 'react-icons/fa';
 import { Table } from 'reactstrap';
 class ViewTicketDetailsForm extends React.Component {
@@ -93,19 +93,40 @@ class ViewTicketDetailsForm extends React.Component {
         </div>
 
         {ticket.ticketHistory.map((item) =>
-               <div class = "ticket-conv-block">
+               <div class = "ticket-conv-block" >
                <div class="author">
                <Row style={{'height': '50px'}}>
-               <Col md={6} style={{'text-align': 'left','padding-top': '.75rem','padding-bottom': '.75rem'}}>{item.authorName}</Col>
-               <Col md={6} style={{'text-align': 'right','padding-top': '.75rem','padding-bottom': '.75rem'}}>{item.commentedOn}</Col>
+               <Col md={6} style={{'text-align': 'left','paddingLeft':'3%','padding-top': '.75rem','padding-bottom': '.75rem'}}>{item.authorName}</Col>
+               <Col md={6} style={{'text-align': 'right','paddingRight':'3%','padding-top': '.75rem','padding-bottom': '.75rem'}}>{item.commentedOn}</Col>
                </Row> 
                </div>
                <hr/>
        
-               <div class="message">
+               <div class="message" style={{'paddingBottom':'1%'}}>
                <Row >
-                 <Col style={{'height': '200px'}}>{item.comment}</Col>
+                 <Col style={{'paddingLeft':'3%','height': '200px'}}>{item.comment}</Col>
                </Row>
+               {(ticket.ticketHistory.indexOf(item)==0) && <div>
+               <Row style={{'height': '8%', 'width':'99%', 'marginLeft':'1%'}}>
+                 <Col >
+                 <Input type="textarea" name="additionalInfo" id="additionalInfo"/>
+                 </Col>
+               </Row>
+
+                <Row style={{'height': '8%', 'width':'99%', 'marginLeft':'1%', 'marginTop':'1%'}}>
+                 <Col >
+                  <Button type="submit" outline color="secondary" bsSize="small"  
+                  >Attach Files</Button>
+                 </Col>
+                 <Col style={{'text-align': 'right'}}>
+                 <Button type="submit" color="link" bsSize="small" >
+                 Close Ticket</Button>or  
+                 <Button type="submit" color="info" bsSize="small" style={{'marginLeft':'2%'}}>
+                 Add Message</Button>
+                 </Col>
+               </Row>
+               </div>}
+
                </div>
                </div>
         )}
