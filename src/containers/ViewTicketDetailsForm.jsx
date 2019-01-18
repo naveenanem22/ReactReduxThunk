@@ -1,8 +1,7 @@
 import React from 'react';
-import {createTicketAPICall} from '../actions/TicketActions'
+import {addMessageAPICall, closeTicketAPICall} from '../actions/TicketActions'
 import {connect} from 'react-redux';
 import {Button, Row, Col, Container, Input} from 'reactstrap';
-import { FaUser } from 'react-icons/fa';
 import { Table } from 'reactstrap';
 class ViewTicketDetailsForm extends React.Component {
 
@@ -14,8 +13,9 @@ class ViewTicketDetailsForm extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.onSubmitCreateTicket = this.onSubmitCreateTicket.bind(this);
+    this.onSubmitAddMessage = this.onSubmitAddMessage.bind(this);
     this.onFileUpload = this.onFileUpload.bind(this);
+    this.onSubmitCloseTicket = this.onSubmitCloseTicket.bind(this);
 
   }
 
@@ -25,9 +25,14 @@ class ViewTicketDetailsForm extends React.Component {
     });
   }
 
-  onSubmitCreateTicket(e){
+  onSubmitAddMessage(e){
     e.preventDefault();
-    this.props.onCreateTicket(this.state);
+    this.props.addMessage(this.state);
+  }
+
+  onSubmitCloseTicket(e){
+    e.preventDefault();
+    this.props.closeTicket(this.state);
   }
 
   onFileUpload(e){
@@ -119,7 +124,7 @@ class ViewTicketDetailsForm extends React.Component {
                   >Attach Files</Button>
                  </Col>
                  <Col style={{'text-align': 'right'}}>
-                 <Button type="submit" color="link" bsSize="small" >
+                 <Button type="submit" color="link" bsSize="small" onClick = {this.onSubmitCloseTicket}>
                  Close Ticket</Button>or  
                  <Button type="submit" color="info" bsSize="small" style={{'marginLeft':'2%'}}>
                  Add Message</Button>
@@ -146,7 +151,8 @@ const mapStateToProps = function (state){
 }
 
 const mapActionsToProps = {  
-  
+  addMessage:addMessageAPICall,
+  closeTicket: closeTicketAPICall
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(ViewTicketDetailsForm);

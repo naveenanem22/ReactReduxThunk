@@ -5,14 +5,20 @@ import { ScaleLoader } from 'react-spinners';
 import ViewTicketDetailsForm from './ViewTicketDetailsForm';
 import {connect} from 'react-redux';
 import {fetchTicketDetailsAPICall} from '../actions/TicketActions'
-import {Table} from 'reactstrap';
+import {Alert,Table} from 'reactstrap';
 
 
 class ViewTicketDetailsPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-        }
+            isAlertVisible : true
+        };
+        this.onDismiss = this.onDismiss.bind(this);
+    }
+
+    onDismiss() {
+        this.setState({ isAlertVisible: false });
     }
 
     componentDidMount() {
@@ -51,7 +57,51 @@ class ViewTicketDetailsPage extends React.Component {
                 </div>
                 
                 </div>
-                }</td>
+                }
+                
+                {this.props.isAddMessageSuccessVisible && <div >
+                <Alert color="success" isOpen={this.state.isAlertVisible} toggle={this.onDismiss}>
+                <h4 className="alert-heading">Success!</h4>
+                <p>
+                Message has been added to the ticket successfully.
+                </p>
+                <hr />
+                <p className="mb-0">
+                Should you require further assistance on the same, please reach out to the ITS-Helpdesk
+                at itshelpdesk@compnay.com.
+                </p>
+                </Alert>
+                </div>}
+                
+                {this.props.isCloseTicketSuccessVisible && <div >
+                <Alert color="success" isOpen={this.state.isAlertVisible} toggle={this.onDismiss}>
+                <h4 className="alert-heading">Success!</h4>
+                <p>
+                Ticket has been closed successfully.
+                </p>
+                <hr />
+                <p className="mb-0">
+                Should you require further assistance on the same, please reach out to the ITS-Helpdesk
+                at itshelpdesk@compnay.com.
+                </p>
+                </Alert>
+                </div>}
+
+                {this.props.isCloseTicketFailureVisible && <div >
+                <Alert color="danger" isOpen={this.state.isAlertVisible} toggle={this.onDismiss}>
+                <h4 className="alert-heading">Failure!</h4>
+                <p>
+                An error occured while updating the ticket. Please try again after sometime.
+                </p>
+                <hr />
+                <p className="mb-0">
+                Should you require further assistance on the same, please reach out to the ITS-Helpdesk
+                at itshelpdesk@compnay.com.
+                </p>
+                </Alert>
+                </div>}
+                
+                </td>
               </tr>             
             
           </tbody>
@@ -71,7 +121,10 @@ class ViewTicketDetailsPage extends React.Component {
 const mapStateToProps = function (state){
     return {
         isViewTicketDetailsFormVisible: state.ticketDetails.isViewTicketDetailsFormVisible,
-        isLoadingScreenInViewTicketDetailsPage : state.ticketDetails.isLoadingScreenInViewTicketDetailsPage
+        isLoadingScreenInViewTicketDetailsPage : state.ticketDetails.isLoadingScreenInViewTicketDetailsPage,
+        isAddMessageSuccessVisible: state.ticketDetails.isAddMessageSuccessVisible,
+        isCloseTicketSuccessVisible: state.ticketDetails.isCloseTicketSuccessVisible,
+        isCloseTicketFailureVisible : state.ticketDetails.isCloseTicketFailureVisible
     }
   }
 

@@ -1,4 +1,4 @@
-import { CREATE_TICKET } from './ActionTypes';
+import { CREATE_TICKET, ADD_MESSAGE_SUCCESS, CLOSE_TICKET_SUCCESS,CLOSE_TICKET_FAILURE } from './ActionTypes';
 import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS, FETCH_TICKET_DETAILS_SUCCESS } from './ActionTypes';
 
 export function createTicket(){
@@ -31,6 +31,24 @@ export function fetchTicketDetailsSuccess(ticket){
     }
 }
 
+export function addMessageSuccess(){
+    return {
+        type : ADD_MESSAGE_SUCCESS
+    }
+}
+
+export function closeTicketSuccess(){
+    return {
+        type : CLOSE_TICKET_SUCCESS
+    }
+}
+
+export function closeTicketFailure(){
+    return {
+        type : CLOSE_TICKET_FAILURE
+    }
+}
+
 
 export function createTicketAPICall(ticket){
     var formData = new FormData();
@@ -38,12 +56,13 @@ export function createTicketAPICall(ticket){
         formData.append(name, ticket[name]);
       }
     return function (dispatch) {      
-        return fetch(`https://15e23b61-e331-41c0-9725-2c46ebe98828.mock.pstmn.io/v0/ticket-management/tickets`,{
+        return fetch(`http://localhost:8089/v0/ticket-management/tickets`,{
             method : 'POST',
             body : formData
         })
         .then(
            response => {
+               console.log(response);
                if(response.status === 201)
                return response.statusText;
            },
@@ -97,6 +116,56 @@ export function fetchTicketDetailsAPICall(pathParams){
         .then((ticket) => {
            dispatch(fetchTicketDetailsSuccess(ticket));
         },
+       );
+      };
+}
+
+export function addMessageAPICall(params){
+    var url = new URL("http://localhost:8089/v0/ticket-management/tickets/123456");
+    console.log(url);
+    return function (dispatch) {      
+        return fetch(url,{
+            method : 'GET'           
+        })
+        .then(
+           response => {               
+               if(response.status === 200)
+               return response.json();
+           },
+           error => console.log('An error occurred.', error),
+       )
+        .then((ticket) => {
+           dispatch(addMessageSuccess());
+        },
+       );
+      };
+}
+
+export function closeTicketAPICall(params){
+    console.log("inside close ticket");
+    var url = new URL("http://localhost:8089/v0/ticket-management/tickets/123456");
+    console.log(url);
+    return function (dispatch) {      
+        return fetch(url,{
+            method: 'PUT',
+            body: {}, 
+            headers:{
+                'Content-Type': 'application/json'
+                }                    
+        })
+        .then(
+           response => {
+               if(response.status === 204){
+                dispatch(closeTicketSuccess());
+                return response.json();
+               }
+               
+           },
+           error => {
+            console.log('An error occurred.', error);
+            dispatch(closeTicketFailure());
+
+           }
        );
       };
 }

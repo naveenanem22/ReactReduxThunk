@@ -25,7 +25,10 @@ const store = createStore(MainReducer,{
         isLoadingScreenInViewTicketspage: true},
     ticketDetails:{ticket:{},                      
         isViewTicketDetailsFormVisible: false,
-        isLoadingScreenInViewTicketDetailsPage: true}    
+        isLoadingScreenInViewTicketDetailsPage: true,
+        isAddMessageSuccessVisible : false,
+        isCloseTicketSuccessVisible: false,
+        isCloseTicketFailureVisible: false}    
 },allStoreEnhancers);
 
 
