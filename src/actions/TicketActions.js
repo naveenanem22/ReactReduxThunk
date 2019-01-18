@@ -63,15 +63,14 @@ export function createTicketAPICall(ticket){
         .then(
            response => {
                console.log(response);
-               if(response.status === 201)
+               if(response.status === 201){
+                dispatch(createTicketSuccess());
                return response.statusText;
+               }
            },
-           error => console.log('An error occurred.', error),
-       )
-        .then((statusMessage) => {
-            console.log(statusMessage);
-           dispatch(createTicketSuccess());
-        },
+           error => {
+            console.log('An error occurred.', error);
+           }
        );
       };
 }
@@ -125,7 +124,7 @@ export function addMessageAPICall(params){
     console.log(url);
     return function (dispatch) {      
         return fetch(url,{
-            method : 'GET'           
+            method : 'PUT'           
         })
         .then(
            response => {               
