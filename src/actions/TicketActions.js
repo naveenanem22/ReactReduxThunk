@@ -1,4 +1,4 @@
-import { CREATE_TICKET, ADD_MESSAGE_SUCCESS, CLOSE_TICKET_SUCCESS,CLOSE_TICKET_FAILURE } from './ActionTypes';
+import { CREATE_TICKET, ADD_MESSAGE_SUCCESS,ADD_MESSAGE_FAILURE, CLOSE_TICKET_SUCCESS,CLOSE_TICKET_FAILURE } from './ActionTypes';
 import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS, FETCH_TICKET_DETAILS_SUCCESS } from './ActionTypes';
 
 export function createTicket(){
@@ -34,6 +34,12 @@ export function fetchTicketDetailsSuccess(ticket){
 export function addMessageSuccess(){
     return {
         type : ADD_MESSAGE_SUCCESS
+    }
+}
+
+export function addMessageFailure(){
+    return {
+        type : ADD_MESSAGE_FAILURE
     }
 }
 
@@ -120,22 +126,25 @@ export function fetchTicketDetailsAPICall(pathParams){
 }
 
 export function addMessageAPICall(params){
-    var url = new URL("http://localhost:8089/v0/ticket-management/tickets/123456");
+    var url = new URL("http://localhost:8089/v0/ticket-history/tickets/123456/messages");
     console.log(url);
     return function (dispatch) {      
         return fetch(url,{
-            method : 'PUT'           
+            method : 'POST',
+            headers:{
+                'Content-Type' : 'application/json'
+            }           
         })
         .then(
-           response => {               
-               if(response.status === 200)
-               return response.json();
+           response => {
+               if(response.status === 201){
+                dispatch(addMessageSuccess());
+               }
            },
-           error => console.log('An error occurred.', error),
-       )
-        .then((ticket) => {
-           dispatch(addMessageSuccess());
-        },
+           error => {
+               console.log('An error occurred.', error);
+               dispatch(addMessageFailure());
+        }
        );
       };
 }
@@ -143,20 +152,17 @@ export function addMessageAPICall(params){
 export function closeTicketAPICall(params){
     console.log("inside close ticket");
     var url = new URL("http://localhost:8089/v0/ticket-management/tickets/123456");
-    console.log(url);
     return function (dispatch) {      
         return fetch(url,{
             method: 'PUT',
-            body: {}, 
             headers:{
-                'Content-Type': 'application/json'
-                }                    
+                'Content-Type' : 'text/plain'
+            }
         })
         .then(
            response => {
                if(response.status === 204){
                 dispatch(closeTicketSuccess());
-                return response.json();
                }
                
            },
@@ -168,3 +174,4 @@ export function closeTicketAPICall(params){
        );
       };
 }
+

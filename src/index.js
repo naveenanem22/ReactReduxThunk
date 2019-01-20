@@ -27,6 +27,7 @@ const store = createStore(MainReducer,{
         isViewTicketDetailsFormVisible: false,
         isLoadingScreenInViewTicketDetailsPage: true,
         isAddMessageSuccessVisible : false,
+        isAddMessageFailureVisible: false,
         isCloseTicketSuccessVisible: false,
         isCloseTicketFailureVisible: false}    
 },allStoreEnhancers);

@@ -72,6 +72,20 @@ class ViewTicketDetailsPage extends React.Component {
                 </p>
                 </Alert>
                 </div>}
+
+                {this.props.isAddMessageFailureVisible && <div >
+                <Alert color="danger" isOpen={this.state.isAlertVisible} toggle={this.onDismiss}>
+                <h4 className="alert-heading">Success!</h4>
+                <p>
+                Adding Message failed.
+                </p>
+                <hr />
+                <p className="mb-0">
+                Should you require further assistance on the same, please reach out to the ITS-Helpdesk
+                at itshelpdesk@compnay.com.
+                </p>
+                </Alert>
+                </div>}
                 
                 {this.props.isCloseTicketSuccessVisible && <div >
                 <Alert color="success" isOpen={this.state.isAlertVisible} toggle={this.onDismiss}>
@@ -123,6 +137,7 @@ const mapStateToProps = function (state){
         isViewTicketDetailsFormVisible: state.ticketDetails.isViewTicketDetailsFormVisible,
         isLoadingScreenInViewTicketDetailsPage : state.ticketDetails.isLoadingScreenInViewTicketDetailsPage,
         isAddMessageSuccessVisible: state.ticketDetails.isAddMessageSuccessVisible,
+        isAddMessageFailureVisible: state.ticketDetails.isAddMessageFailureVisible,
         isCloseTicketSuccessVisible: state.ticketDetails.isCloseTicketSuccessVisible,
         isCloseTicketFailureVisible : state.ticketDetails.isCloseTicketFailureVisible
     }

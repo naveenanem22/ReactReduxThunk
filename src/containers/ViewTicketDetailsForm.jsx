@@ -126,7 +126,7 @@ class ViewTicketDetailsForm extends React.Component {
                  <Col style={{'text-align': 'right'}}>
                  <Button type="submit" color="link" bsSize="small" onClick = {this.onSubmitCloseTicket}>
                  Close Ticket</Button>or  
-                 <Button type="submit" color="info" bsSize="small" style={{'marginLeft':'2%'}}>
+                 <Button type="submit" color="info" bsSize="small" style={{'marginLeft':'2%'}} onClick = {this.onSubmitAddMessage}>
                  Add Message</Button>
                  </Col>
                </Row>
