@@ -88,13 +88,19 @@ export function createTicketAPICall(ticket){
 }
 
 export function fetchTicketsAPICall(queryParams){
+    let base64 = require('base-64');
+    let userName = 'admin1';
+    let password = 'secret1'
+    let headers = new Headers();
+    headers.set('Authorization', 'Basic ' + base64.encode(userName + ":" + password));
     var url = new URL("http://localhost:8080/v0/ticket-management/tickets");
     var params = {userId:queryParams.userId, status:queryParams.status, sortBy:queryParams.sortBy};
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
         
     return function (dispatch) {      
         return fetch(url,{
-            method : 'GET'           
+            method : 'GET',
+            headers: headers           
         })
         .then(
            response => {               
@@ -111,11 +117,17 @@ export function fetchTicketsAPICall(queryParams){
 }
 
 export function fetchTicketDetailsAPICall(pathParams){
+    let base64 = require('base-64');
+    let userName = 'admin1';
+    let password = 'secret1'
+    let headers = new Headers();
+    headers.set('Authorization', 'Basic ' + base64.encode(userName + ":" + password));
     var url = new URL("http://localhost:8080/v0/ticket-management/tickets/123456");
     console.log(url);
     return function (dispatch) {      
         return fetch(url,{
-            method : 'GET'           
+            method : 'GET',
+            headers: headers           
         })
         .then(
            response => {               
@@ -132,14 +144,18 @@ export function fetchTicketDetailsAPICall(pathParams){
 }
 
 export function addMessageAPICall(params){
+    let base64 = require('base-64');
+    let userName = 'admin1';
+    let password = 'secret1'
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', 'Basic ' + base64.encode(userName + ":" + password));
     var url = new URL("http://localhost:8080/v0/ticket-history/tickets/123456/messages");
     console.log(url);
     return function (dispatch) {      
         return fetch(url,{
             method : 'POST',
-            headers:{
-                'Content-Type' : 'application/json'
-            }           
+            headers: headers         
         })
         .then(
            response => {
@@ -156,14 +172,17 @@ export function addMessageAPICall(params){
 }
 
 export function closeTicketAPICall(params){
-    console.log("inside close ticket");
+    let base64 = require('base-64');
+    let userName = 'admin1';
+    let password = 'secret1'
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', 'Basic ' + base64.encode(userName + ":" + password));
     var url = new URL("http://localhost:8080/v0/ticket-management/tickets/123456");
     return function (dispatch) {      
         return fetch(url,{
             method: 'PUT',
-            headers:{
-                'Content-Type' : 'application/json'
-            }
+            headers: headers
         })
         .then(
            response => {
