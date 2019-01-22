@@ -57,14 +57,20 @@ export function closeTicketFailure(){
 
 
 export function createTicketAPICall(ticket){
+    let base64 = require('base-64');
+    let userName = 'admin1';
+    let password = 'secret1'
+    let headers = new Headers();
+    headers.set('Authorization', 'Basic ' + base64.encode(userName + ":" + password));
     var formData = new FormData();
     for(var name in ticket) {
         formData.append(name, ticket[name]);
       }
     return function (dispatch) {      
-        return fetch(`http://localhost:8089/v0/ticket-management/tickets`,{
+        return fetch(`http://localhost:8080/v0/ticket-management/tickets`,{
             method : 'POST',
-            body : formData
+            body : formData,
+            headers: headers
         })
         .then(
            response => {
@@ -82,7 +88,7 @@ export function createTicketAPICall(ticket){
 }
 
 export function fetchTicketsAPICall(queryParams){
-    var url = new URL("http://localhost:8089/v0/ticket-management/tickets");
+    var url = new URL("http://localhost:8080/v0/ticket-management/tickets");
     var params = {userId:queryParams.userId, status:queryParams.status, sortBy:queryParams.sortBy};
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
         
@@ -105,7 +111,7 @@ export function fetchTicketsAPICall(queryParams){
 }
 
 export function fetchTicketDetailsAPICall(pathParams){
-    var url = new URL("http://localhost:8089/v0/ticket-management/tickets/123456");
+    var url = new URL("http://localhost:8080/v0/ticket-management/tickets/123456");
     console.log(url);
     return function (dispatch) {      
         return fetch(url,{
@@ -126,7 +132,7 @@ export function fetchTicketDetailsAPICall(pathParams){
 }
 
 export function addMessageAPICall(params){
-    var url = new URL("http://localhost:8089/v0/ticket-history/tickets/123456/messages");
+    var url = new URL("http://localhost:8080/v0/ticket-history/tickets/123456/messages");
     console.log(url);
     return function (dispatch) {      
         return fetch(url,{
@@ -151,12 +157,12 @@ export function addMessageAPICall(params){
 
 export function closeTicketAPICall(params){
     console.log("inside close ticket");
-    var url = new URL("http://localhost:8089/v0/ticket-management/tickets/123456");
+    var url = new URL("http://localhost:8080/v0/ticket-management/tickets/123456");
     return function (dispatch) {      
         return fetch(url,{
             method: 'PUT',
             headers:{
-                'Content-Type' : 'text/plain'
+                'Content-Type' : 'application/json'
             }
         })
         .then(
