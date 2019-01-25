@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Form, FormGroup, Label, Input, Container, Col } from 'reactstrap';
 import {loginAPICall} from '../actions/UserActions'
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router';
 
 class LoginForm extends React.Component {
 
@@ -30,6 +31,11 @@ class LoginForm extends React.Component {
 
  
   render() {
+     if (this.props.redirectToHomePage) {
+        return <Redirect push to={{
+          pathname: "/tickets"          
+        }} />;
+      } 
     return (
         <Container style={{'width':'60%', paddingBottom :'3%', paddingTop : '3%', marginTop : '2%', backgroundColor : '#E8EAED'}}>
         <h2>Sign In</h2>
@@ -67,4 +73,10 @@ const mapActionsToProps = {
   onLogin : loginAPICall  
 }
 
-export default connect(null, mapActionsToProps)(LoginForm);
+const mapStateToProps = function (state){
+    return {
+      redirectToHomePage: state.user.isLoggedIn
+    }
+  }
+
+export default connect(mapStateToProps, mapActionsToProps)(LoginForm);

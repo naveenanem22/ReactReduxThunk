@@ -12,13 +12,10 @@ export function updateUser(newUser){
     }
 }
 
-export function loginSuccess(token){
+export function loginSuccess(){
     
     return {
-        type : LOGIN_SUCCESS,
-        payload : {
-            token: token
-        }
+        type : LOGIN_SUCCESS
     }
 }
 
@@ -47,7 +44,7 @@ export function loginAPICall(user){
                console.log("response from login: "+response);
                if(response.status === 200){
                    return response.json();
-                //dispatch(loginSuccess());               
+                               
                }
            },
            error => {
@@ -56,6 +53,8 @@ export function loginAPICall(user){
            }
        ).then(jsonResp => {
            console.log(jsonResp);
+           localStorage.setItem('token',jsonResp.token);
+           dispatch(loginSuccess());
        });
       };
 }

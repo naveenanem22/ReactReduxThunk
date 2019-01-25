@@ -16,7 +16,7 @@ const allStoreEnhancers = compose(
 )
 const store = createStore(MainReducer,{
     products : [],
-    user : {token:''},
+    user : {isLoggedIn: false},
     ticketList: {tickets:[],
         isLoadingScreen : true,
         isCreateTicketFormVisible: true,
