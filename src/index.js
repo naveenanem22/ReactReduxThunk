@@ -9,13 +9,14 @@ import { BrowserRouter, Route, Link } from 'react-router-dom'
 import registerServiceWorker from './registerServiceWorker';
 import ViewTicketsPage from './containers/ViewTicketsPage';
 import ViewTicketDetailsPage from './containers/ViewTicketDetailsPage';
+import LoginPage from './containers/LoginPage';
 
 const allStoreEnhancers = compose(
     applyMiddleware(thunk)
 )
 const store = createStore(MainReducer,{
     products : [],
-    user : '',
+    user : {token:''},
     ticketList: {tickets:[],
         isLoadingScreen : true,
         isCreateTicketFormVisible: true,
@@ -40,6 +41,7 @@ ReactDOM.render(
     <Provider store={store}>
     <BrowserRouter>
     <div>
+    <Route path = "/login" component = {LoginPage}></Route>
     <Route path = "/newticket" component = {App}></Route>
     <Route path = "/tickets" component = {ViewTicketsPage}></Route>
     <Route path = "/ticketdetails" component = {ViewTicketDetailsPage}></Route> 

@@ -149,6 +149,7 @@ export function addMessageAPICall(params){
     let password = 'secret1'
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json',);
     headers.append('Authorization', 'Basic ' + base64.encode(userName + ":" + password));
     var url = new URL("http://localhost:8080/v0/ticket-history/tickets/123456/messages");
     console.log(url);
