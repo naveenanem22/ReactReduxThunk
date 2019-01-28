@@ -10,7 +10,8 @@ class LoginForm extends React.Component {
     super(props);
    
     this.state = {
-      
+      username : '',
+      password : ''
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -44,10 +45,13 @@ class LoginForm extends React.Component {
             <FormGroup>
               <Label>Email</Label>
               <Input
-                type="email"
+                
                 name="email"
                 id="loginEmail"
                 placeholder="myemail@email.com"
+
+                onChange = {this.handleChange}
+                
               />
             </FormGroup>
           </Col>
@@ -59,6 +63,9 @@ class LoginForm extends React.Component {
                 name="password"
                 id="password"
                 placeholder="********"
+
+                value = {this.state.password}
+                onChange = {this.handleChange}
               />
             </FormGroup>
           </Col>

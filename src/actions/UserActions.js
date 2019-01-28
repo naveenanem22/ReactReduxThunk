@@ -27,6 +27,7 @@ export function loginFailure(){
 }
 
 export function loginAPICall(user){
+    console.log(user);
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     
