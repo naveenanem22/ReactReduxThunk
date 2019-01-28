@@ -20,7 +20,9 @@ class CreateNewTicketForm extends React.Component {
       deskNumber:'',
       serviceType:'',
       additionalInfo:'',
-      file1:''
+      file1:'',
+      file2:'',
+      file3:''
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -43,7 +45,7 @@ class CreateNewTicketForm extends React.Component {
   onFileUpload(e){
     e.preventDefault();
     this.setState({
-      file1 : e.target.files[0]
+      [e.target.name] : e.target.files[0]     
     })
   }
   render() {
@@ -140,8 +142,8 @@ class CreateNewTicketForm extends React.Component {
         <FormGroup>
           <Label for="attachments">Attachments</Label>
           <Input type="file" name="file1" id="file1" onChange={this.onFileUpload}/>
-          <Input type="file" name="file2" id="file2"/>
-          <Input type="file" name="file3" id="file3"/>
+          <Input type="file" name="file2" id="file2" onChange={this.onFileUpload}/>
+          <Input type="file" name="file3" id="file3" onChange={this.onFileUpload}/>
           <FormText color="muted">
             Any files that can assist the corresponding team to resolve the issues at the earliest.
           </FormText>
