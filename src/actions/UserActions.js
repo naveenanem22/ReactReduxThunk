@@ -27,7 +27,6 @@ export function loginFailure(){
 }
 
 export function loginAPICall(user){
-    console.log(user);
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     
@@ -36,8 +35,8 @@ export function loginAPICall(user){
             method : 'POST',
             headers: headers,
             body : JSON.stringify({
-                username: 'mike',
-                password: '234'
+                username: user.userId,
+                password: user.password
             })            
         })
         .then(

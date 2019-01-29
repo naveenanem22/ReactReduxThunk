@@ -10,7 +10,7 @@ class LoginForm extends React.Component {
     super(props);
    
     this.state = {
-      username : '',
+      userId : '',
       password : ''
     }
 
@@ -43,11 +43,10 @@ class LoginForm extends React.Component {
         <Form className="form">
           <Col>
             <FormGroup>
-              <Label>Email</Label>
-              <Input
-                
-                name="email"
-                id="loginEmail"
+              <Label>UserId</Label>
+              <Input                                
+                name="userId"
+                id="userId"
                 placeholder="myemail@email.com"
 
                 onChange = {this.handleChange}
@@ -57,7 +56,7 @@ class LoginForm extends React.Component {
           </Col>
           <Col>
             <FormGroup>
-              <Label for="examplePassword">Password</Label>
+              <Label>Password</Label>
               <Input
                 type="password"
                 name="password"
