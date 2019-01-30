@@ -13,8 +13,7 @@ class LoginPage extends React.Component {
         
     }
 
-    render(){
-        console.log(this.props);
+    render(){        
         return (
             <div >
                 <div class = 'sticky'  >

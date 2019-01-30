@@ -15,6 +15,7 @@ export const CLOSE_TICKET_FAILURE = 'CLOSE_TICKET_FAILURE';
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGOUT = 'LOGOUT';
 
 
 

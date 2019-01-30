@@ -1,4 +1,4 @@
-import {LOGIN_SUCCESS, LOGIN_FAILURE} from './ActionTypes';
+import {LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT} from './ActionTypes';
 export const UPDATE_USER = "users:updateUser";
  
 
@@ -26,6 +26,13 @@ export function loginFailure(){
     }
 }
 
+export function logout(){
+    localStorage.removeItem('token');    
+    return {
+        type : LOGOUT
+    }
+}
+
 export function loginAPICall(user){
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -43,19 +50,23 @@ export function loginAPICall(user){
            response => {
                console.log("response from login: "+response);
                if(response.status === 200){
-                   return response.json();
-                               
+                   return response.json();                               
                }
+               else
+               dispatch(loginFailure());
            },
            error => {
             console.log('An error occurred.', error);
             dispatch(loginFailure());
            }
        ).then(jsonResp => {
-           console.log(jsonResp);
+           if(jsonResp){
            localStorage.setItem('token',jsonResp.token);
            dispatch(loginSuccess());
+           }
        });
       };
 }
+
+
 

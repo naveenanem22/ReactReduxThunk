@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, Form, FormGroup, Label, Input, Container, Col } from 'reactstrap';
+import { Button, Form, FormGroup,FormFeedback, Label, Input, Container, Col } from 'reactstrap';
 import {loginAPICall} from '../actions/UserActions'
 import {connect} from 'react-redux';
-import {Redirect} from 'react-router';
+import {Redirect} from 'react-router-dom';
 
 class LoginForm extends React.Component {
 
@@ -31,7 +31,7 @@ class LoginForm extends React.Component {
   }
 
  
-  render() {
+  render() {    
      if (this.props.redirectToHomePage) {
         return <Redirect push to={{
           pathname: "/tickets"          
@@ -41,17 +41,16 @@ class LoginForm extends React.Component {
         <Container style={{'width':'60%', paddingBottom :'3%', paddingTop : '3%', marginTop : '2%', backgroundColor : '#E8EAED'}}>
         <h2>Sign In</h2>
         <Form className="form">
-          <Col>
+        {this.props.isLoginFailure && <Label className="text-danger">{this.props.loginFailureMessage}</Label>}
+          <Col>          
             <FormGroup>
               <Label>UserId</Label>
-              <Input                                
+              <Input                               
                 name="userId"
                 id="userId"
                 placeholder="myemail@email.com"
-
-                onChange = {this.handleChange}
-                
-              />
+                onChange = {this.handleChange}                
+              />              
             </FormGroup>
           </Col>
           <Col>
@@ -81,7 +80,9 @@ const mapActionsToProps = {
 
 const mapStateToProps = function (state){
     return {
-      redirectToHomePage: state.user.isLoggedIn
+      redirectToHomePage: state.user.isLoggedIn,
+      isLoginFailure: state.user.isLoginFailure,
+      loginFailureMessage: state.user.loginFailureMessage
     }
   }
 

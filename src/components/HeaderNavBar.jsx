@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {
   Collapse,
   Navbar,
@@ -11,8 +12,11 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem } from 'reactstrap';
+import { logout } from '../actions/UserActions';
+import history from '../history';
 
-export default class HeaderNavBar extends React.Component {
+
+class HeaderNavBar extends React.Component {
   constructor(props) {
     super(props);
 
@@ -22,11 +26,17 @@ export default class HeaderNavBar extends React.Component {
       options: ['Edit Profile','My Tickets','Logout'],
       optionsTitle:"Naveen Kumar"
     };
+    this.onClickLogout = this.onClickLogout.bind(this);
   }
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
     });
+  }
+
+  onClickLogout() {
+    history.push('/login');
+    this.props.onLogout();
   }
   render() {
     return (
@@ -54,7 +64,7 @@ export default class HeaderNavBar extends React.Component {
                   {this.state.options[1]}
                   </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem >
+                  <DropdownItem onClick = {this.onClickLogout}>
                   {this.state.options[2]}
                   </DropdownItem>
                 </DropdownMenu>
@@ -65,4 +75,16 @@ export default class HeaderNavBar extends React.Component {
       
     );
   }
+
+
 }
+
+
+const mapActionsToProps = {
+  onLogout : logout  
+}
+
+const mapStateToProps = function (state){
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(HeaderNavBar);
