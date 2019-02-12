@@ -82,7 +82,7 @@ class ViewTicketDetailsForm extends React.Component {
               </tr>
               <tr>
                <td><strong>Department:</strong></td>
-               <td style={{fontStyle: 'italic'}}>{ticket.department}</td>
+               <td style={{fontStyle: 'italic'}}>{ticket.department.name}</td>
               </tr>
               <tr>
                <td><strong>Office:</strong></td>

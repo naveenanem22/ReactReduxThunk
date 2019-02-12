@@ -114,7 +114,7 @@ export function fetchTicketsAPICall(queryParams){
 export function fetchTicketDetailsAPICall(pathParams){
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    var url = new URL("http://localhost:8080/v0/ticket-management/tickets/123456");
+    var url = new URL("http://localhost:8080/v0/ticket-management/tickets/"+pathParams.ticketId);
     console.log(url);
     return function (dispatch) {      
         return fetch(url,{
