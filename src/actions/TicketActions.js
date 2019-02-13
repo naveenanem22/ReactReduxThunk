@@ -123,12 +123,17 @@ export function fetchTicketDetailsAPICall(pathParams){
         })
         .then(
            response => {               
-               if(response.status === 200)
+               if(response.status === 200 || response.status === 404 )
                return response.json();
+               if(response.status === 404){
+                   return response.json();
+               }
+               
            },
            error => console.log('An error occurred.', error),
        )
         .then((ticket) => {
+            console.log(ticket);
            dispatch(fetchTicketDetailsSuccess(ticket));
         },
        );
@@ -162,14 +167,20 @@ export function addMessageAPICall(params){
 }
 
 export function closeTicketAPICall(params){
+    console.log(params);
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    var url = new URL("http://localhost:8080/v0/ticket-management/tickets/123456");
+    var formData = new FormData();
+    for(var name in params) {
+        formData.append(name, params[name]);
+      }
+    var url = new URL("http://localhost:8080/v0/ticket-management/tickets/"+params.id);
     return function (dispatch) {      
         return fetch(url,{
             method: 'PUT',
-            headers: headers
+            headers: headers,
+            body:formData
         })
         .then(
            response => {

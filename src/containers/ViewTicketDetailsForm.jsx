@@ -9,7 +9,13 @@ class ViewTicketDetailsForm extends React.Component {
     super(props);
 
     this.state = {
-
+      id:this.props.ticket.id,
+      status: '',
+      comment:'',
+      file1:'',
+      file2:'',
+      file3:'',
+      commentedOn:''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -31,14 +37,22 @@ class ViewTicketDetailsForm extends React.Component {
   }
 
   onSubmitCloseTicket(e) {
-    e.preventDefault();
-    this.props.closeTicket(this.state);
+    e.preventDefault();    
+
+    this.setState((prevState, props) => ({
+      commentedOn : new Date(Date.now()).toISOString(),
+      status : 'Closed'
+    }),()=>{
+      //console.log(this.state);
+      this.props.closeTicket(this.state);
+    });
+   // this.props.closeTicket(this.state);
   }
 
-  onFileUpload(e) {
+  onFileUpload(e){
     e.preventDefault();
     this.setState({
-      file1: e.target.files[0]
+      [e.target.name] : e.target.files[0]     
     })
   }
   render() {
@@ -114,7 +128,7 @@ class ViewTicketDetailsForm extends React.Component {
                 {(ticket.ticketHistory.indexOf(item) == 0) && <div>
                   <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%' }}>
                     <Col >
-                      <Input type="textarea" name="additionalInfo" id="additionalInfo" />
+                      <Input type="textarea" name="comment" id="comment" onChange={this.handleChange}/>
                     </Col>
                   </Row>
 
