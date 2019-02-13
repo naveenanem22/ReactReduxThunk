@@ -167,35 +167,8 @@ export function addMessageAPICall(params){
       };
 }
 
-export function closeTicketAPICall(params){
-    let headers = new Headers();
-    /* headers.append('Content-Type', 'multipart/form-data'); */
-    headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    var formData = new FormData();
-    for(var name in params) {
-        formData.append(name, params[name]);
-      }
-    return function (dispatch) {      
-        return fetch(`http://localhost:8080/v0/ticket-management/tickets/3`,{
-            method : 'PUT',
-            body : formData,
-            headers: headers
-        })
-        .then(
-           response => {
-               console.log(response);
-               if(response.status === 201){
-                dispatch(createTicketSuccess());
-               return response.statusText;
-               }
-           },
-           error => {
-            console.log('An error occurred.', error);
-           }
-       );
-      };
-}
-/* export function closeTicketAPICall(params){
+
+ export function closeTicketAPICall(params){
     console.log(params);
     let headers = new Headers();    
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
@@ -224,5 +197,5 @@ export function closeTicketAPICall(params){
            }
        );
       };
-} */
+} 
 
