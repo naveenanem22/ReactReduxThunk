@@ -1,7 +1,7 @@
 import React from 'react';
 import { addMessageAPICall, closeTicketAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
-import { Button, Row, Col, Container, Input } from 'reactstrap';
+import { Button, Row, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
 import { Table } from 'reactstrap';
 class ViewTicketDetailsForm extends React.Component {
 
@@ -9,11 +9,11 @@ class ViewTicketDetailsForm extends React.Component {
     super(props);
 
     this.state = {
-      id:this.props.ticket.id,
+      id: this.props.ticket.id,
       status: '',
-      comment:'',
-      
-      commentedOn:''
+      comment: '',
+
+      commentedOn: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -35,22 +35,20 @@ class ViewTicketDetailsForm extends React.Component {
   }
 
   onSubmitCloseTicket(e) {
-    e.preventDefault();    
+    e.preventDefault();
 
     this.setState((prevState, props) => ({
-      commentedOn : new Date(Date.now()).toISOString(),
-      status : 'Closed'
-    }),()=>{
-      //console.log(this.state);
+      commentedOn: new Date(Date.now()).toISOString(),
+      status: 'Closed'
+    }), () => {
       this.props.closeTicket(this.state);
     });
-   // this.props.closeTicket(this.state);
   }
 
-  onFileUpload(e){
+  onFileUpload(e) {
     e.preventDefault();
     this.setState({
-      [e.target.name] : e.target.files[0]     
+      [e.target.name]: e.target.files[0]
     })
   }
   render() {
@@ -126,12 +124,12 @@ class ViewTicketDetailsForm extends React.Component {
                 {(ticket.ticketHistory.indexOf(item) == 0) && <div>
                   <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%' }}>
                     <Col >
-                      <Input type="textarea" name="comment" id="comment" onChange={this.handleChange}/>
+                      <Input type="textarea" name="comment" id="comment" onChange={this.handleChange} />
                     </Col>
                   </Row>
 
                   <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%', 'marginTop': '1%' }}>
-                    <Col >
+                    <Col>
                       <Button type="submit" outline color="secondary" bsSize="small"
                       >Attach Files</Button>
                     </Col>
@@ -141,6 +139,18 @@ class ViewTicketDetailsForm extends React.Component {
                  <Button type="submit" color="info" bsSize="small" style={{ 'marginLeft': '2%' }} onClick={this.onSubmitAddMessage}>
                         Add Message</Button>
                     </Col>
+                  </Row>
+                  <Row>
+                    <FormGroup style={{'width':'90%', 'paddingLeft':'5%', 'paddingTop':'2%'}}>
+                      <Label for="attachments">Attachments</Label>
+                      <Input type="file" name="file1" id="file1" onChange={this.onFileUpload} />
+                      <Input type="file" name="file2" id="file2" onChange={this.onFileUpload} />
+                      <Input type="file" name="file3" id="file3" onChange={this.onFileUpload} />
+                      <FormText color="muted">
+                        Any files that can assist the corresponding team to resolve the issues at the earliest.
+          </FormText>
+                    </FormGroup>
+
                   </Row>
                 </div>}
 
