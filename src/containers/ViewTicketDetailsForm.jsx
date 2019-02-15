@@ -3,6 +3,7 @@ import { addMessageAPICall, closeTicketAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
 import { Button, Row, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
 import { Table } from 'reactstrap';
+import { FaFilePdf, FaFileAlt, FaFileImage } from 'react-icons/fa';
 class ViewTicketDetailsForm extends React.Component {
 
   constructor(props) {
@@ -54,6 +55,7 @@ class ViewTicketDetailsForm extends React.Component {
   render() {
     const ticket = this.props.ticket;
     return (
+
       <div class="ticket-details-form">
         <div class="ticket-details-header">
           <h3>Ticket Details</h3>
@@ -121,6 +123,10 @@ class ViewTicketDetailsForm extends React.Component {
                 <Row >
                   <Col style={{ 'paddingLeft': '3%', 'height': '200px' }}>{item.comment}</Col>
                 </Row>
+                {item.attachments.map((attachment) =>
+                  <Row >
+                    <Col style={{ 'paddingLeft': '3%' }}>{attachment.name}</Col>
+                  </Row>)}
                 {(ticket.ticketHistory.indexOf(item) == 0) && <div>
                   <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%' }}>
                     <Col >
@@ -141,7 +147,7 @@ class ViewTicketDetailsForm extends React.Component {
                     </Col>
                   </Row>
                   <Row>
-                    <FormGroup style={{'width':'90%', 'paddingLeft':'5%', 'paddingTop':'2%'}}>
+                    <FormGroup style={{ 'width': '90%', 'paddingLeft': '5%', 'paddingTop': '2%' }}>
                       <Label for="attachments">Attachments</Label>
                       <Input type="file" name="file1" id="file1" onChange={this.onFileUpload} />
                       <Input type="file" name="file2" id="file2" onChange={this.onFileUpload} />
@@ -152,15 +158,38 @@ class ViewTicketDetailsForm extends React.Component {
                     </FormGroup>
 
                   </Row>
+
                 </div>}
 
               </div>
+
             </div>
           )}
+          <div style={{ marginTop: '1%' }}>
+            <Table bordered="true" size="sm">
+              <tbody>
+                <tr>
+                  <th scope="row"><FaFilePdf style={{color: 'red'}}/></th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                </tr>
+                <tr>
+                  <th scope="row"><FaFileAlt style={{color: 'red'}}/></th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                </tr>
+                <tr>
+                  <th scope="row"><FaFileImage style={{color: 'red'}}/></th>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                </tr>
+              </tbody>
+            </Table>
+          </div>
+
+
 
         </div>
-
-
       </div>
     );
   }
