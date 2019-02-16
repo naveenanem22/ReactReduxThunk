@@ -1,8 +1,8 @@
 import React from 'react';
-import { addMessageAPICall, closeTicketAPICall } from '../actions/TicketActions'
+import { addMessageAPICall, closeTicketAPICall, downloadAttachmentAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
 import { Button, Row, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
-import { Table } from 'reactstrap';
+import { Table, NavLink } from 'reactstrap';
 import { FaFilePdf, FaFileAlt, FaFileImage } from 'react-icons/fa';
 class ViewTicketDetailsForm extends React.Component {
 
@@ -21,7 +21,13 @@ class ViewTicketDetailsForm extends React.Component {
     this.onSubmitAddMessage = this.onSubmitAddMessage.bind(this);
     this.onFileUpload = this.onFileUpload.bind(this);
     this.onSubmitCloseTicket = this.onSubmitCloseTicket.bind(this);
+    this.onClickLink = this.onClickLink.bind(this);
 
+  }
+
+  onClickLink(e) {
+    e.preventDefault();
+    this.props.downloadAttachment("http://localhost:8080/filestorage/123198_getAlertPackageResponse.txt");
   }
 
   handleChange(e) {
@@ -170,18 +176,18 @@ class ViewTicketDetailsForm extends React.Component {
               <tbody>
                 <tr>
                   <th scope="row"><FaFilePdf style={{color: 'red'}}/></th>
-                  <td>Mark</td>
-                  <td>Otto</td>
+                  <td>123198_getAlertPackageResponse.txt</td>
+                  <td><NavLink onClick = {this.onClickLink}href="http://localhost:8080/filestorage/123198_getAlertPackageResponse.txt">download</NavLink></td>
                 </tr>
                 <tr>
                   <th scope="row"><FaFileAlt style={{color: 'red'}}/></th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
+                  <td>123198_getAlertPackageResponse.txt</td>
+                  <td>download</td>
                 </tr>
                 <tr>
                   <th scope="row"><FaFileImage style={{color: 'red'}}/></th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
+                  <td>123198_getAlertPackageResponse.txt</td>
+                  <td>download</td>
                 </tr>
               </tbody>
             </Table>
@@ -203,7 +209,8 @@ const mapStateToProps = function (state) {
 
 const mapActionsToProps = {
   addMessage: addMessageAPICall,
-  closeTicket: closeTicketAPICall
+  closeTicket: closeTicketAPICall,
+  downloadAttachment: downloadAttachmentAPICall
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(ViewTicketDetailsForm);

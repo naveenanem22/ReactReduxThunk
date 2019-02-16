@@ -1,5 +1,6 @@
 import { CREATE_TICKET, ADD_MESSAGE_SUCCESS,ADD_MESSAGE_FAILURE, CLOSE_TICKET_SUCCESS,CLOSE_TICKET_FAILURE } from './ActionTypes';
 import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS, FETCH_TICKET_DETAILS_SUCCESS } from './ActionTypes';
+import FileSaver from 'file-saver';
 
 export function createTicket(){
     return {
@@ -197,5 +198,35 @@ export function addMessageAPICall(params){
            }
        );
       };
-} 
+}
+
+downloadAttachmentAPICall
+
+export function downloadAttachmentAPICall(params){
+    console.log(params);
+    let headers = new Headers();    
+    headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    var url = new URL("http://localhost:8080/v0/ticket-management/tickets/downloadFile/123198_getAlertPackageResponse.txt");
+    return function (dispatch) {      
+        return fetch(url,{
+            method: 'GET',
+            headers: headers
+        })
+        .then(
+           response => {
+               console.log("Response received");
+               return response.blob();
+               
+           },
+           error => {
+            console.log('An error occurred.', error);
+            dispatch(closeTicketFailure());
+
+           }
+       ).then(blob => {
+           FileSaver.saveAs(blob,"sample.txt");
+       });
+      };
+}
+
 
