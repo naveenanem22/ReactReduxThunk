@@ -129,9 +129,10 @@ class ViewTicketDetailsForm extends React.Component {
                 <Row >
                   <Col style={{ 'paddingLeft': '3%', 'height': '200px' }}>{item.comment}</Col>
                 </Row>
-                {item.attachments.map((attachment) =>
-                  <Row >
-                    <Col style={{ 'paddingLeft': '3%' }}>{attachment.name}</Col>
+                {(item.attachments.length > 0) && <Row style={{ 'marginBottom': '3px', 'paddingLeft': '2%', 'paddingRight': '0%' }}>Attachment(s):</Row>}
+                {(item.attachments.length > 0) && item.attachments.map((attachment) =>
+                  <Row style={{ 'marginBottom': '3px', 'paddingLeft': '2%', 'paddingRight': '0%' }}>
+                    <Col ><NavLink style={{padding:'0%'}}onClick={this.onClickLink} href="#"><FaFilePdf style={{ color: 'red', marginRight:'1%' }}/><code style={{ 'color': '#c7254e' }}>{attachment.name}.{attachment.fileType}</code></NavLink></Col>
                   </Row>)}
                 {(ticket.ticketHistory.indexOf(item) == 0) && <div>
                   <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%' }}>
@@ -171,29 +172,6 @@ class ViewTicketDetailsForm extends React.Component {
 
             </div>
           )}
-          <div style={{ marginTop: '1%' }}>
-            <Table bordered="true" size="sm">
-              <tbody>
-                <tr>
-                  <th scope="row"><FaFilePdf style={{color: 'red'}}/></th>
-                  <td>123198_getAlertPackageResponse.txt</td>
-                  <td><NavLink onClick = {this.onClickLink}href="http://localhost:8080/filestorage/123198_getAlertPackageResponse.txt">download</NavLink></td>
-                </tr>
-                <tr>
-                  <th scope="row"><FaFileAlt style={{color: 'red'}}/></th>
-                  <td>123198_getAlertPackageResponse.txt</td>
-                  <td>download</td>
-                </tr>
-                <tr>
-                  <th scope="row"><FaFileImage style={{color: 'red'}}/></th>
-                  <td>123198_getAlertPackageResponse.txt</td>
-                  <td>download</td>
-                </tr>
-              </tbody>
-            </Table>
-          </div>
-
-
 
         </div>
       </div>
