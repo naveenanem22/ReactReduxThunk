@@ -3,7 +3,8 @@ import { addMessageAPICall, closeTicketAPICall, downloadAttachmentAPICall } from
 import { connect } from 'react-redux';
 import { Button, Row, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
 import { Table, NavLink } from 'reactstrap';
-import { FaFilePdf, FaFileAlt, FaFileImage } from 'react-icons/fa';
+import { FaFilePdf, FaFileAlt, FaFileImage, FaFile } from 'react-icons/fa';
+import {loadFileIcon} from '../util/UIUtils';
 class ViewTicketDetailsForm extends React.Component {
 
   constructor(props) {
@@ -22,8 +23,8 @@ class ViewTicketDetailsForm extends React.Component {
     this.onFileUpload = this.onFileUpload.bind(this);
     this.onSubmitCloseTicket = this.onSubmitCloseTicket.bind(this);
     this.onClickLink = this.onClickLink.bind(this);
-
   }
+
 
   onClickLink(e) {
     e.preventDefault();
@@ -132,9 +133,9 @@ class ViewTicketDetailsForm extends React.Component {
                 {(item.attachments.length > 0) && <Row style={{ 'marginBottom': '3px', 'paddingLeft': '2%', 'paddingRight': '0%' }}>Attachment(s):</Row>}
                 {(item.attachments.length > 0) && item.attachments.map((attachment) =>
                   <Row style={{ 'marginBottom': '3px', 'paddingLeft': '2%', 'paddingRight': '0%' }}>
-                    <Col ><NavLink style={{padding:'0%'}}onClick={this.onClickLink} href="#"><FaFilePdf style={{ color: 'red', marginRight:'1%' }}/><code style={{ 'color': '#c7254e' }}>{attachment.name}.{attachment.fileType}</code></NavLink></Col>
+                    <Col ><NavLink style={{ padding: '0%' }} onClick={this.onClickLink} href="#">{loadFileIcon(attachment.fileType)}<code style={{ 'color': '#c7254e' }}>{attachment.name}.{attachment.fileType}</code></NavLink></Col>
                   </Row>)}
-                {(ticket.ticketHistory.indexOf(item) == 0) && <div>
+                {(ticket.ticketHistory.indexOf(item) === 0) && <div>
                   <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%' }}>
                     <Col >
                       <Input type="textarea" name="comment" id="comment" onChange={this.handleChange} />
