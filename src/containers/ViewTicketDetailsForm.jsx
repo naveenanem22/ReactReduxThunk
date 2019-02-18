@@ -15,7 +15,8 @@ class ViewTicketDetailsForm extends React.Component {
       status: '',
       comment: '',
 
-      commentedOn: ''
+      commentedOn: '',
+      isUpload: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -23,6 +24,13 @@ class ViewTicketDetailsForm extends React.Component {
     this.onFileUpload = this.onFileUpload.bind(this);
     this.onSubmitCloseTicket = this.onSubmitCloseTicket.bind(this);
     this.onClickLink = this.onClickLink.bind(this);
+    this.toggleUpload = this.toggleUpload.bind(this);
+  }
+
+  toggleUpload(){
+    this.setState({
+      isUpload : !this.state.isUpload
+    })
   }
 
 
@@ -47,7 +55,10 @@ class ViewTicketDetailsForm extends React.Component {
 
     this.setState((prevState, props) => ({
       commentedOn: new Date(Date.now()).toISOString(),
-      status: 'Closed'
+      status: 'Closed',
+      file1: this.state.isUpload ? prevState.file1 : undefined,
+      file2: this.state.isUpload ? prevState.file2 : undefined,
+      file3: this.state.isUpload ? prevState.file3 : undefined
     }), () => {
       this.props.closeTicket(this.state);
     });
@@ -144,7 +155,7 @@ class ViewTicketDetailsForm extends React.Component {
 
                   <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%', 'marginTop': '1%' }}>
                     <Col>
-                      <Button type="submit" outline color="secondary" bsSize="small"
+                      <Button onClick = {this.toggleUpload} type="submit" outline color="secondary" bsSize="small"
                       >Attach Files</Button>
                     </Col>
                     <Col style={{ 'text-align': 'right' }}>
@@ -154,7 +165,7 @@ class ViewTicketDetailsForm extends React.Component {
                         Add Message</Button>
                     </Col>
                   </Row>
-                  <Row>
+                 { this.state.isUpload && <Row>
                     <FormGroup style={{ 'width': '90%', 'paddingLeft': '5%', 'paddingTop': '2%' }}>
                       <Label for="attachments">Attachments</Label>
                       <Input type="file" name="file1" id="file1" onChange={this.onFileUpload} />
@@ -165,7 +176,7 @@ class ViewTicketDetailsForm extends React.Component {
           </FormText>
                     </FormGroup>
 
-                  </Row>
+                  </Row>}
 
                 </div>}
 

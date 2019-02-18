@@ -1,7 +1,6 @@
 import { FaFilePdf, FaFileAlt, FaFileImage, FaFile, FaFileWord } from 'react-icons/fa';
 import React from 'react';
 export function loadFileIcon(fileType) {
-    console.log(fileType);
     switch (fileType) {
       case 'txt':
         return (<FaFileAlt style={{ color: 'red', marginRight: '1%' }} />);
