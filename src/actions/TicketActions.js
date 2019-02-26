@@ -144,9 +144,11 @@ export function fetchTicketDetailsAPICall(pathParams){
 
 export function addMessageAPICall(params){
     let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Accept', 'application/json',);
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    var formData = new FormData();
+    for(var name in params) {
+        formData.append(name, params[name]);
+      }
     var url = new URL("http://localhost:8080/v0/ticket-history/tickets/123456/messages");
     console.log(url);
     return function (dispatch) {      
@@ -170,13 +172,14 @@ export function addMessageAPICall(params){
 
 
  export function closeTicketAPICall(params){
-    console.log(params);
+    console.log("params: "+JSON.stringify(params));
     let headers = new Headers();    
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     var formData = new FormData();
     for(var name in params) {
         formData.append(name, params[name]);
       }
+    console.log("Formdata: "+JSON.stringify(formData));
     var url = new URL("http://localhost:8080/v0/ticket-management/tickets/"+params.id);
     return function (dispatch) {      
         return fetch(url,{
@@ -200,7 +203,6 @@ export function addMessageAPICall(params){
       };
 }
 
-downloadAttachmentAPICall
 
 export function downloadAttachmentAPICall(params){
     console.log(params);

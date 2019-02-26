@@ -47,7 +47,17 @@ class ViewTicketDetailsForm extends React.Component {
 
   onSubmitAddMessage(e) {
     e.preventDefault();
-    this.props.addMessage(this.state);
+    this.setState((prevState, props) => ({
+      commentedOn : new Date(Date.now()).toISOString(),
+      file1: this.state.isUpload ? prevState.file1 : undefined,
+      file2: this.state.isUpload ? prevState.file2 : undefined,
+      file3: this.state.isUpload ? prevState.file3 : undefined
+    }), () => {
+      this.props.addMessage(this.state);
+    })
+
+
+    
   }
 
   onSubmitCloseTicket(e) {
@@ -60,6 +70,7 @@ class ViewTicketDetailsForm extends React.Component {
       file2: this.state.isUpload ? prevState.file2 : undefined,
       file3: this.state.isUpload ? prevState.file3 : undefined
     }), () => {
+      console.log(this.state);
       this.props.closeTicket(this.state);
     });
   }
@@ -144,7 +155,7 @@ class ViewTicketDetailsForm extends React.Component {
                 {(item.attachments.length > 0) && <Row style={{ 'marginBottom': '3px', 'paddingLeft': '2%', 'paddingRight': '0%' }}>Attachment(s):</Row>}
                 {(item.attachments.length > 0) && item.attachments.map((attachment) =>
                   <Row style={{ 'marginBottom': '3px', 'paddingLeft': '2%', 'paddingRight': '0%' }}>
-                    <Col ><NavLink style={{ padding: '0%' }} onClick={this.onClickLink} href="#">{loadFileIcon(attachment.fileType)}<code style={{ 'color': '#c7254e' }}>{attachment.name}.{attachment.fileType}</code></NavLink></Col>
+                    <Col ><NavLink style={{ padding: '0%' }} onClick={this.onClickLink} href="#">{loadFileIcon(attachment.fileType)}<code style={{ 'color': '#c7254e' }}>{attachment.name}</code></NavLink></Col>
                   </Row>)}
                 {(ticket.ticketHistory.indexOf(item) === 0) && <div>
                   <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%' }}>
