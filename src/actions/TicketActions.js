@@ -58,6 +58,7 @@ export function closeTicketFailure(){
 
 
 export function createTicketAPICall(ticket){
+    console.log(ticket);
     let headers = new Headers();
     /* headers.append('Content-Type', 'multipart/form-data'); */
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));

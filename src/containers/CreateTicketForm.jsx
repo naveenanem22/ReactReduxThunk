@@ -22,7 +22,8 @@ class CreateNewTicketForm extends React.Component {
       additionalInfo:'',
       file1:'',
       file2:'',
-      file3:''
+      file3:'',
+      status:''
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -39,7 +40,13 @@ class CreateNewTicketForm extends React.Component {
 
   onSubmitCreateTicket(e){
     e.preventDefault();
-    this.props.onCreateTicket(this.state);
+    this.setState((prevState, props) => ({
+      status : 'New'
+    }), () => {
+      this.props.onCreateTicket(this.state);
+    })
+
+    
   }
 
   onFileUpload(e){
@@ -49,6 +56,7 @@ class CreateNewTicketForm extends React.Component {
     })
   }
   render() {
+    console.log(this.props);
     return (
       <Form>
         <FormGroup>
@@ -72,21 +80,19 @@ class CreateNewTicketForm extends React.Component {
         <FormGroup>
           <Label for="department">Department</Label>
           <Input type="select" name="department" id="department" value = {this.state.department} onChange={this.handleChange} required>
-            <option>Choose department...</option>
-            <option>RMG</option>
-            <option>Finance</option>
-            <option>HR</option>
-            <option>ITS</option>
-            <option>Other</option>
+          <option>Choose department...</option>
+          {this.props.departments.map((department) =>
+               <option>{department.name}</option>
+              )}
+          
           </Input>
         </FormGroup>
         <FormGroup>
           <Label for="priority">Priority</Label>
           <Input type="select" name="priority" id="priority" value={this.state.priority} onChange = {this.handleChange} required>
-            <option>Normal</option>
-            <option>Urgent</option>
-            <option>Low</option>
-            <option>Emergency</option>
+          {this.props.priority.map((priorityItem) =>
+               <option>{priorityItem.name}</option>
+              )}
           </Input>
         </FormGroup>
         <FormGroup>
@@ -94,12 +100,9 @@ class CreateNewTicketForm extends React.Component {
           <Input type="select" name="serviceCategory" id="serviceCategory" value={this.state.serviceCategory} 
           onChange = {this.handleChange}
           required>
-            <option>Network</option>
-            <option>Printer</option>
-            <option>Desktop/Laptop</option>
-            <option>Software/OS</option>
-            <option>Application</option>
-            <option>Internet / Email / Sharepoint</option>
+            {this.props.serviceCategories.map((serviceCategory) =>
+               <option>{serviceCategory.name}</option>
+              )}
           </Input>
         </FormGroup>
         <FormGroup>
@@ -126,10 +129,9 @@ class CreateNewTicketForm extends React.Component {
           onChange = {this.handleChange}
           required>
             <option>--Select--</option>
-            <option>Task</option>
-            <option>Incident</option>
-            <option>Problem</option>
-            <option>Question</option>
+            {this.props.ticketType.map((ticketTypeItem) =>
+               <option>{ticketTypeItem.name}</option>
+              )}
           </Input>
         </FormGroup>
         <FormGroup>
@@ -159,4 +161,14 @@ const mapActionsToProps = {
   onCreateTicket : createTicketAPICall  
 }
 
-export default connect(null, mapActionsToProps)(CreateNewTicketForm);
+const mapStateToProps = function (state){
+  return {
+    departments: state.departments,
+    priority: state.priority,
+    ticketStatus: state.ticketStatus,
+    ticketType: state.ticketType,
+    serviceCategories: state.serviceCategories
+  }
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(CreateNewTicketForm);
