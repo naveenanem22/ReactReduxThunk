@@ -1,8 +1,16 @@
 import React from 'react';
 import { Nav, NavItem, NavLink, Navbar } from 'reactstrap';
 import { FaUser, FaAngleDoubleRight } from 'react-icons/fa';
+import history from '../history';
 
 export default class SideNavBar extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+        
+    };
+}
+
   render() {
     return (
       <div class = 'sidenavbar'>
@@ -18,7 +26,7 @@ export default class SideNavBar extends React.Component {
           </NavItem>
           
           <NavItem>
-            <NavLink href="#" style={{ borderBottom: '1px solid black', textDecoration: 'none', color: 'black' }}><FaAngleDoubleRight style={{color: 'orange'}}/> Closed Tickets</NavLink>
+            <NavLink href="/tickets?status=Closed" style={{ borderBottom: '1px solid black', textDecoration: 'none', color: 'black' }}><FaAngleDoubleRight style={{color: 'orange'}}/> Closed Tickets</NavLink>
           </NavItem>
           
           <NavItem>

@@ -88,7 +88,8 @@ export function createTicketAPICall(ticket){
       };
 }
 
-export function fetchTicketsAPICall(queryParams){    
+export function fetchTicketsAPICall(queryParams){
+    console.log(queryParams);    
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     var url = new URL("http://localhost:8080/v0/ticket-management/tickets");
