@@ -14,6 +14,7 @@ import {
   DropdownItem } from 'reactstrap';
 import { logout } from '../actions/UserActions';
 import history from '../history';
+import { Link } from "react-router-dom";
 
 
 class HeaderNavBar extends React.Component {
@@ -27,11 +28,17 @@ class HeaderNavBar extends React.Component {
       optionsTitle:"Naveen Kumar"
     };
     this.onClickLogout = this.onClickLogout.bind(this);
+    this.onClickMyTickets = this.onClickMyTickets.bind(this);
   }
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
     });
+  }
+
+  onClickMyTickets(){
+    console.log("MyTickets Clicked...");
+    history.push('/tickets');
   }
 
   onClickLogout() {
@@ -42,12 +49,12 @@ class HeaderNavBar extends React.Component {
     return (
       
         <Navbar color="dark" dark expand="md">
-          <NavbarBrand href="/"><h3>ITS Helpdesk</h3></NavbarBrand>
+          <NavbarBrand href="/home"><h3>ITS Helpdesk</h3></NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/components/">Components</NavLink>
+                <NavLink href="/tickets">My Tickets</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink  href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
@@ -58,14 +65,14 @@ class HeaderNavBar extends React.Component {
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    {this.state.options[0]}
+                    <NavLink style = {{color:'#212529'}} href="#"> {this.state.options[0]}</NavLink>
                   </DropdownItem>
-                  <DropdownItem>
-                  {this.state.options[1]}
+                  <DropdownItem >
+                    <NavLink style = {{color:'#212529'}} href="/tickets">{this.state.options[1]}</NavLink>
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem onClick = {this.onClickLogout}>
-                  {this.state.options[2]}
+                    <NavLink style = {{color:'#212529'}} href="#">{this.state.options[2]}</NavLink>
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>

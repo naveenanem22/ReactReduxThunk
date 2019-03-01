@@ -6,6 +6,7 @@ import { RingLoader, ScaleLoader } from 'react-spinners';
 import {connect} from 'react-redux';
 import {fetchTicketsAPICall} from '../actions/TicketActions'
 import {Table} from 'reactstrap';
+import {withRouter} from 'react-router';
 
 class ViewTicketsPage extends React.Component {
     constructor(props){
@@ -72,5 +73,5 @@ const mapStateToProps = function (state){
   const mapActionsToProps = {  
     fetchTickets : fetchTicketsAPICall  
   }
-
   export default connect(mapStateToProps,mapActionsToProps)(ViewTicketsPage);
+  //export default withRouter(connect(mapStateToProps,mapActionsToProps)(ViewTicketsPage));

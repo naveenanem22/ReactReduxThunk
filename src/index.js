@@ -47,7 +47,8 @@ ReactDOM.render(
     <Provider store={store}>
     <Router history={history}>
     <div>
-    <Route path = "/login" component = {LoginPage}></Route>
+    <Route path = "/home" component = {LoginPage}></Route>
+    <Route path = "/login" component = {LoginPage}></Route> 
     <Route path = "/newticket" component = {App}></Route>
     <Route path = "/tickets" component = {ViewTicketsPage}></Route>
     <Route path = "/ticketdetails" component = {ViewTicketDetailsPage}></Route> 
