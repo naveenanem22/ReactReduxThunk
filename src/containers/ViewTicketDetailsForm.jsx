@@ -138,6 +138,7 @@ class ViewTicketDetailsForm extends React.Component {
             </Table>
           </div>
 
+          {/* Single Add-Conversation-block when there is no history*/}
           {ticket.ticketHistory.length === 0 && <div>
                   <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%' }}>
                     <Col >
@@ -172,6 +173,7 @@ class ViewTicketDetailsForm extends React.Component {
 
                 </div>}
 
+          {/* Add-Conversation-block only in the first message block of the history when the history is present*/}
           {ticket.ticketHistory.map((item) =>
             <div class="ticket-conv-block" >
               <div class="author">
