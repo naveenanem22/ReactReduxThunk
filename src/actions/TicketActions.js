@@ -145,22 +145,24 @@ export function fetchTicketDetailsAPICall(pathParams){
 }
 
 export function addMessageAPICall(params){
+    console.log("params: "+JSON.stringify(params));
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     var formData = new FormData();
     for(var name in params) {
         formData.append(name, params[name]);
       }
-    var url = new URL("http://localhost:8080/v0/ticket-history/tickets/123456/messages");
+    var url = new URL("http://localhost:8080/v0/ticket-management/tickets/"+params.id);
     console.log(url);
     return function (dispatch) {      
         return fetch(url,{
-            method : 'POST',
-            headers: headers         
+            method : 'PUT',
+            headers: headers,
+            body:formData         
         })
         .then(
            response => {
-               if(response.status === 201){
+               if(response.status === 204){
                 dispatch(addMessageSuccess());
                }
            },
