@@ -138,6 +138,40 @@ class ViewTicketDetailsForm extends React.Component {
             </Table>
           </div>
 
+          {ticket.ticketHistory.length === 0 && <div>
+                  <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%' }}>
+                    <Col >
+                      <Input type="textarea" name="comment" id="comment" onChange={this.handleChange} />
+                    </Col>
+                  </Row>
+
+                  <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%', 'marginTop': '1%' }}>
+                    <Col>
+                      <Button onClick = {this.toggleUpload} type="submit" outline color="secondary" bsSize="small"
+                      >Attach Files</Button>
+                    </Col>
+                    <Col style={{ 'text-align': 'right' }}>
+                      <Button type="submit" color="link" bsSize="small" onClick={this.onSubmitCloseTicket}>
+                        Close Ticket</Button>or
+                 <Button type="submit" color="info" bsSize="small" style={{ 'marginLeft': '2%' }} onClick={this.onSubmitAddMessage}>
+                        Add Message</Button>
+                    </Col>
+                  </Row>
+                 { this.state.isUpload && <Row>
+                    <FormGroup style={{ 'width': '90%', 'paddingLeft': '5%', 'paddingTop': '2%' }}>
+                      <Label for="attachments">Attachments</Label>
+                      <Input type="file" name="file1" id="file1" onChange={this.onFileUpload} />
+                      <Input type="file" name="file2" id="file2" onChange={this.onFileUpload} />
+                      <Input type="file" name="file3" id="file3" onChange={this.onFileUpload} />
+                      <FormText color="muted">
+                        Any files that can assist the corresponding team to resolve the issues at the earliest.
+          </FormText>
+                    </FormGroup>
+
+                  </Row>}
+
+                </div>}
+
           {ticket.ticketHistory.map((item) =>
             <div class="ticket-conv-block" >
               <div class="author">
@@ -150,7 +184,7 @@ class ViewTicketDetailsForm extends React.Component {
 
               <div class="message" style={{ 'paddingBottom': '1%' }}>
                 <Row >
-                  <Col style={{ 'paddingLeft': '3%', 'height': '200px' }}>{item.comment}</Col>
+                  <Col style={{ 'paddingLeft': '3%' }}>{item.comment}</Col>
                 </Row>
                 {(item.attachments.length > 0) && <Row style={{ 'marginBottom': '3px', 'paddingLeft': '2%', 'paddingRight': '0%' }}>Attachment(s):</Row>}
                 {(item.attachments.length > 0) && item.attachments.map((attachment) =>
