@@ -90,6 +90,7 @@ class CreateNewTicketForm extends React.Component {
         <FormGroup>
           <Label for="priority">Priority</Label>
           <Input type="select" name="priority" id="priority" value={this.state.priority} onChange = {this.handleChange} required>
+          <option>Choose priority...</option>
           {this.props.priority.map((priorityItem) =>
                <option>{priorityItem.name}</option>
               )}
@@ -100,6 +101,7 @@ class CreateNewTicketForm extends React.Component {
           <Input type="select" name="serviceCategory" id="serviceCategory" value={this.state.serviceCategory} 
           onChange = {this.handleChange}
           required>
+          <option>Choose category...</option>
             {this.props.serviceCategories.map((serviceCategory) =>
                <option>{serviceCategory.name}</option>
               )}
@@ -110,6 +112,7 @@ class CreateNewTicketForm extends React.Component {
           <Input type="select" name="officeLocation" id="officeLocation" value = {this.state.officeLocation} 
           onChange = {this.handleChange}
           required>
+          <option>Choose office...</option>
             <option>Office-Hyderabad</option>
             <option>Office-Bangalore</option>
             <option>Office-Chennai</option>
