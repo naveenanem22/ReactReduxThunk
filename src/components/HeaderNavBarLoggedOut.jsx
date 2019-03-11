@@ -1,0 +1,97 @@
+import React from 'react';
+import {connect} from 'react-redux';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem } from 'reactstrap';
+import { logout } from '../actions/UserActions';
+import history from '../history';
+import { Link } from "react-router-dom";
+
+
+class HeaderNavBar extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false,
+      options: ['About','FAQs','Login'],
+      optionsTitle:"Menu"
+    };
+    this.onClickLogout = this.onClickLogout.bind(this);
+    this.onClickMyTickets = this.onClickMyTickets.bind(this);
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+
+  onClickMyTickets(){
+    console.log("MyTickets Clicked...");
+    history.push('/tickets');
+  }
+
+  onClickLogout() {
+    history.push('/login');
+    this.props.onLogout();
+  }
+  render() {
+    return (
+      
+        <Navbar color="dark" dark expand="md">
+          <NavbarBrand href="/home"><h3>ITS Helpdesk</h3></NavbarBrand>
+          <NavbarToggler onClick={this.toggle} />
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/login">Login to proceed</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink  href="/policypage">Policy</NavLink>
+              </NavItem>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  {this.state.optionsTitle}
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem>
+                    <NavLink style = {{color:'#212529'}} href="#"> {this.state.options[0]}</NavLink>
+                  </DropdownItem>
+                  <DropdownItem >
+                    <NavLink style = {{color:'#212529'}} href="/faqs">{this.state.options[1]}</NavLink>
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem onClick = {this.onClickLogout}>
+                    <NavLink style = {{color:'#212529'}} href="/login">{this.state.options[2]}</NavLink>
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      
+    );
+  }
+
+
+}
+
+
+const mapActionsToProps = {
+  onLogout : logout  
+}
+
+const mapStateToProps = function (state){
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(HeaderNavBar);

@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderNavBar from "../components/HeaderNavBar";
+import HeaderNavBar from "../components/HeaderNavBarLoggedOut";
 import {connect} from 'react-redux';
 
 import { ScaleLoader } from 'react-spinners';
