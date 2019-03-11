@@ -1,11 +1,11 @@
 import React from 'react';
-import HeaderNavBar from "../components/HeaderNavBarLogin";
+import HeaderNavBar from "../components/HeaderNavBarHome";
 import {connect} from 'react-redux';
 
 import { ScaleLoader } from 'react-spinners';
-import LoginForm from './LoginForm';
 
-class LoginPage extends React.Component {
+
+class HomePage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -19,7 +19,7 @@ class LoginPage extends React.Component {
                 <div class = 'sticky'  >
                 <HeaderNavBar></HeaderNavBar>
                 </div >
-                <LoginForm ></LoginForm>
+                
                 
         </div>
         
@@ -38,4 +38,4 @@ const mapStateToProps = function (state){
     }
   }
 
-  export default connect(mapStateToProps)(LoginPage);
+  export default connect(mapStateToProps)(HomePage);

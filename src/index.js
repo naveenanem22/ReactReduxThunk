@@ -10,6 +10,7 @@ import registerServiceWorker from './registerServiceWorker';
 import ViewTicketsPage from './containers/ViewTicketsPage';
 import ViewTicketDetailsPage from './containers/ViewTicketDetailsPage';
 import LoginPage from './containers/LoginPage';
+import HomePage from './containers/HomePage';
 import history from './history';
 
 const allStoreEnhancers = compose(
@@ -47,7 +48,7 @@ ReactDOM.render(
     <Provider store={store}>
     <Router history={history}>
     <div>
-    <Route path = "/home" component = {LoginPage}></Route>
+    <Route path = "/home" component = {HomePage}></Route>
     <Route path = "/login" component = {LoginPage}></Route> 
     <Route path = "/newticket" component = {App}></Route>
     <Route path = "/tickets" component = {ViewTicketsPage}></Route>
