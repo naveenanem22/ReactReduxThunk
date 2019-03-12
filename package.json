@@ -22,7 +22,8 @@
     "reactstrap": "^6.5.0",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "victory": "^32.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
