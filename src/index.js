@@ -12,6 +12,7 @@ import ViewTicketDetailsPage from './containers/ViewTicketDetailsPage';
 import LoginPage from './containers/LoginPage';
 import HomePage from './containers/HomePage';
 import history from './history';
+import DashboardPage from './containers/DashboardPage';
 
 const allStoreEnhancers = compose(
     applyMiddleware(thunk)
@@ -53,6 +54,7 @@ ReactDOM.render(
     <Route path = "/newticket" component = {App}></Route>
     <Route path = "/tickets" component = {ViewTicketsPage}></Route>
     <Route path = "/ticketdetails" component = {ViewTicketDetailsPage}></Route> 
+    <Route path = "/dashboard" component = {DashboardPage}></Route> 
     </div>
    </Router>
    </Provider>,document.getElementById('root'));
