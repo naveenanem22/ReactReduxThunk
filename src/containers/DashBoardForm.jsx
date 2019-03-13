@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Card, CardText, CardBody, CardTitle, CardSubtitle, Row, Col } from 'reactstrap';
 import { timingSafeEqual } from 'crypto';
 import { createTicketAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
@@ -13,8 +13,33 @@ import {
 
 import { PureComponent } from 'react';
 import {
-  BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line
+  BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line,
+  PieChart, Pie, Sector
 } from 'recharts';
+
+const pieGraphData = [
+  { name: 'Group A', value: 400 },
+  { name: 'Group B', value: 300 },
+  { name: 'Group C', value: 300 },
+  { name: 'Group D', value: 200 },
+];
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({
+  cx, cy, midAngle, innerRadius, outerRadius, percent, index,
+}) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  return (
+    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+      {`${(percent * 100).toFixed(0)}%`}
+    </text>
+  );
+};
 
 const lineGraphData = [
   {
@@ -71,19 +96,6 @@ class DashBoardForm extends React.Component {
 
     //State
     this.state = {
-      ticketTitle: '',
-      ticketDescription: '',
-      department: '',
-      priority: '',
-      serviceCategory: '',
-      officeLocation: '',
-      deskNumber: '',
-      serviceType: '',
-      additionalInfo: '',
-      file1: '',
-      file2: '',
-      file3: '',
-      status: '',
       opacity: {
         uv: 1,
         pv: 1
@@ -128,41 +140,120 @@ class DashBoardForm extends React.Component {
     const { opacity } = this.state;
     return (
       <div>
-      <BarChart
-        width={500}
-        height={300}
-        data={barGraphdata}
-        margin={{
-          top: 5, right: 30, left: 20, bottom: 5,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="pv" fill="#8884d8" />
-        <Bar dataKey="uv" fill="#82ca9d" />
-      </BarChart>
+        <Row style={{marginTop:'3%', marginLeft:'1%', marginRight:'1%'}}>
+          <Col style={{ width: '33%' }}>
+          <Card>
+        <CardBody>
+          <CardTitle>Card title</CardTitle>
+          <CardSubtitle>Card subtitle</CardSubtitle>
+          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
+          <Button>Button</Button>
+        </CardBody>
+      </Card>
+          </Col>
+          <Col style={{ width: '33%' }}>
+          <Card>
+        <CardBody>
+          <CardTitle>Card title</CardTitle>
+          <CardSubtitle>Card subtitle</CardSubtitle>
+          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
+          <Button>Button</Button>
+        </CardBody>
+      </Card>
+          </Col>
+          <Col style={{ width: '33%' }}>
+          <Card>
+        <CardBody>
+          <CardTitle>Card title</CardTitle>
+          <CardSubtitle>Card subtitle</CardSubtitle>
+          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
+          <Button>Button</Button>
+        </CardBody>
+      </Card>
+          </Col>
+          
+        </Row>
+        <Row style={{marginTop:'3%', marginLeft:'1%', marginRight:'1%'}}>
+          <Col style={{ width: '60%' }}>
+            <Card style={{ backgroundColor: '#fff' }}>
+              <CardBody>
+                <CardTitle>Ticket Statistics by Status</CardTitle>
+                <BarChart
+                  barGap={1} 
+                  width={500}
+                  height={300}
+                  barSize={8}
+                  data={barGraphdata}
+                  margin={{
+                    top: 5, right: 30, left: 20, bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" fontSize={11} tick={{stroke: '#6E6E6E', strokeWidth: 0.1, fontFamily:'Roboto,Helvetica Neue,Arial,sans-serif'}}/>
+                  <YAxis fontSize={12}  label={{  value: 'Ticket Count', angle: -90, position: 'insideLeft' }}/>
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="pv" fill="#8884d8" />
+                  <Bar dataKey="uv" fill="#82ca9d" />
+                </BarChart>
+              </CardBody>
+            </Card>
+          </Col>
+          <Col style={{ width: '40%' }}>
+            <Card style={{ backgroundColor: '#fff' }}>
+              <CardBody>
+                <CardTitle>Department-wise workload</CardTitle>
+                <PieChart width={500} height={300}>
+                  <Pie
+                    data={pieGraphData}
+                    cx={150}
+                    cy={100}
+                    labelLine={false}
+                    label={renderCustomizedLabel}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {
+                      pieGraphData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
+                    }
+                  </Pie>
+                  <Tooltip/>
+                  <Legend verticalAlign='bottom' align='left' layout='horizontal'/>
+                </PieChart>
+              </CardBody>
+            </Card>
 
-      
-        <LineChart
-          width={500}
-          height={300}
-          data={lineGraphData}
-          margin={{
-            top: 5, right: 30, left: 20, bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} />
-          <Line type="monotone" dataKey="pv" strokeOpacity={opacity.pv} stroke="#8884d8" activeDot={{ r: 8 }} />
-          <Line type="monotone" dataKey="uv" strokeOpacity={opacity.uv} stroke="#82ca9d" />
-        </LineChart>
-        <p className="notes">Tips: Hover the legend !</p>
+          </Col>
+
+        </Row>
+        <Row style={{marginTop:'3%', marginLeft:'1%', marginRight:'1%'}}>
+          <Col style={{ width: '100%' }}>
+            <Card style={{ backgroundColor: '#fff' }}>
+              <CardBody>
+                <CardTitle>Department-wise workload</CardTitle>
+                <LineChart
+                  width={500}
+                  height={300}
+                  data={lineGraphData}
+                  margin={{
+                    top: 5, right: 30, left: 20, bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} />
+                  <Line type="monotone" dataKey="pv" strokeOpacity={opacity.pv} stroke="#8884d8" activeDot={{ r: 8 }} />
+                  <Line type="monotone" dataKey="uv" strokeOpacity={opacity.uv} stroke="#82ca9d" />
+                </LineChart>
+              </CardBody>
+            </Card>
+
+          </Col>
+        </Row>
+
       </div>
 
 
