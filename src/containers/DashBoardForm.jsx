@@ -140,18 +140,21 @@ class DashBoardForm extends React.Component {
     return (
       <div>
         <Row style={{ marginTop: '3%', marginLeft: '1%', marginRight: '1%' }}>
+        <h3>Helpdesk dashboard</h3>
+        </Row>
+        <Row style={{ marginTop: '3%', marginLeft: '1%', marginRight: '1%' }}>
           <Col style={{ width: '33%' }}>
             <Card>
               <CardBody>
                 <Row>
                   <Col><FaTicketAlt size={70} style={{ color: 'red' }} /></Col>
                   <Col>
-                    <Row><Col ><p style={{fontFamily:'Roboto,Helvetica Neue,Arial,sans-serif', marginBottom:'0%'}}>New Tickets</p></Col></Row>
+                    <Row><Col ><p style={{ fontFamily: 'Roboto,Helvetica Neue,Arial,sans-serif', marginBottom: '0%' }}>New Tickets</p></Col></Row>
                     <Row><Col ><h1>23</h1></Col></Row>
                   </Col>
                 </Row>
                 <hr></hr>
-                <p>In the last hour</p>
+                <p style={{ display: 'flex', alignItems: 'center', color: '#A9A9A9', fontSize: '90%', marginTop: '2%' }}><FaSyncAlt style={{ color: '#A9A9A9', marginRight: '5px' }}></FaSyncAlt>Updated in last hour</p>
               </CardBody>
             </Card>
           </Col>
@@ -161,12 +164,12 @@ class DashBoardForm extends React.Component {
                 <Row>
                   <Col><FaClipboardCheck size={60} style={{ color: 'green' }} /></Col>
                   <Col>
-                  <Row><Col ><p style={{fontFamily:'Roboto,Helvetica Neue,Arial,sans-serif', marginBottom:'0%'}}>Closed</p></Col></Row>
+                    <Row><Col ><p style={{ fontFamily: 'Roboto,Helvetica Neue,Arial,sans-serif', marginBottom: '0%' }}>Closed</p></Col></Row>
                     <Row><Col ><h1>12</h1></Col></Row>
                   </Col>
                 </Row>
                 <hr></hr>
-                <p style={{color:'#A9A9A9'}}><FaSyncAlt style={{color:'#A9A9A9'}}></FaSyncAlt>Updated</p>
+                <p style={{ display: 'flex', alignItems: 'center', color: '#A9A9A9', fontSize: '90%', marginTop: '2%' }}><FaSyncAlt style={{ color: '#A9A9A9', marginRight: '5px' }}></FaSyncAlt>Updated an hour ago</p>
               </CardBody>
             </Card>
           </Col>
@@ -181,7 +184,7 @@ class DashBoardForm extends React.Component {
                   </Col>
                 </Row>
                 <hr></hr>
-                <p>Last Hour</p>
+                <p style={{ display: 'flex', alignItems: 'center', color: '#A9A9A9', fontSize: '90%', marginTop: '2%' }}><FaSyncAlt style={{ color: '#A9A9A9', marginRight: '5px' }}></FaSyncAlt>Updated</p>
               </CardBody>
             </Card>
           </Col>
