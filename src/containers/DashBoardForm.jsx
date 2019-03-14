@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button, Card, CardText, CardBody, CardTitle, CardSubtitle, Row, Col } from 'reactstrap';
-import { timingSafeEqual } from 'crypto';
-import { createTicketAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
+import { FaTicketAlt, FaClipboardCheck, FaSyncAlt } from 'react-icons/fa';
 import victory from "victory";
 import {
   VictoryBar,
@@ -140,46 +139,61 @@ class DashBoardForm extends React.Component {
     const { opacity } = this.state;
     return (
       <div>
-        <Row style={{marginTop:'3%', marginLeft:'1%', marginRight:'1%'}}>
+        <Row style={{ marginTop: '3%', marginLeft: '1%', marginRight: '1%' }}>
           <Col style={{ width: '33%' }}>
-          <Card>
-        <CardBody>
-          <CardTitle>Card title</CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <Button>Button</Button>
-        </CardBody>
-      </Card>
+            <Card>
+              <CardBody>
+                <Row>
+                  <Col><FaTicketAlt size={70} style={{ color: 'red' }} /></Col>
+                  <Col>
+                    <Row><Col ><p style={{fontFamily:'Roboto,Helvetica Neue,Arial,sans-serif', marginBottom:'0%'}}>New Tickets</p></Col></Row>
+                    <Row><Col ><h1>23</h1></Col></Row>
+                  </Col>
+                </Row>
+                <hr></hr>
+                <p>In the last hour</p>
+              </CardBody>
+            </Card>
           </Col>
           <Col style={{ width: '33%' }}>
-          <Card>
-        <CardBody>
-          <CardTitle>Card title</CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <Button>Button</Button>
-        </CardBody>
-      </Card>
+            <Card>
+              <CardBody>
+                <Row>
+                  <Col><FaClipboardCheck size={60} style={{ color: 'green' }} /></Col>
+                  <Col>
+                  <Row><Col ><p style={{fontFamily:'Roboto,Helvetica Neue,Arial,sans-serif', marginBottom:'0%'}}>Closed</p></Col></Row>
+                    <Row><Col ><h1>12</h1></Col></Row>
+                  </Col>
+                </Row>
+                <hr></hr>
+                <p style={{color:'#A9A9A9'}}><FaSyncAlt style={{color:'#A9A9A9'}}></FaSyncAlt>Updated</p>
+              </CardBody>
+            </Card>
           </Col>
           <Col style={{ width: '33%' }}>
-          <Card>
-        <CardBody>
-          <CardTitle>Card title</CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
-          <Button>Button</Button>
-        </CardBody>
-      </Card>
+            <Card>
+              <CardBody>
+                <Row>
+                  <Col><FaTicketAlt size={70} style={{ color: 'orange' }} /></Col>
+                  <Col>
+                    <Row><Col ><h6>Tickets Raised</h6></Col></Row>
+                    <Row><Col ><h1>23</h1></Col></Row>
+                  </Col>
+                </Row>
+                <hr></hr>
+                <p>Last Hour</p>
+              </CardBody>
+            </Card>
           </Col>
-          
+
         </Row>
-        <Row style={{marginTop:'3%', marginLeft:'1%', marginRight:'1%'}}>
+        <Row style={{ marginTop: '3%', marginLeft: '1%', marginRight: '1%' }}>
           <Col style={{ width: '60%' }}>
             <Card style={{ backgroundColor: '#fff' }}>
               <CardBody>
                 <CardTitle>Ticket Statistics by Status</CardTitle>
                 <BarChart
-                  barGap={1} 
+                  barGap={1}
                   width={500}
                   height={300}
                   barSize={8}
@@ -189,8 +203,8 @@ class DashBoardForm extends React.Component {
                   }}
                 >
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" fontSize={11} tick={{stroke: '#6E6E6E', strokeWidth: 0.1, fontFamily:'Roboto,Helvetica Neue,Arial,sans-serif'}}/>
-                  <YAxis fontSize={12}  label={{  value: 'Ticket Count', angle: -90, position: 'insideLeft' }}/>
+                  <XAxis dataKey="name" fontSize={11} tick={{ stroke: '#6E6E6E', strokeWidth: 0.1, fontFamily: 'Roboto,Helvetica Neue,Arial,sans-serif' }} />
+                  <YAxis fontSize={12} label={{ value: 'Ticket Count', angle: -90, position: 'insideLeft' }} />
                   <Tooltip />
                   <Legend />
                   <Bar dataKey="pv" fill="#8884d8" />
@@ -218,8 +232,8 @@ class DashBoardForm extends React.Component {
                       pieGraphData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
                     }
                   </Pie>
-                  <Tooltip/>
-                  <Legend verticalAlign='bottom' align='left' layout='horizontal'/>
+                  <Tooltip />
+                  <Legend verticalAlign='bottom' align='left' layout='horizontal' />
                 </PieChart>
               </CardBody>
             </Card>
@@ -227,7 +241,7 @@ class DashBoardForm extends React.Component {
           </Col>
 
         </Row>
-        <Row style={{marginTop:'3%', marginLeft:'1%', marginRight:'1%'}}>
+        <Row style={{ marginTop: '3%', marginLeft: '1%', marginRight: '1%' }}>
           <Col style={{ width: '100%' }}>
             <Card style={{ backgroundColor: '#fff' }}>
               <CardBody>
@@ -253,7 +267,6 @@ class DashBoardForm extends React.Component {
 
           </Col>
         </Row>
-
       </div>
 
 
