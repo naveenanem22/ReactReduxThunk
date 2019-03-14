@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Table, Input } from 'reactstrap';
+import { Table, Input,InputGroupAddon, InputGroup, Button, Row, Col } from 'reactstrap';
+import { FaUserAlt } from 'react-icons/fa';
 import { Redirect } from 'react-router-dom';
 
 class ViewTicketsForm extends React.Component {
@@ -13,10 +14,12 @@ class ViewTicketsForm extends React.Component {
   }
 
   handleClick(e, ticket) {
-
     if (e.target.type == 'checkbox') {
-      
-    } else
+
+    } else if(e.target.type == 'search'){
+
+
+    }else
       this.setState({ redirect: true, ticketId: ticket.id });
   }
 
@@ -31,6 +34,7 @@ class ViewTicketsForm extends React.Component {
     }
 
     return (
+      <div>
       <Table hover bordered class="rounded mb-0">
         <thead>
           <tr>
@@ -51,10 +55,23 @@ class ViewTicketsForm extends React.Component {
               <td>{ticket.status}</td>
               <td>{ticket.title}</td>
               <td>{ticket.updatedDate}</td>
+              {true && <td><Input
+            type="search"
+            name="search"
+            id="exampleSearch"
+            placeholder=""
+          /></td>}
             </tr>
           )}
         </tbody>
       </Table>
+      <Row><Col>
+      <Button>Assign</Button>
+      </Col>
+      <Col><Button>Close</Button></Col></Row>
+      
+      
+      </div>
     );
 
   }
