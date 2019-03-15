@@ -61,9 +61,9 @@ export default class SearchInput extends React.Component {
                     onChange={this.handleChange}
                     autoComplete = "off"
                 />
-                {this.state.showList && <ListGroup style={{ position: 'absolute' }}>
+                {this.state.showList && <ListGroup style={{ width:'15%', position: 'absolute' }}>
                     { filteredSuggetions.map((suggestion) =>
-                        <ListGroupItem type='suggestion' onMouseDown={(e) => this.handleSelectOption(e)}>{suggestion.name}</ListGroupItem>)}
+                        <ListGroupItem action tag="a" href="#" type='suggestion' onMouseDown={(e) => this.handleSelectOption(e)}>{suggestion.name}</ListGroupItem>)}
 
                 </ListGroup>}
 
