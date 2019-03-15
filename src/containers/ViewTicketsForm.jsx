@@ -35,7 +35,7 @@ class ViewTicketsForm extends React.Component {
     this.props.engineers.forEach(engineer => {
       suggestions.push({name:engineer.userFullName})
     });
-    
+
      if (this.state.redirect) {
       return <Redirect push to={{
         pathname: "/ticketdetails",
@@ -72,9 +72,9 @@ class ViewTicketsForm extends React.Component {
           </tbody>
         </Table>
         <Row><Col>
-          <Button>Assign</Button>
+          <Button color="success" style={{width:'110px'}}>Assign</Button>
         </Col>
-          <Col><Button>Close</Button></Col></Row>
+          <Col><Button color="secondary" style={{width:'110px'}}>Close</Button></Col></Row>
 
 
       </div>
