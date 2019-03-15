@@ -49,7 +49,7 @@ export default class SearchInput extends React.Component {
                 />
                 {this.state.showList && <ListGroup style={{ position: 'absolute' }}>
                     {this.props.suggestions.map((suggestion) =>
-                        <ListGroupItem type='suggestion' onMouseDown={(e) => this.handleSelectOption(e)}>{suggestion.userFullName}</ListGroupItem>)}
+                        <ListGroupItem type='suggestion' onMouseDown={(e) => this.handleSelectOption(e)}>{suggestion.name}</ListGroupItem>)}
 
                 </ListGroup>}
 

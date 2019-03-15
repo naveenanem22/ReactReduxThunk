@@ -29,7 +29,13 @@ class ViewTicketsForm extends React.Component {
 
 
 
-  render() {   
+  render() {
+    //Make suggestions array with names from engineers array
+    var suggestions = [];
+    this.props.engineers.forEach(engineer => {
+      suggestions.push({name:engineer.userFullName})
+    });
+    
      if (this.state.redirect) {
       return <Redirect push to={{
         pathname: "/ticketdetails",
@@ -59,7 +65,7 @@ class ViewTicketsForm extends React.Component {
                 <td>{ticket.status}</td>
                 <td>{ticket.title}</td>
                 <td>{ticket.updatedDate}</td>
-                {true && <td><SearchInput suggestions={this.props.engineers}></SearchInput>
+                {true && <td><SearchInput suggestions={suggestions}></SearchInput>
                 </td>}
               </tr>
             )}
