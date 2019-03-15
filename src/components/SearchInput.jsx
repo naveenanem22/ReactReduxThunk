@@ -34,12 +34,12 @@ export default class SearchInput extends React.Component {
     handleChange(e) {
         console.log(e.target.value);
         //Filter suggestions list with key
-       
+        
 
         this.setState({
             selectedValue: e.target.value,
             keyword:e.target.value,
-            showList : true
+            showList : e.target.value==''?false:true
         });
 
     }
