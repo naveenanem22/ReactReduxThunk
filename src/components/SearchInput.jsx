@@ -59,6 +59,7 @@ export default class SearchInput extends React.Component {
                     onBlur={(e) => this.handleFocusOut(e)}
                     value={this.state.selectedValue}
                     onChange={this.handleChange}
+                    autoComplete = "off"
                 />
                 {this.state.showList && <ListGroup style={{ position: 'absolute' }}>
                     { filteredSuggetions.map((suggestion) =>
