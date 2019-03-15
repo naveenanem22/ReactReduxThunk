@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListGroup, ListGroupItem, Input} from 'reactstrap';
+import { ListGroup, ListGroupItem, Input } from 'reactstrap';
 import { FaUser, FaAngleDoubleRight } from 'react-icons/fa';
 import history from '../history';
 
@@ -7,7 +7,7 @@ export default class SearchInput extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showList:false,
+            showList: false,
             selectedValue: ''
         };
         this.handleClick = this.handleClick.bind(this);
@@ -15,44 +15,42 @@ export default class SearchInput extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleClick(e){
-        
-        this.setState({ showList: true});
+    handleClick(e) {
+
+        this.setState({ showList: true });
     }
 
-    handleSelectOption(e){
-        this.setState({selectedValue:e.target.innerText})
+    handleSelectOption(e) {
+        this.setState({ selectedValue: e.target.innerText })
     }
 
-    handleFocusOut(e){
-        this.setState({showList: false});
+    handleFocusOut(e) {
+        this.setState({ showList: false });
     }
 
-    handleChange(e){
+    handleChange(e) {
         this.setState({
-            selectedValue:e.target.value
+            selectedValue: e.target.value
         });
     }
 
     render() {
         return (
             <div >
-                <Input style={{height:'25px', textSizeAdjust:'auto'}}
+                <Input style={{ height: '25px', textSizeAdjust: 'auto' }}
                     type="text"
                     name="search"
                     id="exampleSearch"
                     placeholder=""
-                    onClick={(e)=>this.handleClick(e)}
-                    onBlur={(e)=>this.handleFocusOut(e)}
-                    value = {this.state.selectedValue}
-                    onChange = {this.handleChange}
+                    onClick={(e) => this.handleClick(e)}
+                    onBlur={(e) => this.handleFocusOut(e)}
+                    value={this.state.selectedValue}
+                    onChange={this.handleChange}
                 />
                 {this.state.showList && <ListGroup style={{ position: 'absolute' }}>
-                    <ListGroupItem type='suggestion' onMouseDown={(e)=>this.handleSelectOption(e)}>Cras justo odio</ListGroupItem>
-                    <ListGroupItem type='suggestion' onMouseDown={(e)=>this.handleSelectOption(e)}>Dapibus ac facilisis in</ListGroupItem>
-                    <ListGroupItem type='suggestion' onMouseDown={(e)=>this.handleSelectOption(e)}>Morbi leo risus</ListGroupItem>
-                    <ListGroupItem type='suggestion' onMouseDown={(e)=>this.handleSelectOption(e)}>Porta ac consectetur ac</ListGroupItem>
-                    <ListGroupItem type='suggestion' onMouseDown={(e)=>this.handleSelectOption(e)}>Vestibulum at eros</ListGroupItem>
+                    {this.props.suggestions.map((suggestion) =>
+                        <ListGroupItem type='suggestion' onMouseDown={(e) => this.handleSelectOption(e)}>{suggestion.userFullName}</ListGroupItem>)}
+
                 </ListGroup>}
 
             </div>

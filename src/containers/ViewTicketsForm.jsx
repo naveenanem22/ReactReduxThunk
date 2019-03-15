@@ -30,12 +30,12 @@ class ViewTicketsForm extends React.Component {
 
 
   render() {
-    if (this.state.redirect) {
+     if (this.state.redirect) {
       return <Redirect push to={{
         pathname: "/ticketdetails",
         search: "?ticketId=" + this.state.ticketId
       }} />;
-    }
+    } 
 
     return (
       <div>
@@ -59,7 +59,7 @@ class ViewTicketsForm extends React.Component {
                 <td>{ticket.status}</td>
                 <td>{ticket.title}</td>
                 <td>{ticket.updatedDate}</td>
-                {true && <td><SearchInput></SearchInput>
+                {true && <td><SearchInput suggestions={this.props.user.engineerList.engineers}></SearchInput>
                 </td>}
               </tr>
             )}
