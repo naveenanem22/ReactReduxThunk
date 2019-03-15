@@ -29,7 +29,7 @@ class ViewTicketsForm extends React.Component {
 
 
 
-  render() {
+  render() {   
      if (this.state.redirect) {
       return <Redirect push to={{
         pathname: "/ticketdetails",
@@ -59,7 +59,7 @@ class ViewTicketsForm extends React.Component {
                 <td>{ticket.status}</td>
                 <td>{ticket.title}</td>
                 <td>{ticket.updatedDate}</td>
-                {true && <td><SearchInput suggestions={this.props.user.engineerList.engineers}></SearchInput>
+                {true && <td><SearchInput suggestions={this.props.engineers}></SearchInput>
                 </td>}
               </tr>
             )}
@@ -81,7 +81,8 @@ class ViewTicketsForm extends React.Component {
 const mapStateToProps = function (state) {
   return {
     tickets: state.ticketList.tickets,
-    user: state.user
+    user: state.user,
+    engineers: state.engineerList.engineers
   }
 }
 
