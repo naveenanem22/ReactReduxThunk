@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Table, Input,InputGroupAddon, InputGroup, Button, Row, Col } from 'reactstrap';
+import { Table, Input, InputGroupAddon, InputGroup, Button, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 import { FaUserAlt } from 'react-icons/fa';
 import { Redirect } from 'react-router-dom';
+import SearchInput from '../components/SearchInput';
 
 class ViewTicketsForm extends React.Component {
 
@@ -14,12 +15,15 @@ class ViewTicketsForm extends React.Component {
   }
 
   handleClick(e, ticket) {
+    
+
     if (e.target.type == 'checkbox') {
 
-    } else if(e.target.type == 'search'){
+    } else if (e.target.type == 'search') {
 
+    } else if (e.target.type == 'suggestion') {
 
-    }else
+    } else
       this.setState({ redirect: true, ticketId: ticket.id });
   }
 
@@ -35,42 +39,38 @@ class ViewTicketsForm extends React.Component {
 
     return (
       <div>
-      <Table hover bordered class="rounded mb-0">
-        <thead>
-          <tr>
-            {true && <th></th>}
-            <th>Ticket#</th>
-            <th>Status</th>
-            <th>Title</th>
-            <th>Updated</th>
-            <th>Assign To</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.props.tickets.map((ticket) =>
-
-            <tr onClick={(e) => this.handleClick(e, ticket)}>
-              {true && <td><Input style={{ marginLeft: '0%' }} type="checkbox" /></td>}
-              <td scope="row">{ticket.id}</td>
-              <td>{ticket.status}</td>
-              <td>{ticket.title}</td>
-              <td>{ticket.updatedDate}</td>
-              {true && <td><Input
-            type="search"
-            name="search"
-            id="exampleSearch"
-            placeholder=""
-          /></td>}
+        <Table hover bordered class="rounded mb-0">
+          <thead>
+            <tr>
+              {true && <th></th>}
+              <th>Ticket#</th>
+              <th>Status</th>
+              <th>Title</th>
+              <th>Updated</th>
+              <th>Assign To</th>
             </tr>
-          )}
-        </tbody>
-      </Table>
-      <Row><Col>
-      <Button>Assign</Button>
-      </Col>
-      <Col><Button>Close</Button></Col></Row>
-      
-      
+          </thead>
+          <tbody>
+            {this.props.tickets.map((ticket) =>
+
+              <tr onClick={(e) => this.handleClick(e, ticket)}>
+                {true && <td><Input style={{ marginLeft: '0%' }} type="checkbox" /></td>}
+                <td scope="row">{ticket.id}</td>
+                <td>{ticket.status}</td>
+                <td>{ticket.title}</td>
+                <td>{ticket.updatedDate}</td>
+                {true && <td><SearchInput></SearchInput>
+                </td>}
+              </tr>
+            )}
+          </tbody>
+        </Table>
+        <Row><Col>
+          <Button>Assign</Button>
+        </Col>
+          <Col><Button>Close</Button></Col></Row>
+
+
       </div>
     );
 
