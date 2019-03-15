@@ -7,7 +7,8 @@ export default class SearchInput extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showList:false
+            showList:false,
+            selectedValue: ''
         };
         this.handleClick = this.handleClick.bind(this);
         this.handleSelectOption = this.handleSelectOption.bind(this);
@@ -19,24 +20,24 @@ export default class SearchInput extends React.Component {
     }
 
     handleSelectOption(e){
-        console.log("Suggestion clicked");
+        this.setState({selectedValue:e.target.innerText})
     }
 
     handleFocusOut(e){
-        console.log("onblur");
         this.setState({showList: false});
     }
 
     render() {
         return (
             <div >
-                <Input
+                <Input style={{height:'25px', textSizeAdjust:'auto'}}
                     type="search"
                     name="search"
                     id="exampleSearch"
                     placeholder=""
                     onClick={(e)=>this.handleClick(e)}
                     onBlur={(e)=>this.handleFocusOut(e)}
+                    value = {this.state.selectedValue}
                 />
                 {this.state.showList && <ListGroup style={{ position: 'absolute' }}>
                     <ListGroupItem type='suggestion' onMouseDown={(e)=>this.handleSelectOption(e)}>Cras justo odio</ListGroupItem>
