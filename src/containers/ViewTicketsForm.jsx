@@ -19,7 +19,7 @@ class ViewTicketsForm extends React.Component {
 
     if (e.target.type == 'checkbox') {
 
-    } else if (e.target.type == 'search') {
+    } else if (e.target.type == 'text') {
 
     } else if (e.target.type == 'suggestion') {
 

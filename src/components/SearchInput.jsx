@@ -12,6 +12,7 @@ export default class SearchInput extends React.Component {
         };
         this.handleClick = this.handleClick.bind(this);
         this.handleSelectOption = this.handleSelectOption.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     handleClick(e){
@@ -27,17 +28,24 @@ export default class SearchInput extends React.Component {
         this.setState({showList: false});
     }
 
+    handleChange(e){
+        this.setState({
+            selectedValue:e.target.value
+        });
+    }
+
     render() {
         return (
             <div >
                 <Input style={{height:'25px', textSizeAdjust:'auto'}}
-                    type="search"
+                    type="text"
                     name="search"
                     id="exampleSearch"
                     placeholder=""
                     onClick={(e)=>this.handleClick(e)}
                     onBlur={(e)=>this.handleFocusOut(e)}
                     value = {this.state.selectedValue}
+                    onChange = {this.handleChange}
                 />
                 {this.state.showList && <ListGroup style={{ position: 'absolute' }}>
                     <ListGroupItem type='suggestion' onMouseDown={(e)=>this.handleSelectOption(e)}>Cras justo odio</ListGroupItem>
