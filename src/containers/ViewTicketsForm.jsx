@@ -67,12 +67,12 @@ class ViewTicketsForm extends React.Component {
             {this.props.tickets.map((ticket) =>
 
               <tr onClick={(e) => this.handleClick(e, ticket)}>
-                {true && <td ><Input style={{ marginLeft: '0%' }} type="checkbox" /></td>}
+                {true && <td style={{width:'5%', textAlign:'center'}}><Input style={{ marginLeft: '0%'}} type="checkbox" /></td>}
                 <td style={{fontFamily:'Helvetica Neue, Arial, sans-serif', fontSize:'14px'}}>{ticket.id}</td>
                 <td style={{fontFamily:'Helvetica Neue, Arial, sans-serif', fontSize:'14px'}}>{ticket.status}</td>
                 <td style={{fontFamily:'Helvetica Neue, Arial, sans-serif', fontSize:'14px'}}>{ticket.title}</td>
                 <td style={{fontFamily:'Helvetica Neue, Arial, sans-serif', fontSize:'14px'}}>{ticket.updatedDate}</td>
-                {true && <td><SearchInput suggestions={suggestions}></SearchInput>
+                {true && <td style={{marginRight:'1%'}}><SearchInput suggestions={suggestions}></SearchInput>
                 </td>}
               </tr>
             )}
