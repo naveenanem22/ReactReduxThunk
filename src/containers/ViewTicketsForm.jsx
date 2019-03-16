@@ -4,14 +4,25 @@ import { Table, Container, Input, InputGroupAddon, InputGroup, Button, Row, Col,
 import { FaUserAlt } from 'react-icons/fa';
 import { Redirect } from 'react-router-dom';
 import SearchInput from '../components/SearchInput';
+import { assignAndUpdateMultipleTicketsAPICall } from '../actions/TicketActions';
 
 class ViewTicketsForm extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      ticketsToAssignAndUpdate: []
+
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleAssign = this.handleAssign.bind(this);
+    this.handleCheckAndUnCheck = this.handleCheckAndUnCheck.bind(this);
+  }
+
+  handleAssign(e) {
+    e.preventDefault();
+    console.log("Making assignTickets Service call");
+    this.props.assignAndUpdateTickets(this.state.ticketsToAssignAndUpdate);
   }
 
   handleClick(e, ticket) {
@@ -27,9 +38,30 @@ class ViewTicketsForm extends React.Component {
       this.setState({ redirect: true, ticketId: ticket.id });
   }
 
+  handleCheckAndUnCheck(e, ticket) {
+    
+    //Add ticket from list if checked
+    if (e.target.checked)
+      this.setState({
+        tickets: this.state.ticketsToAssignAndUpdate.push(ticket)
+      })
+    //Remove ticket from list if unchecked
+    else{
+      var index = this.state.ticketsToAssignAndUpdate.indexOf(ticket);
+      if (index > -1) {
+        this.state.ticketsToAssignAndUpdate.splice(index, 1);
+        this.setState({
+          tickets: this.state.ticketsToAssignAndUpdate
+        })
+      }
+    }
+
+  }
+
 
 
   render() {
+    console.log("From ViewTicketsFrom:  " + JSON.stringify(this.state.ticketsToAssignAndUpdate));
     //Make suggestions array with names from engineers array
     var suggestions = [];
     this.props.engineers.forEach(engineer => {
@@ -44,15 +76,15 @@ class ViewTicketsForm extends React.Component {
     }
 
     return (
-      <div style={{marginLeft:'1%', marginRight:'1%'}}>
-        <Container style={{marginTop:'3%'}}><Row style={{ textAlign: 'left' }}>
+      <div style={{ marginLeft: '1%', marginRight: '1%' }}>
+        <Container style={{ marginTop: '3%' }}><Row style={{ textAlign: 'left' }}>
           <h4>New Tickets</h4>
         </Row>
-        <Row style={{ textAlign: 'left' }}>
-          <p>Assign or Close the tickets multiple or individual.</p>
-        </Row>
+          <Row style={{ textAlign: 'left' }}>
+            <p>Assign or Close the tickets multiple or individual.</p>
+          </Row>
         </Container>
-        <Table size='sm' hover bordered class="rounded mb-0" style={{marginTop:'1%'}}>
+        <Table size='sm' hover bordered class="rounded mb-0" style={{ marginTop: '1%' }}>
           <thead>
             <tr>
               {true && <th></th>}
@@ -67,21 +99,21 @@ class ViewTicketsForm extends React.Component {
             {this.props.tickets.map((ticket) =>
 
               <tr onClick={(e) => this.handleClick(e, ticket)}>
-                {true && <td style={{width:'5%', textAlign:'center'}}><Input style={{ marginLeft: '0%'}} type="checkbox" /></td>}
-                <td style={{fontFamily:'Helvetica Neue, Arial, sans-serif', fontSize:'14px'}}>{ticket.id}</td>
-                <td style={{fontFamily:'Helvetica Neue, Arial, sans-serif', fontSize:'14px'}}>{ticket.status}</td>
-                <td style={{fontFamily:'Helvetica Neue, Arial, sans-serif', fontSize:'14px'}}>{ticket.title}</td>
-                <td style={{fontFamily:'Helvetica Neue, Arial, sans-serif', fontSize:'14px'}}>{ticket.updatedDate}</td>
-                {true && <td style={{marginRight:'1%'}}><SearchInput suggestions={suggestions}></SearchInput>
+                {true && <td style={{ width: '5%', textAlign: 'center' }}><Input style={{ marginLeft: '0%' }} type="checkbox" onChange={(e) => this.handleCheckAndUnCheck(e, ticket)} /></td>}
+                <td style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>{ticket.id}</td>
+                <td style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>{ticket.status}</td>
+                <td style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>{ticket.title}</td>
+                <td style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>{ticket.updatedDate}</td>
+                {true && <td style={{ marginRight: '1%' }}><SearchInput suggestions={suggestions}></SearchInput>
                 </td>}
               </tr>
             )}
           </tbody>
         </Table>
-        <Container style={{marginTop:'3%', marginBottom:'3%'}}><Row style={{ textAlign: 'center' }}>
+        <Container style={{ marginTop: '3%', marginBottom: '3%' }}><Row style={{ textAlign: 'center' }}>
           <Col style={{ textAlign: 'center' }}>
-            <Button color="success" style={{ width: '110px', marginRight:'5%' }}>Assign</Button>
-            <Button color="secondary" style={{ width: '110px', marginLeft:'5%' }}>Close</Button>
+            <Button color="success" style={{ width: '110px', marginRight: '5%' }} onClick={(e) => this.handleAssign(e)}>Assign</Button>
+            <Button color="secondary" style={{ width: '110px', marginLeft: '5%' }}>Close</Button>
           </Col>
         </Row>
         </Container>
@@ -103,6 +135,9 @@ const mapStateToProps = function (state) {
   }
 }
 
+const mapActionsToProps = {
+  assignAndUpdateTickets: assignAndUpdateMultipleTicketsAPICall
+}
 
 
-export default connect(mapStateToProps)(ViewTicketsForm);
+export default connect(mapStateToProps, mapActionsToProps)(ViewTicketsForm);

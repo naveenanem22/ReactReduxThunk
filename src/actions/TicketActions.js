@@ -1,5 +1,5 @@
 import { CREATE_TICKET, ADD_MESSAGE_SUCCESS,ADD_MESSAGE_FAILURE, CLOSE_TICKET_SUCCESS,CLOSE_TICKET_FAILURE } from './ActionTypes';
-import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS, FETCH_TICKET_DETAILS_SUCCESS } from './ActionTypes';
+import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS, FETCH_TICKET_DETAILS_SUCCESS, ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET_FAILURE } from './ActionTypes';
 import FileSaver from 'file-saver';
 
 export function createTicket(){
@@ -56,6 +56,17 @@ export function closeTicketFailure(){
     }
 }
 
+export function assignAndUpdateMultipleTicketsSuccess(){
+    return {
+        type : ASSIGN_UPDATE_TICKET_SUCCESS
+    }
+}
+
+export function assignAndUpdateMultipleTicketsFailure(){
+    return {
+        type : ASSIGN_UPDATE_TICKET_FAILURE
+    }
+}
 
 export function createTicketAPICall(ticket){
     console.log(ticket);
@@ -170,6 +181,34 @@ export function addMessageAPICall(params){
                console.log('An error occurred.', error);
                dispatch(addMessageFailure());
         }
+       );
+      };
+}
+
+
+export function assignAndUpdateMultipleTicketsAPICall(params){
+    console.log("params: "+JSON.stringify(params));
+    let headers = new Headers();    
+    headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    
+    var url = new URL("http://localhost:8080/v0/ticket-management/tickets");
+    return function (dispatch) {      
+        return fetch(url,{
+            method: 'PUT',
+            headers: headers,
+            body:JSON.stringify(params)
+        })
+        .then(
+           response => {
+               if(response.status === 204){
+                dispatch(assignAndUpdateMultipleTicketsSuccess());
+               }
+               
+           },
+           error => {
+            console.log('An error occurred.', error);
+            dispatch(assignAndUpdateMultipleTicketsFailure());
+           }
        );
       };
 }
