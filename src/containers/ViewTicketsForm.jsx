@@ -70,16 +70,14 @@ class ViewTicketsForm extends React.Component {
       });
       console.log(this.state.tickets);
     }
-
-
-
-
+    else{
     //Filter unchecked ticket-rows and send only checked ticket-rows    
     var ticketsToUpdate = this.state.tickets.filter(ticket => {
       return (ticket.selected === true);
     })
 
     this.props.assignAndUpdateTickets(ticketsToUpdate);
+  }
   }
 
   isEveryTicketHasvalidData(tickets) {
