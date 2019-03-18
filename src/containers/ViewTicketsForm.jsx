@@ -11,12 +11,29 @@ class ViewTicketsForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      tickets:this.props.tickets,
       ticketsToAssignAndUpdate: []
 
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleAssign = this.handleAssign.bind(this);
     this.handleCheckAndUnCheck = this.handleCheckAndUnCheck.bind(this);
+    this.updateAssignedValue = this.updateAssignedValue.bind(this);
+  }
+
+  updateAssignedValue(e, targetTicket){
+    console.log("updateAssignedValue: "+e.target.type);
+    var tempTicketsArr = this.state.tickets;
+    tempTicketsArr.forEach(ticket => {
+      if(ticket.id === targetTicket.id){
+        ticket.assignedTo = e.target.value;
+        return;
+      }
+    });
+
+    this.setState({
+      tickets : tempTicketsArr
+    });
   }
 
   handleAssign(e) {
@@ -38,22 +55,39 @@ class ViewTicketsForm extends React.Component {
       this.setState({ redirect: true, ticketId: ticket.id });
   }
 
-  handleCheckAndUnCheck(e, ticket) {
+  handleCheckAndUnCheck(e, targetTicket) {
     
     //Add ticket from list if checked
-    if (e.target.checked)
+    if (e.target.checked){
+      //Find and update ticket' selection
+      var tempTicketsArr = this.state.tickets;
+
+      tempTicketsArr.forEach(ticket => {
+        if(ticket.id === targetTicket.id){
+        ticket.selected = true;
+        return;
+        }
+      });
+
       this.setState({
-        tickets: this.state.ticketsToAssignAndUpdate.push(ticket)
+        tickets : tempTicketsArr
       })
+    }
     //Remove ticket from list if unchecked
     else{
-      var index = this.state.ticketsToAssignAndUpdate.indexOf(ticket);
-      if (index > -1) {
-        this.state.ticketsToAssignAndUpdate.splice(index, 1);
-        this.setState({
-          tickets: this.state.ticketsToAssignAndUpdate
-        })
-      }
+      //Find and update ticket's selection
+      var tempTicketsArr =this.state.tickets;
+
+      tempTicketsArr.forEach(ticket => {
+        if(ticket.id === targetTicket.id){
+          ticket.selected = false;
+          return;
+        }
+      });
+
+      this.setState({
+        tickets : tempTicketsArr
+      })
     }
 
   }
@@ -61,7 +95,7 @@ class ViewTicketsForm extends React.Component {
 
 
   render() {
-    console.log("From ViewTicketsFrom:  " + JSON.stringify(this.state.ticketsToAssignAndUpdate));
+    console.log("From ViewTicketsFrom:  " + JSON.stringify(this.state.tickets));
     //Make suggestions array with names from engineers array
     var suggestions = [];
     this.props.engineers.forEach(engineer => {
@@ -96,7 +130,7 @@ class ViewTicketsForm extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.tickets.map((ticket) =>
+            {this.state.tickets.map((ticket) =>
 
               <tr onClick={(e) => this.handleClick(e, ticket)}>
                 {true && <td style={{ width: '5%', textAlign: 'center' }}><Input style={{ marginLeft: '0%' }} type="checkbox" onChange={(e) => this.handleCheckAndUnCheck(e, ticket)} /></td>}
