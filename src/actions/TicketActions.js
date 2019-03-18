@@ -190,7 +190,7 @@ export function assignAndUpdateMultipleTicketsAPICall(params){
     console.log("params: "+JSON.stringify(params));
     let headers = new Headers();    
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    
+    headers.append('Content-Type', 'application/json');
     var url = new URL("http://localhost:8080/v0/ticket-management/tickets");
     return function (dispatch) {      
         return fetch(url,{
