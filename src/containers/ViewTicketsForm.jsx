@@ -10,8 +10,9 @@ class ViewTicketsForm extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
-      tickets:this.props.tickets,
+      tickets: this.processPropsForInitialState(this.props.tickets),
       ticketsToAssignAndUpdate: []
 
     };
@@ -19,33 +20,81 @@ class ViewTicketsForm extends React.Component {
     this.handleAssign = this.handleAssign.bind(this);
     this.handleCheckAndUnCheck = this.handleCheckAndUnCheck.bind(this);
     this.updateAssignedValue = this.updateAssignedValue.bind(this);
+    this.processPropsForInitialState = this.processPropsForInitialState.bind(this);
+    this.isEveryTicketHasvalidData = this.isEveryTicketHasvalidData.bind(this);
+
   }
 
-  updateAssignedValue(selectedValue, targetTicket){
+  processPropsForInitialState(tickets) {
+    //Initialize isInValid = false for SearchInput field
+    tickets.forEach(ticket => {
+      ticket.isAssignedToInvalid = false;
+      ticket.selected = false;
+      ticket.assignedTo = { userName: '' };
+    })
+    return tickets;
+  }
+
+  updateAssignedValue(selectedValue, targetTicket) {
     var tempTicketsArr = this.state.tickets;
     tempTicketsArr.forEach(ticket => {
-      if(ticket.id === targetTicket.id){
+      if (ticket.id === targetTicket.id) {
         ticket.assignedTo = {
-          userName : selectedValue          
+          userName: selectedValue
         }
+      if (ticket.isAssignedToInvalid == true)
+          ticket.isAssignedToInvalid = false;  
         return;
       }
     });
 
     this.setState({
-      tickets : tempTicketsArr
+      tickets: tempTicketsArr      
     });
   }
 
   handleAssign(e) {
     e.preventDefault();
+    //Perform UI validations for required data
+    if (!this.isEveryTicketHasvalidData(this.state.tickets)) {
+      console.log("Invalid data present");
+      var ticketsListUIValidations = this.state.tickets.map(ticket => {
+        if (ticket.selected === true && ticket.assignedTo.userName === '')
+          ticket.isAssignedToInvalid = true;
+
+          return ticket;
+      });
+      console.log("UIValidations: "+ticketsListUIValidations);
+      this.setState({
+        tickets: ticketsListUIValidations
+      });
+      console.log(this.state.tickets);
+    }
+
+
+
+
     //Filter unchecked ticket-rows and send only checked ticket-rows    
     var ticketsToUpdate = this.state.tickets.filter(ticket => {
       return (ticket.selected === true);
     })
-    
+
     this.props.assignAndUpdateTickets(ticketsToUpdate);
   }
+
+  isEveryTicketHasvalidData(tickets) {
+    console.log("Inside isAtLeastOneTicketWithInvalidDataPresent");
+    console.log(tickets);
+    tickets.every(ticket => {
+      console.log("ticket.selected: "+ticket.selected);
+      console.log("ticket.assignedTo.userName: "+ticket.assignedTo.userName);
+      if(ticket.selected === true)
+         return ticket.assignedTo.userName !== "";
+        
+    });
+  }
+
+
 
   handleClick(e, ticket) {
 
@@ -61,37 +110,37 @@ class ViewTicketsForm extends React.Component {
   }
 
   handleCheckAndUnCheck(e, targetTicket) {
-    
+
     //Add ticket from list if checked
-    if (e.target.checked){
+    if (e.target.checked) {
       //Find and update ticket' selection
       var tempTicketsArr = this.state.tickets;
 
       tempTicketsArr.forEach(ticket => {
-        if(ticket.id === targetTicket.id){
-        ticket.selected = true;
-        return;
+        if (ticket.id === targetTicket.id) {
+          ticket.selected = true;
+          return;
         }
       });
 
       this.setState({
-        tickets : tempTicketsArr
+        tickets: tempTicketsArr
       })
     }
     //Remove ticket from list if unchecked
-    else{
+    else {
       //Find and update ticket's selection
-      var tempTicketsArr =this.state.tickets;
+      var tempTicketsArr = this.state.tickets;
 
       tempTicketsArr.forEach(ticket => {
-        if(ticket.id === targetTicket.id){
+        if (ticket.id === targetTicket.id) {
           ticket.selected = false;
           return;
         }
       });
 
       this.setState({
-        tickets : tempTicketsArr
+        tickets: tempTicketsArr
       })
     }
 
@@ -101,11 +150,14 @@ class ViewTicketsForm extends React.Component {
 
   render() {
     //console.log("From ViewTicketsFrom:  " + JSON.stringify(this.state.tickets));
-    //Make suggestions array with names from engineers array
+    //Initialize suggestions array with names from engineers array
     var suggestions = [];
     this.props.engineers.forEach(engineer => {
       suggestions.push({ name: engineer.userFullName })
     });
+
+
+
 
     if (this.state.redirect) {
       return <Redirect push to={{
@@ -143,7 +195,7 @@ class ViewTicketsForm extends React.Component {
                 <td style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>{ticket.status}</td>
                 <td style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>{ticket.title}</td>
                 <td style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>{ticket.updatedDate}</td>
-                {true && <td style={{ marginRight: '1%' }}><SearchInput onSelectSuggestion={selectedValue => this.updateAssignedValue(selectedValue, ticket)} suggestions={suggestions}></SearchInput>
+                {true && <td style={{ marginRight: '1%' }}><SearchInput isInValid={ticket.isAssignedToInvalid} onSelectSuggestion={selectedValue => this.updateAssignedValue(selectedValue, ticket)} suggestions={suggestions}></SearchInput>
                 </td>}
               </tr>
             )}

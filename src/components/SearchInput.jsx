@@ -9,12 +9,22 @@ export default class SearchInput extends React.Component {
         this.state = {
             showList: false,
             selectedValue: '',
-            keyword:''
+            keyword:'',
+            isInValid:this.props.isInValid
         };
         this.handleClick = this.handleClick.bind(this);
         this.handleSelectOption = this.handleSelectOption.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
+
+    static getDerivedStateFromProps(props, current_state) {
+        if (current_state.isInValid !== props.isInValid) {
+            return {
+                isInValid: props.isInValid              
+            }
+          }
+          return null
+      }
 
     handleKeyDown(e){
         if (e.keyCode === 8) {
@@ -57,7 +67,7 @@ export default class SearchInput extends React.Component {
         })
         return (
             <div >
-                <Input style={{ height: '25px', textSizeAdjust: 'auto' }}
+                <Input invalid={this.state.isInValid} style={{ height: '25px', textSizeAdjust: 'auto' }}
                     type="text"
                     name="search"
                     id="exampleSearch"
