@@ -26,8 +26,7 @@ class ViewTicketsForm extends React.Component {
     tempTicketsArr.forEach(ticket => {
       if(ticket.id === targetTicket.id){
         ticket.assignedTo = {
-          userName : selectedValue,
-          id : 1
+          userName : selectedValue          
         }
         return;
       }
@@ -40,8 +39,12 @@ class ViewTicketsForm extends React.Component {
 
   handleAssign(e) {
     e.preventDefault();
-    console.log("Making assignTickets Service call");
-    this.props.assignAndUpdateTickets(this.state.tickets);
+    //Filter unchecked ticket-rows and send only checked ticket-rows    
+    var ticketsToUpdate = this.state.tickets.filter(ticket => {
+      return (ticket.selected === true);
+    })
+    
+    this.props.assignAndUpdateTickets(ticketsToUpdate);
   }
 
   handleClick(e, ticket) {
@@ -97,7 +100,7 @@ class ViewTicketsForm extends React.Component {
 
 
   render() {
-    console.log("From ViewTicketsFrom:  " + JSON.stringify(this.state.tickets));
+    //console.log("From ViewTicketsFrom:  " + JSON.stringify(this.state.tickets));
     //Make suggestions array with names from engineers array
     var suggestions = [];
     this.props.engineers.forEach(engineer => {
