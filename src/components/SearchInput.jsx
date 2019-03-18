@@ -24,6 +24,7 @@ export default class SearchInput extends React.Component {
     }
 
     handleSelectOption(e) {
+        this.props.onSelectSuggestion(e.target.innerText);
         this.setState({ selectedValue: e.target.innerText })
     }
 

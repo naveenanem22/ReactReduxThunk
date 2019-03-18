@@ -21,12 +21,11 @@ class ViewTicketsForm extends React.Component {
     this.updateAssignedValue = this.updateAssignedValue.bind(this);
   }
 
-  updateAssignedValue(e, targetTicket){
-    console.log("updateAssignedValue: "+e.target.type);
+  updateAssignedValue(selectedValue, targetTicket){
     var tempTicketsArr = this.state.tickets;
     tempTicketsArr.forEach(ticket => {
       if(ticket.id === targetTicket.id){
-        ticket.assignedTo = e.target.value;
+        ticket.assignedTo = selectedValue;
         return;
       }
     });
@@ -138,7 +137,7 @@ class ViewTicketsForm extends React.Component {
                 <td style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>{ticket.status}</td>
                 <td style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>{ticket.title}</td>
                 <td style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>{ticket.updatedDate}</td>
-                {true && <td style={{ marginRight: '1%' }}><SearchInput suggestions={suggestions}></SearchInput>
+                {true && <td style={{ marginRight: '1%' }}><SearchInput onSelectSuggestion={selectedValue => this.updateAssignedValue(selectedValue, ticket)} suggestions={suggestions}></SearchInput>
                 </td>}
               </tr>
             )}
