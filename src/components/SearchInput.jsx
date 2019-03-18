@@ -16,6 +16,12 @@ export default class SearchInput extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
+    handleKeyDown(e){
+        if (e.keyCode === 8) {
+            console.log('delete');
+           }
+    }
+
     
 
     handleClick(e) {
@@ -35,7 +41,7 @@ export default class SearchInput extends React.Component {
     handleChange(e) {
         console.log(e.target.value);
         //Filter suggestions list with key
-        
+        this.props.onSelectSuggestion(e.target.value);
 
         this.setState({
             selectedValue: e.target.value,
