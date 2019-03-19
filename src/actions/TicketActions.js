@@ -1,5 +1,5 @@
 import { CREATE_TICKET, ADD_MESSAGE_SUCCESS,ADD_MESSAGE_FAILURE, CLOSE_TICKET_SUCCESS,CLOSE_TICKET_FAILURE } from './ActionTypes';
-import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS, FETCH_TICKET_DETAILS_SUCCESS, ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET_FAILURE } from './ActionTypes';
+import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS, FETCH_TICKET_DETAILS_SUCCESS, ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET_FAILURE, ASSIGN_UPDATE_TICKET } from './ActionTypes';
 import FileSaver from 'file-saver';
 
 export function createTicket(){
@@ -53,6 +53,12 @@ export function closeTicketSuccess(){
 export function closeTicketFailure(){
     return {
         type : CLOSE_TICKET_FAILURE
+    }
+}
+
+export function assignAndUpdateMultipleTickets(){
+    return {
+        type : ASSIGN_UPDATE_TICKET
     }
 }
 
@@ -187,12 +193,14 @@ export function addMessageAPICall(params){
 
 
 export function assignAndUpdateMultipleTicketsAPICall(params){
+    
     console.log("params: "+JSON.stringify(params));
     let headers = new Headers();    
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     headers.append('Content-Type', 'application/json');
     var url = new URL("http://localhost:8080/v0/ticket-management/tickets");
     return function (dispatch) {      
+        dispatch(assignAndUpdateMultipleTickets());
         return fetch(url,{
             method: 'PUT',
             headers: headers,

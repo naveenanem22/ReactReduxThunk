@@ -82,12 +82,14 @@ class ViewTicketsForm extends React.Component {
 
   isEveryTicketHasvalidData(tickets) {
     console.log("Inside isAtLeastOneTicketWithInvalidDataPresent");
-    console.log(tickets);
-    tickets.every(ticket => {
+    console.log(JSON.stringify(tickets));
+    return tickets.every(ticket => {
       console.log("ticket.selected: "+ticket.selected);
       console.log("ticket.assignedTo.userName: "+ticket.assignedTo.userName);
       if(ticket.selected === true)
          return ticket.assignedTo.userName !== "";
+      else
+         return true;
         
     });
   }
