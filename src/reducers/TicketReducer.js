@@ -23,7 +23,7 @@ export function ticketReducer(state = {}, action) {
 
         case ASSIGN_UPDATE_TICKET_SUCCESS:
             return {
-                ...state, tickets: action.payload.tickets, isLoadingScreenInViewTicketspage: false,
+                ...state, isLoadingScreenInViewTicketspage: false,
                 isViewTicketsFormVisible: true
             };
 
