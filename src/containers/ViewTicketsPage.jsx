@@ -17,13 +17,7 @@ class ViewTicketsPage extends React.Component {
   }
 
   componentDidMount() {
-    const queryParams = new URLSearchParams(this.props.location.search);
-    const status = queryParams.get('status');
-    /* this.props.fetchTickets({
-      userId:"naveen.anem@kony.com",
-      status: status,          
-      sortBy:'ticketId'
-    }); */
+    
   }
 
   loadTickets() {
