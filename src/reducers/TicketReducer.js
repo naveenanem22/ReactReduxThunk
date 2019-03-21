@@ -18,19 +18,19 @@ export function ticketReducer(state = {}, action) {
         case FETCH_TICKETS_SUCCESS:
             return {
                 ...state, tickets: action.payload.tickets, isLoadingScreenInViewTicketspage: false,
-                isViewTicketsFormVisible: true
+                isViewTicketsFormVisible: true, loadTickets: false
             };
 
         case ASSIGN_UPDATE_TICKET_SUCCESS:
             return {
                 ...state, isLoadingScreenInViewTicketspage: false,
-                isViewTicketsFormVisible: true
-            };
+                isViewTicketsFormVisible: true, loadTickets: true
+            }; 
 
         case ASSIGN_UPDATE_TICKET:
             return {
                 ...state, isLoadingScreenInViewTicketspage: true,
-                isViewTicketsFormVisible: false
+                isViewTicketsFormVisible: false, loadTickets : false
             };
 
         default:
