@@ -1,7 +1,7 @@
 import React from 'react';
 import HeaderNavBar from "../components/HeaderNavBar";
 import SideNavBar from '../components/SideNavBar';
-import DashBoardForm from './ITSDashboardForm';
+import DashBoardForm from './DashboardForm';
 import { ScaleLoader } from 'react-spinners';
 import {connect} from 'react-redux';
 import {fetchTicketsAPICall} from '../actions/TicketActions'
