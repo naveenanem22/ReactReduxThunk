@@ -12,12 +12,20 @@ class SideNavBar extends React.Component {
 
     };
     this.handleClosedTicketsClick = this.handleClosedTicketsClick.bind(this);
+    this.handleAssignTicketsClick = this.handleAssignTicketsClick.bind(this);
   }
 
   handleClosedTicketsClick(){
     history.push("/tickets?status=Closed");  
     //update loadTickets flag to true in 'store.ticketList' via an action
     this.props.loadTickets();
+  }
+
+  handleAssignTicketsClick(){
+    history.push("/tickets?status=New");  
+    //update loadTickets flag to true in 'store.ticketList' via an action
+    this.props.loadTickets();
+
   }
 
   render() {
@@ -31,7 +39,7 @@ class SideNavBar extends React.Component {
           </NavItem>
 
           <NavItem>
-            <NavLink href="/tickets?status=New" style={{ borderBottom: '1px solid black', marginBottom: '', textDecoration: 'none', color: 'black' }}><FaAngleDoubleRight style={{ color: 'orange' }} /> Assign Tickets
+            <NavLink href="#" onClick = {this.handleAssignTicketsClick} style={{ borderBottom: '1px solid black', marginBottom: '', textDecoration: 'none', color: 'black' }}><FaAngleDoubleRight style={{ color: 'orange' }} /> Assign Tickets
             </NavLink>
           </NavItem>
 
