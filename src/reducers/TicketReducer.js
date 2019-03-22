@@ -1,4 +1,4 @@
-import { CREATE_TICKET, CREATE_TICKET_SUCCESS, CREATE_TICKET_FAILURE, FETCH_TICKETS_SUCCESS } from '../actions/ActionTypes';
+import { CREATE_TICKET, CREATE_TICKET_SUCCESS, CREATE_TICKET_FAILURE, FETCH_TICKETS_SUCCESS, FETCH_TICKETS } from '../actions/ActionTypes';
 import { ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET, ASSIGN_UPDATE_TICKET_FAILURE } from '../actions/ActionTypes'
 
 export function ticketReducer(state = {}, action) {
@@ -20,11 +20,15 @@ export function ticketReducer(state = {}, action) {
                 ...state, tickets: action.payload.tickets, isLoadingScreenInViewTicketspage: false,
                 isViewTicketsFormVisible: true, loadTickets: false
             };
+        case FETCH_TICKETS:
+            return {
+                ...state, isLoadingScreenInViewTicketspage: true,
+                isViewTicketsFormVisible: false
+            };
 
         case ASSIGN_UPDATE_TICKET_SUCCESS:
             return {
-                ...state, isLoadingScreenInViewTicketspage: false,
-                isViewTicketsFormVisible: true, loadTickets: true
+                ...state, loadTickets: true
             }; 
 
         case ASSIGN_UPDATE_TICKET:

@@ -25,13 +25,29 @@ class ViewTicketsForm extends React.Component {
 
   }
 
-  processPropsForInitialState(tickets) {
-    //Initialize isInValid = false for SearchInput field
+  static getDerivedStateFromProps(props, current_state) {
+    console.log("setting state after receiving props");
+    if (current_state.tickets !== props.tickets) {
+        //Update state with default fields which are not available in props
+        var tempTickets = props.tickets;
+        tempTickets.forEach(ticket => {
+          ticket.isAssignedToInvalid = false;
+          ticket.selected = false;
+          ticket.assignedTo = { userName: '' };
+        });
+        return {
+            tickets: tempTickets              
+        }
+      }
+      return null
+  }
+
+  processPropsForInitialState(tickets) {    
     tickets.forEach(ticket => {
       ticket.isAssignedToInvalid = false;
       ticket.selected = false;
       ticket.assignedTo = { userName: '' };
-    })
+    });
     return tickets;
   }
 
@@ -42,14 +58,14 @@ class ViewTicketsForm extends React.Component {
         ticket.assignedTo = {
           userName: selectedValue
         }
-      if (ticket.isAssignedToInvalid == true)
-          ticket.isAssignedToInvalid = false;  
+        if (ticket.isAssignedToInvalid == true)
+          ticket.isAssignedToInvalid = false;
         return;
       }
     });
 
     this.setState({
-      tickets: tempTicketsArr      
+      tickets: tempTicketsArr
     });
   }
 
@@ -62,35 +78,41 @@ class ViewTicketsForm extends React.Component {
         if (ticket.selected === true && ticket.assignedTo.userName === '')
           ticket.isAssignedToInvalid = true;
 
-          return ticket;
+        return ticket;
       });
-      console.log("UIValidations: "+ticketsListUIValidations);
+      console.log("UIValidations: " + ticketsListUIValidations);
       this.setState({
         tickets: ticketsListUIValidations
       });
       console.log(this.state.tickets);
     }
-    else{
-    //Filter unchecked ticket-rows and send only checked ticket-rows    
-    var ticketsToUpdate = this.state.tickets.filter(ticket => {
-      return (ticket.selected === true);
-    })
-
-    this.props.assignAndUpdateTickets(ticketsToUpdate);
-  }
+    else {
+      //Filter unchecked ticket-rows and send only checked ticket-rows    
+      var ticketsToUpdate = [];
+      ticketsToUpdate = this.state.tickets.filter(ticket => {
+        return (ticket.selected === true);
+      }).map(ticket => {
+        ticket.status = 'Open';
+        return ticket;
+      })
+      console.log("Ticket to be Assigned and Updated: " + ticketsToUpdate);
+      if (ticketsToUpdate.length > 0){
+        this.props.assignAndUpdateTickets(ticketsToUpdate);
+      }
+    }
   }
 
   isEveryTicketHasvalidData(tickets) {
     console.log("Inside isAtLeastOneTicketWithInvalidDataPresent");
     console.log(JSON.stringify(tickets));
     return tickets.every(ticket => {
-      console.log("ticket.selected: "+ticket.selected);
-      console.log("ticket.assignedTo.userName: "+ticket.assignedTo.userName);
-      if(ticket.selected === true)
-         return ticket.assignedTo.userName !== "";
+      console.log("ticket.selected: " + ticket.selected);
+      console.log("ticket.assignedTo.userName: " + ticket.assignedTo.userName);
+      if (ticket.selected === true)
+        return ticket.assignedTo.userName !== "";
       else
-         return true;
-        
+        return true;
+
     });
   }
 
@@ -149,7 +171,9 @@ class ViewTicketsForm extends React.Component {
 
 
   render() {
-    //console.log("From ViewTicketsFrom:  " + JSON.stringify(this.state.tickets));
+    console.log("rendering...viewticketsform");
+    console.log("state: "+this.state.tickets);
+    console.log("props: "+this.props.tickets);
     //Initialize suggestions array with names from engineers array
     var suggestions = [];
     this.props.engineers.forEach(engineer => {

@@ -1,5 +1,5 @@
 import { CREATE_TICKET, ADD_MESSAGE_SUCCESS,ADD_MESSAGE_FAILURE, CLOSE_TICKET_SUCCESS,CLOSE_TICKET_FAILURE } from './ActionTypes';
-import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS, FETCH_TICKET_DETAILS_SUCCESS, ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET_FAILURE, ASSIGN_UPDATE_TICKET } from './ActionTypes';
+import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS, FETCH_TICKETS, FETCH_TICKET_DETAILS_SUCCESS, ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET_FAILURE, ASSIGN_UPDATE_TICKET } from './ActionTypes';
 import FileSaver from 'file-saver';
 
 export function createTicket(){
@@ -17,6 +17,15 @@ export function createTicketSuccess(){
 export function fetchTicketsSuccess(tickets){
     return {
         type : FETCH_TICKETS_SUCCESS,
+        payload: {
+            tickets:tickets
+        }
+    }
+}
+
+export function fetchTickets(tickets){
+    return {
+        type : FETCH_TICKETS,
         payload: {
             tickets:tickets
         }
@@ -126,6 +135,7 @@ export function fetchTicketsAPICall(queryParams){
            error => console.log('An error occurred.', error),
        )
         .then((tickets) => {
+            console.log("Tickets fetched: "+tickets);
            dispatch(fetchTicketsSuccess(tickets));
         },
        );
