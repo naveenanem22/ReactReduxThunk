@@ -2,8 +2,9 @@ import React from 'react';
 import { Nav, NavItem, NavLink, Navbar } from 'reactstrap';
 import { FaUser, FaAngleDoubleRight } from 'react-icons/fa';
 import history from '../history';
+import {connect} from 'react-redux';
 
-export default class SideNavBar extends React.Component {
+class SideNavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -53,3 +54,11 @@ export default class SideNavBar extends React.Component {
     );
   }
 }
+
+const mapActionsToProps = {
+}
+
+const mapStateToProps = function (state){
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(SideNavBar);
