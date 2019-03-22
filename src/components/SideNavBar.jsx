@@ -3,6 +3,7 @@ import { Nav, NavItem, NavLink, Navbar } from 'reactstrap';
 import { FaUser, FaAngleDoubleRight } from 'react-icons/fa';
 import history from '../history';
 import {connect} from 'react-redux';
+import {enableLoadTicketsFlag} from '../actions/TicketActions'
 
 class SideNavBar extends React.Component {
   constructor(props) {
@@ -10,6 +11,13 @@ class SideNavBar extends React.Component {
     this.state = {
 
     };
+    this.handleClosedTicketsClick = this.handleClosedTicketsClick.bind(this);
+  }
+
+  handleClosedTicketsClick(){
+    history.push("/tickets?status=Closed");  
+    //update loadTickets flag to true in 'store.ticketList' via an action
+    this.props.loadTickets();
   }
 
   render() {
@@ -42,7 +50,7 @@ class SideNavBar extends React.Component {
           </NavItem>
 
           <NavItem>
-            <NavLink href="/tickets?status=Closed" style={{ borderBottom: '1px solid black', textDecoration: 'none', color: 'black' }}><FaAngleDoubleRight style={{ color: 'orange' }} /> Closed Tickets</NavLink>
+            <NavLink href="#" onClick = {this.handleClosedTicketsClick} style={{ borderBottom: '1px solid black', textDecoration: 'none', color: 'black' }}><FaAngleDoubleRight style={{ color: 'orange' }} /> Closed Tickets</NavLink>
           </NavItem>
 
           <NavItem>
@@ -56,6 +64,7 @@ class SideNavBar extends React.Component {
 }
 
 const mapActionsToProps = {
+  loadTickets: enableLoadTicketsFlag
 }
 
 const mapStateToProps = function (state){
