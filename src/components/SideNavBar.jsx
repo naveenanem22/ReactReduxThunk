@@ -15,6 +15,16 @@ class SideNavBar extends React.Component {
     this.handleAssignTicketsClick = this.handleAssignTicketsClick.bind(this);
     this.handleMyTicketsClick = this.handleMyTicketsClick.bind(this);
     this.handleAwaitResponseClick = this.handleAwaitResponseClick.bind(this);
+    this.handleOnFocus = this.handleOnFocus.bind(this);
+    this.handleOnBlur = this.handleOnBlur.bind(this);
+  }
+
+  handleOnFocus(){
+    console.log("Focussed");
+  }
+
+  handleOnBlur(){
+    console.log("Blur");
   }
 
   handleAwaitResponseClick(){
@@ -57,7 +67,7 @@ class SideNavBar extends React.Component {
 
         <Nav style={{ borderRadius: '10px', border: '1px solid grey', backgroundColor: '#E8EAED' }} vertical >
           <NavItem>
-            <NavLink href="/dashboard" style={{ borderBottom: '1px solid black', marginBottom: '', textDecoration: 'none', color: 'black' }}><FaAngleDoubleRight style={{ color: 'orange' }} /> Dashboard
+            <NavLink href="/dashboard" onBlur={this.handleOnBlur} onFocus={this.handleOnFocus} style={{ borderBottom: '1px solid black', marginBottom: '', textDecoration: 'none', color: 'black' }}><FaAngleDoubleRight style={{ color: 'orange' }} /> Dashboard
             </NavLink>
           </NavItem>
 
