@@ -31,8 +31,7 @@ class SPAMainPage extends React.Component {
   }
 
   render() {
-    /* if (this.props.loadTickets)
-      this.loadTickets(); */
+   
     return (
       <div >
         <div class='sticky'>
@@ -73,8 +72,7 @@ class SPAMainPage extends React.Component {
 const mapStateToProps = function (state) {
   return {
     isViewTicketsFormVisible: state.ticketList.isViewTicketsFormVisible,
-    isLoadingScreenInViewTicketspage: state.ticketList.isLoadingScreenInViewTicketspage,
-    loadTickets: state.ticketList.loadTickets
+    isLoadingScreenInViewTicketspage: state.ticketList.isLoadingScreenInViewTicketspage
   }
 }
 

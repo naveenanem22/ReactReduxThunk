@@ -3,6 +3,7 @@ import { Button, Form, FormGroup,FormFeedback, Label, Input, Container, Col } fr
 import {loginAPICall} from '../actions/UserActions'
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
+import { fetchTicketsAPICall } from '../actions/TicketActions'
 
 class LoginForm extends React.Component {
 
@@ -33,6 +34,10 @@ class LoginForm extends React.Component {
  
   render() {    
      if (this.props.redirectToHomePage) {
+       this.props.fetchTickets({
+        status: 'all',
+        sortBy: 'ticketId'
+      });
         return <Redirect push to={{
           pathname: "/tickets"          
         }} />;
@@ -75,7 +80,8 @@ class LoginForm extends React.Component {
 }
 
 const mapActionsToProps = {  
-  onLogin : loginAPICall  
+  onLogin : loginAPICall,
+  fetchTickets: fetchTicketsAPICall  
 }
 
 const mapStateToProps = function (state){

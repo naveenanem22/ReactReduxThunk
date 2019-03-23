@@ -16,7 +16,8 @@ class SideNavBar extends React.Component {
     this.handleMyTicketsClick = this.handleMyTicketsClick.bind(this);
   }
 
-  handleClosedTicketsClick(){
+  handleClosedTicketsClick(e){
+    console.log(e.target.style);
     history.push("/tickets?status=Closed");  
     this.props.fetchTickets({      
       status: 'Closed',
