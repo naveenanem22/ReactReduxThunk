@@ -15,6 +15,7 @@ import {
 import { logout } from '../actions/UserActions';
 import history from '../history';
 import { Link } from "react-router-dom";
+import {fetchTicketsAPICall} from '../actions/TicketActions';
 
 
 class HeaderNavBar extends React.Component {
@@ -37,8 +38,11 @@ class HeaderNavBar extends React.Component {
   }
 
   onClickMyTickets(){
-    console.log("MyTickets Clicked...");
     history.push('/tickets');
+    this.props.fetchTickets({            
+      status: 'all',
+      sortBy: 'ticketId'
+    });
   }
 
   onClickLogout() {
@@ -54,7 +58,7 @@ class HeaderNavBar extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/tickets">My Tickets</NavLink>
+                <NavLink href="#" onClick={this.onClickMyTickets}>My Tickets</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink  href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
@@ -68,7 +72,7 @@ class HeaderNavBar extends React.Component {
                     <NavLink style = {{color:'#212529'}} href="#"> {this.state.options[0]}</NavLink>
                   </DropdownItem>
                   <DropdownItem >
-                    <NavLink style = {{color:'#212529'}} href="/tickets">{this.state.options[1]}</NavLink>
+                    <NavLink style = {{color:'#212529'}} href="#" onClick = {this.onClickMyTickets}>{this.state.options[1]}</NavLink>
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem onClick = {this.onClickLogout}>
@@ -88,7 +92,8 @@ class HeaderNavBar extends React.Component {
 
 
 const mapActionsToProps = {
-  onLogout : logout  
+  onLogout : logout,
+  fetchTickets: fetchTicketsAPICall    
 }
 
 const mapStateToProps = function (state){

@@ -15,6 +15,7 @@ import {
 import { logout } from '../actions/UserActions';
 import history from '../history';
 import { Link } from "react-router-dom";
+import {fetchTicketsAPICall} from '../actions/TicketActions';
 
 
 class HeaderNavBar extends React.Component {
@@ -37,8 +38,12 @@ class HeaderNavBar extends React.Component {
   }
 
   onClickMyTickets(){
-    console.log("MyTickets Clicked...");
     history.push('/tickets');
+    this.props.fetchTickets({            
+      status: 'all',
+      sortBy: 'ticketId'
+    });
+
   }
 
   onClickLogout() {
@@ -88,7 +93,8 @@ class HeaderNavBar extends React.Component {
 
 
 const mapActionsToProps = {
-  onLogout : logout  
+  onLogout : logout,
+  fetchTickets: fetchTicketsAPICall  
 }
 
 const mapStateToProps = function (state){
