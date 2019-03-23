@@ -8,7 +8,7 @@ import { fetchTicketsAPICall } from '../actions/TicketActions'
 import { Table } from 'reactstrap';
 import { withRouter } from 'react-router';
 
-class ViewTicketsPage extends React.Component {
+class SPAMainPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -81,5 +81,5 @@ const mapStateToProps = function (state) {
 const mapActionsToProps = {
   fetchTickets: fetchTicketsAPICall
 }
-export default connect(mapStateToProps, mapActionsToProps)(ViewTicketsPage);
+export default connect(mapStateToProps, mapActionsToProps)(SPAMainPage);
   //export default withRouter(connect(mapStateToProps,mapActionsToProps)(ViewTicketsPage));

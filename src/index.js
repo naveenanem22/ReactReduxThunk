@@ -7,7 +7,7 @@ import { MainReducer } from './reducers/MainReducer'
 import thunk from 'redux-thunk';
 import { Router, Route, Link } from 'react-router-dom'
 import registerServiceWorker from './registerServiceWorker';
-import ViewTicketsPage from './containers/ViewTicketsPage';
+import SPAMainPage from './containers/SPAMainPage';
 import ViewTicketDetailsPage from './containers/ViewTicketDetailsPage';
 import LoginPage from './containers/LoginPage';
 import HomePage from './containers/HomePage';
@@ -79,7 +79,7 @@ ReactDOM.render(
                 <Route path="/home" component={HomePage}></Route>
                 <Route path="/login" component={LoginPage}></Route>
                 <Route path="/newticket" component={App}></Route>
-                <Route path="/tickets" component={ViewTicketsPage}></Route>
+                <Route path="/tickets" component={SPAMainPage}></Route>
                 <Route path="/ticketdetails" component={ViewTicketDetailsPage}></Route>
                 <Route path="/dashboard" component={DashboardPage}></Route>
             </div>
