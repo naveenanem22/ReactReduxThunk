@@ -29,12 +29,9 @@ export function fetchTicketsSuccess(tickets){
     }
 }
 
-export function fetchTickets(tickets){
+export function fetchTickets(){
     return {
-        type : FETCH_TICKETS,
-        payload: {
-            tickets:tickets
-        }
+        type : FETCH_TICKETS        
     }
 }
 
@@ -128,7 +125,8 @@ export function fetchTicketsAPICall(queryParams){
     var params = {userId:queryParams.userId, status:queryParams.status, sortBy:queryParams.sortBy};
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
         
-    return function (dispatch) {      
+    return function (dispatch) {
+        dispatch(fetchTickets);
         return fetch(url,{
             method : 'GET',
             headers: headers           

@@ -31,8 +31,8 @@ class ViewTicketsPage extends React.Component {
   }
 
   render() {
-    if (this.props.loadTickets)
-      this.loadTickets();
+    /* if (this.props.loadTickets)
+      this.loadTickets(); */
     return (
       <div >
         <div class='sticky'>
