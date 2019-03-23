@@ -3,7 +3,6 @@ import { Nav, NavItem, NavLink, Navbar } from 'reactstrap';
 import { FaUser, FaAngleDoubleRight } from 'react-icons/fa';
 import history from '../history';
 import {connect} from 'react-redux';
-import {enableLoadTicketsFlag} from '../actions/TicketActions'
 import { fetchTicketsAPICall } from '../actions/TicketActions'
 
 class SideNavBar extends React.Component {
@@ -92,8 +91,7 @@ class SideNavBar extends React.Component {
   }
 }
 
-const mapActionsToProps = {
-  loadTickets: enableLoadTicketsFlag,
+const mapActionsToProps = {  
   fetchTickets: fetchTicketsAPICall
 }
 
