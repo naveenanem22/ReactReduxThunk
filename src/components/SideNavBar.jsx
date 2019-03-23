@@ -14,10 +14,18 @@ class SideNavBar extends React.Component {
     this.handleClosedTicketsClick = this.handleClosedTicketsClick.bind(this);
     this.handleAssignTicketsClick = this.handleAssignTicketsClick.bind(this);
     this.handleMyTicketsClick = this.handleMyTicketsClick.bind(this);
+    this.handleAwaitResponseClick = this.handleAwaitResponseClick.bind(this);
   }
 
-  handleClosedTicketsClick(e){
-    console.log(e.target.style);
+  handleAwaitResponseClick(){
+    history.push("/tickets?status=InProcess");  
+    this.props.fetchTickets({      
+      status: 'InProcess',
+      sortBy: 'ticketId'
+    });
+  }
+
+  handleClosedTicketsClick(){
     history.push("/tickets?status=Closed");  
     this.props.fetchTickets({      
       status: 'Closed',
@@ -59,7 +67,7 @@ class SideNavBar extends React.Component {
           </NavItem>
 
           <NavItem>
-            <NavLink href="/tickets?status=InProcess" style={{ borderBottom: '1px solid black', marginBottom: '', textDecoration: 'none', color: 'black' }}><FaAngleDoubleRight style={{ color: 'orange' }} /> Await Response
+            <NavLink href="#" onClick = {this.handleAwaitResponseClick} style={{ borderBottom: '1px solid black', marginBottom: '', textDecoration: 'none', color: 'black' }}><FaAngleDoubleRight style={{ color: 'orange' }} /> Await Response
             </NavLink>
           </NavItem>
 
