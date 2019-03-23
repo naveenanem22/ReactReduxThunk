@@ -18,8 +18,6 @@ class SideNavBar extends React.Component {
 
   handleClosedTicketsClick(){
     history.push("/tickets?status=Closed");  
-    //update loadTickets flag to true in 'store.ticketList' via an action
-    //this.props.loadTickets();
     this.props.fetchTickets({      
       status: 'Closed',
       sortBy: 'ticketId'
@@ -28,8 +26,6 @@ class SideNavBar extends React.Component {
 
   handleAssignTicketsClick(){
     history.push("/tickets?status=New");  
-    //update loadTickets flag to true in 'store.ticketList' via an action
-    //this.props.loadTickets();
     this.props.fetchTickets({      
       status: 'New',
       sortBy: 'ticketId'
@@ -39,8 +35,6 @@ class SideNavBar extends React.Component {
 
   handleMyTicketsClick(){
     history.push("/tickets?status=all");  
-    //update loadTickets flag to true in 'store.ticketList' via an action
-    //this.props.loadTickets();
     this.props.fetchTickets({            
       status: 'all',
       sortBy: 'ticketId'
