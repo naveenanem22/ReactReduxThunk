@@ -5,26 +5,21 @@ import history from '../history';
 import {connect} from 'react-redux';
 import { fetchTicketsAPICall } from '../actions/TicketActions'
 
+
 class SideNavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
     };
     this.handleClosedTicketsClick = this.handleClosedTicketsClick.bind(this);
     this.handleAssignTicketsClick = this.handleAssignTicketsClick.bind(this);
     this.handleMyTicketsClick = this.handleMyTicketsClick.bind(this);
     this.handleAwaitResponseClick = this.handleAwaitResponseClick.bind(this);
-    this.handleOnFocus = this.handleOnFocus.bind(this);
-    this.handleOnBlur = this.handleOnBlur.bind(this);
+    this.handleDashboard = this.handleDashboard.bind(this);
   }
 
-  handleOnFocus(){
-    console.log("Focussed");
-  }
-
-  handleOnBlur(){
-    console.log("Blur");
+  handleDashboard(e){
+    
   }
 
   handleAwaitResponseClick(){
@@ -62,12 +57,13 @@ class SideNavBar extends React.Component {
   }
 
   render() {
+    
     return (
       <div class='sidenavbar'>
 
         <Nav style={{ borderRadius: '10px', border: '1px solid grey', backgroundColor: '#E8EAED' }} vertical >
           <NavItem>
-            <NavLink href="/dashboard" onBlur={this.handleOnBlur} onFocus={this.handleOnFocus} style={{ borderBottom: '1px solid black', marginBottom: '', textDecoration: 'none', color: 'black' }}><FaAngleDoubleRight style={{ color: 'orange' }} /> Dashboard
+            <NavLink href="/dashboard" style={{ borderBottom: '1px solid black', marginBottom: '', textDecoration: 'none', color:'black' }}><FaAngleDoubleRight style={{ color: 'orange' }} /> Dashboard
             </NavLink>
           </NavItem>
 

@@ -121,3 +121,19 @@ body {
   background-position: center;
   background-image: url('./testbg2.jpg');
 }
+
+/*Styling for SideNavBar component START*/
+div.sidenavbar > ul >li>a{
+  color: black
+}
+
+div.sidenavbar > ul >li>a:focus{
+  background-color: #c2c5c5;  
+  color: #00f7f7
+}
+
+div.sidenavbar > ul >li.nav-item >a:hover{
+  background-color: #bdc2c2;  
+  color: #ffffff !important;
+}
+/*Styling for SideNavBar component END*/
