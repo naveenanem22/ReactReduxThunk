@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { timingSafeEqual } from 'crypto';
 import {createTicketAPICall} from '../actions/TicketActions'
 import {connect} from 'react-redux';
+import {TicketStatus, TicketStatusCode, TicketType, TicketTypeCode, Priority, PriorityCode} from '../masterdata/ApplicationMasterData';
 
 class CreateNewTicketForm extends React.Component {
 
@@ -91,9 +92,9 @@ class CreateNewTicketForm extends React.Component {
           <Label for="priority">Priority</Label>
           <Input type="select" name="priority" id="priority" value={this.state.priority} onChange = {this.handleChange} required>
           <option>Choose priority...</option>
-          {this.props.priority.map((priorityItem) =>
-               <option>{priorityItem.name}</option>
-              )}
+          <option>{Priority.HIGH}</option>
+          <option>{Priority.LOW}</option>
+          <option>{Priority.MEDIUM}</option>
           </Input>
         </FormGroup>
         <FormGroup>
@@ -132,9 +133,9 @@ class CreateNewTicketForm extends React.Component {
           onChange = {this.handleChange}
           required>
             <option>--Select--</option>
-            {this.props.ticketType.map((ticketTypeItem) =>
-               <option>{ticketTypeItem.name}</option>
-              )}
+            <option>{TicketType.TASK}</option>
+            <option>{TicketType.ISSUE}</option>
+            <option>{TicketType.PROBLEM}</option>
           </Input>
         </FormGroup>
         <FormGroup>
