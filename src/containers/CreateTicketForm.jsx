@@ -168,9 +168,6 @@ const mapActionsToProps = {
 const mapStateToProps = function (state){
   return {
     departments: state.departments,
-    priority: state.priority,
-    ticketStatus: state.ticketStatus,
-    ticketType: state.ticketType,
     serviceCategories: state.serviceCategories
   }
 }

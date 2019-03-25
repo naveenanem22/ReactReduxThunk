@@ -19,9 +19,6 @@ const allStoreEnhancers = compose(
 )
 const store = createStore(MainReducer, {
     departments: [{ id: '1', name: 'ITS' }, { id: '2', name: 'RMG' }, { id: '3', name: 'HR' }],
-    priority: [{ id: '1', name: 'High' }, { id: '2', name: 'Medium' }, { id: '3', name: 'Low' }],
-    ticketType: [{ id: '1', name: 'Task' }, { id: '2', name: 'Issue' }],
-    ticketStatus: [{ id: '1', name: 'Processing' }, { id: '2', name: 'Pending' }, { id: '3', name: 'Closed' }, { id: '4', name: 'Open' }, { id: '5', name: 'New' }],
     serviceCategories: [{ id: '1', name: 'Network' }, { id: '2', name: 'Printer' }, { id: '3', name: 'Desktop/Laptop' }, { id: '4', name: 'Software/OS' }],
     products: [],
     user: {
