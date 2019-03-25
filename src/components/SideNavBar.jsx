@@ -67,39 +67,39 @@ class SideNavBar extends React.Component {
   render() {
 
     return (
-      <div class='sidenavbar'>
+      <div class='sidenavbar' style={{}}>
 
         <Nav style={{ borderRadius: '10px', border: '1px solid grey', backgroundColor: '#E8EAED' }} vertical >
           <NavItem>
-            <NavLink href="/dashboard" style={{ borderBottom: '1px solid black', marginBottom: '', textDecoration: 'none', color: 'black' }}><FaAngleDoubleRight style={{ color: 'orange' }} /> Dashboard
+            <NavLink href="/dashboard" style={{ borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Dashboard
             </NavLink>
           </NavItem>
 
           <NavItem>
-            <NavLink href="#" onClick={this.handleAssignTicketsClick} style={{ borderBottom: '1px solid black', marginBottom: '', textDecoration: 'none', color: 'black' }}><FaAngleDoubleRight style={{ color: 'orange' }} /> Assign Tickets
+            <NavLink href="#" onClick={this.handleAssignTicketsClick} style={{ borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Assign Tickets
             </NavLink>
           </NavItem>
 
           <NavItem>
-            <NavLink href="#" onClick={this.handleAwaitResponseClick} style={{ borderBottom: '1px solid black', marginBottom: '', textDecoration: 'none', color: 'black' }}><FaAngleDoubleRight style={{ color: 'orange' }} /> Await Response
+            <NavLink href="#" onClick={this.handleAwaitResponseClick} style={{ borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Await Response
             </NavLink>
           </NavItem>
 
           <NavItem>
-            <NavLink href="#" onClick={this.handleNewTicket} style={{ borderBottom: '1px solid black', marginBottom: '', textDecoration: 'none', color: 'black' }}><FaAngleDoubleRight style={{ color: 'orange' }} /> New Ticket
+            <NavLink href="#" onClick={this.handleNewTicket} style={{ borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> New Ticket
             </NavLink>
           </NavItem>
 
           <NavItem>
-            <NavLink href="#" onClick={this.handleMyTicketsClick} style={{ borderBottom: '1px solid black', textDecoration: 'none', color: 'black' }}><FaAngleDoubleRight style={{ color: 'orange' }} /> My Tickets</NavLink>
+            <NavLink href="#" onClick={this.handleMyTicketsClick} style={{ borderBottom: '1px solid #bdb7b7', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> My Tickets</NavLink>
           </NavItem>
 
           <NavItem>
-            <NavLink href="#" onClick={this.handleClosedTicketsClick} style={{ borderBottom: '1px solid black', textDecoration: 'none', color: 'black' }}><FaAngleDoubleRight style={{ color: 'orange' }} /> Closed Tickets</NavLink>
+            <NavLink href="#" onClick={this.handleClosedTicketsClick} style={{ borderBottom: '1px solid #bdb7b7', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Closed Tickets</NavLink>
           </NavItem>
 
           <NavItem>
-            <NavLink disabled href="#" style={{ textDecoration: 'none', color: 'black' }}><FaAngleDoubleRight style={{ color: 'orange' }} /> Disabled Link</NavLink>
+            <NavLink disabled href="#" style={{ textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Disabled Link</NavLink>
           </NavItem>
         </Nav>
 

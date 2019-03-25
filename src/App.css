@@ -128,12 +128,12 @@ div.sidenavbar > ul >li>a{
 }
 
 div.sidenavbar > ul >li>a:focus{
-  background-color: #c2c5c5;  
-  color: #00f7f7
+  color: orange !important;
+  
 }
 
 div.sidenavbar > ul >li.nav-item >a:hover{
-  background-color: #bdc2c2;  
-  color: #ffffff !important;
+  background-color: #d4d8d8;  
+  
 }
 /*Styling for SideNavBar component END*/
