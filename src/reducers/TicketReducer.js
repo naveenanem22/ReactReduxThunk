@@ -1,8 +1,15 @@
 import { CREATE_TICKET, CREATE_TICKET_SUCCESS, CREATE_TICKET_FAILURE, FETCH_TICKETS_SUCCESS, FETCH_TICKETS } from '../actions/ActionTypes';
 import { ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET, ASSIGN_UPDATE_TICKET_FAILURE } from '../actions/ActionTypes'
+import { SHOW_FORM_NEW_TICKET} from '../actions/ActionTypes';
 
 export function ticketReducer(state = {}, action) {
     switch (action.type) {
+
+        case SHOW_FORM_NEW_TICKET:
+             return {
+                ...state, isCreateTicketFormVisible: true, isViewTicketsFormVisible: false
+             };
+
         case CREATE_TICKET:
             return state;
 

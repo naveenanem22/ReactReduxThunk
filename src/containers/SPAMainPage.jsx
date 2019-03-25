@@ -2,11 +2,13 @@ import React from 'react';
 import HeaderNavBar from "../components/HeaderNavBar";
 import SideNavBar from '../components/SideNavBar';
 import ViewTicketsForm from './ViewTicketsForm';
+import DashboardForm from './DashboardForm';
 import { RingLoader, ScaleLoader } from 'react-spinners';
 import { connect } from 'react-redux';
 import { fetchTicketsAPICall } from '../actions/TicketActions'
 import { Table } from 'reactstrap';
 import { withRouter } from 'react-router';
+import CreateTicketForm from '../containers/CreateTicketForm';
 
 class SPAMainPage extends React.Component {
   constructor(props) {
@@ -31,7 +33,7 @@ class SPAMainPage extends React.Component {
   }
 
   render() {
-   
+    console.log("isCreateTicketFormVisible: "+this.props.isCreateTicketFormVisible);
     return (
       <div >
         <div class='sticky'>
@@ -47,6 +49,10 @@ class SPAMainPage extends React.Component {
                   {this.props.isViewTicketsFormVisible && <div class='view-ticket-form'>
                     <ViewTicketsForm ></ViewTicketsForm>
                   </div>}
+
+                  {this.props.isCreateTicketFormVisible && <div class = 'view-ticket-form'>
+                <CreateTicketForm ></CreateTicketForm>
+                </div>}
 
                   {this.props.isLoadingScreenInViewTicketspage &&
                     <div className='view-ticket-loading'>
@@ -72,7 +78,8 @@ class SPAMainPage extends React.Component {
 const mapStateToProps = function (state) {
   return {
     isViewTicketsFormVisible: state.ticketList.isViewTicketsFormVisible,
-    isLoadingScreenInViewTicketspage: state.ticketList.isLoadingScreenInViewTicketspage
+    isLoadingScreenInViewTicketspage: state.ticketList.isLoadingScreenInViewTicketspage,
+    isCreateTicketFormVisible: state.ticketList.isCreateTicketFormVisible
   }
 }
 

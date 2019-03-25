@@ -50,7 +50,7 @@ const store = createStore(MainReducer, {
     ticketList: {
         tickets: [],
         isLoadingScreen: true,
-        isCreateTicketFormVisible: true,
+        isCreateTicketFormVisible: false,
         isCreateTicketSuccessFormVisible: false,
         isCreateTicketFailureFormVisible: false,
         isViewTicketsFormVisible: false,
@@ -77,7 +77,7 @@ ReactDOM.render(
             <div>
                 <Route path="/home" component={HomePage}></Route>
                 <Route path="/login" component={LoginPage}></Route>
-                <Route path="/newticket" component={App}></Route>
+                <Route path="/newticket" component={SPAMainPage}></Route>
                 <Route path="/tickets" component={SPAMainPage}></Route>
                 <Route path="/ticketdetails" component={ViewTicketDetailsPage}></Route>
                 <Route path="/dashboard" component={DashboardPage}></Route>
