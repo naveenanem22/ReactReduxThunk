@@ -5,6 +5,7 @@ import { FaUserAlt } from 'react-icons/fa';
 import { Redirect } from 'react-router-dom';
 import SearchInput from '../components/SearchInput';
 import { assignAndUpdateMultipleTicketsAPICall } from '../actions/TicketActions';
+import history from '../history';
 
 class ViewTicketsForm extends React.Component {
 
@@ -127,8 +128,12 @@ class ViewTicketsForm extends React.Component {
 
     } else if (e.target.type == 'suggestion') {
 
-    } else
-      this.setState({ redirect: true, ticketId: ticket.id });
+    } else{
+      history.push({
+        pathname: "/ticketdetails",
+        search: "?ticketId=" + ticket.id
+      });
+    }
   }
 
   handleCheckAndUnCheck(e, targetTicket) {
@@ -171,24 +176,11 @@ class ViewTicketsForm extends React.Component {
 
 
   render() {
-    console.log("rendering...viewticketsform");
-    console.log("state: "+this.state.tickets);
-    console.log("props: "+this.props.tickets);
     //Initialize suggestions array with names from engineers array
     var suggestions = [];
     this.props.engineers.forEach(engineer => {
       suggestions.push({ name: engineer.userFullName })
     });
-
-
-
-
-    if (this.state.redirect) {
-      return <Redirect push to={{
-        pathname: "/ticketdetails",
-        search: "?ticketId=" + this.state.ticketId
-      }} />;
-    }
 
     return (
       <div style={{ marginLeft: '1%', marginRight: '1%' }}>
