@@ -47,8 +47,7 @@ const store = createStore(MainReducer, {
     ticketList: {
         tickets: [],
         isLoadingScreen: true,
-        isCreateTicketFormVisible: false,
-        isCreateTicketSuccessFormVisible: false,
+        isCreateTicketFormVisible: false,        
         isCreateTicketFailureFormVisible: false,
         isViewTicketsFormVisible: false,
         isLoadingScreenInViewTicketspage: true,

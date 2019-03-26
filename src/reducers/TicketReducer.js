@@ -14,13 +14,13 @@ export function ticketReducer(state = {}, action) {
         case CREATE_TICKET:
             return {
                 ...state, isLoadingScreenInViewTicketspage: true, isCreateTicketFormVisible: false,
-                isCreateTicketSuccessFormVisible: false, isCreateTicketFailureFormVisible: false, isSuccessAlertVisible: false
+                isCreateTicketFailureFormVisible: false, isSuccessAlertVisible: false
             };
 
         case CREATE_TICKET_SUCCESS:
             return {
                 ...state, isLoadingScreenInViewTicketspage: false, isCreateTicketFormVisible: false,
-                isCreateTicketSuccessFormVisible: true, isCreateTicketFailureFormVisible: false, isSuccessAlertVisible: true
+                 isCreateTicketFailureFormVisible: false, isSuccessAlertVisible: true
             };
 
         case CREATE_TICKET_FAILURE:
