@@ -58,7 +58,7 @@ class SPAMainPage extends React.Component {
                 <SuccessAlert></SuccessAlert>
                 </div>}
 
-                  {this.props.isLoadingScreenInViewTicketspage &&
+                  {this.props.isLoadingScreenVisible &&
                     <div className='view-ticket-loading'>
                       <ScaleLoader
                         color='#00d8ff'
@@ -84,7 +84,8 @@ const mapStateToProps = function (state) {
     isViewTicketsFormVisible: state.ticketList.isViewTicketsFormVisible,
     isLoadingScreenInViewTicketspage: state.ticketList.isLoadingScreenInViewTicketspage,
     isCreateTicketFormVisible: state.ticketList.isCreateTicketFormVisible,
-    isSuccessAlertVisible : state.ticketList.isSuccessAlertVisible
+    isSuccessAlertVisible : state.ticketList.isSuccessAlertVisible,
+    isLoadingScreenVisible: state.loadingScreen.isLoadingScreenVisible
   }
 }
 

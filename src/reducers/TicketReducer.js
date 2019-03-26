@@ -28,13 +28,11 @@ export function ticketReducer(state = {}, action) {
 
         case FETCH_TICKETS_SUCCESS:
             return {
-                ...state, tickets: action.payload.tickets, isLoadingScreenInViewTicketspage: false,
-                isViewTicketsFormVisible: true
+                ...state, tickets: action.payload.tickets, isViewTicketsFormVisible: true
             };
         case FETCH_TICKETS:
             return {
-                ...state, isLoadingScreenInViewTicketspage: true,
-                isViewTicketsFormVisible: false, isCreateTicketFormVisible: false, isSuccessAlertVisible: false
+                ...state, isViewTicketsFormVisible: false, isCreateTicketFormVisible: false, isSuccessAlertVisible: false
             };
 
         case ASSIGN_UPDATE_TICKET_SUCCESS:

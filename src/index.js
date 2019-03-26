@@ -18,6 +18,9 @@ const allStoreEnhancers = compose(
     applyMiddleware(thunk)
 )
 const store = createStore(MainReducer, {
+    loadingScreen: {
+        isLoadingScreenVisible: false
+    },
     departments: [{ id: '1', name: 'ITS' }, { id: '2', name: 'RMG' }, { id: '3', name: 'HR' }],
     serviceCategories: [{ id: '1', name: 'Network' }, { id: '2', name: 'Printer' }, { id: '3', name: 'Desktop/Laptop' }, { id: '4', name: 'Software/OS' }],
     products: [],
@@ -51,7 +54,7 @@ const store = createStore(MainReducer, {
         isCreateTicketFailureFormVisible: false,
         isViewTicketsFormVisible: false,
         isLoadingScreenInViewTicketspage: true,
-        isSuccessAlertVisible: false
+        isSuccessAlertVisible: false        
     },
     ticketDetails: {
         ticket: {},

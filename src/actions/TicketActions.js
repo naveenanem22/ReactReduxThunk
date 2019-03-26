@@ -1,6 +1,7 @@
 import { CREATE_TICKET, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE, CLOSE_TICKET_SUCCESS, CLOSE_TICKET_FAILURE } from './ActionTypes';
 import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS, FETCH_TICKETS, FETCH_TICKET_DETAILS_SUCCESS, ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET_FAILURE, ASSIGN_UPDATE_TICKET } from './ActionTypes';
 import { SHOW_FORM_NEW_TICKET } from './ActionTypes';
+import {showLoadingScreen, dismissLoadingScreen} from './LoadingScreenActions';
 import FileSaver from 'file-saver';
 
 export function showFormNewTicket() {
@@ -127,6 +128,7 @@ export function fetchTicketsAPICall(queryParams) {
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
     return function (dispatch) {
+        dispatch(showLoadingScreen());
         dispatch(fetchTickets());
         return fetch(url, {
             method: 'GET',
@@ -141,6 +143,7 @@ export function fetchTicketsAPICall(queryParams) {
             )
             .then((tickets) => {
                 console.log("Tickets fetched: " + tickets);
+                dispatch(dismissLoadingScreen());
                 dispatch(fetchTicketsSuccess(tickets));
             },
             );
