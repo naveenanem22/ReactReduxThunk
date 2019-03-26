@@ -4,7 +4,6 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import {updateUser} from './actions/UserActions';
 import {addProduct} from './actions/ProductActions';
 import {getProductsAPICall} from './actions/ProductActions'
-import CreateTicketPage from './containers/CreateTicketPage';
 import './App.css';
 
 
@@ -42,8 +41,9 @@ class App extends Component {
     //console.log(this.props);
     
     return (
+
       <div className="App">         
-      <CreateTicketPage></CreateTicketPage>
+      {/* <CreateTicketPage></CreateTicketPage> */}
     </div>
       /*<div >
        <h2>React-Redux Sample Application - User</h2> 
