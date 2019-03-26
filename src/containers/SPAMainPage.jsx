@@ -9,6 +9,7 @@ import { fetchTicketsAPICall } from '../actions/TicketActions'
 import { Table } from 'reactstrap';
 import { withRouter } from 'react-router';
 import CreateTicketForm from '../containers/CreateTicketForm';
+import SuccessAlert from '../components/SuccessAlert';
 
 class SPAMainPage extends React.Component {
   constructor(props) {
@@ -53,6 +54,10 @@ class SPAMainPage extends React.Component {
                 <CreateTicketForm ></CreateTicketForm>
                 </div>}
 
+                {this.props.isSuccessAlertVisible && <div class = 'view-ticket-form'>
+                <SuccessAlert></SuccessAlert>
+                </div>}
+
                   {this.props.isLoadingScreenInViewTicketspage &&
                     <div className='view-ticket-loading'>
                       <ScaleLoader
@@ -78,7 +83,8 @@ const mapStateToProps = function (state) {
   return {
     isViewTicketsFormVisible: state.ticketList.isViewTicketsFormVisible,
     isLoadingScreenInViewTicketspage: state.ticketList.isLoadingScreenInViewTicketspage,
-    isCreateTicketFormVisible: state.ticketList.isCreateTicketFormVisible
+    isCreateTicketFormVisible: state.ticketList.isCreateTicketFormVisible,
+    isSuccessAlertVisible : state.ticketList.isSuccessAlertVisible
   }
 }
 

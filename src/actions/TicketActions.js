@@ -98,6 +98,7 @@ export function createTicketAPICall(ticket) {
     }
     console.log(JSON.stringify(formData));
     return function (dispatch) {
+        dispatch(createTicket());
         return fetch(`http://localhost:8080/v0/ticket-management/tickets`, {
             method: 'POST',
             body: formData,

@@ -7,16 +7,20 @@ export function ticketReducer(state = {}, action) {
 
         case SHOW_FORM_NEW_TICKET:
              return {
-                ...state, isCreateTicketFormVisible: true, isViewTicketsFormVisible: false, isLoadingScreenInViewTicketspage: false
+                ...state, isCreateTicketFormVisible: true, isViewTicketsFormVisible: false, isLoadingScreenInViewTicketspage: false,
+                isSuccessAlertVisible: false
              };
 
         case CREATE_TICKET:
-            return state;
+            return {
+                ...state, isLoadingScreenInViewTicketspage: true, isCreateTicketFormVisible: false,
+                isCreateTicketSuccessFormVisible: false, isCreateTicketFailureFormVisible: false, isSuccessAlertVisible: false
+            };
 
         case CREATE_TICKET_SUCCESS:
             return {
-                ...state, isLoadingScreen: false, isCreateTicketFormVisible: false,
-                isCreateTicketSuccessFormVisible: true, isCreateTicketFailureFormVisible: false
+                ...state, isLoadingScreenInViewTicketspage: false, isCreateTicketFormVisible: false,
+                isCreateTicketSuccessFormVisible: true, isCreateTicketFailureFormVisible: false, isSuccessAlertVisible: true
             };
 
         case CREATE_TICKET_FAILURE:
@@ -25,12 +29,12 @@ export function ticketReducer(state = {}, action) {
         case FETCH_TICKETS_SUCCESS:
             return {
                 ...state, tickets: action.payload.tickets, isLoadingScreenInViewTicketspage: false,
-                isViewTicketsFormVisible: true, isCreateTicketFormVisible: false
+                isViewTicketsFormVisible: true
             };
         case FETCH_TICKETS:
             return {
                 ...state, isLoadingScreenInViewTicketspage: true,
-                isViewTicketsFormVisible: false, isCreateTicketFormVisible: false
+                isViewTicketsFormVisible: false, isCreateTicketFormVisible: false, isSuccessAlertVisible: false
             };
 
         case ASSIGN_UPDATE_TICKET_SUCCESS:
@@ -39,7 +43,7 @@ export function ticketReducer(state = {}, action) {
         case ASSIGN_UPDATE_TICKET:
             return {
                 ...state, isLoadingScreenInViewTicketspage: true,
-                isViewTicketsFormVisible: false, isCreateTicketFormVisible: false
+                isViewTicketsFormVisible: false, isCreateTicketFormVisible: false, isSuccessAlertVisible: false
             };
 
         default:
