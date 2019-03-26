@@ -53,7 +53,6 @@ const store = createStore(MainReducer, {
         isCreateTicketFormVisible: false,        
         isCreateTicketFailureFormVisible: false,
         isViewTicketsFormVisible: false,
-        isLoadingScreenInViewTicketspage: true,
         isSuccessAlertVisible: false        
     },
     ticketDetails: {

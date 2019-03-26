@@ -99,6 +99,7 @@ export function createTicketAPICall(ticket) {
     }
     console.log(JSON.stringify(formData));
     return function (dispatch) {
+        dispatch(showLoadingScreen());
         dispatch(createTicket());
         return fetch(`http://localhost:8080/v0/ticket-management/tickets`, {
             method: 'POST',
@@ -109,11 +110,13 @@ export function createTicketAPICall(ticket) {
                 response => {
                     console.log(response);
                     if (response.status === 201) {
+                        dispatch(dismissLoadingScreen());
                         dispatch(createTicketSuccess());
                         return response.statusText;
                     }
                 },
                 error => {
+                    dispatch(dismissLoadingScreen());
                     console.log('An error occurred.', error);
                 }
             );
@@ -218,6 +221,7 @@ export function assignAndUpdateMultipleTicketsAPICall(params) {
     headers.append('Content-Type', 'application/json');
     var url = new URL("http://localhost:8080/v0/ticket-management/tickets");
     return function (dispatch) {
+        dispatch(showLoadingScreen());
         dispatch(assignAndUpdateMultipleTickets());
         return fetch(url, {
             method: 'PUT',
@@ -227,12 +231,14 @@ export function assignAndUpdateMultipleTicketsAPICall(params) {
             .then(
                 response => {
                     if (response.status === 204) {
+                        dispatch(dismissLoadingScreen());
                         dispatch(assignAndUpdateMultipleTicketsSuccess());
                     }
 
                 },
                 error => {
                     console.log('An error occurred.', error);
+                    dispatch(dismissLoadingScreen());
                     dispatch(assignAndUpdateMultipleTicketsFailure());
                 }
             );

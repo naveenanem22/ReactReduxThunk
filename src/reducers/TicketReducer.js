@@ -7,19 +7,19 @@ export function ticketReducer(state = {}, action) {
 
         case SHOW_FORM_NEW_TICKET:
              return {
-                ...state, isCreateTicketFormVisible: true, isViewTicketsFormVisible: false, isLoadingScreenInViewTicketspage: false,
+                ...state, isCreateTicketFormVisible: true, isViewTicketsFormVisible: false, 
                 isSuccessAlertVisible: false
              };
 
         case CREATE_TICKET:
             return {
-                ...state, isLoadingScreenInViewTicketspage: true, isCreateTicketFormVisible: false,
+                ...state, isCreateTicketFormVisible: false,
                 isCreateTicketFailureFormVisible: false, isSuccessAlertVisible: false
             };
 
         case CREATE_TICKET_SUCCESS:
             return {
-                ...state, isLoadingScreenInViewTicketspage: false, isCreateTicketFormVisible: false,
+                ...state, isCreateTicketFormVisible: false,
                  isCreateTicketFailureFormVisible: false, isSuccessAlertVisible: true
             };
 
@@ -40,8 +40,7 @@ export function ticketReducer(state = {}, action) {
 
         case ASSIGN_UPDATE_TICKET:
             return {
-                ...state, isLoadingScreenInViewTicketspage: true,
-                isViewTicketsFormVisible: false, isCreateTicketFormVisible: false, isSuccessAlertVisible: false
+                ...state, isViewTicketsFormVisible: false, isCreateTicketFormVisible: false, isSuccessAlertVisible: false
             };
 
         default:

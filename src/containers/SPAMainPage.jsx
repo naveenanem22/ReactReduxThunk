@@ -82,7 +82,6 @@ class SPAMainPage extends React.Component {
 const mapStateToProps = function (state) {
   return {
     isViewTicketsFormVisible: state.ticketList.isViewTicketsFormVisible,
-    isLoadingScreenInViewTicketspage: state.ticketList.isLoadingScreenInViewTicketspage,
     isCreateTicketFormVisible: state.ticketList.isCreateTicketFormVisible,
     isSuccessAlertVisible : state.ticketList.isSuccessAlertVisible,
     isLoadingScreenVisible: state.loadingScreen.isLoadingScreenVisible

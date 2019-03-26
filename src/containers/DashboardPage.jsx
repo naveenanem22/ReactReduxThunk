@@ -58,8 +58,7 @@ class DashBoardPage extends React.Component {
 
 const mapStateToProps = function (state){
     return {
-        isViewTicketsFormVisible: state.ticketList.isViewTicketsFormVisible,
-        isLoadingScreenInViewTicketspage : state.ticketList.isLoadingScreenInViewTicketspage
+        isViewTicketsFormVisible: state.ticketList.isViewTicketsFormVisible
     }
   }
 
