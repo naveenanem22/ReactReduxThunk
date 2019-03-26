@@ -89,7 +89,6 @@ export function assignAndUpdateMultipleTicketsFailure() {
 }
 
 export function createTicketAPICall(ticket) {
-    console.log(ticket);
     let headers = new Headers();
     /* headers.append('Content-Type', 'multipart/form-data'); */
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
@@ -120,7 +119,6 @@ export function createTicketAPICall(ticket) {
 }
 
 export function fetchTicketsAPICall(queryParams) {
-    console.log(queryParams);
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     var url = new URL("http://localhost:8080/v0/ticket-management/tickets");
@@ -128,7 +126,7 @@ export function fetchTicketsAPICall(queryParams) {
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
     return function (dispatch) {
-        dispatch(fetchTickets);
+        dispatch(fetchTickets());
         return fetch(url, {
             method: 'GET',
             headers: headers

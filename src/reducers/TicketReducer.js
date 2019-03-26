@@ -7,7 +7,7 @@ export function ticketReducer(state = {}, action) {
 
         case SHOW_FORM_NEW_TICKET:
              return {
-                ...state, isCreateTicketFormVisible: true, isViewTicketsFormVisible: false
+                ...state, isCreateTicketFormVisible: true, isViewTicketsFormVisible: false, isLoadingScreenInViewTicketspage: false
              };
 
         case CREATE_TICKET:

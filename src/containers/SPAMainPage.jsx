@@ -33,7 +33,6 @@ class SPAMainPage extends React.Component {
   }
 
   render() {
-    console.log("isCreateTicketFormVisible: "+this.props.isCreateTicketFormVisible);
     return (
       <div >
         <div class='sticky'>
