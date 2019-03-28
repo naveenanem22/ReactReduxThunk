@@ -4,6 +4,7 @@ import { FaUser, FaAngleDoubleRight } from 'react-icons/fa';
 import history from '../history';
 import { connect } from 'react-redux';
 import { fetchTicketsAPICall, showFormNewTicket} from '../actions/TicketActions'
+import {fetchDashboardDataAPICall} from '../actions/DashboardActions';
 
 
 class SideNavBar extends React.Component {
@@ -21,6 +22,7 @@ class SideNavBar extends React.Component {
 
   handleDashboard(e) {
     history.push("/dashboard");
+    this.props.fetchDashboardData();
   }
 
   handleAwaitResponseClick() {
@@ -113,6 +115,10 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchTickets: (params) => {
       dispatch(fetchTicketsAPICall(params))
+    },
+
+    fetchDashboardData: () => {
+      dispatch(fetchDashboardDataAPICall())
     },
     showNewTicketForm: () =>{
       dispatch(showFormNewTicket());
