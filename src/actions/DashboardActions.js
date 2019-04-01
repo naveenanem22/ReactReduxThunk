@@ -18,13 +18,14 @@ export function fetchDashboardDataSuccess(barChartData) {
     var processedBarChartDataItem = {};
     barChartData.forEach(item =>{
       processedBarChartDataItem = {
-        name: getThreeLetterMonthName(item.month),
+        name: getThreeLetterMonthName(item.month)+'-'+item.year,
         uv: getValueByKey(item.dataPoints, TicketStatus.CLOSE),
         pv: getValueByKey(item.dataPoints, TicketStatus.OPEN)        
       };
       processedBarChartData.push(processedBarChartDataItem);
     });
     console.log("Processed barChartData: "+JSON.stringify(processedBarChartData));
+    //Sort the barChartData in ascending order of the time
     return {
         type: FETCH_DASHBOARD_DATA_SUCCESS,
         payload:{

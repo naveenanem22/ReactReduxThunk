@@ -1,5 +1,4 @@
 export function getThreeLetterMonthName(monthNumber) {
-    console.log("month number: "+monthNumber);
     switch (monthNumber) {
         case 1:
             return 'Jan';
@@ -26,4 +25,8 @@ export function getThreeLetterMonthName(monthNumber) {
         case 12:
             return 'Dec';
     }
+}
+
+export function gettwoDigitYear(year){
+    
 }
