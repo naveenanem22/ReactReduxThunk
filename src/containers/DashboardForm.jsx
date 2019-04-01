@@ -67,7 +67,8 @@ const lineGraphData = [
   },
 ];
 
-const barGraphdata = [
+//const barGraphdata = [{"name":"Nov'18","uv":1,"pv":1},{"name":"Dec'18","uv":1,"pv":0},{"name":"Jan'19","uv":0,"pv":0},{"name":"Feb'19","uv":5,"pv":0},{"name":"Mar'19","uv":0,"pv":0},{"name":"Apr'19","uv":8,"pv":0}]
+/* const barGraphdata = [
   {
     name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
   },
@@ -89,7 +90,7 @@ const barGraphdata = [
   {
     name: 'Page G', uv: 3490, pv: 4300, amt: 2100,
   },
-];
+];  */
 
 
 class DashBoardForm extends React.Component {

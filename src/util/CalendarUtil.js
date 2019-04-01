@@ -28,5 +28,7 @@ export function getThreeLetterMonthName(monthNumber) {
 }
 
 export function gettwoDigitYear(year){
+    year = year+"";//Converting number to string
+    return year.substring(2,4);
     
 }

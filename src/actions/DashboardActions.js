@@ -1,6 +1,6 @@
 import {FETCH_DASHBOARD_DATA, FETCH_DASHBOARD_DATA_SUCCESS, FETCH_DASHBOARD_DATA_FAILURE} from './ActionTypes';
 import {showLoadingScreen, dismissLoadingScreen} from './LoadingScreenActions';
-import {getThreeLetterMonthName} from '../util/CalendarUtil';
+import {getThreeLetterMonthName, gettwoDigitYear} from '../util/CalendarUtil';
 import {getValueByKey} from '../util/ArrayUtil';
 import {TicketStatus} from '../masterdata/ApplicationMasterData';
 
@@ -18,7 +18,7 @@ export function fetchDashboardDataSuccess(barChartData) {
     var processedBarChartDataItem = {};
     barChartData.forEach(item =>{
       processedBarChartDataItem = {
-        name: getThreeLetterMonthName(item.month)+'-'+item.year,
+        name: getThreeLetterMonthName(item.month)+"'"+gettwoDigitYear(item.year),
         uv: getValueByKey(item.dataPoints, TicketStatus.CLOSE),
         pv: getValueByKey(item.dataPoints, TicketStatus.OPEN)        
       };
