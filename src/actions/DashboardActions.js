@@ -19,8 +19,8 @@ export function fetchDashboardDataSuccess(barChartData) {
     barChartData.forEach(item =>{
       processedBarChartDataItem = {
         name: getThreeLetterMonthName(item.month)+"'"+gettwoDigitYear(item.year),
-        uv: getValueByKey(item.dataPoints, TicketStatus.CLOSE),
-        pv: getValueByKey(item.dataPoints, TicketStatus.OPEN)        
+        Closed: getValueByKey(item.dataPoints, TicketStatus.CLOSE),
+        Open: getValueByKey(item.dataPoints, TicketStatus.OPEN)        
       };
       processedBarChartData.push(processedBarChartDataItem);
     });
