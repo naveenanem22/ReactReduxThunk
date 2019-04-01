@@ -1,5 +1,8 @@
 import {FETCH_DASHBOARD_DATA, FETCH_DASHBOARD_DATA_SUCCESS, FETCH_DASHBOARD_DATA_FAILURE} from './ActionTypes';
 import {showLoadingScreen, dismissLoadingScreen} from './LoadingScreenActions';
+import {getThreeLetterMonthName} from '../util/CalendarUtil';
+import {getValueByKey} from '../util/ArrayUtil';
+import {TicketStatus} from '../masterdata/ApplicationMasterData';
 
 
 export function fetchDashboardData() {
@@ -8,9 +11,25 @@ export function fetchDashboardData() {
     }
 }
 
-export function fetchDashboardDataSuccess() {
+export function fetchDashboardDataSuccess(barChartData) {
+    //Processing rawBarChart data to the Component reuqired format
+    console.log("Raw barChartData: "+JSON.stringify(barChartData));
+    var processedBarChartData = [];
+    var processedBarChartDataItem = {};
+    barChartData.forEach(item =>{
+      processedBarChartDataItem = {
+        name: getThreeLetterMonthName(item.month),
+        uv: getValueByKey(item.dataPoints, TicketStatus.CLOSE),
+        pv: getValueByKey(item.dataPoints, TicketStatus.OPEN)        
+      };
+      processedBarChartData.push(processedBarChartDataItem);
+    });
+    console.log("Processed barChartData: "+JSON.stringify(processedBarChartData));
     return {
-        type: FETCH_DASHBOARD_DATA_SUCCESS
+        type: FETCH_DASHBOARD_DATA_SUCCESS,
+        payload:{
+            barChartData: processedBarChartData
+        }
     }
 }
 
@@ -40,10 +59,9 @@ export function fetchDashboardDataAPICall() {
                 },
                 error => console.log('An error occurred.', error),
             )
-            .then((barChartData) => {
-                console.log("BarChart data fetched: " + barChartData);
+            .then((barChart) => {
                 dispatch(dismissLoadingScreen());
-                dispatch(fetchDashboardDataSuccess(barChartData));
+                dispatch(fetchDashboardDataSuccess(barChart));
             },
             );
     };

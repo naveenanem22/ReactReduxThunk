@@ -18,6 +18,16 @@ const allStoreEnhancers = compose(
     applyMiddleware(thunk)
 )
 const store = createStore(MainReducer, {
+    dashboardData:{
+        barChart:{
+            data:[]
+        },
+        pieChart:{
+            data:[]
+
+        }
+
+    },
     loadingScreen: {
         isLoadingScreenVisible: false
     },

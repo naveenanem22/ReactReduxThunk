@@ -2,6 +2,9 @@ import React from 'react';
 import { Button, Card, CardText, CardBody, CardTitle, CardSubtitle, Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 import { FaTicketAlt, FaClipboardCheck, FaSyncAlt } from 'react-icons/fa';
+import {getThreeLetterMonthName} from '../util/CalendarUtil';
+import {getValueByKey} from '../util/ArrayUtil';
+import {TicketStatus} from '../masterdata/ApplicationMasterData';
 import victory from "victory";
 import {
   VictoryBar,
@@ -64,29 +67,7 @@ const lineGraphData = [
   },
 ];
 
-const barGraphdata = [
-  {
-    name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
-  },
-  {
-    name: 'Page B', uv: 3000, pv: 1398, amt: 2210,
-  },
-  {
-    name: 'Page C', uv: 2000, pv: 9800, amt: 2290,
-  },
-  {
-    name: 'Page D', uv: 2780, pv: 3908, amt: 2000,
-  },
-  {
-    name: 'Page E', uv: 1890, pv: 4800, amt: 2181,
-  },
-  {
-    name: 'Page F', uv: 2390, pv: 3800, amt: 2500,
-  },
-  {
-    name: 'Page G', uv: 3490, pv: 4300, amt: 2100,
-  },
-];
+const barGraphdata = [{"name":"Feb","uv":0,"pv":0},{"name":"Mar","uv":3,"pv":0},{"name":"Nov","uv":0,"pv":0}];
 
 class DashBoardForm extends React.Component {
 
@@ -95,6 +76,7 @@ class DashBoardForm extends React.Component {
 
     //State
     this.state = {
+      barChart :this.props.barChart,
       opacity: {
         uv: 1,
         pv: 1
@@ -104,7 +86,6 @@ class DashBoardForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
-
   }
 
   handleMouseEnter = (o) => {
@@ -131,11 +112,7 @@ class DashBoardForm extends React.Component {
     });
   }
 
-
-
-
   render() {
-    console.log(this.props);
     const { opacity } = this.state;
     return (
       <div>
@@ -200,7 +177,7 @@ class DashBoardForm extends React.Component {
                   width={500}
                   height={300}
                   barSize={8}
-                  data={barGraphdata}
+                  data={this.state.barChart.data}
                   margin={{
                     top: 5, right: 30, left: 20, bottom: 5,
                   }}
@@ -341,11 +318,7 @@ const mapActionsToProps = {
 
 const mapStateToProps = function (state) {
   return {
-    departments: state.departments,
-    priority: state.priority,
-    ticketStatus: state.ticketStatus,
-    ticketType: state.ticketType,
-    serviceCategories: state.serviceCategories
+    barChart: state.dashboardData.barChart
   }
 }
 

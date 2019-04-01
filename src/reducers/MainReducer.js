@@ -7,6 +7,7 @@ import {engineerReducer} from './EngineerReducer';
 import {departmentReducer} from './DepartmentReducer';
 import {serviceCategoriesReducer} from './ServiceCategoriesReducer';
 import {loadingScreenReducer} from './LoadingScreenReducer';
+import {dashboardReducer} from './DashboardReducer';
 
 export const MainReducer = combineReducers(
     {products : productReducer,
@@ -16,6 +17,7 @@ export const MainReducer = combineReducers(
     engineerList : engineerReducer,
     departments : departmentReducer,
     serviceCategories: serviceCategoriesReducer,
-    loadingScreen: loadingScreenReducer}
+    loadingScreen: loadingScreenReducer,
+    dashboardData: dashboardReducer}
 
 )
