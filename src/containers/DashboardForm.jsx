@@ -67,7 +67,6 @@ const lineGraphData = [
   },
 ];
 
-//const barGraphdata = [{"name":"Nov'18","uv":1,"pv":1},{"name":"Dec'18","uv":1,"pv":0},{"name":"Jan'19","uv":0,"pv":0},{"name":"Feb'19","uv":5,"pv":0},{"name":"Mar'19","uv":0,"pv":0},{"name":"Apr'19","uv":8,"pv":0}]
 /* const barGraphdata = [
   {
     name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
@@ -101,6 +100,7 @@ class DashBoardForm extends React.Component {
     //State
     this.state = {
       barChart :this.props.barChart,
+      pieChart :this.props.pieChart,
       opacity: {
         uv: 1,
         pv: 1
@@ -137,6 +137,8 @@ class DashBoardForm extends React.Component {
   }
 
   render() {
+    console.log("State's piechart");
+    console.log(this.state.pieChart);
     const { opacity } = this.state;
     return (
       <div>
@@ -342,7 +344,8 @@ const mapActionsToProps = {
 
 const mapStateToProps = function (state) {
   return {
-    barChart: state.dashboardData.barChart
+    barChart: state.dashboardData.barChart,
+    pieChart: state.dashboardData.pieChart
   }
 }
 

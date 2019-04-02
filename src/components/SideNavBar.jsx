@@ -4,7 +4,7 @@ import { FaUser, FaAngleDoubleRight } from 'react-icons/fa';
 import history from '../history';
 import { connect } from 'react-redux';
 import { fetchTicketsAPICall, showFormNewTicket} from '../actions/TicketActions'
-import {fetchDashboardDataAPICall} from '../actions/DashboardActions';
+import {fetchDashboardDataAPICall, fetchDashboardDataMultipleAPICall} from '../actions/DashboardActions';
 
 
 class SideNavBar extends React.Component {
@@ -114,11 +114,12 @@ const mapDispatchToProps = dispatch => {
 
   return {
     fetchTickets: (params) => {
-      dispatch(fetchTicketsAPICall(params))
+      dispatch(fetchTicketsAPICall(params));
     },
 
     fetchDashboardData: () => {
-      dispatch(fetchDashboardDataAPICall())
+      //dispatch(fetchDashboardDataAPICall());
+      dispatch(fetchDashboardDataMultipleAPICall());
     },
     showNewTicketForm: () =>{
       dispatch(showFormNewTicket());
