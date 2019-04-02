@@ -35,7 +35,7 @@ export function fetchDashboardDataSuccess(dashboardData) {
     dashboardData.pieChartData.forEach(item => {
         processedPieChartDataItem = {
             name: item.departmentName,
-            value: item.ticketCount
+            value: item.payload
         };
         processedPieChartData.push(processedPieChartDataItem);
     });

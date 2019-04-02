@@ -25,6 +25,14 @@ const store = createStore(MainReducer, {
         pieChart:{
             data:[]
 
+        },
+        lineChart:{
+            data:[]
+        },
+        lastHourTicketCount:{
+            Closed: 0,
+            New: 0,
+            AwaitingUserResponse:0
         }
 
     },

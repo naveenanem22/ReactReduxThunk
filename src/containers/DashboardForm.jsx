@@ -19,12 +19,11 @@ import {
   PieChart, Pie, Sector
 } from 'recharts';
 
-const pieGraphData = [
+/* const pieGraphData = [
   { name: 'Group A', value: 400 },
-  { name: 'Group B', value: 300 },
-  { name: 'Group C', value: 300 },
-  { name: 'Group D', value: 200 },
-];
+  { name: 'Group B', value: 300 }
+  
+]; */
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
@@ -225,7 +224,7 @@ class DashBoardForm extends React.Component {
                 <CardTitle>Department-wise workload</CardTitle>
                 <PieChart width={500} height={300}>
                   <Pie
-                    data={pieGraphData}
+                    data={this.state.pieChart.data}
                     cx={150}
                     cy={100}
                     labelLine={false}
@@ -235,7 +234,7 @@ class DashBoardForm extends React.Component {
                     dataKey="value"
                   >
                     {
-                      pieGraphData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
+                      this.state.pieChart.data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
                     }
                   </Pie>
                   <Tooltip />
