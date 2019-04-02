@@ -100,6 +100,7 @@ class DashBoardForm extends React.Component {
     this.state = {
       barChart :this.props.barChart,
       pieChart :this.props.pieChart,
+      lastHourTicketCount: this.props.lastHourTicketCount,
       opacity: {
         uv: 1,
         pv: 1
@@ -152,7 +153,7 @@ class DashBoardForm extends React.Component {
                   <Col><FaTicketAlt size={70} style={{ color: 'red' }} /></Col>
                   <Col>
                     <Row><Col ><p style={{ fontFamily: 'Roboto,Helvetica Neue,Arial,sans-serif', marginBottom: '0%' }}>New Tickets</p></Col></Row>
-                    <Row><Col ><h1>23</h1></Col></Row>
+                    <Row><Col ><h1>{this.state.lastHourTicketCount.New}</h1></Col></Row>
                   </Col>
                 </Row>
                 <hr></hr>
@@ -167,7 +168,7 @@ class DashBoardForm extends React.Component {
                   <Col><FaClipboardCheck size={60} style={{ color: 'green' }} /></Col>
                   <Col>
                     <Row><Col ><p style={{ fontFamily: 'Roboto,Helvetica Neue,Arial,sans-serif', marginBottom: '0%' }}>Closed</p></Col></Row>
-                    <Row><Col ><h1>12</h1></Col></Row>
+                    <Row><Col ><h1>{this.state.lastHourTicketCount.Closed}</h1></Col></Row>
                   </Col>
                 </Row>
                 <hr></hr>
@@ -344,7 +345,8 @@ const mapActionsToProps = {
 const mapStateToProps = function (state) {
   return {
     barChart: state.dashboardData.barChart,
-    pieChart: state.dashboardData.pieChart
+    pieChart: state.dashboardData.pieChart,
+    lastHourTicketCount: state.dashboardData.lastHourTicketCount
   }
 }
 

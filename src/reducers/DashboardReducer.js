@@ -5,7 +5,8 @@ export function dashboardReducer(state = {}, action) {
 
         case FETCH_DASHBOARD_DATA_SUCCESS:
             return {
-                ...state, barChart: {data:action.payload.barChartData}, pieChart : {data:action.payload.pieChartData}
+                ...state, barChart: {data:action.payload.barChartData}, pieChart : {data:action.payload.pieChartData},
+                lastHourTicketCount: {New: action.payload.lastHourNewTicketCount, Closed: action.payload.lastHourClosedTicketCount}
             };
 
         case FETCH_DASHBOARD_DATA:
