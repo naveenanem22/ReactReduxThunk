@@ -137,8 +137,8 @@ class DashBoardForm extends React.Component {
   }
 
   render() {
-    console.log("State's piechart");
-    console.log(this.state.pieChart);
+    console.log("State");
+    console.log(this.state);
     const { opacity } = this.state;
     return (
       <div>

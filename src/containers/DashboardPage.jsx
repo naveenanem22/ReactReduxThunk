@@ -31,11 +31,11 @@ class DashBoardPage extends React.Component {
                <tr >
                <td style ={{ width:'20%' }}><SideNavBar ></SideNavBar></td>
                <td>
-               {true && <div class = 'view-ticket-form'>
+               {this.props.isDashboardFormVisible && <div class = 'view-ticket-form'>
                 <DashBoardForm ></DashBoardForm>
                 </div>}
                 
-                {false && 
+                {this.props.isLoadingScreenVisible && 
                 <div className='view-ticket-loading'>
                 <ScaleLoader 
                 color='#00d8ff'
@@ -56,11 +56,12 @@ class DashBoardPage extends React.Component {
     }
 }
 
-const mapStateToProps = function (state){
-    return {
-        isViewTicketsFormVisible: state.ticketList.isViewTicketsFormVisible
-    }
+const mapStateToProps = function (state) {
+  return {
+    isDashboardFormVisible: state.dashboardData.isDashboardFormVisible,
+    isLoadingScreenVisible: state.loadingScreen.isLoadingScreenVisible
   }
+}
 
   const mapActionsToProps = {  
     fetchTickets : fetchTicketsAPICall  

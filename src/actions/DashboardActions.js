@@ -15,8 +15,8 @@ export function fetchDashboardDataSuccess(dashboardData) {
 
     console.log("Raw barChartData: " + JSON.stringify(dashboardData.barChartData));
     console.log("Raw pieChartData: " + JSON.stringify(dashboardData.pieChartData));
-    console.log("lastHourNewTicketCount: "+dashboardData.lastHourNewTicketCount);
-    console.log("lastHourClosedTicketCount: "+dashboardData.lastHourClosedTicketCount);
+    console.log("lastHourNewTicketCount: "+JSON.stringify(dashboardData.lastHourNewTicketCount));
+    console.log("lastHourClosedTicketCount: "+JSON.stringify(dashboardData.lastHourClosedTicketCount));
 
     //Processing rawBarChart data to the Component reuqired format
     var processedBarChartData = [];

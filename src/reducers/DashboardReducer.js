@@ -4,13 +4,16 @@ export function dashboardReducer(state = {}, action) {
     switch (action.type) {        
 
         case FETCH_DASHBOARD_DATA_SUCCESS:
+            console.log("Inside success reducer");
             return {
-                ...state, barChart: {data:action.payload.barChartData}, pieChart : {data:action.payload.pieChartData},
-                lastHourTicketCount: {New: action.payload.lastHourNewTicketCount, Closed: action.payload.lastHourClosedTicketCount}
+                ...state, isDashboardFormVisible: true, barChart: {data:action.payload.barChartData}, pieChart : {data:action.payload.pieChartData},
+                lastHourTicketCount: {New: action.payload.lastHourNewTicketCount.ticketCount, Closed: action.payload.lastHourClosedTicketCount.ticketCount}
             };
 
         case FETCH_DASHBOARD_DATA:
-            return state;
+            return {
+                ...state, isDashboardFormVisible: false
+            };
 
         case FETCH_DASHBOARD_DATA_FAILURE:
             return state;

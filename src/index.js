@@ -33,8 +33,8 @@ const store = createStore(MainReducer, {
             Closed: 0,
             New: 0,
             AwaitingUserResponse:0
-        }
-
+        },
+        isDashboardFormVisible: false
     },
     loadingScreen: {
         isLoadingScreenVisible: false
