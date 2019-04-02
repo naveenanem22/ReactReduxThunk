@@ -72,8 +72,8 @@ class SideNavBar extends React.Component {
       <div class='sidenavbar' style={{}}>
 
         <Nav style={{ borderRadius: '10px', border: '1px solid grey', backgroundColor: '#E8EAED' }} vertical >
-          <NavItem>
-            <NavLink href="#" onClick = {this.handleDashboard}style={{ borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Dashboard
+          <NavItem >
+            <NavLink href="#" onClick = {this.handleDashboard}style={{ borderTopLeftRadius:'10px',borderTopRightRadius:'10px',borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Dashboard
             </NavLink>
           </NavItem>
 
@@ -101,7 +101,7 @@ class SideNavBar extends React.Component {
           </NavItem>
 
           <NavItem>
-            <NavLink disabled href="#" style={{ textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Disabled Link</NavLink>
+            <NavLink disabled href="#" style={{ borderBottomLeftRadius:'10px', borderBottomRightRadius:'10px', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Disabled Link</NavLink>
           </NavItem>
         </Nav>
 
