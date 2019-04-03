@@ -61,7 +61,7 @@ class SideNavBar extends React.Component {
   }
 
   handleNewTicket() {
-    history.push("/newticket");
+    history.push("/tickets?redirect=newTicket");
     this.props.showNewTicketForm();
   }
 
