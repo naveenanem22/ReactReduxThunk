@@ -20,7 +20,15 @@ class SPAMainPage extends React.Component {
   }
 
   componentDidMount() {
-    
+    //This code is to temporary-fix the F5 or Refresh loading the page issue. But this is making a duplication of the 
+    // service call and need to be addressed.
+    const queryParams = new URLSearchParams(this.props.location.search);
+    const status = queryParams.get('status');
+    this.props.fetchTickets({
+      userId: "naveen.anem@kony.com",
+      status: status,
+      sortBy: 'ticketId'
+    });
   }
 
   loadTickets() {
