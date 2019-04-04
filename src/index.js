@@ -13,6 +13,7 @@ import LoginPage from './containers/LoginPage';
 import HomePage from './containers/HomePage';
 import history from './history';
 import DashboardPage from './containers/DashboardPage';
+import SPAEngineerMainPage from './containers/SPAEngineerMainPage';
 
 const allStoreEnhancers = compose(
     applyMiddleware(thunk)
@@ -91,6 +92,7 @@ ReactDOM.render(
     <Provider store={store}>
         <Router history={history}>
             <div>
+                <Route path="/ticketmaint" component = {SPAEngineerMainPage}></Route>
                 <Route path="/home" component={HomePage}></Route>
                 <Route path="/login" component={LoginPage}></Route>
                 <Route path="/tickets" component={SPAMainPage}></Route>
