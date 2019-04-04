@@ -26,7 +26,7 @@ class SideNavBar extends React.Component {
   }
 
   handleAwaitResponseClick() {
-    history.push("/tickets?status=InProcess");
+    history.push("/ticketmaint/tickets?status=InProcess");
     this.props.fetchTickets({
       status: 'InProcess',
       sortBy: 'ticketId'
@@ -34,7 +34,7 @@ class SideNavBar extends React.Component {
   }
 
   handleClosedTicketsClick() {
-    history.push("/tickets?status=Closed");
+    history.push("/ticketmaint/tickets?status=Closed");
     this.props.fetchTickets({
       status: 'Closed',
       sortBy: 'ticketId'
@@ -42,7 +42,7 @@ class SideNavBar extends React.Component {
   }
 
   handleAssignTicketsClick() {
-    history.push("/tickets?status=New");
+    history.push("/ticketmaint/tickets?status=New");
     this.props.fetchTickets({
       status: 'New',
       sortBy: 'ticketId'
@@ -52,10 +52,10 @@ class SideNavBar extends React.Component {
 
   handleMyTicketsClick() {
     history.push("/ticketmaint/tickets?status=all");
-    /* this.props.fetchTickets({
+    this.props.fetchTickets({
       status: 'all',
       sortBy: 'ticketId'
-    }); */
+    }); 
 
   }
 
