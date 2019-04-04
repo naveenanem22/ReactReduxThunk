@@ -3,6 +3,7 @@ import HeaderNavBar from "../components/EngineerHeaderNavBar";
 import { connect } from 'react-redux';
 import CreateTicketForm from './CreateTicketForm';
 import DashboardForm from './DashboardForm';
+import ViewTicketsForm from './ViewTicketsForm';
 import { Route } from 'react-router-dom'
 import SideNavBar from '../components/EngineerSideNavBar';
 import {Row, Col} from 'reactstrap';
@@ -24,11 +25,12 @@ class SPAEngineerMainPage extends React.Component {
         <div class='sticky' style={{ height: '100%', width: '100%' }}>
           <HeaderNavBar></HeaderNavBar>
         </div>
-        <Row style={{ background: 'rgba(0,0,0,0.3)', marginTop:'1%', marginLeft:'5%', marginRight:'3%' }}>
+        <Row style={{ background: 'rgba(0,0,0,0.3)', marginTop:'1%', marginLeft:'3%', marginRight:'3%', paddingTop:'1%' }}>
             <Col sm='2'><SideNavBar></SideNavBar></Col>
-            <Col sm='7'>
+            <Col sm='7' style={{border: '1px solid #E8EAED', borderRadius: '10px',  paddingRight: '5px',  paddingLeft:'5px',  paddingTop:'5px',  paddingBottom:'5px',  backgroundColor: '#E8EAED'}}>
               <Route path="/ticketmaint/dashboard" component={DashboardForm}></Route>
               <Route path="/ticketmaint/newticket" component={CreateTicketForm}></Route>
+              <Route path="/ticketmaint/tickets" compoent={ViewTicketsForm}></Route>
             </Col>
             <Col sm='3'>
               <div style={{ position: 'sticky', top: 100, zIndex: 1 }}>This is where the sub content to be displayed..like Org uupdates, new tickets, closed ticets</div>
