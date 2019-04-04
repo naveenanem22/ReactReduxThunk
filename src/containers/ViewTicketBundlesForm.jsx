@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 import SearchInput from '../components/SearchInput';
 import { assignAndUpdateMultipleTicketsAPICall } from '../actions/TicketActions';
 import history from '../history';
+import TicketDetailCard from '../components/TicketDetailCard';
 
 class ViewTicketsForm extends React.Component {
 
@@ -192,32 +193,13 @@ class ViewTicketsForm extends React.Component {
             <p>Tickets that need to be actioned.</p>
           </Row>
         </Container>
-        <Table size='sm' hover bordered class="rounded mb-0" style={{ marginTop: '1%' }}>
-          <thead>
-            <tr>
-              {true && <th></th>}
-              <th>Ticket#</th>
-              <th>Status</th>
-              <th>Title</th>
-              <th>Updated</th>
-              <th>Assign To</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.tickets.map((ticket) =>
-
-              <tr onClick={(e) => this.handleClick(e, ticket)}>
-                {true && <td style={{ width: '5%', textAlign: 'center' }}><Input style={{ marginLeft: '0%' }} type="checkbox" onChange={(e) => this.handleCheckAndUnCheck(e, ticket)} /></td>}
-                <td style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>{ticket.id}</td>
-                <td style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>{ticket.status}</td>
-                <td style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>{ticket.title}</td>
-                <td style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>{ticket.updatedDate}</td>
-                {true && <td style={{ marginRight: '1%' }}><SearchInput isInValid={ticket.isAssignedToInvalid} onSelectSuggestion={selectedValue => this.updateAssignedValue(selectedValue, ticket)} suggestions={suggestions}></SearchInput>
-                </td>}
-              </tr>
-            )}
-          </tbody>
-        </Table>
+        <Container>
+          <Row style={{marginBottom:'2%'}}><TicketDetailCard></TicketDetailCard></Row>
+          <Row style={{marginBottom:'2%'}}><TicketDetailCard></TicketDetailCard></Row>
+          <Row style={{marginBottom:'2%'}}><TicketDetailCard></TicketDetailCard></Row>
+          <Row style={{marginBottom:'2%'}}><TicketDetailCard></TicketDetailCard></Row>
+        </Container>
+        
         <Container style={{ marginTop: '3%', marginBottom: '3%' }}><Row style={{ textAlign: 'center' }}>
           <Col style={{ textAlign: 'center' }}>
             <Button color="success" style={{ width: '110px', marginRight: '5%' }} onClick={(e) => this.handleAssign(e)}>Assign</Button>
