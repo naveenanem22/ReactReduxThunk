@@ -19,23 +19,36 @@ class TicketDetailCard extends React.Component{
 
     render(){
         return (
-        <Card style={{width:'100%'}}>
-        <CardHeader style={{paddingTop:'1%', paddingBottom:'1%'}}><Row>
-            <Col style={{textAlign:'left'}}><Badge color="danger">High</Badge></Col>
-            <Col style={{textAlign:'right'}}><p style={{color: '#0000008a',fontSize:'90%', margin:'0'}}>Days: 27</p></Col>
-            </Row></CardHeader>
-        <CardBody style={{paddingTop:'1%', paddingBottom:'1%'}}>
-        <Row>
-            <Col sm='8'>
-            <Row style={{fontSize:'95%', fontWeight:600}}>Special Title Treatment</Row>
-          <Row style={{fontSize:'90%', fontWeight:300}}>With supporting text below as a natural lead-in to additional content.</Row>
-          </Col>
-            <Col sm='4'>Need to paste some sort of image</Col>
-        </Row>
-          <Row><Button style={{paddingTop:'0', paddingBottom:'0'}} size="sm" outline color="success">Close</Button></Row>          
-        </CardBody>
-        <CardFooter style={{paddingTop:'0', paddingBottom:'0'}}>Footer</CardFooter>
-      </Card>
+            <Card style={{ width: '100%', borderLeft: '1%' }}>
+                <CardHeader style={{ paddingTop: '1%', paddingBottom: '1%', paddingRight:'0' }}><Row>
+                    <Col sm='2' style={{ textAlign: 'left' }}><Badge color="danger">High</Badge></Col>
+                    <Col sm='4' style={{ textAlign: 'center' }}>112658</Col>
+                    <Col sm='3' style={{ textAlign: 'right', color: '#0000008a', fontSize: '80%', margin: '0', paddingRight: '0' }}><i>Created by</i></Col>
+                    <Col sm='3' style={{ textAlign: 'left', fontWeight: '500', color: '#0000008a', fontSize: '80%', margin: '0' }}>Naveen Kumar Anem</Col>
+                </Row></CardHeader>
+                <CardBody style={{ paddingTop: '1%', paddingBottom: '1%' }}>
+                    <Row>
+                        <Col sm='8'>
+                            <Row><Col style={{ fontSize: '90%', fontWeight: 600 }}>Special Title Treatment</Col></Row>
+                            <Row><Col style={{ fontSize: '90%', fontWeight: 300 }}>With supporting text below as a natural lead-in to additional content.</Col></Row>
+
+                        </Col>
+                        <Col sm='4' style={{ borderLeft: '1px solid rgba(0,0,0,.125)' }}>
+                            <Row><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left' }}><i>Status</i></Col><Col></Col></Row>
+                            <Row><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left' }}><i>Days Open</i></Col></Row>
+                            <Row><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left' }}><i>Department</i></Col></Row>
+                        </Col>
+                    </Row>
+
+                </CardBody>
+                <CardFooter style={{ paddingTop: '0.5%', paddingBottom: '1%' }}>
+                    <Row>
+                    <Col sm='8'style={{ textAlign: 'left' }}><Button style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Close</Button><Button style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginLeft: '1%' }} size="sm" outline color="warning">Message</Button></Col>
+                        <Col sm='2' style={{ textAlign: 'right', color: '#0000008a', fontSize: '80%', margin: '0', paddingRight: '0' }}><i>Updated by</i></Col>
+                        <Col sm='2' style={{ textAlign: 'left', fontWeight: '500', color: '#0000008a', fontSize: '80%', margin: '0' }}>Mike Brenner</Col>
+                    </Row>
+                </CardFooter>
+            </Card>
         );
 
     }

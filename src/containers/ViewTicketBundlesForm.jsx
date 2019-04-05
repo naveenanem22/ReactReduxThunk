@@ -200,16 +200,6 @@ class ViewTicketsForm extends React.Component {
           <Row style={{marginBottom:'2%'}}><TicketDetailCard></TicketDetailCard></Row>
         </Container>
         
-        <Container style={{ marginTop: '3%', marginBottom: '3%' }}><Row style={{ textAlign: 'center' }}>
-          <Col style={{ textAlign: 'center' }}>
-            <Button color="success" style={{ width: '110px', marginRight: '5%' }} onClick={(e) => this.handleAssign(e)}>Assign</Button>
-            <Button color="secondary" style={{ width: '110px', marginLeft: '5%' }}>Close</Button>
-          </Col>
-        </Row>
-        </Container>
-
-
-
       </div>
     );
 
