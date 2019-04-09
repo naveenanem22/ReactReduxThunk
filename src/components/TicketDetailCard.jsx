@@ -29,8 +29,8 @@ class TicketDetailCard extends React.Component{
                 <CardBody style={{ paddingTop: '1%', paddingBottom: '1%' }}>
                     <Row>
                         <Col sm='8'>
-                            <Row><Col style={{ fontSize: '90%', fontWeight: 600 }}>Special Title Treatment</Col></Row>
-                            <Row><Col style={{ fontSize: '90%', fontWeight: 300 }}>With supporting text below as a natural lead-in to additional content. 
+                            <Row><Col style={{ fontSize: '90%', fontWeight: 600, color:'#222426' }}>Special Title Treatment</Col></Row>
+                            <Row><Col style={{ fontSize: '90%', fontWeight: 300, color:'#222426' }}>With supporting text below as a natural lead-in to additional content. 
                             Adding the href prop (without specifying a tag prop) will default the badge to a link.</Col></Row>
 
                         </Col>

@@ -1,10 +1,12 @@
 import React from 'react';
 import { addMessageAPICall, closeTicketAPICall, downloadAttachmentAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
-import { Button, Row, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
-import { Table, NavLink } from 'reactstrap';
+import { Badge, Row, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
+import { Button, Card, CardBody, CardHeader, CardText, CardTitle } from 'reactstrap';
 import { FaFilePdf, FaFileAlt, FaFileImage, FaFile } from 'react-icons/fa';
 import {loadFileIcon} from '../util/UIUtils';
+import TicketConversationBlock from '../components/TicketConversationBlock';
+
 class ViewTicketBundleDetailsForm extends React.Component {
 
   constructor(props) {
@@ -84,9 +86,92 @@ class ViewTicketBundleDetailsForm extends React.Component {
   render() {
     const ticket = this.props.ticket;
     return (
-      <div>
-        <Row>Ticket title: NO internet connection to home laptop</Row>
-        <Row>Internet connection is required based on project demand</Row>
+      <div style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '10px', paddingLeft: '10px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+        <Row>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Ticket Number:</Col>
+        </Row>
+        <Row>
+          <Col style={{ color: '#0000008a', fontSize: '90%', textAlign: 'left', fontWeight: 400, color: 'olive' }}>332565</Col>
+        </Row>
+        <Row style={{ marginTop: '5%' }}>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Title:</Col>
+        </Row>
+        <Row>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>Need Internet connectivity to the personal device.</Col>
+        </Row>
+        <Row style={{ marginTop: '5%' }}>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Description:</Col>
+        </Row>
+        <Row>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>Internet connectivity to personal device is requested as per project neeed.</Col>
+        </Row>
+        <Row style={{ marginTop: '5%' }}>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Quick Look data:</Col>
+        </Row>
+        <Row>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight:'0' }}>Status :</Col><Col style={{ textAlign: 'left' }}><Badge color="danger">New</Badge></Col>
+        </Row>
+        <Row>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight:'0' }}>Priority :</Col><Col style={{color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>High</Col>
+        </Row>
+        <Row>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight:'0' }}>Open since :</Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>28 Days</Col>
+        </Row>
+        <Row>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight:'0' }}>Department :</Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>Network and Admin</Col>
+        </Row>
+        <Row>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight:'0' }}>Updated On :</Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>28th Sep 2018</Col>
+        </Row>
+        <Row style={{ marginTop: '5%' }}>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Attachments:</Col>
+        </Row>
+        <Row style={{ marginTop: '5%' }}>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Conversation:</Col>
+        </Row>
+        <Row style={{marginTop:'4%'}}>
+          <Col >
+            <Card >
+              <CardHeader style={{verticalAlign:'middle', fontSize:'80%', paddingLeft:'2%', paddingRight:'0', paddingTop:'1%', paddingBottom:'1%'}}>Naveen Kumar Anem</CardHeader>
+              <CardBody style={{padding:'2%'}}>
+                <CardText style={{fontSize:'75%'}}>With supporting text below as a natural lead-in to additional content.</CardText>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+        <Row style={{marginTop:'4%'}}>
+          <Col >
+            <Card >
+              <CardHeader style={{verticalAlign:'middle', fontSize:'80%', paddingLeft:'2%', paddingRight:'0', paddingTop:'1%', paddingBottom:'1%'}}>Naveen Kumar Anem</CardHeader>
+              <CardBody style={{padding:'2%'}}>
+                <CardText style={{fontSize:'75%'}}>With supporting text below as a natural lead-in to additional content.</CardText>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+        <Row style={{marginTop:'4%'}}>
+          <Col >
+            <Card >
+              <CardHeader style={{verticalAlign:'middle', fontSize:'80%', paddingLeft:'2%', paddingRight:'0', paddingTop:'1%', paddingBottom:'1%'}}>Naveen Kumar Anem</CardHeader>
+              <CardBody style={{padding:'2%'}}>
+                <CardText style={{fontSize:'75%'}}>With supporting text below as a natural lead-in to additional content.</CardText>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+        <Row style={{marginTop:'4%'}}>
+          <Col >
+            <Card >
+              <CardHeader style={{verticalAlign:'middle', fontSize:'80%', paddingLeft:'2%', paddingRight:'0', paddingTop:'1%', paddingBottom:'1%'}}>Naveen Kumar Anem</CardHeader>
+              <CardBody style={{padding:'2%'}}>
+                <CardText style={{fontSize:'75%'}}>With supporting text below as a natural lead-in to additional content.</CardText>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+        <Row>
+          <Col style={{ textAlign: 'center' }}><Button style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Close</Button><Button style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginLeft: '1%' }} size="sm" outline color="warning">Message</Button></Col>
+        </Row>
       </div>
       
     );
