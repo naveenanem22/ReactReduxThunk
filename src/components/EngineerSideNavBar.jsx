@@ -52,10 +52,10 @@ class SideNavBar extends React.Component {
 
   handleMyTicketsClick() {
     history.push("/ticketmaint/tickets?status=all");
-    this.props.fetchTickets({
+    /* this.props.fetchTickets({
       status: 'all',
       sortBy: 'ticketId'
-    }); 
+    }); */ 
 
   }
 

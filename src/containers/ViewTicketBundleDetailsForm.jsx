@@ -1,11 +1,11 @@
 import React from 'react';
-import { addMessageAPICall, closeTicketAPICall, downloadAttachmentAPICall } from '../actions/TicketActions'
+import { addMessageAPICall, closeTicketAPICall, downloadAttachmentAPICall, fetchTicketDetailsAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
 import { Badge, Row, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
 import { Button, Card, CardBody, CardHeader, CardText, CardTitle } from 'reactstrap';
 import { FaFilePdf, FaFileAlt, FaFileImage, FaFile } from 'react-icons/fa';
 import {loadFileIcon} from '../util/UIUtils';
-import TicketConversationBlock from '../components/TicketConversationBlock';
+import history from '../history';
 
 class ViewTicketBundleDetailsForm extends React.Component {
 
@@ -18,7 +18,8 @@ class ViewTicketBundleDetailsForm extends React.Component {
       comment: '',
 
       commentedOn: '',
-      isUpload: false
+      isUpload: false,
+      showSelectTicketMsg: this.props.showSelectTicketMsg
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -83,10 +84,34 @@ class ViewTicketBundleDetailsForm extends React.Component {
       [e.target.name]: e.target.files[0]
     })
   }
+
+  componentDidMount(){
+    if(history.location.search.includes('status'))
+    {
+      this.setState({
+        showSelectTicketMsg: true
+      })
+    }
+
+    if(history.location.search.includes('ticketId')){
+      this.props.fetchTicketDetails({
+        ticketId:3
+      });
+
+    }
+
+    
+    
+  }
+
+
   render() {
     const ticket = this.props.ticket;
+    console.log("ViewTicketBundleDetailsForm-Render");
+    console.log(ticket);
     return (
-      <div style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '10px', paddingLeft: '10px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+      <div>
+      {!this.state.showSelectTicketMsg && <div style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '10px', paddingLeft: '10px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
         <Row>
           <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Ticket Number:</Col>
         </Row>
@@ -112,10 +137,10 @@ class ViewTicketBundleDetailsForm extends React.Component {
           <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight:'0' }}>Status :</Col><Col style={{ textAlign: 'left' }}><Badge color="danger">New</Badge></Col>
         </Row>
         <Row>
-          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight:'0' }}>Priority :</Col><Col style={{color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>High</Col>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight:'0' }}>Priority :</Col><Col  style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>High</Col>
         </Row>
         <Row>
-          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight:'0' }}>Open since :</Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>28 Days</Col>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight:'0' }}>Open since :</Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}><Badge style={{width:'20%', height:'90%'}} color="secondary">24</Badge> Days</Col>
         </Row>
         <Row>
           <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight:'0' }}>Department :</Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>Network and Admin</Col>
@@ -132,9 +157,9 @@ class ViewTicketBundleDetailsForm extends React.Component {
         <Row style={{marginTop:'4%'}}>
           <Col >
             <Card >
-              <CardHeader style={{verticalAlign:'middle', fontSize:'80%', paddingLeft:'2%', paddingRight:'0', paddingTop:'1%', paddingBottom:'1%'}}>Naveen Kumar Anem</CardHeader>
+              <CardHeader style={{ color: '#0000008a',verticalAlign:'middle', fontSize:'80%', paddingLeft:'2%', paddingRight:'0', paddingTop:'1%', paddingBottom:'1%'}}>Naveen Kumar Anem</CardHeader>
               <CardBody style={{padding:'2%'}}>
-                <CardText style={{fontSize:'75%'}}>With supporting text below as a natural lead-in to additional content.</CardText>
+                <CardText style={{color: '#0000008a', fontSize:'75%'}}>With supporting text below as a natural lead-in to additional content.</CardText>
               </CardBody>
             </Card>
           </Col>
@@ -142,9 +167,9 @@ class ViewTicketBundleDetailsForm extends React.Component {
         <Row style={{marginTop:'4%'}}>
           <Col >
             <Card >
-              <CardHeader style={{verticalAlign:'middle', fontSize:'80%', paddingLeft:'2%', paddingRight:'0', paddingTop:'1%', paddingBottom:'1%'}}>Naveen Kumar Anem</CardHeader>
+              <CardHeader style={{color: '#0000008a',verticalAlign:'middle', fontSize:'80%', paddingLeft:'2%', paddingRight:'0', paddingTop:'1%', paddingBottom:'1%'}}>Naveen Kumar Anem</CardHeader>
               <CardBody style={{padding:'2%'}}>
-                <CardText style={{fontSize:'75%'}}>With supporting text below as a natural lead-in to additional content.</CardText>
+                <CardText style={{color: '#0000008a',fontSize:'75%'}}>With supporting text below as a natural lead-in to additional content.</CardText>
               </CardBody>
             </Card>
           </Col>
@@ -152,9 +177,9 @@ class ViewTicketBundleDetailsForm extends React.Component {
         <Row style={{marginTop:'4%'}}>
           <Col >
             <Card >
-              <CardHeader style={{verticalAlign:'middle', fontSize:'80%', paddingLeft:'2%', paddingRight:'0', paddingTop:'1%', paddingBottom:'1%'}}>Naveen Kumar Anem</CardHeader>
+              <CardHeader style={{color: '#0000008a',verticalAlign:'middle', fontSize:'80%', paddingLeft:'2%', paddingRight:'0', paddingTop:'1%', paddingBottom:'1%'}}>Naveen Kumar Anem</CardHeader>
               <CardBody style={{padding:'2%'}}>
-                <CardText style={{fontSize:'75%'}}>With supporting text below as a natural lead-in to additional content.</CardText>
+                <CardText style={{color: '#0000008a',fontSize:'75%'}}>With supporting text below as a natural lead-in to additional content.</CardText>
               </CardBody>
             </Card>
           </Col>
@@ -162,16 +187,22 @@ class ViewTicketBundleDetailsForm extends React.Component {
         <Row style={{marginTop:'4%'}}>
           <Col >
             <Card >
-              <CardHeader style={{verticalAlign:'middle', fontSize:'80%', paddingLeft:'2%', paddingRight:'0', paddingTop:'1%', paddingBottom:'1%'}}>Naveen Kumar Anem</CardHeader>
+              <CardHeader style={{color: '#0000008a',verticalAlign:'middle', fontSize:'80%', paddingLeft:'2%', paddingRight:'0', paddingTop:'1%', paddingBottom:'1%'}}>Naveen Kumar Anem</CardHeader>
               <CardBody style={{padding:'2%'}}>
-                <CardText style={{fontSize:'75%'}}>With supporting text below as a natural lead-in to additional content.</CardText>
+                <CardText style={{color: '#0000008a',fontSize:'75%'}}>With supporting text below as a natural lead-in to additional content.</CardText>
               </CardBody>
             </Card>
           </Col>
         </Row>
-        <Row>
+        <Row style={{marginTop:'2%'}}>
           <Col style={{ textAlign: 'center' }}><Button style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Close</Button><Button style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginLeft: '1%' }} size="sm" outline color="warning">Message</Button></Col>
         </Row>
+      </div>}
+
+      {this.state.showSelectTicketMsg && <div>Pls select a ticket to dislay the details.</div>}
+
+
+
       </div>
       
     );
@@ -187,7 +218,8 @@ const mapStateToProps = function (state) {
 const mapActionsToProps = {
   addMessage: addMessageAPICall,
   closeTicket: closeTicketAPICall,
-  downloadAttachment: downloadAttachmentAPICall
+  downloadAttachment: downloadAttachmentAPICall,
+  fetchTicketDetails: fetchTicketDetailsAPICall
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(ViewTicketBundleDetailsForm);

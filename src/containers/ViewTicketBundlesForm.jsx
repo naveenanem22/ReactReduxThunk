@@ -8,6 +8,7 @@ import { assignAndUpdateMultipleTicketsAPICall } from '../actions/TicketActions'
 import history from '../history';
 import TicketDetailCard from '../components/TicketDetailCard';
 import {fetchTicketDetailsAPICall} from '../actions/TicketActions';
+import { fetchTicketsAPICall } from '../actions/TicketActions';
 
 class ViewTicketsForm extends React.Component {
 
@@ -28,9 +29,24 @@ class ViewTicketsForm extends React.Component {
     });
   }
 
+  componentDidMount(){
+    if(history.location.search.includes('status')){
+    this.props.fetchTickets({
+      status: 'all',
+      sortBy: 'ticketId'
+    }); 
+    }
+
+    if(history.location.search.includes('ticketId')){
+      console.log("*********DO NOTHING***********");  
+    }
+    
+  }
+
   render() {
-    console.log("This is from ViewTicketBundlesForm...");
     //Initialize suggestions array with names from engineers array
+    console.log("ViewTicketBundlesForm-Render-Tickets: ");
+    console.log(this.state.tickets);
     var suggestions = [];
     this.props.engineers.forEach(engineer => {
       suggestions.push({ name: engineer.userFullName });
@@ -47,7 +63,7 @@ class ViewTicketsForm extends React.Component {
         </Container>
         <Container>
           <Row style={{marginBottom:'2%'}}>
-            <NavLink href="#" onClick={this.handleTicketBundleClick}><TicketDetailCard></TicketDetailCard></NavLink>
+            <NavLink href="#" onClick={() => this.props.handleTicketBundleClick(3)}><TicketDetailCard></TicketDetailCard></NavLink>
           </Row>
           <Row style={{marginBottom:'2%'}}><TicketDetailCard></TicketDetailCard></Row>
           <Row style={{marginBottom:'2%'}}><TicketDetailCard></TicketDetailCard></Row>
@@ -70,7 +86,7 @@ const mapStateToProps = function (state) {
 }
 
 const mapActionsToProps = {
-  fetchTicketDetails: fetchTicketDetailsAPICall
+  fetchTickets: fetchTicketsAPICall
 }
 
 
