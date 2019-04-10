@@ -24,5 +24,10 @@ export const TicketTypeCode = {
     TASK: 1, ISSUE: 2, PROBLEM: 3
 }
 
+export const Role = {
+    ROLE_USER: 'ROLE_USER', ROLE_ADMIN: 'ROLE_ADMIN',
+    ROLE_ENGINEER: 'ROLE_ENGINEER', ROLE_EMPLOYEE: 'ROLE_EMPLOYEE'
+}
+
 
 

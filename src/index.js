@@ -46,7 +46,7 @@ const store = createStore(MainReducer, {
     user: {
         isLoggedIn: false, isLoginFailure: false, loginFailureMessage: '', profile: {
             firstName: 'Anem',
-            lastName: 'Naveen Kumar', role: 'Manager'
+            lastName: 'Naveen Kumar', role: ''
         }        
     },
     engineerList: {

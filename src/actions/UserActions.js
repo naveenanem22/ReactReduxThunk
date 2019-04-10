@@ -12,10 +12,13 @@ export function updateUser(newUser){
     }
 }
 
-export function loginSuccess(){
+export function loginSuccess(user){
     
     return {
-        type : LOGIN_SUCCESS
+        type : LOGIN_SUCCESS,
+        payload : {
+            user: user
+        }
     }
 }
 
@@ -62,7 +65,10 @@ export function loginAPICall(user){
        ).then(jsonResp => {
            if(jsonResp){
            localStorage.setItem('token',jsonResp.token);
-           dispatch(loginSuccess());
+           dispatch(loginSuccess({
+               role:jsonResp.role,
+               username: jsonResp.username
+            }));
            }
        });
       };

@@ -4,6 +4,7 @@ import {loginAPICall} from '../actions/UserActions'
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import { fetchTicketsAPICall } from '../actions/TicketActions'
+import {Role} from '../masterdata/ApplicationMasterData';
 
 class LoginForm extends React.Component {
 
@@ -33,15 +34,31 @@ class LoginForm extends React.Component {
 
  
   render() {    
-     if (this.props.redirectToHomePage) {
-       this.props.fetchTickets({
-        status: 'all',
-        sortBy: 'ticketId'
-      });
-        return <Redirect push to={{
-          pathname: "/tickets"          
-        }} />;
-      } 
+    if (this.props.user.isLoggedIn) {
+      switch (this.props.user.profile.role) {
+        case Role.ROLE_ENGINEER:
+          this.props.fetchTickets({
+            status: 'all',
+            sortBy: 'ticketId'
+          });
+          return <Redirect push to={{
+            pathname: "/ticketmaint/tickets?status=all"
+          }} />;
+
+        case Role.ROLE_USER:
+          this.props.fetchTickets({
+            status: 'all',
+            sortBy: 'ticketId'
+          });
+          return <Redirect push to={{
+            pathname: "/tickets"
+          }} />;
+
+        default:
+          return;
+      }
+
+    } 
     return (
         <Container style={{'width':'60%', paddingBottom :'3%', paddingTop : '3%', marginTop : '2%', backgroundColor : '#E8EAED'}}>
         <h2>Sign In</h2>
@@ -86,7 +103,7 @@ const mapActionsToProps = {
 
 const mapStateToProps = function (state){
     return {
-      redirectToHomePage: state.user.isLoggedIn,
+      user: state.user,
       isLoginFailure: state.user.isLoginFailure,
       loginFailureMessage: state.user.loginFailureMessage
     }
