@@ -20,7 +20,7 @@ class TicketDetailCard extends React.Component{
 
     render(){
         return (
-            <Card style={{  width: '100%', boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }}>
+            <Card style={{  width: '100%', boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }}>
                 <CardHeader style={{ paddingTop: '1%', paddingBottom: '1%', paddingRight:'0' }}><Row>
                     <Col sm='2' style={{ textAlign: 'left' }}><Badge color="danger">{this.state.ticket.priority}</Badge></Col>
                     <Col sm='4' style={{ textAlign: 'center' }}>{this.state.ticket.id}</Col>
