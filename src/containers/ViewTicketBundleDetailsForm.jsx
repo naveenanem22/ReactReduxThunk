@@ -137,19 +137,19 @@ class ViewTicketBundleDetailsForm extends React.Component {
           <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Quick Look data:</Col>
         </Row>
         <Row>
-          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight:'0' }}>Status :</Col><Col style={{ textAlign: 'left' }}><Badge color="danger">New</Badge></Col>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight:'0' }}>Status :</Col><Col style={{ textAlign: 'left' }}><Badge color="danger">{this.props.ticket.status.toUpperCase()}</Badge></Col>
         </Row>
         <Row>
-          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight:'0' }}>Priority :</Col><Col  style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>High</Col>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight:'0' }}>Priority :</Col><Col  style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.priority}</Col>
         </Row>
         <Row>
           <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight:'0' }}>Open since :</Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}><Badge style={{width:'20%', height:'90%'}} color="secondary">24</Badge> Days</Col>
         </Row>
         <Row>
-          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight:'0' }}>Department :</Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>Network and Admin</Col>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight:'0' }}>Department :</Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.department.name}</Col>
         </Row>
         <Row>
-          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight:'0' }}>Updated On :</Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>28th Sep 2018</Col>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight:'0' }}>Updated On :</Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.updatedDate}</Col>
         </Row>
         <Row style={{ marginTop: '5%' }}>
           <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Attachments:</Col>
@@ -157,46 +157,16 @@ class ViewTicketBundleDetailsForm extends React.Component {
         <Row style={{ marginTop: '5%' }}>
           <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Conversation:</Col>
         </Row>
-        <Row style={{marginTop:'4%'}}>
+        {this.props.ticket.ticketHistory.map((historyItem) => <Row style={{marginTop:'4%'}}>
           <Col >
             <Card >
-              <CardHeader style={{ color: '#0000008a',verticalAlign:'middle', fontSize:'80%', paddingLeft:'2%', paddingRight:'0', paddingTop:'1%', paddingBottom:'1%'}}>Naveen Kumar Anem</CardHeader>
+              <CardHeader style={{ color: '#0000008a',verticalAlign:'middle', fontSize:'80%', paddingLeft:'2%', paddingRight:'0', paddingTop:'1%', paddingBottom:'1%'}}>{historyItem.authorName}</CardHeader>
               <CardBody style={{padding:'2%'}}>
-                <CardText style={{color: '#0000008a', fontSize:'75%'}}>With supporting text below as a natural lead-in to additional content.</CardText>
+                <CardText style={{color: '#0000008a', fontSize:'75%'}}>{historyItem.comment}</CardText>
               </CardBody>
             </Card>
           </Col>
-        </Row>
-        <Row style={{marginTop:'4%'}}>
-          <Col >
-            <Card >
-              <CardHeader style={{color: '#0000008a',verticalAlign:'middle', fontSize:'80%', paddingLeft:'2%', paddingRight:'0', paddingTop:'1%', paddingBottom:'1%'}}>Naveen Kumar Anem</CardHeader>
-              <CardBody style={{padding:'2%'}}>
-                <CardText style={{color: '#0000008a',fontSize:'75%'}}>With supporting text below as a natural lead-in to additional content.</CardText>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-        <Row style={{marginTop:'4%'}}>
-          <Col >
-            <Card >
-              <CardHeader style={{color: '#0000008a',verticalAlign:'middle', fontSize:'80%', paddingLeft:'2%', paddingRight:'0', paddingTop:'1%', paddingBottom:'1%'}}>Naveen Kumar Anem</CardHeader>
-              <CardBody style={{padding:'2%'}}>
-                <CardText style={{color: '#0000008a',fontSize:'75%'}}>With supporting text below as a natural lead-in to additional content.</CardText>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-        <Row style={{marginTop:'4%'}}>
-          <Col >
-            <Card >
-              <CardHeader style={{color: '#0000008a',verticalAlign:'middle', fontSize:'80%', paddingLeft:'2%', paddingRight:'0', paddingTop:'1%', paddingBottom:'1%'}}>Naveen Kumar Anem</CardHeader>
-              <CardBody style={{padding:'2%'}}>
-                <CardText style={{color: '#0000008a',fontSize:'75%'}}>With supporting text below as a natural lead-in to additional content.</CardText>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+        </Row>)}
         <Row style={{marginTop:'2%'}}>
           <Col style={{ textAlign: 'center' }}><Button style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Close</Button><Button style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginLeft: '1%' }} size="sm" outline color="warning">Message</Button></Col>
         </Row>
