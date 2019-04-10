@@ -20,7 +20,7 @@ class TicketDetailCard extends React.Component{
 
     render(){
         return (
-            <Card style={{  width: '100%', boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }}>
+            <Card style={{  width: '100%', boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }}>
                 <CardHeader style={{ paddingTop: '1%', paddingBottom: '1%', paddingRight:'0' }}><Row>
                     <Col sm='2' style={{ textAlign: 'left' }}><Badge color="danger">{this.state.ticket.priority}</Badge></Col>
                     <Col sm='4' style={{ textAlign: 'center' }}>{this.state.ticket.id}</Col>
@@ -35,10 +35,10 @@ class TicketDetailCard extends React.Component{
 
                         </Col>
                         <Col sm='4' style={{ borderLeft: '1px solid rgba(0,0,0,.125)' }}>
-                            <Row><Col style={{ fontFamily:'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left' }}><i>Status</i></Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left' }}>: {this.state.ticket.status}</Col></Row>
-                            <Row><Col style={{ fontFamily:'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left' }}><i>Days Open</i></Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left' }}>: 28</Col></Row>
-                            <Row><Col style={{ fontFamily:'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left' }}><i>Department</i></Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left' }}>: Network Admin</Col></Row>
-                            <Row><Col style={{ fontFamily:'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left' }}><i>Updated On</i></Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left' }}>: {this.state.ticket.updatedDate}</Col></Row>
+                            <Row><Col sm='5' style={{ fontFamily:'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingRight:'0' }}><i>Status</i></Col><Col sm='7' style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingLeft:'0', paddingRight:'0' }}>: {this.state.ticket.status}</Col></Row>
+                            <Row><Col sm='5' style={{ fontFamily:'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingRight:'0' }}><i>Days Open</i></Col><Col sm='7' style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingLeft:'0', paddingRight:'0' }}>: 28</Col></Row>
+                            <Row><Col sm='5' style={{ fontFamily:'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingRight:'0' }}><i>Department</i></Col><Col sm='7' style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingLeft:'0', paddingRight:'0' }}>: Network Admin</Col></Row>
+                            <Row><Col sm='5' style={{ fontFamily:'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingRight:'0' }}><i>Updated On</i></Col><Col sm='7' style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingLeft:'0', paddingRight:'0' }}>: {this.state.ticket.updatedDate}</Col></Row>
                         </Col>
                     </Row>
 
