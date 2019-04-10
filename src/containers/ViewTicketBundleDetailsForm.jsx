@@ -114,7 +114,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
   render() {
     return (
       <div>
-      {!this.state.showSelectTicketMsg && this.props.ticket.id && <div style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '10px', paddingLeft: '10px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+      {!this.state.showSelectTicketMsg && this.props.ticket.id && <div style={{ overflowY:'auto', overflowX:'hidden', height:'500px', border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '10px', paddingLeft: '10px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
         <Row>
           <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Ticket Number:</Col>
         </Row>
