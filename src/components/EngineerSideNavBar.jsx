@@ -81,11 +81,6 @@ class SideNavBar extends React.Component {
           </NavItem>
 
           <NavItem>
-            <NavLink href="#" onClick={this.handleAssignTicketsClick} style={{ borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Assign Tickets
-            </NavLink>
-          </NavItem>
-
-          <NavItem>
             <NavLink href="#" onClick={this.handleAwaitResponseClick} style={{ borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Await Response
             </NavLink>
           </NavItem>
