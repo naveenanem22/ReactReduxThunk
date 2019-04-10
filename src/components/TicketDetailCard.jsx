@@ -7,7 +7,8 @@ class TicketDetailCard extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            isAlertVisible : true
+            isAlertVisible : true,
+            ticket: this.props.ticket
         };
 
         this.onDismiss = this.onDismiss.bind(this);
@@ -21,24 +22,23 @@ class TicketDetailCard extends React.Component{
         return (
             <Card style={{  width: '100%', boxShadow:'0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }}>
                 <CardHeader style={{ paddingTop: '1%', paddingBottom: '1%', paddingRight:'0' }}><Row>
-                    <Col sm='2' style={{ textAlign: 'left' }}><Badge color="danger">High</Badge></Col>
-                    <Col sm='4' style={{ textAlign: 'center' }}> 132456</Col>
+                    <Col sm='2' style={{ textAlign: 'left' }}><Badge color="danger">{this.state.ticket.priority}</Badge></Col>
+                    <Col sm='4' style={{ textAlign: 'center' }}>{this.state.ticket.id}</Col>
                     <Col sm='3' style={{ textAlign: 'right', color: '#0000008a', fontSize: '80%', margin: '0', paddingRight: '0' }}><i>Created by</i></Col>
                     <Col sm='3' style={{ textAlign: 'left', fontWeight: '500', color: '#0000008a', fontSize: '80%', margin: '0' }}>Naveen Kumar Anem</Col>
                 </Row></CardHeader>
                 <CardBody style={{ paddingTop: '1%', paddingBottom: '1%' }}>
                     <Row>
                         <Col sm='8'>
-                            <Row><Col style={{ fontSize: '90%', fontWeight: 600, color:'#222426' }}>Special Title Treatment</Col></Row>
-                            <Row><Col style={{ fontSize: '90%', fontWeight: 300, color:'#222426' }}>With supporting text below as a natural lead-in to additional content. 
-                            Adding the href prop (without specifying a tag prop) will default the badge to a link.</Col></Row>
+                            <Row><Col style={{ fontSize: '90%', fontWeight: 600, color:'#222426' }}>{this.state.ticket.title}</Col></Row>
+                            <Row><Col style={{ fontSize: '90%', fontWeight: 300, color:'#222426' }}>Internet connectivity to personal device is requested as per project neeed.</Col></Row>
 
                         </Col>
                         <Col sm='4' style={{ borderLeft: '1px solid rgba(0,0,0,.125)' }}>
-                            <Row><Col style={{ fontFamily:'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left' }}><i>Status</i></Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left' }}>: NEW</Col></Row>
+                            <Row><Col style={{ fontFamily:'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left' }}><i>Status</i></Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left' }}>: {this.state.ticket.status}</Col></Row>
                             <Row><Col style={{ fontFamily:'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left' }}><i>Days Open</i></Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left' }}>: 28</Col></Row>
-                            <Row><Col style={{ fontFamily:'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left' }}><i>Department</i></Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left' }}>: Department</Col></Row>
-                            <Row><Col style={{ fontFamily:'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left' }}><i>Updated On</i></Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left' }}>: 20th Jan</Col></Row>
+                            <Row><Col style={{ fontFamily:'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left' }}><i>Department</i></Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left' }}>: Network Admin</Col></Row>
+                            <Row><Col style={{ fontFamily:'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left' }}><i>Updated On</i></Col><Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left' }}>: {this.state.ticket.updatedDate}</Col></Row>
                         </Col>
                     </Row>
 

@@ -6,6 +6,7 @@ import { Button, Card, CardBody, CardHeader, CardText, CardTitle } from 'reactst
 import { FaFilePdf, FaFileAlt, FaFileImage, FaFile } from 'react-icons/fa';
 import {loadFileIcon} from '../util/UIUtils';
 import history from '../history';
+import queryString from 'query-string';
 
 class ViewTicketBundleDetailsForm extends React.Component {
 
@@ -85,30 +86,32 @@ class ViewTicketBundleDetailsForm extends React.Component {
     })
   }
 
-  componentDidMount(){
-    if(history.location.search.includes('status'))
-    {
+  componentDidMount() {
+    //Extracing params from url
+    console.log("Search string: ");
+    var searchString = history.location.search;
+    console.log(searchString);
+    var params = queryString.parse(searchString);
+    console.log("Extracted params: ");
+    console.log(params);
+
+    //Show SelectTicketMessage if search-string contains the key: status
+    if (params.status) {
       this.setState({
         showSelectTicketMsg: true
       })
     }
 
-    if(history.location.search.includes('ticketId')){
+    //Make fetchTicketDetailsAPICall if the search-string contains key: ticketId
+    if (params.ticketId) {
       this.props.fetchTicketDetails({
-        ticketId:3
+        ticketId: params.ticketId
       });
-
     }
-
-    
-    
   }
 
 
   render() {
-    const ticket = this.props.ticket;
-    console.log("ViewTicketBundleDetailsForm-Render");
-    console.log(ticket);
     return (
       <div>
       {!this.state.showSelectTicketMsg && <div style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '10px', paddingLeft: '10px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
@@ -116,19 +119,19 @@ class ViewTicketBundleDetailsForm extends React.Component {
           <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Ticket Number:</Col>
         </Row>
         <Row>
-          <Col style={{ color: '#0000008a', fontSize: '90%', textAlign: 'left', fontWeight: 400, color: 'olive' }}>332565</Col>
+          <Col style={{ color: '#0000008a', fontSize: '90%', textAlign: 'left', fontWeight: 400, color: 'olive' }}>{this.props.ticket.id}</Col>
         </Row>
         <Row style={{ marginTop: '5%' }}>
           <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Title:</Col>
         </Row>
         <Row>
-          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>Need Internet connectivity to the personal device.</Col>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.title}</Col>
         </Row>
         <Row style={{ marginTop: '5%' }}>
           <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Description:</Col>
         </Row>
         <Row>
-          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>Internet connectivity to personal device is requested as per project neeed.</Col>
+          <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.description}</Col>
         </Row>
         <Row style={{ marginTop: '5%' }}>
           <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Quick Look data:</Col>

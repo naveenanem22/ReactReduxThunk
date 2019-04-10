@@ -7,8 +7,8 @@ import SearchInput from '../components/SearchInput';
 import { assignAndUpdateMultipleTicketsAPICall } from '../actions/TicketActions';
 import history from '../history';
 import TicketDetailCard from '../components/TicketDetailCard';
-import {fetchTicketDetailsAPICall} from '../actions/TicketActions';
 import { fetchTicketsAPICall } from '../actions/TicketActions';
+import queryString from 'query-string';
 
 class ViewTicketsForm extends React.Component {
 
@@ -29,24 +29,29 @@ class ViewTicketsForm extends React.Component {
     });
   }
 
-  componentDidMount(){
-    if(history.location.search.includes('status')){
-    this.props.fetchTickets({
-      status: 'all',
-      sortBy: 'ticketId'
-    }); 
+  componentDidMount() {
+    //Extracting query params from url
+    console.log("Parsing query params from query-string:");
+    console.log(history.location.search);
+    const params = queryString.parse(history.location.search);
+    console.log("Parsed params: ");
+    console.log(params);
+
+    if (params.status) {
+      this.props.fetchTickets({
+        status: params.status,
+        sortBy: 'ticketId'
+      });
     }
 
-    if(history.location.search.includes('ticketId')){
-      console.log("*********DO NOTHING***********");  
-    }
-    
   }
 
   render() {
-    //Initialize suggestions array with names from engineers array
-    console.log("ViewTicketBundlesForm-Render-Tickets: ");
+    console.log("***************");
     console.log(this.state.tickets);
+    console.log(this.props.tickets);
+    
+    //Initialize suggestions array with names from engineers array
     var suggestions = [];
     this.props.engineers.forEach(engineer => {
       suggestions.push({ name: engineer.userFullName });
@@ -62,12 +67,11 @@ class ViewTicketsForm extends React.Component {
           </Row>
         </Container>
         <Container>
-          <Row style={{marginBottom:'2%'}}>
-            <NavLink href="#" onClick={() => this.props.handleTicketBundleClick(3)}><TicketDetailCard></TicketDetailCard></NavLink>
-          </Row>
-          <Row style={{marginBottom:'2%'}}><TicketDetailCard></TicketDetailCard></Row>
-          <Row style={{marginBottom:'2%'}}><TicketDetailCard></TicketDetailCard></Row>
-          <Row style={{marginBottom:'2%'}}><TicketDetailCard></TicketDetailCard></Row>
+          {this.props.tickets.map(ticket => 
+            <Row style={{ marginBottom: '2%' }}>
+              <NavLink href="#" onClick={() => this.props.handleTicketBundleClick(ticket.id)}><TicketDetailCard ticket={ticket}></TicketDetailCard></NavLink>
+            </Row>
+          )}
         </Container>
         
       </div>
