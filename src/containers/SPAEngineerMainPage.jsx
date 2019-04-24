@@ -2,12 +2,13 @@ import React from 'react';
 import HeaderNavBar from "../components/EngineerHeaderNavBar";
 import { connect } from 'react-redux';
 import CreateTicketForm from './CreateTicketForm';
-import DashboardForm from './DashboardForm';
+import DashboardForm from './EngineerDashboard';
 import ViewTicketsForm from './ViewTicketBundlesForm';
 import { Route } from 'react-router-dom'
 import SideNavBar from '../components/EngineerSideNavBar';
 import {Row, Col} from 'reactstrap';
 import ViewTicketBundleDetailsForm from './ViewTicketBundleDetailsForm';
+import EngineerProfileForm from './EngineerProfile';
 import history from '../history';
 
 class SPAEngineerMainPage extends React.Component {
@@ -50,6 +51,7 @@ class SPAEngineerMainPage extends React.Component {
             <Col sm='3'>            
               <div style={{ position: 'sticky', top: 100, zIndex: 1 }}>
               <Route path="/ticketmaint/tickets" component={() =><ViewTicketBundleDetailsForm showSelectTicketMsg={this.state.showSelectTicketMsg}></ViewTicketBundleDetailsForm>}> </Route>
+              <Route path="/ticketmaint/dashboard" component={() =><EngineerProfileForm ></EngineerProfileForm>}> </Route>
               </div>
             </Col>
         </Row>
