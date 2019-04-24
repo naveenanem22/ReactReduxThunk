@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { Badge, Row, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
 import { Button, Card, CardBody, CardHeader, CardText, CardTitle } from 'reactstrap';
 import { FaFilePdf, FaFileAlt, FaFileImage, FaFile } from 'react-icons/fa';
-import {loadFileIcon} from '../util/UIUtils';
 import history from '../history';
 import queryString from 'query-string';
+import { ScaleLoader } from 'react-spinners';
 
 class ViewTicketBundleDetailsForm extends React.Component {
 
@@ -114,7 +114,15 @@ class ViewTicketBundleDetailsForm extends React.Component {
   render() {
     return (
       <div>
-      {!this.state.showSelectTicketMsg && this.props.ticket.id && <div style={{ overflowY:'auto', overflowX:'hidden', height:'500px', border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '10px', paddingLeft: '10px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+        {this.props.fetchTicketDetailsAPICallStatus.requested &&
+            <div className='view-ticket-loading'>
+              <ScaleLoader
+                color='#00d8ff'
+                loading='true'
+              />
+            </div>
+          }
+      {this.props.fetchTicketDetailsAPICallStatus.success && !this.state.showSelectTicketMsg && this.props.ticket.id && <div style={{ overflowY:'auto', overflowX:'hidden', height:'500px', border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '10px', paddingLeft: '10px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
         <Row>
           <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Ticket Number:</Col>
         </Row>
@@ -184,7 +192,8 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
 const mapStateToProps = function (state) {
   return {
-    ticket: state.ticketDetails.ticket
+    ticket: state.ticketDetails.ticket,
+    fetchTicketDetailsAPICallStatus: state.serviceCallStatus.fetchTicketDetailsAPI
   }
 }
 

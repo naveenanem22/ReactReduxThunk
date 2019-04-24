@@ -19,29 +19,34 @@ const allStoreEnhancers = compose(
     applyMiddleware(thunk)
 )
 const store = createStore(MainReducer, {
-    serviceCallStatus:{
-        fetchTicketsAPI:{
-            requested:false,
-            success:false,
-            error:false
+    serviceCallStatus: {
+        fetchTicketsAPI: {
+            requested: false,
+            success: false,
+            error: false
+        },
+        fetchTicketDetailsAPI: {
+            requested: false,
+            success: false,
+            error: false
         }
 
     },
-    dashboardData:{
-        barChart:{
-            data:[]
+    dashboardData: {
+        barChart: {
+            data: []
         },
-        pieChart:{
-            data:[]
+        pieChart: {
+            data: []
 
         },
-        lineChart:{
-            data:[]
+        lineChart: {
+            data: []
         },
-        lastHourTicketCount:{
+        lastHourTicketCount: {
             Closed: 0,
             New: 0,
-            AwaitingUserResponse:0
+            AwaitingUserResponse: 0
         },
         isDashboardFormVisible: false
     },
@@ -55,7 +60,7 @@ const store = createStore(MainReducer, {
         isLoggedIn: false, isLoginFailure: false, loginFailureMessage: '', profile: {
             firstName: 'Anem',
             lastName: 'Naveen Kumar', role: ''
-        }        
+        }
     },
     engineerList: {
         engineers: [{ userId: '1', userEmail: 'mike@itshelpdesk.com', userFullName: 'Mike Spanner' },
@@ -73,13 +78,13 @@ const store = createStore(MainReducer, {
         { userId: '13', userEmail: 'chowhan@itshelpdesk.com', userFullName: 'Chowhan Rahul' },
         { userId: '14', userEmail: 'rahul@itshelpdesk.com', userFullName: 'Rahul Kumar' }]
     },
-    
+
     ticketList: {
         tickets: [],
-        isCreateTicketFormVisible: false,        
+        isCreateTicketFormVisible: false,
         isCreateTicketFailureFormVisible: false,
         isViewTicketsFormVisible: false,
-        isSuccessAlertVisible: false        
+        isSuccessAlertVisible: false
     },
     ticketDetails: {
         ticket: {},
@@ -100,7 +105,7 @@ ReactDOM.render(
     <Provider store={store}>
         <Router history={history}>
             <div>
-                <Route path="/ticketmaint" component = {SPAEngineerMainPage}></Route>
+                <Route path="/ticketmaint" component={SPAEngineerMainPage}></Route>
                 <Route path="/home" component={HomePage}></Route>
                 <Route path="/login" component={LoginPage}></Route>
                 <Route path="/tickets" component={SPAMainPage}></Route>
