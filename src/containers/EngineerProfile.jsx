@@ -3,7 +3,7 @@ import { addMessageAPICall, closeTicketAPICall, downloadAttachmentAPICall, fetch
 import { connect } from 'react-redux';
 import { Badge, Row, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
 import { Button, Card, CardBody, CardHeader, CardText, CardTitle } from 'reactstrap';
-import { FaFilePdf, FaFileAlt, FaFileImage, FaFile } from 'react-icons/fa';
+import { FaEnvelope, FaMobile, FaHome, FaBuilding } from 'react-icons/fa';
 import {loadFileIcon} from '../util/UIUtils';
 import history from '../history';
 import queryString from 'query-string';
@@ -61,6 +61,45 @@ class EngineerProfileForm extends React.Component {
         <Row>
           <Col style={{textAlign:'center', fontSize:'70%', fontWeight:400}}>Technical Lead</Col>
         </Row>
+
+        <Row style={{marginTop:'5%'}}>
+          <Col><hr></hr></Col>
+        </Row>
+
+        
+        <Row>
+          <Col style={{textAlign:'left', fontSize:'small', fontWeight:500}}>About Me</Col>
+        </Row>
+        <Row>
+          <Col style={{textAlign:'left', fontSize:'75%', fontWeight:400}}>Madison is a director of brand marketing, with experience managing global teams and multi-million-dollar campaigns. Her background in brand strategy, visual design, and account management inform her mindful but competitive approach.</Col>
+        </Row>
+
+        <Row style={{marginTop:'5%'}}>
+          <Col><hr></hr></Col>
+        </Row>
+
+
+        <Row style={{marginTop:'5%'}}>
+          <Col sm='1' style={{paddingRight:'0'}}><FaEnvelope style={{color:'green', fontSize:'80%'}}></FaEnvelope></Col>
+          <Col sm='11' style={{paddingTop:'1%', fontSize:'80%', fontWeight:'600' }}> mike.brenner@pmapi.com</Col>
+        </Row>
+        <Row style={{marginTop:'2%'}}>
+          <Col sm='1' style={{paddingRight:'0'}}><FaMobile style={{color:'indigo', fontSize:'80%'}}></FaMobile></Col>
+          <Col sm='11' style={{paddingTop:'1%', fontSize:'80%', fontWeight:'600' }}> +91-7799481562</Col>
+        </Row>
+        <Row style={{marginTop:'2%'}}>
+          <Col sm='1' style={{paddingRight:'0'}}><FaHome style={{color:'red', fontSize:'80%'}}></FaHome></Col>
+          <Col sm='11' style={{paddingTop:'1%', fontSize:'80%', fontWeight:'600' }}> 08812-23436</Col>
+        </Row>
+        <Row style={{marginTop:'2%'}}>
+          <Col sm='1' style={{paddingRight:'0'}}><FaBuilding style={{color:'orange', fontSize:'80%'}}></FaBuilding></Col>
+          <Col sm='11' style={{paddingTop:'1%', fontSize:'80%', fontWeight:'600' }}> 4499-23489798</Col>
+        </Row>
+
+        <Row style={{marginTop:'5%'}}>
+          <Col><hr></hr></Col>
+        </Row>
+
       </div>
 
 
