@@ -19,6 +19,14 @@ const allStoreEnhancers = compose(
     applyMiddleware(thunk)
 )
 const store = createStore(MainReducer, {
+    serviceCallStatus:{
+        fetchTicketsAPI:{
+            requested:false,
+            success:false,
+            error:false
+        }
+
+    },
     dashboardData:{
         barChart:{
             data:[]

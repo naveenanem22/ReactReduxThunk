@@ -8,6 +8,7 @@ import {departmentReducer} from './DepartmentReducer';
 import {serviceCategoriesReducer} from './ServiceCategoriesReducer';
 import {loadingScreenReducer} from './LoadingScreenReducer';
 import {dashboardReducer} from './DashboardReducer';
+import {serviceCallStatusReducer} from './ServiceCallStatusReducer';
 
 export const MainReducer = combineReducers(
     {products : productReducer,
@@ -18,6 +19,7 @@ export const MainReducer = combineReducers(
     departments : departmentReducer,
     serviceCategories: serviceCategoriesReducer,
     loadingScreen: loadingScreenReducer,
-    dashboardData: dashboardReducer}
+    dashboardData: dashboardReducer,
+    serviceCallStatus: serviceCallStatusReducer}
 
 )

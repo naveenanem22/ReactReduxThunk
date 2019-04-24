@@ -9,6 +9,8 @@ import history from '../history';
 import TicketDetailCard from '../components/TicketDetailCard';
 import { fetchTicketsAPICall } from '../actions/TicketActions';
 import queryString from 'query-string';
+import { ScaleLoader } from 'react-spinners';
+
 
 class ViewTicketsForm extends React.Component {
 
@@ -67,7 +69,16 @@ class ViewTicketsForm extends React.Component {
           </Row>
         </Container>
         <Container>
-          {this.props.tickets.map(ticket => 
+          {this.props.fetchTicketsAPICallStatus.requested &&
+            <div className='view-ticket-loading'>
+              <ScaleLoader
+                color='#00d8ff'
+                loading='true'
+              />
+            </div>
+          }
+
+          {this.props.fetchTicketsAPICallStatus.success && this.props.tickets.map(ticket => 
             <Row style={{ marginBottom: '2%' }}>
               <NavLink href="#" onClick={() => this.props.handleTicketBundleClick(ticket.id)}><TicketDetailCard ticket={ticket}></TicketDetailCard></NavLink>
             </Row>
@@ -85,7 +96,8 @@ const mapStateToProps = function (state) {
   return {
     tickets: state.ticketList.tickets,
     user: state.user,
-    engineers: state.engineerList.engineers
+    engineers: state.engineerList.engineers,
+    fetchTicketsAPICallStatus: state.serviceCallStatus.fetchTicketsAPI
   }
 }
 
