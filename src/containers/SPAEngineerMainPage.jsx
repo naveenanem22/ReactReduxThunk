@@ -51,8 +51,9 @@ class SPAEngineerMainPage extends React.Component {
             <Col sm='3'>            
               <div style={{ position: 'sticky', top: 100, zIndex: 1 }}>
               <Route path="/ticketmaint/tickets" component={() =><ViewTicketBundleDetailsForm showSelectTicketMsg={this.state.showSelectTicketMsg}></ViewTicketBundleDetailsForm>}> </Route>
-              <Route path="/ticketmaint/dashboard" component={() =><EngineerProfileForm ></EngineerProfileForm>}> </Route>
+              
               </div>
+              <Route path="/ticketmaint/dashboard" component={() =><EngineerProfileForm ></EngineerProfileForm>}> </Route>
             </Col>
         </Row>
       </div>
