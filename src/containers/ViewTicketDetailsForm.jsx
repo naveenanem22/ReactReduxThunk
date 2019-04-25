@@ -48,6 +48,7 @@ class ViewTicketDetailsForm extends React.Component {
   onSubmitAddMessage(e) {
     e.preventDefault();
     this.setState((prevState, props) => ({
+      id: this.props.ticket.id,
       commentedOn : new Date(Date.now()).toISOString(),
       file1: this.state.isUpload ? prevState.file1 : undefined,
       file2: this.state.isUpload ? prevState.file2 : undefined,
