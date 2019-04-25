@@ -3,7 +3,8 @@ import HeaderNavBar from "../components/ManagerHeaderNavBar";
 import { connect } from 'react-redux';
 import CreateTicketForm from './CreateTicketForm';
 import DashboardForm from './DashboardForm';
-import ViewTicketsForm from './ViewTicketBundlesForm';
+import ViewTicketsBundlesForm from './ViewTicketBundlesForm';
+import ViewTicketsListViewForm from './ViewTicketsForm';
 import { Route } from 'react-router-dom'
 import SideNavBar from '../components/ManagerSideNavBar';
 import {Row, Col} from 'reactstrap';
@@ -46,7 +47,8 @@ class SPAEngineerMainPage extends React.Component {
             <Col sm='7' style={{border: '1px solid #E8EAED', borderRadius: '10px',  paddingRight: '5px',  paddingLeft:'5px',  paddingTop:'5px',  paddingBottom:'5px',  backgroundColor: '#ffffff'}}>
               <Route path="/ticketmanage/dashboard" component={DashboardForm}></Route>
               <Route path="/ticketmanage/newticket" component={CreateTicketForm}></Route>
-              <Route path="/ticketmanage/tickets" component={() => <ViewTicketsForm handleTicketBundleClick={this.updateRouteAndShowTicketBundleDetails}/>}></Route>
+              <Route path="/ticketmanage/tickets" component={() => <ViewTicketsBundlesForm handleTicketBundleClick={this.updateRouteAndShowTicketBundleDetails}/>}></Route>
+              <Route path="/ticketmanage/ticketslistview" component={ViewTicketsListViewForm}></Route>
             </Col>
             <Col sm='3'>            
               <div style={{ position: 'sticky', top: 100, zIndex: 1 }}>

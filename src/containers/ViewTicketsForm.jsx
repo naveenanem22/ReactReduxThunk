@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Table, Container, Input, InputGroupAddon, InputGroup, Button, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
+import { Table, Container, Input, Badge, NavLink, Button, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 import { FaUserAlt } from 'react-icons/fa';
 import { Redirect } from 'react-router-dom';
 import SearchInput from '../components/SearchInput';
 import { assignAndUpdateMultipleTicketsAPICall } from '../actions/TicketActions';
 import history from '../history';
-
+import {Role} from '../masterdata/ApplicationMasterData';
 class ViewTicketsForm extends React.Component {
 
   constructor(props) {
@@ -23,6 +23,7 @@ class ViewTicketsForm extends React.Component {
     this.updateAssignedValue = this.updateAssignedValue.bind(this);
     this.processPropsForInitialState = this.processPropsForInitialState.bind(this);
     this.isEveryTicketHasvalidData = this.isEveryTicketHasvalidData.bind(this);
+    this.handleBundleViewClick = this.handleBundleViewClick.bind(this);
 
   }
 
@@ -41,6 +42,13 @@ class ViewTicketsForm extends React.Component {
         }
       }
       return null
+  }
+  
+  handleBundleViewClick(){
+    history.push({
+      pathname: "/ticketmanage/tickets",
+      search: "?status=New"
+    });
   }
 
   processPropsForInitialState(tickets) {    
@@ -191,6 +199,15 @@ class ViewTicketsForm extends React.Component {
             <p>Assign or Close the tickets multiple or individual.</p>
           </Row>
         </Container>
+        {(this.props.user.profile.role === Role.ROLE_MANAGER) &&
+            <Row>
+              <Col style={{textAlign:'right'}}>
+                  <NavLink href="#" onClick={this.handleBundleViewClick} style={{ marginBottom: '', textDecoration: 'none', color: '#546e7a' }}>
+                  <Badge href="#" color="primary">Bundle View</Badge>
+                  </NavLink>
+              </Col>
+            </Row>
+          }
         <Table size='sm' hover bordered class="rounded mb-0" style={{ marginTop: '1%' }}>
           <thead>
             <tr>

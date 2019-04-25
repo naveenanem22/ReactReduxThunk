@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { NavItem, NavLink, Container, InputGroupAddon, InputGroup, Button, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
+import { Badge, NavLink, Container, InputGroupAddon, InputGroup, Button, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 import { FaUserAlt } from 'react-icons/fa';
 import { Redirect } from 'react-router-dom';
 import SearchInput from '../components/SearchInput';
@@ -10,6 +10,7 @@ import TicketDetailCard from '../components/TicketDetailCard';
 import { fetchTicketsAPICall } from '../actions/TicketActions';
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
+import {Role} from '../masterdata/ApplicationMasterData';
 
 
 class ViewTicketsForm extends React.Component {
@@ -21,7 +22,15 @@ class ViewTicketsForm extends React.Component {
       tickets: this.props.tickets
     };
     this.handleTicketBundleClick = this.handleTicketBundleClick.bind(this);
+    this.handleListViewClick = this.handleListViewClick.bind(this);
 
+  }
+
+  handleListViewClick(){
+    history.push({
+      pathname:'/ticketmanage/ticketslistview',
+      search:'?status=New'
+    });
   }
 
   handleTicketBundleClick(e, ticket) {    
@@ -77,6 +86,16 @@ class ViewTicketsForm extends React.Component {
               />
             </div>
           }
+          {(this.props.user.profile.role === Role.ROLE_MANAGER) &&
+            <Row>
+              <Col style={{textAlign:'right'}}>
+                  <NavLink href="#" onClick={this.handleListViewClick} style={{ marginBottom: '', textDecoration: 'none', color: '#546e7a' }}>
+                  <Badge href="#" color="primary">List View</Badge>
+                  </NavLink>
+              </Col>
+            </Row>
+          }
+          
 
           {this.props.fetchTicketsAPICallStatus.success && this.props.tickets.map(ticket => 
             <Row style={{ marginBottom: '2%' }}>
