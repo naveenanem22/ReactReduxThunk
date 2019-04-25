@@ -20,17 +20,9 @@ const allStoreEnhancers = compose(
 )
 const store = createStore(MainReducer, {
     serviceCallStatus: {
-        fetchTicketsAPI: {
-            requested: false,
-            success: false,
-            error: false
-        },
-        fetchTicketDetailsAPI: {
-            requested: false,
-            success: false,
-            error: false
-        }
-
+        fetchTicketsAPI: {requested: false, success: false, error: false},
+        fetchTicketDetailsAPI: {requested: false, success: false, error: false},
+        addMessageAPI: {requested: false, success: false, error: false}
     },
     dashboardData: {
         barChart: {

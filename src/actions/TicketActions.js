@@ -1,6 +1,7 @@
-import { CREATE_TICKET, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE, CLOSE_TICKET_SUCCESS, CLOSE_TICKET_FAILURE } from './ActionTypes';
+import { CREATE_TICKET, CLOSE_TICKET_SUCCESS, CLOSE_TICKET_FAILURE } from './ActionTypes';
 import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS, FETCH_TICKETS,ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET_FAILURE, ASSIGN_UPDATE_TICKET } from './ActionTypes';
 import {FETCH_TICKET_DETAILS,FETCH_TICKET_DETAILS_FAILURE, FETCH_TICKET_DETAILS_SUCCESS} from './ActionTypes';
+import {ADD_MESSAGE, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE} from './ActionTypes';
 import { SHOW_FORM_NEW_TICKET } from './ActionTypes';
 import {showLoadingScreen, dismissLoadingScreen} from './LoadingScreenActions';
 import FileSaver from 'file-saver';
@@ -57,6 +58,12 @@ export function fetchTicketDetailsSuccess(ticket) {
 export function fetchTicketDetailsFailure(ticket) {
     return {
         type: FETCH_TICKET_DETAILS_FAILURE
+    }
+}
+
+export function addMessage() {
+    return {
+        type: ADD_MESSAGE
     }
 }
 
@@ -207,6 +214,7 @@ export function addMessageAPICall(params) {
     var url = new URL("http://localhost:8080/v0/ticket-management/tickets/" + params.id);
     console.log(url);
     return function (dispatch) {
+        dispatch(addMessage());
         return fetch(url, {
             method: 'PUT',
             headers: headers,
