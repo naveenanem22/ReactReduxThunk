@@ -60,7 +60,7 @@ class LoginForm extends React.Component {
             sortBy: 'ticketId'
           });
           return <Redirect push to={{
-            pathname: "/tickets"
+            pathname: "/ticketmanage/tickets?status=all"
           }} />;
 
         default:
