@@ -7,6 +7,8 @@ import { FaFilePdf, FaFileAlt, FaFileImage, FaFile } from 'react-icons/fa';
 import { loadFileIcon } from '../util/UIUtils';
 import { fetchTicketDetailsAPICall } from '../actions/TicketActions'
 import { ScaleLoader } from 'react-spinners';
+import history from '../history';
+import queryString from 'query-string';
 
 
 
@@ -89,15 +91,30 @@ class ViewTicketDetailsForm extends React.Component {
   }
 
   componentDidMount() {
-    //Making service call to fetch Ticket Details based on the key available in the URL(Route)
-    /* console.log("From CDM of ViewTicketDetailsPage");
-    console.log(this.props);
+    //Making service call to fetch Ticket Details based on the key available in the URL or Route
+    //Extracing params from url
+    console.log("Search string: ");
+    var searchString = history.location.search;
+    console.log(searchString);
+    var params = queryString.parse(searchString);
+    console.log("Extracted params: ");
+    console.log(params);
+
+    //Make fetchTicketDetailsAPICall if the search-string contains key: ticketId
+    if (params.ticketId) {
+      this.props.fetchTicketDetails({
+        ticketId: params.ticketId
+      });
+    }
+
+
+    /* console.log(this.props);
     const queryParams = new URLSearchParams(this.props.location.search);
-    const ticketId = queryParams.get('ticketId'); */
+    const ticketId = queryParams.get('ticketId');
 
     this.props.fetchTicketDetails({
       ticketId: 11
-    });
+    }); */
 
   }
   render() {
