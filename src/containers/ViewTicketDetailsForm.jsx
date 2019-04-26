@@ -90,11 +90,13 @@ class ViewTicketDetailsForm extends React.Component {
 
   componentDidMount() {
     //Making service call to fetch Ticket Details based on the key available in the URL(Route)
+    /* console.log("From CDM of ViewTicketDetailsPage");
+    console.log(this.props);
     const queryParams = new URLSearchParams(this.props.location.search);
-    const ticketId = queryParams.get('ticketId');
+    const ticketId = queryParams.get('ticketId'); */
 
     this.props.fetchTicketDetails({
-      ticketId: ticketId
+      ticketId: 11
     });
 
   }

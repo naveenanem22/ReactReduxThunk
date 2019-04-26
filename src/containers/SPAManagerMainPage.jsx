@@ -64,20 +64,56 @@ class SPAEngineerMainPage extends React.Component {
         </div>
         <Row style={{ background: 'rgba(0,0,0,0.3)', marginTop: '1%', marginLeft: '3%', marginRight: '3%', paddingTop: '1%' }}>
           <Col sm='2' ><SideNavBar></SideNavBar></Col>
-          <Col sm='7' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
-            <Route path="/ticketmanage/dashboard" component={DashboardForm}></Route>
-            <Route path="/ticketmanage/newticket" component={CreateTicketForm}></Route>
-            <Route path="/ticketmanage/tickets" component={() => <ViewTicketsBundlesForm handleTicketBundleClick={this.updateRouteAndShowTicketBundleDetails} />}></Route>
-            <Route path="/ticketmanage/ticketslistview" component={() => <ViewTicketsForm handleListViewTicketClick={this.updateRouteAndShowTicketDetails}></ViewTicketsForm>}></Route>
-            <Route path="/ticketmanage/ticketdetails" component={ViewTicketDetailsForm}></Route>
-          </Col>
-          <Col sm='3'>
-            <div style={{ position: 'sticky', top: 100, zIndex: 1 }}>
-              <Route path="/ticketmanage/tickets" component={() => <ViewTicketBundleDetailsForm showSelectTicketMsg={this.state.showSelectTicketMsg}></ViewTicketBundleDetailsForm>}> </Route>
+          
+          <Route path="/ticketmanage/newticket"
+            component={() =>
+              <Col sm='9' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+                <CreateTicketForm></CreateTicketForm>
+              </Col>}>
+          </Route>
 
-            </div>
-            <Route path="/ticketmanage/dashboard" component={() => <EngineerProfileForm ></EngineerProfileForm>}> </Route>
-          </Col>
+          <Route path="/ticketmanage/ticketdetails"
+            component={() =>
+              <Col sm='9' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+                <ViewTicketDetailsForm></ViewTicketDetailsForm>
+              </Col>}>
+          </Route>
+
+          <Route path="/ticketmanage/dashboard"
+            component={() =>
+              <Col sm='9' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+                <DashboardForm></DashboardForm>
+              </Col>}>
+          </Route>
+
+          <Route path="/ticketmanage/tickets"
+            component={() =>
+              <Col sm='7' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+                <ViewTicketsBundlesForm handleTicketBundleClick={this.updateRouteAndShowTicketBundleDetails} />
+              </Col>}>
+          </Route>
+          <Route path="/ticketmanage/tickets"
+            component={() =>
+              <Col sm='3'>
+               <div style={{ position: 'sticky', top: 100, zIndex: 1 }}>
+               <ViewTicketBundleDetailsForm showSelectTicketMsg={this.state.showSelectTicketMsg}></ViewTicketBundleDetailsForm>
+               </div>
+              </Col>}>
+          </Route>
+
+          <Route path="/ticketmanage/ticketslistview"
+            component={() =>
+              <Col sm='7' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+                <ViewTicketsForm handleListViewTicketClick={this.updateRouteAndShowTicketDetails}></ViewTicketsForm>
+              </Col>}>
+          </Route>
+
+          <Route path="/ticketmanage/profile"
+            component={() =>
+              <Col sm='3'>
+              <EngineerProfileForm ></EngineerProfileForm>
+              </Col>}>
+          </Route>
         </Row>
       </div>
     );
