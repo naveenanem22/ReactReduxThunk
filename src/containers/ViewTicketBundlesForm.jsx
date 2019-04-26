@@ -59,8 +59,7 @@ class ViewTicketsForm extends React.Component {
 
   render() {
     console.log("***************");
-    console.log(this.state.tickets);
-    console.log(this.props.tickets);
+    console.log(this.props.user);
     
     //Initialize suggestions array with names from engineers array
     var suggestions = [];

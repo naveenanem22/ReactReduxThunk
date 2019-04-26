@@ -14,6 +14,6 @@ export function userReducer(state = {}, action){
         return {...state, isLoggedIn: false}
         
         default:
-        return state;
+        return state; 
     }
 }
