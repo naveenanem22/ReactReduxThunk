@@ -4,7 +4,12 @@ import { connect } from 'react-redux';
 import { Button, Row, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
 import { Table, NavLink } from 'reactstrap';
 import { FaFilePdf, FaFileAlt, FaFileImage, FaFile } from 'react-icons/fa';
-import {loadFileIcon} from '../util/UIUtils';
+import { loadFileIcon } from '../util/UIUtils';
+import { fetchTicketDetailsAPICall } from '../actions/TicketActions'
+import { ScaleLoader } from 'react-spinners';
+
+
+
 class ViewTicketDetailsForm extends React.Component {
 
   constructor(props) {
@@ -27,9 +32,9 @@ class ViewTicketDetailsForm extends React.Component {
     this.toggleUpload = this.toggleUpload.bind(this);
   }
 
-  toggleUpload(){
+  toggleUpload() {
     this.setState({
-      isUpload : !this.state.isUpload
+      isUpload: !this.state.isUpload
     })
   }
 
@@ -49,7 +54,7 @@ class ViewTicketDetailsForm extends React.Component {
     e.preventDefault();
     this.setState((prevState, props) => ({
       id: this.props.ticket.id,
-      commentedOn : new Date(Date.now()).toISOString(),
+      commentedOn: new Date(Date.now()).toISOString(),
       file1: this.state.isUpload ? prevState.file1 : undefined,
       file2: this.state.isUpload ? prevState.file2 : undefined,
       file3: this.state.isUpload ? prevState.file3 : undefined
@@ -58,7 +63,7 @@ class ViewTicketDetailsForm extends React.Component {
     })
 
 
-    
+
   }
 
   onSubmitCloseTicket(e) {
@@ -82,6 +87,17 @@ class ViewTicketDetailsForm extends React.Component {
       [e.target.name]: e.target.files[0]
     })
   }
+
+  componentDidMount() {
+    //Making service call to fetch Ticket Details based on the key available in the URL(Route)
+    const queryParams = new URLSearchParams(this.props.location.search);
+    const ticketId = queryParams.get('ticketId');
+
+    this.props.fetchTicketDetails({
+      ticketId: ticketId
+    });
+
+  }
   render() {
     const ticket = this.props.ticket;
     return (
@@ -91,7 +107,13 @@ class ViewTicketDetailsForm extends React.Component {
           <h3>Ticket Details</h3>
           <p> Ticket details such as - attachments, converstaion and status.</p>
         </div>
-        <div class="ticket-details-body">
+        {this.props.fetchTicketDetailsAPICallStatus.requested && <div className='view-ticket-loading'>
+          <ScaleLoader
+            color='#00d8ff'
+            loading='true'
+          />
+        </div>}
+        {this.props.fetchTicketDetailsAPICallStatus.success && <div class="ticket-details-body">
 
           <div>
             <Row>
@@ -141,38 +163,38 @@ class ViewTicketDetailsForm extends React.Component {
 
           {/* Single Add-Conversation-block when there is no history*/}
           {ticket.ticketHistory.length === 0 && <div>
-                  <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%' }}>
-                    <Col >
-                      <Input type="textarea" name="comment" id="comment" onChange={this.handleChange} />
-                    </Col>
-                  </Row>
+            <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%' }}>
+              <Col >
+                <Input type="textarea" name="comment" id="comment" onChange={this.handleChange} />
+              </Col>
+            </Row>
 
-                  <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%', 'marginTop': '1%' }}>
-                    <Col>
-                      <Button onClick = {this.toggleUpload} type="submit" outline color="secondary" bsSize="small"
-                      >Attach Files</Button>
-                    </Col>
-                    <Col style={{ 'text-align': 'right' }}>
-                      <Button type="submit" color="link" bsSize="small" onClick={this.onSubmitCloseTicket}>
-                        Close Ticket</Button>or
+            <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%', 'marginTop': '1%' }}>
+              <Col>
+                <Button onClick={this.toggleUpload} type="submit" outline color="secondary" bsSize="small"
+                >Attach Files</Button>
+              </Col>
+              <Col style={{ 'text-align': 'right' }}>
+                <Button type="submit" color="link" bsSize="small" onClick={this.onSubmitCloseTicket}>
+                  Close Ticket</Button>or
                  <Button type="submit" color="info" bsSize="small" style={{ 'marginLeft': '2%' }} onClick={this.onSubmitAddMessage}>
-                        Add Message</Button>
-                    </Col>
-                  </Row>
-                 { this.state.isUpload && <Row>
-                    <FormGroup style={{ 'width': '90%', 'paddingLeft': '5%', 'paddingTop': '2%' }}>
-                      <Label for="attachments">Attachments</Label>
-                      <Input type="file" name="file1" id="file1" onChange={this.onFileUpload} />
-                      <Input type="file" name="file2" id="file2" onChange={this.onFileUpload} />
-                      <Input type="file" name="file3" id="file3" onChange={this.onFileUpload} />
-                      <FormText color="muted">
-                        Any files that can assist the corresponding team to resolve the issues at the earliest.
+                  Add Message</Button>
+              </Col>
+            </Row>
+            {this.state.isUpload && <Row>
+              <FormGroup style={{ 'width': '90%', 'paddingLeft': '5%', 'paddingTop': '2%' }}>
+                <Label for="attachments">Attachments</Label>
+                <Input type="file" name="file1" id="file1" onChange={this.onFileUpload} />
+                <Input type="file" name="file2" id="file2" onChange={this.onFileUpload} />
+                <Input type="file" name="file3" id="file3" onChange={this.onFileUpload} />
+                <FormText color="muted">
+                  Any files that can assist the corresponding team to resolve the issues at the earliest.
           </FormText>
-                    </FormGroup>
+              </FormGroup>
 
-                  </Row>}
+            </Row>}
 
-                </div>}
+          </div>}
 
           {/* Add-Conversation-block only in the first message block of the history when the history is present*/}
           {ticket.ticketHistory.map((item) =>
@@ -203,7 +225,7 @@ class ViewTicketDetailsForm extends React.Component {
 
                   <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%', 'marginTop': '1%' }}>
                     <Col>
-                      <Button onClick = {this.toggleUpload} type="submit" outline color="secondary" bsSize="small"
+                      <Button onClick={this.toggleUpload} type="submit" outline color="secondary" bsSize="small"
                       >Attach Files</Button>
                     </Col>
                     <Col style={{ 'text-align': 'right' }}>
@@ -213,7 +235,7 @@ class ViewTicketDetailsForm extends React.Component {
                         Add Message</Button>
                     </Col>
                   </Row>
-                 { this.state.isUpload && <Row>
+                  {this.state.isUpload && <Row>
                     <FormGroup style={{ 'width': '90%', 'paddingLeft': '5%', 'paddingTop': '2%' }}>
                       <Label for="attachments">Attachments</Label>
                       <Input type="file" name="file1" id="file1" onChange={this.onFileUpload} />
@@ -233,7 +255,7 @@ class ViewTicketDetailsForm extends React.Component {
             </div>
           )}
 
-        </div>
+        </div>}
       </div>
     );
   }
@@ -241,14 +263,16 @@ class ViewTicketDetailsForm extends React.Component {
 
 const mapStateToProps = function (state) {
   return {
-    ticket: state.ticketDetails.ticket
+    ticket: state.ticketDetails.ticket,
+    fetchTicketDetailsAPICallStatus: state.serviceCallStatus.fetchTicketDetailsAPI
   }
 }
 
 const mapActionsToProps = {
   addMessage: addMessageAPICall,
   closeTicket: closeTicketAPICall,
-  downloadAttachment: downloadAttachmentAPICall
+  downloadAttachment: downloadAttachmentAPICall,
+  fetchTicketDetails: fetchTicketDetailsAPICall
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(ViewTicketDetailsForm);
