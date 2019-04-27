@@ -121,11 +121,14 @@ class ViewTicketDetailsForm extends React.Component {
     const ticket = this.props.ticket;
     return (
 
-      <div class="ticket-details-form">
-        <div class="ticket-details-header">
-          <h3>Ticket Details</h3>
-          <p> Ticket details such as - attachments, converstaion and status.</p>
-        </div>
+      <div style={{ marginLeft: '1%', marginRight: '1%' }}>
+        <Container style={{ marginTop: '3%' }}><Row style={{ textAlign: 'left' }}>
+          <h4>Ticket Details</h4>
+        </Row>
+          <Row style={{ textAlign: 'left' }}>
+            <p>Ticket details such as - attachments, converstaion and status.</p>
+          </Row>
+        </Container>
         {this.props.fetchTicketDetailsAPICallStatus.requested && <div className='view-ticket-loading'>
           <ScaleLoader
             color='#00d8ff'
