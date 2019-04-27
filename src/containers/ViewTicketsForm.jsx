@@ -199,6 +199,7 @@ class ViewTicketsForm extends React.Component {
             <p>Assign or Close the tickets multiple or individual.</p>
           </Row>
         </Container>
+        <hr/>
         {(this.props.user.profile.role === Role.ROLE_MANAGER) &&
             <Row>
               <Col style={{textAlign:'right'}}>

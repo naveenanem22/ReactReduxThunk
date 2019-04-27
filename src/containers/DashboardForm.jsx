@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, CardText, CardBody, CardTitle, CardSubtitle, Row, Col } from 'reactstrap';
+import { Container, Card, CardText, CardBody, CardTitle, CardSubtitle, Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 import { FaTicketAlt, FaClipboardCheck, FaSyncAlt } from 'react-icons/fa';
 import {getThreeLetterMonthName} from '../util/CalendarUtil';
@@ -141,11 +141,18 @@ class DashBoardForm extends React.Component {
     console.log(this.state);
     const { opacity } = this.state;
     return (
-      <div>
-        <Row style={{ marginTop: '3%', marginLeft: '1%', marginRight: '1%' }}>
-        <h3>Helpdesk dashboard</h3>
+      <div style={{ marginLeft: '1%', marginRight: '1%' }}>
+       <Container style={{ marginTop: '2%' }}> 
+       <Row style={{ textAlign: 'left' }}>
+          <h4>Helpdesk Dashboard</h4>
         </Row>
-        <Row style={{ marginTop: '3%', marginLeft: '1%', marginRight: '1%' }}>
+        <Row style={{ textAlign: 'left' }}>
+            <p>Organization wide statistics of tickets and activity.</p>
+          </Row>
+       </Container>
+       <hr/>
+        <Container style={{ marginTop: '1%' }}>
+        <Row >
           <Col style={{ width: '33%' }}>
             <Card>
               <CardBody>
@@ -273,6 +280,7 @@ class DashBoardForm extends React.Component {
 
           </Col>
         </Row>
+        </Container>
       </div>
 
 

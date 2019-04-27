@@ -122,13 +122,15 @@ class ViewTicketDetailsForm extends React.Component {
     return (
 
       <div style={{ marginLeft: '1%', marginRight: '1%' }}>
-        <Container style={{ marginTop: '3%' }}><Row style={{ textAlign: 'left' }}>
+        <Container style={{ marginTop: '3%' }}>
+        <Row style={{ textAlign: 'left' }}>
           <h4>Ticket Details</h4>
         </Row>
           <Row style={{ textAlign: 'left' }}>
             <p>Ticket details such as - attachments, converstaion and status.</p>
           </Row>
         </Container>
+        <hr/>
         {this.props.fetchTicketDetailsAPICallStatus.requested && <div className='view-ticket-loading'>
           <ScaleLoader
             color='#00d8ff'
@@ -137,12 +139,10 @@ class ViewTicketDetailsForm extends React.Component {
         </div>}
         {this.props.fetchTicketDetailsAPICallStatus.success && <div class="ticket-details-body">
 
-          <div>
             <Row>
               <Col md={6} style={{ 'text-align': 'left', 'padding-top': '.75rem' }}><strong>Naveen Anem</strong> - naveen.anem@kony.com</Col>
               <Col md={6} style={{ 'text-align': 'right', 'padding-top': '.75rem' }}>{ticket.createdDate}</Col>
             </Row>
-          </div>
 
           <Row>
             <Col md={12}><h4>{ticket.title}</h4></Col>

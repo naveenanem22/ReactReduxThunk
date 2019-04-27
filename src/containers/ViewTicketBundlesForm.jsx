@@ -58,9 +58,6 @@ class ViewTicketsForm extends React.Component {
   }
 
   render() {
-    console.log("***************");
-    console.log(this.props.user);
-    
     //Initialize suggestions array with names from engineers array
     var suggestions = [];
     this.props.engineers.forEach(engineer => {
@@ -69,13 +66,14 @@ class ViewTicketsForm extends React.Component {
 
     return (
       <div style={{ marginLeft: '1%', marginRight: '1%' }}>
-        <Container style={{ marginTop: '3%' }}><Row style={{ textAlign: 'left' }}>
+        <Container style={{ marginTop: '2%' }}><Row style={{ textAlign: 'left' }}>
           <h4>New Tickets</h4>
         </Row>
           <Row style={{ textAlign: 'left' }}>
             <p>Tickets that need to be actioned.</p>
           </Row>
         </Container>
+        <hr/>
         <Container>
           {this.props.fetchTicketsAPICallStatus.requested &&
             <div className='view-ticket-loading'>

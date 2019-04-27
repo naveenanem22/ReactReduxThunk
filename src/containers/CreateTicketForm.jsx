@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Container,Row,Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { timingSafeEqual } from 'crypto';
 import {createTicketAPICall} from '../actions/TicketActions'
 import {connect} from 'react-redux';
@@ -59,14 +59,24 @@ class CreateNewTicketForm extends React.Component {
   render() {
     console.log(this.props);
     return (
+      <div style={{ marginLeft: '1%', marginRight: '1%' }}>
+      
+          
       <Form>
         <FormGroup>
-          <h3>New Ticket</h3>
-          <p> Need help with something? 
+        <Container style={{ marginTop: '2%' }}>
+        <Row style={{ textAlign: 'left' }}>
+          <h4>New Ticket</h4>
+        </Row>
+          <Row style={{ textAlign: 'left' }}>
+            <p>Need help with something? 
             Create a request right here. For faster service, 
             please add as much information as possible.</p>
+          </Row>
+        </Container>
           <hr/>
         </FormGroup>
+        <Container style={{ marginTop: '3%' }}>
         <FormGroup>
           <Label for="ticketTitle">Title</Label>
           <Input type="text" name="ticketTitle" id="ticketTitle" 
@@ -156,7 +166,9 @@ class CreateNewTicketForm extends React.Component {
         </FormGroup>        
         <Button color="success" type="submit" bsSize="large"  
         onClick = {this.onSubmitCreateTicket}>Create Ticket</Button>
+        </Container>
       </Form>
+      </div>
     );
   }
 }
