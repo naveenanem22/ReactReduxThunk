@@ -200,7 +200,7 @@ class ViewTicketsForm extends React.Component {
           </Row>
         </Container>
         <hr/>
-        {(this.props.user.profile.role === Role.ROLE_MANAGER) &&
+        {(localStorage.getItem('role') === Role.ROLE_MANAGER) &&
             <Row>
               <Col style={{textAlign:'right'}}>
                   <NavLink href="#" onClick={this.handleBundleViewClick} style={{ marginBottom: '', textDecoration: 'none', color: '#546e7a' }}>

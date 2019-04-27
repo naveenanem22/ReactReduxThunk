@@ -65,6 +65,9 @@ export function loginAPICall(user){
        ).then(jsonResp => {
            if(jsonResp){
            localStorage.setItem('token',jsonResp.token);
+           localStorage.setItem('role', jsonResp.role);
+           localStorage.setItem('username', jsonResp.username);
+
            dispatch(loginSuccess({
                role:jsonResp.role,
                username: jsonResp.username
@@ -73,6 +76,3 @@ export function loginAPICall(user){
        });
       };
 }
-
-
-
