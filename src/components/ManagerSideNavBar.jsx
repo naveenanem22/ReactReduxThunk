@@ -22,7 +22,7 @@ class SideNavBar extends React.Component {
 
   handleDashboard(e) {
     history.push({pathname: "/ticketmanage/dashboard"});
-    this.props.fetchDashboardData();
+    //this.props.fetchDashboardData();
   }
 
   handleAwaitResponseClick() {

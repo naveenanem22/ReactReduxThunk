@@ -2,9 +2,11 @@ import React from 'react';
 import { Container, Card, CardText, CardBody, CardTitle, CardSubtitle, Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 import { FaTicketAlt, FaClipboardCheck, FaSyncAlt } from 'react-icons/fa';
-import {getThreeLetterMonthName} from '../util/CalendarUtil';
-import {getValueByKey} from '../util/ArrayUtil';
-import {TicketStatus} from '../masterdata/ApplicationMasterData';
+import { fetchDashboardDataAPICall, fetchDashboardDataMultipleAPICall } from '../actions/DashboardActions';
+import {ScaleLoader} from 'react-spinners';
+import { getThreeLetterMonthName } from '../util/CalendarUtil';
+import { getValueByKey } from '../util/ArrayUtil';
+import { TicketStatus } from '../masterdata/ApplicationMasterData';
 import victory from "victory";
 import {
   VictoryBar,
@@ -98,8 +100,8 @@ class DashBoardForm extends React.Component {
 
     //State
     this.state = {
-      barChart :this.props.barChart,
-      pieChart :this.props.pieChart,
+      barChart: this.props.barChart,
+      pieChart: this.props.pieChart,
       lastHourTicketCount: this.props.lastHourTicketCount,
       opacity: {
         uv: 1,
@@ -136,151 +138,170 @@ class DashBoardForm extends React.Component {
     });
   }
 
+  componentDidMount() {
+    //Fetching dashboard data
+    this.props.fetchDashboardData();
+  }
+
   render() {
-    console.log("State");
-    console.log(this.state);
+    console.log("From render-Dashboard");
+    console.log(this.props.fetchDashboardDataMultipleAPICallStatus);
     const { opacity } = this.state;
     return (
       <div style={{ marginLeft: '1%', marginRight: '1%' }}>
-       <Container style={{ marginTop: '2%' }}> 
-       <Row style={{ textAlign: 'left' }}>
-          <h4>Helpdesk Dashboard</h4>
-        </Row>
-        <Row style={{ textAlign: 'left' }}>
+        <Container style={{ marginTop: '2%' }}>
+          <Row style={{ textAlign: 'left' }}>
+            <h4>Helpdesk Dashboard</h4>
+          </Row>
+          <Row style={{ textAlign: 'left' }}>
             <p>Organization wide statistics of tickets and activity.</p>
           </Row>
-       </Container>
-       <hr/>
-        <Container style={{ marginTop: '1%' }}>
-        <Row >
-          <Col style={{ width: '33%' }}>
-            <Card>
-              <CardBody>
-                <Row>
-                  <Col><FaTicketAlt size={70} style={{ color: 'red' }} /></Col>
-                  <Col>
-                    <Row><Col ><p style={{ fontFamily: 'Roboto,Helvetica Neue,Arial,sans-serif', marginBottom: '0%' }}>New Tickets</p></Col></Row>
-                    <Row><Col ><h1>{this.state.lastHourTicketCount.New}</h1></Col></Row>
-                  </Col>
-                </Row>
-                <hr></hr>
-                <p style={{ display: 'flex', alignItems: 'center', color: '#A9A9A9', fontSize: '90%', marginTop: '2%' }}><FaSyncAlt style={{ color: '#A9A9A9', marginRight: '5px' }}></FaSyncAlt>Updated in last hour</p>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col style={{ width: '33%' }}>
-            <Card>
-              <CardBody>
-                <Row>
-                  <Col><FaClipboardCheck size={60} style={{ color: 'green' }} /></Col>
-                  <Col>
-                    <Row><Col ><p style={{ fontFamily: 'Roboto,Helvetica Neue,Arial,sans-serif', marginBottom: '0%' }}>Closed</p></Col></Row>
-                    <Row><Col ><h1>{this.state.lastHourTicketCount.Closed}</h1></Col></Row>
-                  </Col>
-                </Row>
-                <hr></hr>
-                <p style={{ display: 'flex', alignItems: 'center', color: '#A9A9A9', fontSize: '90%', marginTop: '2%' }}><FaSyncAlt style={{ color: '#A9A9A9', marginRight: '5px' }}></FaSyncAlt>Updated an hour ago</p>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col style={{ width: '33%' }}>
-            <Card>
-              <CardBody>
-                <Row>
-                  <Col><FaTicketAlt size={70} style={{ color: 'orange' }} /></Col>
-                  <Col>
-                    <Row><Col ><h6>Tickets Raised</h6></Col></Row>
-                    <Row><Col ><h1>23</h1></Col></Row>
-                  </Col>
-                </Row>
-                <hr></hr>
-                <p style={{ display: 'flex', alignItems: 'center', color: '#A9A9A9', fontSize: '90%', marginTop: '2%' }}><FaSyncAlt style={{ color: '#A9A9A9', marginRight: '5px' }}></FaSyncAlt>Updated</p>
-              </CardBody>
-            </Card>
-          </Col>
-
-        </Row>
-        <Row style={{ marginTop: '3%', marginLeft: '1%', marginRight: '1%' }}>
-          <Col style={{ width: '60%' }}>
-            <Card style={{ backgroundColor: '#fff' }}>
-              <CardBody>
-                <CardTitle>Ticket Statistics by Status</CardTitle>
-                <BarChart
-                  barGap={1}
-                  width={500}
-                  height={300}
-                  barSize={8}
-                  data={this.state.barChart.data}
-                  margin={{
-                    top: 5, right: 30, left: 20, bottom: 5,
-                  }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" fontSize={11} tick={{ stroke: '#6E6E6E', strokeWidth: 0.1, fontFamily: 'Roboto,Helvetica Neue,Arial,sans-serif' }} />
-                  <YAxis fontSize={12} label={{ value: 'Ticket Count', angle: -90, position: 'insideLeft' }} />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="Open" fill="#8884d8" />
-                  <Bar dataKey="Closed" fill="#82ca9d" />
-                </BarChart>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col style={{ width: '40%' }}>
-            <Card style={{ backgroundColor: '#fff' }}>
-              <CardBody>
-                <CardTitle>Department-wise workload</CardTitle>
-                <PieChart width={500} height={300}>
-                  <Pie
-                    data={this.state.pieChart.data}
-                    cx={150}
-                    cy={100}
-                    labelLine={false}
-                    label={renderCustomizedLabel}
-                    outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
-                  >
-                    {
-                      this.state.pieChart.data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
-                    }
-                  </Pie>
-                  <Tooltip />
-                  <Legend verticalAlign='bottom' align='left' layout='horizontal' />
-                </PieChart>
-              </CardBody>
-            </Card>
-
-          </Col>
-
-        </Row>
-        <Row style={{ marginTop: '3%', marginLeft: '1%', marginRight: '1%' }}>
-          <Col style={{ width: '100%' }}>
-            <Card style={{ backgroundColor: '#fff' }}>
-              <CardBody>
-                <CardTitle>Department-wise workload</CardTitle>
-                <LineChart
-                  width={500}
-                  height={300}
-                  data={lineGraphData}
-                  margin={{
-                    top: 5, right: 30, left: 20, bottom: 5,
-                  }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} />
-                  <Line type="monotone" dataKey="pv" strokeOpacity={opacity.pv} stroke="#8884d8" activeDot={{ r: 8 }} />
-                  <Line type="monotone" dataKey="uv" strokeOpacity={opacity.uv} stroke="#82ca9d" />
-                </LineChart>
-              </CardBody>
-            </Card>
-
-          </Col>
-        </Row>
         </Container>
+        <hr />
+
+        {this.props.fetchDashboardDataMultipleAPICallStatus.requested &&
+          <Container>
+            <Row>
+              <Col>
+              <ScaleLoader
+                color='#00d8ff'
+                loading='true'
+              />
+              </Col>
+            </Row>
+          </Container>}
+
+        {this.props.fetchDashboardDataMultipleAPICallStatus.success &&
+          <Container style={{ marginTop: '1%' }}>
+            <Row >
+              <Col style={{ width: '33%' }}>
+                <Card>
+                  <CardBody>
+                    <Row>
+                      <Col><FaTicketAlt size={70} style={{ color: 'red' }} /></Col>
+                      <Col>
+                        <Row><Col ><p style={{ fontFamily: 'Roboto,Helvetica Neue,Arial,sans-serif', marginBottom: '0%' }}>New Tickets</p></Col></Row>
+                        <Row><Col ><h1>{this.state.lastHourTicketCount.New}</h1></Col></Row>
+                      </Col>
+                    </Row>
+                    <hr></hr>
+                    <p style={{ display: 'flex', alignItems: 'center', color: '#A9A9A9', fontSize: '90%', marginTop: '2%' }}><FaSyncAlt style={{ color: '#A9A9A9', marginRight: '5px' }}></FaSyncAlt>Updated in last hour</p>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col style={{ width: '33%' }}>
+                <Card>
+                  <CardBody>
+                    <Row>
+                      <Col><FaClipboardCheck size={60} style={{ color: 'green' }} /></Col>
+                      <Col>
+                        <Row><Col ><p style={{ fontFamily: 'Roboto,Helvetica Neue,Arial,sans-serif', marginBottom: '0%' }}>Closed</p></Col></Row>
+                        <Row><Col ><h1>{this.state.lastHourTicketCount.Closed}</h1></Col></Row>
+                      </Col>
+                    </Row>
+                    <hr></hr>
+                    <p style={{ display: 'flex', alignItems: 'center', color: '#A9A9A9', fontSize: '90%', marginTop: '2%' }}><FaSyncAlt style={{ color: '#A9A9A9', marginRight: '5px' }}></FaSyncAlt>Updated an hour ago</p>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col style={{ width: '33%' }}>
+                <Card>
+                  <CardBody>
+                    <Row>
+                      <Col><FaTicketAlt size={70} style={{ color: 'orange' }} /></Col>
+                      <Col>
+                        <Row><Col ><h6>Tickets Raised</h6></Col></Row>
+                        <Row><Col ><h1>23</h1></Col></Row>
+                      </Col>
+                    </Row>
+                    <hr></hr>
+                    <p style={{ display: 'flex', alignItems: 'center', color: '#A9A9A9', fontSize: '90%', marginTop: '2%' }}><FaSyncAlt style={{ color: '#A9A9A9', marginRight: '5px' }}></FaSyncAlt>Updated</p>
+                  </CardBody>
+                </Card>
+              </Col>
+
+            </Row>
+            <Row style={{ marginTop: '3%', marginLeft: '1%', marginRight: '1%' }}>
+              <Col style={{ width: '60%' }}>
+                <Card style={{ backgroundColor: '#fff' }}>
+                  <CardBody>
+                    <CardTitle>Ticket Statistics by Status</CardTitle>
+                    <BarChart
+                      barGap={1}
+                      width={500}
+                      height={300}
+                      barSize={8}
+                      data={this.state.barChart.data}
+                      margin={{
+                        top: 5, right: 30, left: 20, bottom: 5,
+                      }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" fontSize={11} tick={{ stroke: '#6E6E6E', strokeWidth: 0.1, fontFamily: 'Roboto,Helvetica Neue,Arial,sans-serif' }} />
+                      <YAxis fontSize={12} label={{ value: 'Ticket Count', angle: -90, position: 'insideLeft' }} />
+                      <Tooltip />
+                      <Legend />
+                      <Bar dataKey="Open" fill="#8884d8" />
+                      <Bar dataKey="Closed" fill="#82ca9d" />
+                    </BarChart>
+                  </CardBody>
+                </Card>
+              </Col>
+              <Col style={{ width: '40%' }}>
+                <Card style={{ backgroundColor: '#fff' }}>
+                  <CardBody>
+                    <CardTitle>Department-wise workload</CardTitle>
+                    <PieChart width={500} height={300}>
+                      <Pie
+                        data={this.state.pieChart.data}
+                        cx={150}
+                        cy={100}
+                        labelLine={false}
+                        label={renderCustomizedLabel}
+                        outerRadius={80}
+                        fill="#8884d8"
+                        dataKey="value"
+                      >
+                        {
+                          this.state.pieChart.data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
+                        }
+                      </Pie>
+                      <Tooltip />
+                      <Legend verticalAlign='bottom' align='left' layout='horizontal' />
+                    </PieChart>
+                  </CardBody>
+                </Card>
+
+              </Col>
+
+            </Row>
+            <Row style={{ marginTop: '3%', marginLeft: '1%', marginRight: '1%' }}>
+              <Col style={{ width: '100%' }}>
+                <Card style={{ backgroundColor: '#fff' }}>
+                  <CardBody>
+                    <CardTitle>Department-wise workload</CardTitle>
+                    <LineChart
+                      width={500}
+                      height={300}
+                      data={lineGraphData}
+                      margin={{
+                        top: 5, right: 30, left: 20, bottom: 5,
+                      }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip />
+                      <Legend onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} />
+                      <Line type="monotone" dataKey="pv" strokeOpacity={opacity.pv} stroke="#8884d8" activeDot={{ r: 8 }} />
+                      <Line type="monotone" dataKey="uv" strokeOpacity={opacity.uv} stroke="#82ca9d" />
+                    </LineChart>
+                  </CardBody>
+                </Card>
+
+              </Col>
+            </Row>
+          </Container>}
       </div>
 
 
@@ -347,15 +368,23 @@ class DashBoardForm extends React.Component {
   }
 }
 
-const mapActionsToProps = {
+const mapDispatchToProps = dispatch => {
+
+  return {
+    fetchDashboardData: () => {
+      //dispatch(fetchDashboardDataAPICall());
+      dispatch(fetchDashboardDataMultipleAPICall());
+    }
+  };
 }
 
 const mapStateToProps = function (state) {
   return {
     barChart: state.dashboardData.barChart,
     pieChart: state.dashboardData.pieChart,
-    lastHourTicketCount: state.dashboardData.lastHourTicketCount
+    lastHourTicketCount: state.dashboardData.lastHourTicketCount,
+    fetchDashboardDataMultipleAPICallStatus: state.serviceCallStatus.fetchDashboardDataMultipleAPI
   }
 }
 
-export default connect(mapStateToProps, mapActionsToProps)(DashBoardForm);
+export default connect(mapStateToProps, mapDispatchToProps)(DashBoardForm);
