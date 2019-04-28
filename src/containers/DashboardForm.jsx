@@ -231,7 +231,7 @@ class DashBoardForm extends React.Component {
                       width={500}
                       height={300}
                       barSize={8}
-                      data={this.state.barChart.data}
+                      data={this.props.barChart.data}
                       margin={{
                         top: 5, right: 30, left: 20, bottom: 5,
                       }}

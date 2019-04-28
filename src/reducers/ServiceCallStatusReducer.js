@@ -48,7 +48,6 @@ export function serviceCallStatusReducer(state = {}, action) {
             }
 
         case FETCH_DASHBOARD_DATA:
-            console.log("reducing dashboard data");
             return {
                 ...state, fetchDashboardDataMultipleAPI: { requested: true, success: false, error: false }
             }

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { fetchTicketsAPICall } from '../actions/TicketActions'
 import { Role } from '../masterdata/ApplicationMasterData';
+import history from '../history';
 
 class LoginForm extends React.Component {
 
@@ -37,12 +38,12 @@ class LoginForm extends React.Component {
     if (this.props.user.isLoggedIn) {
       switch (this.props.user.profile.role) {
         case Role.ROLE_ENGINEER:
-          this.props.fetchTickets({
+          /* this.props.fetchTickets({
             status: 'all',
             sortBy: 'ticketId'
-          });
+          }); */
           return <Redirect push to={{
-            pathname: "/ticketmaint/tickets?status=all"
+            pathname: "/ticketmaint/dashboard"
           }} />;
 
         case Role.ROLE_USER:
@@ -55,12 +56,8 @@ class LoginForm extends React.Component {
           }} />;
 
         case Role.ROLE_MANAGER:
-          this.props.fetchTickets({
-            status: 'all',
-            sortBy: 'ticketId'
-          });
           return <Redirect push to={{
-            pathname: "/ticketmanage/tickets?status=all"
+            pathname: "/ticketmanage/dashboard"
           }} />;
 
         default:
