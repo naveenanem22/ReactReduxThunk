@@ -100,9 +100,6 @@ class DashBoardForm extends React.Component {
 
     //State
     this.state = {
-      barChart: this.props.barChart,
-      pieChart: this.props.pieChart,
-      lastHourTicketCount: this.props.lastHourTicketCount,
       opacity: {
         uv: 1,
         pv: 1
@@ -181,7 +178,7 @@ class DashBoardForm extends React.Component {
                       <Col><FaTicketAlt size={70} style={{ color: 'red' }} /></Col>
                       <Col>
                         <Row><Col ><p style={{ fontFamily: 'Roboto,Helvetica Neue,Arial,sans-serif', marginBottom: '0%' }}>New Tickets</p></Col></Row>
-                        <Row><Col ><h1>{this.state.lastHourTicketCount.New}</h1></Col></Row>
+                        <Row><Col ><h1>{this.props.lastHourTicketCount.New}</h1></Col></Row>
                       </Col>
                     </Row>
                     <hr></hr>
@@ -196,7 +193,7 @@ class DashBoardForm extends React.Component {
                       <Col><FaClipboardCheck size={60} style={{ color: 'green' }} /></Col>
                       <Col>
                         <Row><Col ><p style={{ fontFamily: 'Roboto,Helvetica Neue,Arial,sans-serif', marginBottom: '0%' }}>Closed</p></Col></Row>
-                        <Row><Col ><h1>{this.state.lastHourTicketCount.Closed}</h1></Col></Row>
+                        <Row><Col ><h1>{this.props.lastHourTicketCount.Closed}</h1></Col></Row>
                       </Col>
                     </Row>
                     <hr></hr>
@@ -253,7 +250,7 @@ class DashBoardForm extends React.Component {
                     <CardTitle>Department-wise workload</CardTitle>
                     <PieChart width={500} height={300}>
                       <Pie
-                        data={this.state.pieChart.data}
+                        data={this.props.pieChart.data}
                         cx={150}
                         cy={100}
                         labelLine={false}
@@ -263,7 +260,7 @@ class DashBoardForm extends React.Component {
                         dataKey="value"
                       >
                         {
-                          this.state.pieChart.data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
+                          this.props.pieChart.data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
                         }
                       </Pie>
                       <Tooltip />
