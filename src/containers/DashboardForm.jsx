@@ -162,10 +162,10 @@ class DashBoardForm extends React.Component {
         {this.props.fetchDashboardDataMultipleAPICallStatus.requested &&
           <Container>
             <Row>
-              <Col>
+              <Col style={{textAlign:'center', marginTop:'10%', marginBottom:'10%'}}>
               <ScaleLoader
                 color='#00d8ff'
-                loading='true'
+                loading='true'                
               />
               </Col>
             </Row>
