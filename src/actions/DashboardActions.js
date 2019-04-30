@@ -64,7 +64,7 @@ export function fetchDashboardDataFailure() {
 export function fetchDashboardDataAPICall() {
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    var url = new URL("http://localhost:8080/v0/dashboard/barChart");
+    var url = new URL("http://localhost:8080/v0/ticket-management/dashboard/barChart");
 
     return function (dispatch) {
         dispatch(showLoadingScreen());
@@ -93,10 +93,10 @@ export function fetchDashboardDataAPICall() {
 export function fetchDashboardDataMultipleAPICall() {
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    var barChartUrl = new URL("http://localhost:8080/v0/dashboard/barChart");
-    var pieChartUrl = new URL("http://localhost:8080/v0/dashboard/pieChart");
-    var lastHourNewTicketUrl = new URL("http://localhost:8080/v0/dashboard/lasthour/"+TicketStatus.NEW);
-    var lastHourClosedTicketUrl = new URL("http://localhost:8080/v0/dashboard/lasthour/"+TicketStatus.CLOSE);
+    var barChartUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/barChart");
+    var pieChartUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/pieChart");
+    var lastHourNewTicketUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/lasthour/"+TicketStatus.NEW);
+    var lastHourClosedTicketUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/lasthour/"+TicketStatus.CLOSE);
 
     return function (dispatch) {
         dispatch(showLoadingScreen());
