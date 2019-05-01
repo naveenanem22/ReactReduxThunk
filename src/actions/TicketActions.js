@@ -3,6 +3,7 @@ import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS, FETCH_TICKETS,ASSIGN_UPDA
 import {FETCH_TICKET_DETAILS,FETCH_TICKET_DETAILS_FAILURE, FETCH_TICKET_DETAILS_SUCCESS} from './ActionTypes';
 import {ADD_MESSAGE, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE} from './ActionTypes';
 import { SHOW_FORM_NEW_TICKET } from './ActionTypes';
+import {FETCH_ASSIGNED_TICKETS_SUCCESS, FETCH_ASSIGNED_TICKETS_FAILURE, FETCH_ASSIGNED_TICKETS} from './ActionTypes'
 import {showLoadingScreen, dismissLoadingScreen} from './LoadingScreenActions';
 import FileSaver from 'file-saver';
 
@@ -37,6 +38,27 @@ export function fetchTicketsSuccess(tickets) {
 export function fetchTickets() {
     return {
         type: FETCH_TICKETS
+    }
+}
+
+export function fetchAssignedTicketsSuccess(tickets) {
+    return {
+        type: FETCH_ASSIGNED_TICKETS_SUCCESS,
+        payload: {
+            tickets: tickets
+        }
+    }
+}
+
+export function fetchAssignedTicketsFailure(tickets) {
+    return {
+        type: FETCH_ASSIGNED_TICKETS_FAILURE
+    }
+}
+
+export function fetchAssignedTickets() {
+    return {
+        type: FETCH_ASSIGNED_TICKETS
     }
 }
 
@@ -168,6 +190,34 @@ export function fetchTicketsAPICall(queryParams) {
                 console.log("Tickets fetched: " + tickets);
                 dispatch(dismissLoadingScreen());
                 dispatch(fetchTicketsSuccess(tickets));
+            },
+            );
+    };
+}
+
+export function fetchAssignedTicketsAPICall() {
+    let headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    var url = new URL("http://localhost:8080/v0/ticket-support/tickets");
+    //var params = { userId: queryParams.userId, status: queryParams.status, sortBy: queryParams.sortBy };
+    //Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+    return function (dispatch) {
+        dispatch(fetchAssignedTickets());
+        return fetch(url, {
+            method: 'GET',
+            headers: headers
+        })
+            .then(
+                response => {
+                    if (response.status === 200)
+                        return response.json();
+                },
+                error => console.log('An error occurred.', error),
+            )
+            .then((tickets) => {
+                console.log("Tickets fetched: " + tickets);
+                dispatch(fetchAssignedTicketsSuccess(tickets));
             },
             );
     };

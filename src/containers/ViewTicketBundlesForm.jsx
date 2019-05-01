@@ -4,13 +4,13 @@ import { Badge, NavLink, Container, InputGroupAddon, InputGroup, Button, Row, Co
 import { FaUserAlt } from 'react-icons/fa';
 import { Redirect } from 'react-router-dom';
 import SearchInput from '../components/SearchInput';
-import { assignAndUpdateMultipleTicketsAPICall } from '../actions/TicketActions';
+import { fetchAssignedTicketsAPICall } from '../actions/TicketActions';
 import history from '../history';
 import TicketDetailCard from '../components/TicketDetailCard';
 import { fetchTicketsAPICall } from '../actions/TicketActions';
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
-import {Role} from '../masterdata/ApplicationMasterData';
+import { Role } from '../masterdata/ApplicationMasterData';
 
 
 class ViewTicketsForm extends React.Component {
@@ -26,35 +26,43 @@ class ViewTicketsForm extends React.Component {
 
   }
 
-  handleListViewClick(){
+  handleListViewClick() {
     history.push({
-      pathname:'/ticketmanage/ticketslistview',
-      search:'?status=New'
+      pathname: '/ticketmanage/ticketslistview',
+      search: '?status=New'
     });
   }
 
-  handleTicketBundleClick(e, ticket) {    
+  handleTicketBundleClick(e, ticket) {
     history.push({
-      pathname:'/ticketmaint/tickets',
-      search:'?ticketId=3'
+      pathname: '/ticketmaint/tickets',
+      search: '?ticketId=3'
     });
   }
 
   componentDidMount() {
-    //Extracting query params from url
-    console.log("Parsing query params from query-string:");
-    console.log(history.location.search);
-    const params = queryString.parse(history.location.search);
-    console.log("Parsed params: ");
-    console.log(params);
+    if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
+      //Extracting query params from url
+      console.log("Parsing query params from query-string:");
+      console.log(history.location.search);
+      const params = queryString.parse(history.location.search);
+      console.log("Parsed params: ");
+      console.log(params);
 
-    if (params.status) {
-      this.props.fetchTickets({
-        status: params.status,
-        sortBy: 'ticketId'
-      });
+      if (params.status) {
+        this.props.fetchTickets({
+          status: params.status,
+          sortBy: 'ticketId'
+        });
+      }
     }
 
+    if (localStorage.getItem('role') === Role.ROLE_ENGINEER) {
+      console.log("Fetching assigned tickets");
+
+      this.props.fetchAssignedTickets();
+
+    }
   }
 
   render() {
@@ -73,9 +81,11 @@ class ViewTicketsForm extends React.Component {
             <p>Tickets that need to be actioned.</p>
           </Row>
         </Container>
-        <hr/>
+        <hr />
         <Container>
-          {this.props.fetchTicketsAPICallStatus.requested &&
+          {(this.props.fetchTicketsAPICallStatus.requested || 
+           this.props.fetchAssignedTicketsAPICallStatus.requested)
+          &&
             <div className='view-ticket-loading'>
               <ScaleLoader
                 color='#00d8ff'
@@ -85,22 +95,24 @@ class ViewTicketsForm extends React.Component {
           }
           {(localStorage.getItem('role') === Role.ROLE_MANAGER) &&
             <Row>
-              <Col style={{textAlign:'right'}}>
-                  <NavLink href="#" onClick={this.handleListViewClick} style={{ marginBottom: '', textDecoration: 'none', color: '#546e7a' }}>
+              <Col style={{ textAlign: 'right' }}>
+                <NavLink href="#" onClick={this.handleListViewClick} style={{ marginBottom: '', textDecoration: 'none', color: '#546e7a' }}>
                   <Badge href="#" color="primary">List View</Badge>
-                  </NavLink>
+                </NavLink>
               </Col>
             </Row>
           }
-          
 
-          {this.props.fetchTicketsAPICallStatus.success && this.props.tickets.map(ticket => 
+
+          {(this.props.fetchTicketsAPICallStatus.success || 
+           this.props.fetchAssignedTicketsAPICallStatus.success)
+          && this.props.tickets.map(ticket =>
             <Row style={{ marginBottom: '2%' }}>
               <NavLink href="#" onClick={() => this.props.handleTicketBundleClick(ticket.id)}><TicketDetailCard ticket={ticket}></TicketDetailCard></NavLink>
             </Row>
           )}
         </Container>
-        
+
       </div>
     );
 
@@ -113,12 +125,15 @@ const mapStateToProps = function (state) {
     tickets: state.ticketList.tickets,
     user: state.user,
     engineers: state.engineerList.engineers,
-    fetchTicketsAPICallStatus: state.serviceCallStatus.fetchTicketsAPI
+    fetchTicketsAPICallStatus: state.serviceCallStatus.fetchTicketsAPI,
+    fetchAssignedTicketsAPICallStatus: state.serviceCallStatus.fetchAssignedTicketsAPI
+
   }
 }
 
 const mapActionsToProps = {
-  fetchTickets: fetchTicketsAPICall
+  fetchTickets: fetchTicketsAPICall,
+  fetchAssignedTickets: fetchAssignedTicketsAPICall
 }
 
 

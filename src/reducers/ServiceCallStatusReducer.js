@@ -3,6 +3,7 @@ import { ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET, ASSIGN_UPDATE_TICKE
 import { SHOW_FORM_NEW_TICKET } from '../actions/ActionTypes';
 import { FETCH_TICKET_DETAILS, FETCH_TICKET_DETAILS_FAILURE, FETCH_TICKET_DETAILS_SUCCESS } from '../actions/ActionTypes';
 import { FETCH_DASHBOARD_DATA, FETCH_DASHBOARD_DATA_SUCCESS, FETCH_DASHBOARD_DATA_FAILURE } from '../actions/ActionTypes';
+import {FETCH_ASSIGNED_TICKETS,FETCH_ASSIGNED_TICKETS_SUCCESS, FETCH_ASSIGNED_TICKETS_FAILURE} from '../actions/ActionTypes';
 
 export function serviceCallStatusReducer(state = {}, action) {
     switch (action.type) {
@@ -17,7 +18,19 @@ export function serviceCallStatusReducer(state = {}, action) {
         case FETCH_TICKETS_FAILURE:
             return {
                 ...state, fetchTicketsAPI: { requested: false, success: false, error: true }
+            };
 
+        case FETCH_ASSIGNED_TICKETS_SUCCESS:
+            return {
+                ...state, fetchAssignedTicketsAPI: { requested: false, success: true, error: false }
+            };
+        case FETCH_ASSIGNED_TICKETS:
+            return {
+                ...state, fetchAssignedTicketsAPI: { requested: true, success: false, error: false }
+            };
+        case FETCH_ASSIGNED_TICKETS_FAILURE:
+            return {
+                ...state, fetchAssignedTicketsAPI: { requested: false, success: false, error: true }
             };
 
         case FETCH_TICKET_DETAILS:
