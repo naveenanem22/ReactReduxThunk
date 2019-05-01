@@ -23,6 +23,7 @@ const store = createStore(MainReducer, {
     serviceCallStatus: {
         fetchTicketsAPI: {requested: false, success: false, error: false},
         fetchTicketDetailsAPI: {requested: false, success: false, error: false},
+        fetchAssignedTicketDetailsAPI: {requested: false, success: false, error: false},
         addMessageAPI: {requested: false, success: false, error: false},
         fetchAssignedTicketsAPI: {requested: false, success: false, error: false},
         fetchDashboardDataMultipleAPI: {requested: false, success: false, error: false}
