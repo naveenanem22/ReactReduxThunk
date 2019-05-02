@@ -5,6 +5,7 @@ import history from '../history';
 import { connect } from 'react-redux';
 import { fetchTicketsAPICall, showFormNewTicket} from '../actions/TicketActions'
 import {fetchDashboardDataAPICall, fetchDashboardDataMultipleAPICall} from '../actions/DashboardActions';
+import {TicketStatus} from '../masterdata/ApplicationMasterData'
 
 
 class SideNavBar extends React.Component {
@@ -26,11 +27,7 @@ class SideNavBar extends React.Component {
   }
 
   handleAwaitResponseClick() {
-    history.push("/ticketmaint/tickets?status=InProcess");
-    this.props.fetchTickets({
-      status: 'InProcess',
-      sortBy: 'ticketId'
-    });
+    history.push("/ticketmaint/tickets?status="+TicketStatus.AWAIT_RESPONSE);
   }
 
   handleClosedTicketsClick() {

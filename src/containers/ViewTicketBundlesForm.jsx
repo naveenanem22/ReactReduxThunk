@@ -58,10 +58,19 @@ class ViewTicketsForm extends React.Component {
     }
 
     if (localStorage.getItem('role') === Role.ROLE_ENGINEER) {
-      console.log("Fetching assigned tickets");
+      //Extracting query params from url
+      console.log("Parsing query params from query-string:");
+      console.log(history.location.search);
+      const params = queryString.parse(history.location.search);
+      console.log("Parsed params: ");
+      console.log(params);
 
-      this.props.fetchAssignedTickets();
-
+      if (params.status) {
+        this.props.fetchAssignedTickets({
+          status: params.status,
+          sortBy: 'ticketId'
+        });
+      }
     }
   }
 
@@ -83,9 +92,9 @@ class ViewTicketsForm extends React.Component {
         </Container>
         <hr />
         <Container>
-          {(this.props.fetchTicketsAPICallStatus.requested || 
-           this.props.fetchAssignedTicketsAPICallStatus.requested)
-          &&
+          {(this.props.fetchTicketsAPICallStatus.requested ||
+            this.props.fetchAssignedTicketsAPICallStatus.requested)
+            &&
             <div className='view-ticket-loading'>
               <ScaleLoader
                 color='#00d8ff'
@@ -104,13 +113,13 @@ class ViewTicketsForm extends React.Component {
           }
 
 
-          {(this.props.fetchTicketsAPICallStatus.success || 
-           this.props.fetchAssignedTicketsAPICallStatus.success)
-          && this.props.tickets.map(ticket =>
-            <Row style={{ marginBottom: '2%' }}>
-              <NavLink href="#" onClick={() => this.props.handleTicketBundleClick(ticket.id)}><TicketDetailCard ticket={ticket}></TicketDetailCard></NavLink>
-            </Row>
-          )}
+          {(this.props.fetchTicketsAPICallStatus.success ||
+            this.props.fetchAssignedTicketsAPICallStatus.success)
+            && this.props.tickets.map(ticket =>
+              <Row style={{ marginBottom: '2%' }}>
+                <NavLink href="#" onClick={() => this.props.handleTicketBundleClick(ticket.id)}><TicketDetailCard ticket={ticket}></TicketDetailCard></NavLink>
+              </Row>
+            )}
         </Container>
 
       </div>

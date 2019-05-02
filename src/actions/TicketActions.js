@@ -190,7 +190,7 @@ export function fetchTicketsAPICall(queryParams) {
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     var url = new URL("http://localhost:8080/v0/ticket-management/tickets");
-    var params = { userId: queryParams.userId, status: queryParams.status, sortBy: queryParams.sortBy };
+    var params = { status: queryParams.status, sortBy: queryParams.sortBy };
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
     return function (dispatch) {
@@ -216,12 +216,12 @@ export function fetchTicketsAPICall(queryParams) {
     };
 }
 
-export function fetchAssignedTicketsAPICall() {
+export function fetchAssignedTicketsAPICall(queryParams) {
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     var url = new URL("http://localhost:8080/v0/ticket-support/tickets");
-    //var params = { userId: queryParams.userId, status: queryParams.status, sortBy: queryParams.sortBy };
-    //Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+    var params = { status: queryParams.status, sortBy: queryParams.sortBy };
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
     return function (dispatch) {
         dispatch(fetchAssignedTickets());
