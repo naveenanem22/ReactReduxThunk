@@ -1,9 +1,10 @@
 export const TicketStatus = {
-    OPEN:'Open', CLOSE: 'Closed', NEW:'New', IN_PROCESS:'Processing', PENDING: 'Pending'
+    OPEN: 'Open', CLOSE: 'Closed', NEW: 'New', IN_PROCESS: 'Processing', PENDING: 'Pending',
+    AWAIT_RESPONSE: 'Awaiting Response'
 };
 
 export const TicketStatusCode = {
-    IN_PROCESS: 1, PENDING: 2, NEW: 3, CLOSE: 4, OPEN: 5, 
+    IN_PROCESS: 1, PENDING: 2, NEW: 3, CLOSE: 4, OPEN: 5, AWAIT_RESPONSE: 6
 };
 
 
@@ -12,12 +13,12 @@ export const Priority = {
 }
 
 export const PriorityCode = {
-    HIGH:1, MEDIUM: 2, LOW:3
+    HIGH: 1, MEDIUM: 2, LOW: 3
 }
 
 
 export const TicketType = {
-    TASK : 'Task', ISSUE: 'Issue', PROBLEM: 'Problem'
+    TASK: 'Task', ISSUE: 'Issue', PROBLEM: 'Problem'
 }
 
 export const TicketTypeCode = {
