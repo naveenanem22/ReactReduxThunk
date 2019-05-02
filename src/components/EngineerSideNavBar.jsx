@@ -15,7 +15,7 @@ class SideNavBar extends React.Component {
     };
     this.handleClosedTicketsClick = this.handleClosedTicketsClick.bind(this);
     this.handleAssignTicketsClick = this.handleAssignTicketsClick.bind(this);
-    this.handleMyTicketsClick = this.handleMyTicketsClick.bind(this);
+    this.handleAssignedTicketsClick = this.handleAssignedTicketsClick.bind(this);
     this.handleAwaitResponseClick = this.handleAwaitResponseClick.bind(this);
     this.handleDashboard = this.handleDashboard.bind(this);
     this.handleNewTicket = this.handleNewTicket.bind(this);
@@ -47,7 +47,7 @@ class SideNavBar extends React.Component {
 
   }
 
-  handleMyTicketsClick() {
+  handleAssignedTicketsClick() {
     history.push("/ticketmaint/tickets?status=all");
     /* this.props.fetchTickets({
       status: 'all',
@@ -88,13 +88,8 @@ class SideNavBar extends React.Component {
           </NavItem>
 
           <NavItem>
-            <NavLink href="#" onClick={this.handleMyTicketsClick} style={{ borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> My Tickets</NavLink>
+            <NavLink href="#" onClick={this.handleAssignedTicketsClick} style={{ borderBottomLeftRadius:'10px', borderBottomRightRadius:'10px', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Assigned Tickets</NavLink>
           </NavItem>
-
-          <NavItem>
-            <NavLink href="#" onClick={this.handleClosedTicketsClick} style={{ borderBottomLeftRadius:'10px', borderBottomRightRadius:'10px', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Closed Tickets</NavLink>
-          </NavItem>
-
         </Nav>
 
       </div>
