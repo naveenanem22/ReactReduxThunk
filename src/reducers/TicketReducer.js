@@ -12,20 +12,7 @@ export function ticketReducer(state = {}, action) {
                 isSuccessAlertVisible: false
             };
 
-        case CREATE_TICKET:
-            return {
-                ...state, isCreateTicketFormVisible: false,
-                isCreateTicketFailureFormVisible: false, isSuccessAlertVisible: false
-            };
-
-        case CREATE_TICKET_SUCCESS:
-            return {
-                ...state, isCreateTicketFormVisible: false,
-                isCreateTicketFailureFormVisible: false, isSuccessAlertVisible: true
-            };
-
-        case CREATE_TICKET_FAILURE:
-            return state;
+        
 
         case FETCH_TICKETS_SUCCESS:
             return {

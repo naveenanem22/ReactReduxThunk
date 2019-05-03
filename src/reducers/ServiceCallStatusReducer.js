@@ -7,6 +7,21 @@ import { FETCH_ASSIGNED_TICKETS, FETCH_ASSIGNED_TICKETS_SUCCESS, FETCH_ASSIGNED_
 
 export function serviceCallStatusReducer(state = {}, action) {
     switch (action.type) {
+        case CREATE_TICKET:
+            return {
+                ...state, createTicketAPI: { requested: true, success: false, error: false }
+            };
+
+        case CREATE_TICKET_SUCCESS:
+            return {
+                ...state, createTicketAPI: { requested: false, success: true, error: false }
+            };
+
+        case CREATE_TICKET_FAILURE:
+            return {
+                ...state, createTicketAPI: { requested: false, success: false, error: true }
+            };
+
         case FETCH_TICKETS_SUCCESS:
             return {
                 ...state, fetchTicketsAPI: { requested: false, success: true, error: false }

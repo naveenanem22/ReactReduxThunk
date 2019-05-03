@@ -1,4 +1,4 @@
-import { CREATE_TICKET, CLOSE_TICKET_SUCCESS, CLOSE_TICKET_FAILURE, FETCH_ASSIGNED_TICKET_DETAILS, FETCH_ASSIGNED_TICKET_DETAILS_SUCCESS, FETCH_ASSIGNED_TICKET_DETAILS_FAILURE } from './ActionTypes';
+import { CREATE_TICKET, CLOSE_TICKET_SUCCESS, CLOSE_TICKET_FAILURE, FETCH_ASSIGNED_TICKET_DETAILS, FETCH_ASSIGNED_TICKET_DETAILS_SUCCESS, FETCH_ASSIGNED_TICKET_DETAILS_FAILURE, CREATE_TICKET_FAILURE } from './ActionTypes';
 import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS, FETCH_TICKETS,ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET_FAILURE, ASSIGN_UPDATE_TICKET } from './ActionTypes';
 import {FETCH_TICKET_DETAILS,FETCH_TICKET_DETAILS_FAILURE, FETCH_TICKET_DETAILS_SUCCESS} from './ActionTypes';
 import {ADD_MESSAGE, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE} from './ActionTypes';
@@ -25,6 +25,12 @@ export function createTicket() {
 export function createTicketSuccess() {
     return {
         type: CREATE_TICKET_SUCCESS
+    }
+}
+
+export function createTicketFailure() {
+    return {
+        type: CREATE_TICKET_FAILURE
     }
 }
 
@@ -206,9 +212,8 @@ export function createTicketAPICall(ticket) {
     }
     console.log(JSON.stringify(formData));
     return function (dispatch) {
-        dispatch(showLoadingScreen());
         dispatch(createTicket());
-        return fetch(`http://localhost:8080/v0/ticket-management/tickets`, {
+        return fetch(`http://localhost:8080/v0/ticketing/tickets`, {
             method: 'POST',
             body: formData,
             headers: headers
@@ -217,13 +222,12 @@ export function createTicketAPICall(ticket) {
                 response => {
                     console.log(response);
                     if (response.status === 201) {
-                        dispatch(dismissLoadingScreen());
                         dispatch(createTicketSuccess());
                         return response.statusText;
                     }
                 },
                 error => {
-                    dispatch(dismissLoadingScreen());
+                    dispatch(createTicketFailure());
                     console.log('An error occurred.', error);
                 }
             );
