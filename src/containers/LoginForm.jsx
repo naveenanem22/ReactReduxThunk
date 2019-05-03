@@ -47,12 +47,8 @@ class LoginForm extends React.Component {
           }} />;
 
         case Role.ROLE_USER:
-          this.props.fetchTickets({
-            status: 'all',
-            sortBy: 'ticketId'
-          });
           return <Redirect push to={{
-            pathname: "/tickets"
+            pathname: "/ticketing/newticket"
           }} />;
 
         case Role.ROLE_MANAGER:

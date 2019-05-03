@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Table, Container, Input, Badge, NavLink, Button, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
-import { FaUserAlt } from 'react-icons/fa';
-import { Redirect } from 'react-router-dom';
 import SearchInput from '../components/SearchInput';
 import { assignAndUpdateMultipleTicketsAPICall } from '../actions/TicketActions';
 import history from '../history';
@@ -77,6 +75,8 @@ class ViewTicketsForm extends React.Component {
       tickets: tempTicketsArr
     });
   }
+
+  
 
   handleAssign(e) {
     e.preventDefault();
@@ -181,10 +181,13 @@ class ViewTicketsForm extends React.Component {
 
   }
 
-
+  componentDidMount(){
+    console.log("From CDM insideViewTicketsForm");
+  }
 
   render() {
     //Initialize suggestions array with names from engineers array
+    console.log("This is from render of VTF");
     var suggestions = [];
     this.props.engineers.forEach(engineer => {
       suggestions.push({ name: engineer.userFullName })
