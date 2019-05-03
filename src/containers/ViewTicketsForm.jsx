@@ -277,9 +277,7 @@ class ViewTicketsForm extends React.Component {
           </Col>
         </Row>
         </Container>}
-
-
-
+ 
       </div>
     );
 

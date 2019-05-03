@@ -1,5 +1,5 @@
 import React from 'react';
-import { addMessageAPICall, closeTicketAPICall, downloadAttachmentAPICall } from '../actions/TicketActions'
+import { addMessageAPICall, closeTicketAPICall, downloadAttachmentAPICall, fetchCreatedTicketDetailsAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
 import { Button, Row, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
 import { Table, NavLink } from 'reactstrap';
@@ -9,6 +9,7 @@ import { fetchTicketDetailsAPICall } from '../actions/TicketActions'
 import { ScaleLoader } from 'react-spinners';
 import history from '../history';
 import queryString from 'query-string';
+import {Role} from '../masterdata/ApplicationMasterData';
 
 
 
@@ -102,9 +103,22 @@ class ViewTicketDetailsForm extends React.Component {
 
     //Make fetchTicketDetailsAPICall if the search-string contains key: ticketId
     if (params.ticketId) {
-      this.props.fetchTicketDetails({
-        ticketId: params.ticketId
-      });
+      switch (localStorage.getItem('role')) {
+        case Role.ROLE_MANAGER:
+          this.props.fetchTicketDetails({
+            ticketId: params.ticketId
+          });
+          break;
+        case Role.ROLE_EMPLOYEE:
+          this.props.fetchCreatedTicketDetails({
+            ticketId: params.ticketId
+          });
+          break;
+        default:
+          break;
+
+      }
+
     }
 
 
@@ -123,26 +137,30 @@ class ViewTicketDetailsForm extends React.Component {
 
       <div style={{ marginLeft: '1%', marginRight: '1%' }}>
         <Container style={{ marginTop: '3%' }}>
-        <Row style={{ textAlign: 'left' }}>
-          <h4>Ticket Details</h4>
-        </Row>
+          <Row style={{ textAlign: 'left' }}>
+            <h4>Ticket Details</h4>
+          </Row>
           <Row style={{ textAlign: 'left' }}>
             <p>Ticket details such as - attachments, converstaion and status.</p>
           </Row>
         </Container>
-        <hr/>
-        {this.props.fetchTicketDetailsAPICallStatus.requested && <div className='view-ticket-loading'>
+        <hr />
+        {(this.props.fetchTicketDetailsAPICallStatus.requested 
+        || this.props.fetchCreatedTicketDetailsAPICallStatus.requested)
+          && <div className='view-ticket-loading'>
           <ScaleLoader
             color='#00d8ff'
             loading='true'
           />
         </div>}
-        {this.props.fetchTicketDetailsAPICallStatus.success && <div class="ticket-details-body">
+        {(this.props.fetchTicketDetailsAPICallStatus.success ||
+          this.props.fetchCreatedTicketDetailsAPICallStatus.success)
+          && <div class="ticket-details-body">
 
-            <Row>
-              <Col md={6} style={{ 'text-align': 'left', 'padding-top': '.75rem' }}><strong>Naveen Anem</strong> - naveen.anem@kony.com</Col>
-              <Col md={6} style={{ 'text-align': 'right', 'padding-top': '.75rem' }}>{ticket.createdDate}</Col>
-            </Row>
+          <Row>
+            <Col md={6} style={{ 'text-align': 'left', 'padding-top': '.75rem' }}><strong>Naveen Anem</strong> - naveen.anem@kony.com</Col>
+            <Col md={6} style={{ 'text-align': 'right', 'padding-top': '.75rem' }}>{ticket.createdDate}</Col>
+          </Row>
 
           <Row>
             <Col md={12}><h4>{ticket.title}</h4></Col>
@@ -286,7 +304,8 @@ class ViewTicketDetailsForm extends React.Component {
 const mapStateToProps = function (state) {
   return {
     ticket: state.ticketDetails.ticket,
-    fetchTicketDetailsAPICallStatus: state.serviceCallStatus.fetchTicketDetailsAPI
+    fetchTicketDetailsAPICallStatus: state.serviceCallStatus.fetchTicketDetailsAPI,
+    fetchCreatedTicketDetailsAPICallStatus : state.serviceCallStatus.fetchCreatedTicketDetailsAPI
   }
 }
 
@@ -294,7 +313,8 @@ const mapActionsToProps = {
   addMessage: addMessageAPICall,
   closeTicket: closeTicketAPICall,
   downloadAttachment: downloadAttachmentAPICall,
-  fetchTicketDetails: fetchTicketDetailsAPICall
+  fetchTicketDetails: fetchTicketDetailsAPICall,
+  fetchCreatedTicketDetails: fetchCreatedTicketDetailsAPICall
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(ViewTicketDetailsForm);

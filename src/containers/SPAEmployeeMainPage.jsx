@@ -12,6 +12,7 @@ import ViewTicketBundleDetailsForm from './ViewTicketBundleDetailsForm';
 import EngineerProfileForm from './EngineerProfile';
 import history from '../history';
 import ViewTicketDetailsForm from './ViewTicketDetailsForm';
+import { Role } from '../masterdata/ApplicationMasterData';
 
 class SPAEmployeeMainPage extends React.Component {
   constructor(props) {
@@ -33,10 +34,24 @@ class SPAEmployeeMainPage extends React.Component {
     } else if (e.target.type == 'suggestion') {
 
     } else {
-      history.push({
-        pathname: "/ticketmanage/ticketdetails",
-        search: "?ticketId=" + ticket.id
-      });
+      switch (localStorage.getItem('role')) {
+        case Role.ROLE_EMPLOYEE:
+          history.push({
+            pathname: "/ticketing/ticketdetails",
+            search: "?ticketId=" + ticket.id
+          });
+          break;
+        case Role.ROLE_MANAGER:
+          history.push({
+            pathname: "/ticketmanage/ticketdetails",
+            search: "?ticketId=" + ticket.id
+          });
+          break;
+        default:
+          break;
+
+      }
+
     }
   }
 
@@ -52,7 +67,7 @@ class SPAEmployeeMainPage extends React.Component {
   }
 
   componentDidMount() {
-    
+
 
   }
 
@@ -65,7 +80,7 @@ class SPAEmployeeMainPage extends React.Component {
         </div>
         <Row style={{ background: 'rgba(0,0,0,0.3)', marginTop: '1%', marginLeft: '3%', marginRight: '3%', paddingTop: '1%' }}>
           <Col sm='2' ><SideNavBar></SideNavBar></Col>
-          
+
           <Route path="/ticketing/newticket"
             component={() =>
               <Col sm='9' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
