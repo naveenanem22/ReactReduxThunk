@@ -15,8 +15,7 @@ class ViewTicketsForm extends React.Component {
     super(props);
 
     this.state = {
-      tickets : [],
-      //tickets: this.processPropsForInitialState(this.props.tickets),
+      tickets: this.processPropsForInitialState(this.props.tickets),
       ticketsToAssignAndUpdate: []
 
     };
@@ -30,7 +29,7 @@ class ViewTicketsForm extends React.Component {
 
   }
 
-  /* static getDerivedStateFromProps(props, current_state) {
+  static getDerivedStateFromProps(props, current_state) {
     console.log("setting state after receiving props");
     if (current_state.tickets !== props.tickets) {
         //Update state with default fields which are not available in props
@@ -45,7 +44,7 @@ class ViewTicketsForm extends React.Component {
         }
       }
       return null
-  } */
+  }
   
   handleBundleViewClick(){
     history.push({
@@ -270,13 +269,14 @@ class ViewTicketsForm extends React.Component {
             )}
           </tbody>
         </Table>}
+        {localStorage.getItem('role') === Role.ROLE_MANAGER && 
         <Container style={{ marginTop: '3%', marginBottom: '3%' }}><Row style={{ textAlign: 'center' }}>
           <Col style={{ textAlign: 'center' }}>
             <Button color="success" style={{ width: '110px', marginRight: '5%' }} onClick={(e) => this.handleAssign(e)}>Assign</Button>
             <Button color="secondary" style={{ width: '110px', marginLeft: '5%' }}>Close</Button>
           </Col>
         </Row>
-        </Container>
+        </Container>}
 
 
 
