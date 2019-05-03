@@ -46,7 +46,7 @@ class LoginForm extends React.Component {
             pathname: "/ticketmaint/dashboard"
           }} />;
 
-        case Role.ROLE_USER:
+        case Role.ROLE_EMPLOYEE:
           return <Redirect push to={{
             pathname: "/ticketing/newticket"
           }} />;

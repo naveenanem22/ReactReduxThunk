@@ -1,4 +1,4 @@
-import { CREATE_TICKET, CREATE_TICKET_SUCCESS, CREATE_TICKET_FAILURE, FETCH_TICKETS_SUCCESS, FETCH_TICKETS, FETCH_TICKETS_FAILURE, ADD_MESSAGE, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE, FETCH_ASSIGNED_TICKET_DETAILS, FETCH_ASSIGNED_TICKET_DETAILS_SUCCESS, FETCH_ASSIGNED_TICKET_DETAILS_FAILURE } from '../actions/ActionTypes';
+import { CREATE_TICKET, CREATE_TICKET_SUCCESS, CREATE_TICKET_FAILURE, FETCH_TICKETS_SUCCESS, FETCH_TICKETS, FETCH_TICKETS_FAILURE, ADD_MESSAGE, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE, FETCH_ASSIGNED_TICKET_DETAILS, FETCH_ASSIGNED_TICKET_DETAILS_SUCCESS, FETCH_ASSIGNED_TICKET_DETAILS_FAILURE, FETCH_CREATED_TICKETS_SUCCESS, FETCH_CREATED_TICKETS, FETCH_CREATED_TICKETS_FAILURE, FETCH_CREATED_TICKET_DETAILS, FETCH_CREATED_TICKET_DETAILS_SUCCESS, FETCH_CREATED_TICKET_DETAILS_FAILURE } from '../actions/ActionTypes';
 import { ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET, ASSIGN_UPDATE_TICKET_FAILURE } from '../actions/ActionTypes'
 import { SHOW_FORM_NEW_TICKET } from '../actions/ActionTypes';
 import { FETCH_TICKET_DETAILS, FETCH_TICKET_DETAILS_FAILURE, FETCH_TICKET_DETAILS_SUCCESS } from '../actions/ActionTypes';
@@ -33,6 +33,19 @@ export function serviceCallStatusReducer(state = {}, action) {
                 ...state, fetchAssignedTicketsAPI: { requested: false, success: false, error: true }
             };
 
+        case FETCH_CREATED_TICKETS_SUCCESS:
+            return {
+                ...state, fetchCreatedTicketsAPI: { requested: false, success: true, error: false }
+            };
+        case FETCH_CREATED_TICKETS:
+            return {
+                ...state, fetchCreatedTicketsAPI: { requested: true, success: false, error: false }
+            };
+        case FETCH_CREATED_TICKETS_FAILURE:
+            return {
+                ...state, fetchCreatedTicketsAPI: { requested: false, success: false, error: true }
+            };
+
         case FETCH_TICKET_DETAILS:
             return {
                 ...state, fetchTicketDetailsAPI: { requested: true, success: false, error: false }
@@ -60,6 +73,20 @@ export function serviceCallStatusReducer(state = {}, action) {
         case FETCH_ASSIGNED_TICKET_DETAILS_FAILURE:
             return {
                 ...state, fetchAssignedTicketDetailsAPI: { requested: false, success: false, error: true }
+            };
+
+        case FETCH_CREATED_TICKET_DETAILS:
+            return {
+                ...state, fetchCreatedTicketDetailsAPI: { requested: true, success: false, error: false }
+            };
+
+        case FETCH_CREATED_TICKET_DETAILS_SUCCESS:
+            return {
+                ...state, fetchCreatedTicketDetailsAPI: { requested: false, success: true, error: false }
+            };
+        case FETCH_CREATED_TICKET_DETAILS_FAILURE:
+            return {
+                ...state, fetchCreatedTicketDetailsAPI: { requested: false, success: false, error: true }
             };
 
         case ADD_MESSAGE:

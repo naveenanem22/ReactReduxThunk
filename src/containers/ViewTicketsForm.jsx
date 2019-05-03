@@ -5,13 +5,18 @@ import SearchInput from '../components/SearchInput';
 import { assignAndUpdateMultipleTicketsAPICall } from '../actions/TicketActions';
 import history from '../history';
 import {Role} from '../masterdata/ApplicationMasterData';
+import {fetchCreatedTicketsAPICall} from '../actions/TicketActions'
+import queryString from 'query-string';
+import { ScaleLoader } from 'react-spinners';
+
 class ViewTicketsForm extends React.Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
-      tickets: this.processPropsForInitialState(this.props.tickets),
+      tickets : [],
+      //tickets: this.processPropsForInitialState(this.props.tickets),
       ticketsToAssignAndUpdate: []
 
     };
@@ -25,7 +30,7 @@ class ViewTicketsForm extends React.Component {
 
   }
 
-  static getDerivedStateFromProps(props, current_state) {
+  /* static getDerivedStateFromProps(props, current_state) {
     console.log("setting state after receiving props");
     if (current_state.tickets !== props.tickets) {
         //Update state with default fields which are not available in props
@@ -40,7 +45,7 @@ class ViewTicketsForm extends React.Component {
         }
       }
       return null
-  }
+  } */
   
   handleBundleViewClick(){
     history.push({
@@ -182,16 +187,36 @@ class ViewTicketsForm extends React.Component {
   }
 
   componentDidMount(){
-    console.log("From CDM insideViewTicketsForm");
+    if (localStorage.getItem('role') === Role.ROLE_EMPLOYEE) {
+      //Extracting query params from url
+      console.log("Parsing query params from query-string:");
+      console.log(history.location.search);
+      const params = queryString.parse(history.location.search);
+      console.log("Parsed params: ");
+      console.log(params);
+
+      if (params.status) {
+        this.props.fetchCreatedTickets({
+          status: params.status,
+          sortBy: 'ticketId'
+        });
+      }
+    }
+
+    if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
+    }
   }
 
   render() {
     //Initialize suggestions array with names from engineers array
-    console.log("This is from render of VTF");
     var suggestions = [];
     this.props.engineers.forEach(engineer => {
       suggestions.push({ name: engineer.userFullName })
     });
+
+    console.log("Fom Render VTF:");
+    console.log(this.props.tickets);
+    console.log(this.state.tickets);
 
     return (
       <div style={{ marginLeft: '1%', marginRight: '1%' }}>
@@ -212,32 +237,39 @@ class ViewTicketsForm extends React.Component {
               </Col>
             </Row>
           }
-        <Table size='sm' hover bordered class="rounded mb-0" style={{ marginTop: '1%' }}>
+        {this.props.fetchCreatedTicketsAPICallStatus.requested && <div className='view-ticket-loading'>
+              <ScaleLoader
+                color='#00d8ff'
+                loading='true'
+              />
+            </div>
+        }
+        {this.props.fetchCreatedTicketsAPICallStatus.success && <Table size='sm' hover bordered class="rounded mb-0" style={{ marginTop: '1%' }}>
           <thead>
             <tr>
-              {true && <th></th>}
+              {localStorage.getItem('role') === Role.ROLE_MANAGER && <th></th>}
               <th>Ticket#</th>
               <th>Status</th>
               <th>Title</th>
               <th>Updated</th>
-              <th>Assign To</th>
+              {localStorage.getItem('role') === Role.ROLE_MANAGER && <th>Assign To</th>}
             </tr>
           </thead>
           <tbody>
-            {this.state.tickets.map((ticket) =>
+            {this.props.tickets.map((ticket) =>
 
               <tr onClick={(e) => this.props.handleListViewTicketClick(e, ticket)/* this.handleClick(e, ticket) */}>
-                {true && <td style={{ width: '5%', textAlign: 'center' }}><Input style={{ marginLeft: '0%' }} type="checkbox" onChange={(e) => this.handleCheckAndUnCheck(e, ticket)} /></td>}
-                <td style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>{ticket.id}</td>
-                <td style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>{ticket.status}</td>
-                <td style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>{ticket.title}</td>
-                <td style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>{ticket.updatedDate}</td>
-                {true && <td style={{ marginRight: '1%' }}><SearchInput isInValid={ticket.isAssignedToInvalid} onSelectSuggestion={selectedValue => this.updateAssignedValue(selectedValue, ticket)} suggestions={suggestions}></SearchInput>
+                {localStorage.getItem('role') === Role.ROLE_MANAGER && <td style={{ width: '5%', textAlign: 'center' }}><Input style={{ marginLeft: '0%' }} type="checkbox" onChange={(e) => this.handleCheckAndUnCheck(e, ticket)} /></td>}
+                <td style={{ fontSize: '14px' }}>{ticket.id}</td>
+                <td style={{ fontSize: '14px' }}>{ticket.status}</td>
+                <td style={{ fontSize: '14px' }}>{ticket.title}</td>
+                <td style={{ fontSize: '14px' }}>{ticket.updatedDate}</td>
+                {localStorage.getItem('role') === Role.ROLE_MANAGER && <td style={{ marginRight: '1%' }}><SearchInput isInValid={ticket.isAssignedToInvalid} onSelectSuggestion={selectedValue => this.updateAssignedValue(selectedValue, ticket)} suggestions={suggestions}></SearchInput>
                 </td>}
               </tr>
             )}
           </tbody>
-        </Table>
+        </Table>}
         <Container style={{ marginTop: '3%', marginBottom: '3%' }}><Row style={{ textAlign: 'center' }}>
           <Col style={{ textAlign: 'center' }}>
             <Button color="success" style={{ width: '110px', marginRight: '5%' }} onClick={(e) => this.handleAssign(e)}>Assign</Button>
@@ -259,12 +291,14 @@ const mapStateToProps = function (state) {
   return {
     tickets: state.ticketList.tickets,
     user: state.user,
-    engineers: state.engineerList.engineers
+    engineers: state.engineerList.engineers,
+    fetchCreatedTicketsAPICallStatus: state.serviceCallStatus.fetchCreatedTicketsAPI
   }
 }
 
 const mapActionsToProps = {
-  assignAndUpdateTickets: assignAndUpdateMultipleTicketsAPICall
+  assignAndUpdateTickets: assignAndUpdateMultipleTicketsAPICall,
+  fetchCreatedTickets: fetchCreatedTicketsAPICall
 }
 
 

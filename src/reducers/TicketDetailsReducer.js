@@ -1,7 +1,8 @@
 import {
     FETCH_TICKET_DETAILS_SUCCESS, ADD_MESSAGE_SUCCESS, CLOSE_TICKET_SUCCESS, CLOSE_TICKET_FAILURE,
     ADD_MESSAGE_FAILURE,
-    FETCH_ASSIGNED_TICKET_DETAILS_SUCCESS
+    FETCH_ASSIGNED_TICKET_DETAILS_SUCCESS,
+    FETCH_CREATED_TICKET_DETAILS_SUCCESS
 } from '../actions/ActionTypes';
 
 export function ticketDetailsReducer(state = {}, action) {
@@ -14,6 +15,11 @@ export function ticketDetailsReducer(state = {}, action) {
             };
 
         case FETCH_ASSIGNED_TICKET_DETAILS_SUCCESS:
+            return {
+                ...state, ticket: action.payload.ticket
+            };
+
+        case FETCH_CREATED_TICKET_DETAILS_SUCCESS:
             return {
                 ...state, ticket: action.payload.ticket
             };
