@@ -38,10 +38,6 @@ class LoginForm extends React.Component {
     if (this.props.user.isLoggedIn) {
       switch (this.props.user.profile.role) {
         case Role.ROLE_ENGINEER:
-          /* this.props.fetchTickets({
-            status: 'all',
-            sortBy: 'ticketId'
-          }); */
           return <Redirect push to={{
             pathname: "/ticketmaint/dashboard"
           }} />;

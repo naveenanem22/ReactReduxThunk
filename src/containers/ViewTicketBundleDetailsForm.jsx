@@ -7,7 +7,7 @@ import { FaFilePdf, FaFileAlt, FaFileImage, FaFile } from 'react-icons/fa';
 import history from '../history';
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
-import { Role } from '../masterdata/ApplicationMasterData';
+import { Role, TicketStatus } from '../masterdata/ApplicationMasterData';
 
 class ViewTicketBundleDetailsForm extends React.Component {
 
@@ -70,7 +70,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
     this.setState((prevState, props) => ({
       commentedOn: new Date(Date.now()).toISOString(),
-      status: 'Closed',
+      status: TicketStatus.CLOSE,
       file1: this.state.isUpload ? prevState.file1 : undefined,
       file2: this.state.isUpload ? prevState.file2 : undefined,
       file3: this.state.isUpload ? prevState.file3 : undefined

@@ -4,7 +4,7 @@ import { Table, Container, Input, Badge, NavLink, Button, Row, Col, ListGroup, L
 import SearchInput from '../components/SearchInput';
 import { assignAndUpdateMultipleTicketsAPICall } from '../actions/TicketActions';
 import history from '../history';
-import {Role} from '../masterdata/ApplicationMasterData';
+import {Role, TicketStatus} from '../masterdata/ApplicationMasterData';
 import {fetchCreatedTicketsAPICall} from '../actions/TicketActions'
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
@@ -49,7 +49,7 @@ class ViewTicketsForm extends React.Component {
   handleBundleViewClick(){
     history.push({
       pathname: "/ticketmanage/tickets",
-      search: "?status=New"
+      search: "?status="+TicketStatus.NEW
     });
   }
 
