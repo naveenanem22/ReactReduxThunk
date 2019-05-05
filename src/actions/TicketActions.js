@@ -418,7 +418,7 @@ export function addMessageAPICall(params) {
     for (var name in params) {
         formData.append(name, params[name]);
     }
-    var url = new URL("http://localhost:8080/v0/ticket-management/tickets/" + params.id);
+    var url = new URL("http://localhost:8080/v0/ticket-support/tickets/" + params.id);
     console.log(url);
     return function (dispatch) {
         dispatch(addMessage());
