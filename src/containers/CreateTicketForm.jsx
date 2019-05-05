@@ -43,7 +43,7 @@ class CreateNewTicketForm extends React.Component {
     this.setState((prevState, props) => ({
       isAlertVisible: false
     }), () => {
-      history.push("/ticketing/tickets?status"+TicketStatus.ALL);
+      history.push("/ticketing/tickets?status="+TicketStatus.ALL);
     });
   }
 
