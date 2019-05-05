@@ -1,4 +1,4 @@
-import { CREATE_TICKET, CLOSE_TICKET_SUCCESS, CLOSE_TICKET_FAILURE, FETCH_ASSIGNED_TICKET_DETAILS, FETCH_ASSIGNED_TICKET_DETAILS_SUCCESS, FETCH_ASSIGNED_TICKET_DETAILS_FAILURE, CREATE_TICKET_FAILURE } from './ActionTypes';
+import { CREATE_TICKET, CLOSE_TICKET_SUCCESS, CLOSE_TICKET_FAILURE, FETCH_ASSIGNED_TICKET_DETAILS, FETCH_ASSIGNED_TICKET_DETAILS_SUCCESS, FETCH_ASSIGNED_TICKET_DETAILS_FAILURE, CREATE_TICKET_FAILURE, CLOSE_TICKET } from './ActionTypes';
 import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS, FETCH_TICKETS,ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET_FAILURE, ASSIGN_UPDATE_TICKET } from './ActionTypes';
 import {FETCH_TICKET_DETAILS,FETCH_TICKET_DETAILS_FAILURE, FETCH_TICKET_DETAILS_SUCCESS} from './ActionTypes';
 import {ADD_MESSAGE, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE} from './ActionTypes';
@@ -169,6 +169,12 @@ export function addMessageSuccess() {
 export function addMessageFailure() {
     return {
         type: ADD_MESSAGE_FAILURE
+    }
+}
+
+export function closeTicket(){
+    return {
+        type : CLOSE_TICKET
     }
 }
 
@@ -484,8 +490,9 @@ export function closeTicketAPICall(params) {
         formData.append(name, params[name]);
     }
     console.log("Formdata: " + JSON.stringify(formData));
-    var url = new URL("http://localhost:8080/v0/ticket-management/tickets/" + params.id);
+    var url = new URL("http://localhost:8080/v0/ticket-support/tickets/" + params.id);
     return function (dispatch) {
+        dispatch(closeTicket());
         return fetch(url, {
             method: 'PUT',
             headers: headers,

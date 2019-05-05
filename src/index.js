@@ -28,6 +28,7 @@ const store = createStore(MainReducer, {
         fetchAssignedTicketDetailsAPI: {requested: false, success: false, error: false},
         fetchCreatedTicketDetailsAPI: {requested: false, success: false, error: false},
         addMessageAPI: {requested: false, success: false, error: false},
+        closeTicketAPI: {requested: false, success: false, error: false},
         fetchAssignedTicketsAPI: {requested: false, success: false, error: false},
         fetchCreatedTicketsAPI: {requested: false, success: false, error: false},
         fetchDashboardDataMultipleAPI: {requested: false, success: false, error: false}

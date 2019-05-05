@@ -106,9 +106,11 @@ class ViewTicketDetailsForm extends React.Component {
       status: 'Closed',
       file1: this.state.isUpload ? prevState.file1 : undefined,
       file2: this.state.isUpload ? prevState.file2 : undefined,
-      file3: this.state.isUpload ? prevState.file3 : undefined
+      file3: this.state.isUpload ? prevState.file3 : undefined,
+
+      isViewTicketDetailsSectionVisible: false,
+      isAlertSectionVisible: true
     }), () => {
-      console.log(this.state);
       this.props.closeTicket(this.state);
     });
   }
@@ -329,14 +331,18 @@ class ViewTicketDetailsForm extends React.Component {
         </div>}
 
         {this.state.isAlertSectionVisible && <div>
-          {this.props.addMessageAPICallStatus.requested && <div className='view-ticket-loading'>
+          {(this.props.addMessageAPICallStatus.requested ||
+            this.props.closeTicketAPICallStatus.requested
+            )&& <div className='view-ticket-loading'>
             <ScaleLoader
               color='#00d8ff'
               loading='true'
             />
           </div>}
           
-          {this.props.addMessageAPICallStatus.success && <div>
+          {(this.props.addMessageAPICallStatus.success ||
+            this.props.closeTicketAPICallStatus.success
+            )&& <div>
             <Alert color="success" isOpen={this.state.isAlertVisible} toggle={this.onDismissAlert}>
               <h4 className="alert-heading">Well done!</h4>
               <p>
@@ -362,7 +368,8 @@ const mapStateToProps = function (state) {
     ticket: state.ticketDetails.ticket,
     fetchTicketDetailsAPICallStatus: state.serviceCallStatus.fetchTicketDetailsAPI,
     fetchCreatedTicketDetailsAPICallStatus: state.serviceCallStatus.fetchCreatedTicketDetailsAPI,
-    addMessageAPICallStatus: state.serviceCallStatus.addMessageAPI
+    addMessageAPICallStatus: state.serviceCallStatus.addMessageAPI,
+    closeTicketAPICallStatus : state.serviceCallStatus.closeTicketAPI
   }
 }
 
