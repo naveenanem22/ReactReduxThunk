@@ -5,6 +5,7 @@ import history from '../history';
 import { connect } from 'react-redux';
 import { fetchTicketsAPICall, showFormNewTicket} from '../actions/TicketActions'
 import {fetchDashboardDataAPICall, fetchDashboardDataMultipleAPICall} from '../actions/DashboardActions';
+import { TicketStatus } from '../masterdata/ApplicationMasterData';
 
 
 class SideNavBar extends React.Component {
@@ -26,32 +27,32 @@ class SideNavBar extends React.Component {
   }
 
   handleAwaitResponseClick() {
-    history.push("/ticketmanage/tickets?status=InProcess");
+    history.push("/ticketmanage/tickets?status="+TicketStatus.IN_PROCESS);
     this.props.fetchTickets({
-      status: 'InProcess',
+      status: TicketStatus.IN_PROCESS,
       sortBy: 'ticketId'
     });
   }
 
   handleClosedTicketsClick() {
-    history.push("/ticketmanage/tickets?status=Closed");
+    history.push("/ticketmanage/tickets?status="+TicketStatus.CLOSE);
     this.props.fetchTickets({
-      status: 'Closed',
+      status: TicketStatus.CLOSE,
       sortBy: 'ticketId'
     });
   }
 
   handleAssignTicketsClick() {
-    history.push("/ticketmanage/tickets?status=New");
+    history.push("/ticketmanage/tickets?status="+TicketStatus.NEW);
     this.props.fetchTickets({
-      status: 'New',
+      status: TicketStatus.NEW,
       sortBy: 'ticketId'
     });
 
   }
 
   handleMyTicketsClick() {
-    history.push("/ticketmanage/tickets?status=all");
+    history.push("/ticketmanage/tickets?status="+TicketStatus.ALL);
     /* this.props.fetchTickets({
       status: 'all',
       sortBy: 'ticketId'

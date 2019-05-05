@@ -1,6 +1,6 @@
 export const TicketStatus = {
     OPEN: 'Open', CLOSE: 'Closed', NEW: 'New', IN_PROCESS: 'Processing', PENDING: 'Pending',
-    AWAIT_RESPONSE: 'AwaitingResponse'
+    AWAIT_RESPONSE: 'AwaitingResponse', ALL = 'all'
 };
 
 export const TicketStatusCode = {

@@ -5,6 +5,7 @@ import history from '../history';
 import { connect } from 'react-redux';
 import { fetchTicketsAPICall, showFormNewTicket } from '../actions/TicketActions'
 import { fetchDashboardDataAPICall, fetchDashboardDataMultipleAPICall } from '../actions/DashboardActions';
+import { TicketStatus } from '../masterdata/ApplicationMasterData';
 
 
 class SideNavBar extends React.Component {
@@ -20,7 +21,7 @@ class SideNavBar extends React.Component {
 
 
   handleClosedTicketsClick() {
-    history.push("/ticketing/tickets?status=Closed");
+    history.push("/ticketing/tickets?status="+TicketStatus.CLOSE);
     /* this.props.fetchTickets({
       status: 'Closed',
       sortBy: 'ticketId'
@@ -29,7 +30,7 @@ class SideNavBar extends React.Component {
 
 
   handleMyTicketsClick() {
-    history.push("/ticketing/tickets?status=all");
+    history.push("/ticketing/tickets?status="+TicketStatus.ALL);
     /* this.props.fetchTickets({
       status: 'all',
       sortBy: 'ticketId'

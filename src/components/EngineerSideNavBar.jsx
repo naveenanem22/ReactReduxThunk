@@ -31,24 +31,24 @@ class SideNavBar extends React.Component {
   }
 
   handleClosedTicketsClick() {
-    history.push("/ticketmaint/tickets?status=Closed");
+    history.push("/ticketmaint/tickets?status="+TicketStatus.CLOSE);
     this.props.fetchTickets({
-      status: 'Closed',
+      status: TicketStatus.CLOSE,
       sortBy: 'ticketId'
     });
   }
 
   handleAssignTicketsClick() {
-    history.push("/ticketmaint/tickets?status=New");
+    history.push("/ticketmaint/tickets?status="+TicketStatus.NEW);
     this.props.fetchTickets({
-      status: 'New',
+      status: TicketStatus.NEW,
       sortBy: 'ticketId'
     });
 
   }
 
   handleAssignedTicketsClick() {
-    history.push("/ticketmaint/tickets?status=all");
+    history.push("/ticketmaint/tickets?status="+TicketStatus.ALL);
     /* this.props.fetchTickets({
       status: 'all',
       sortBy: 'ticketId'

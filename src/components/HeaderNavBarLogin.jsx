@@ -37,7 +37,6 @@ class HeaderNavBar extends React.Component {
   }
 
   onClickMyTickets(){
-    console.log("MyTickets Clicked...");
     history.push('/tickets');
   }
 
