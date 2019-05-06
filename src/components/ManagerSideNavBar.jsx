@@ -16,38 +16,53 @@ class SideNavBar extends React.Component {
     this.handleClosedTicketsClick = this.handleClosedTicketsClick.bind(this);
     this.handleAssignTicketsClick = this.handleAssignTicketsClick.bind(this);
     this.handleMyTicketsClick = this.handleMyTicketsClick.bind(this);
-    this.handleAwaitResponseClick = this.handleAwaitResponseClick.bind(this);
+    
     this.handleDashboard = this.handleDashboard.bind(this);
     this.handleNewTicket = this.handleNewTicket.bind(this);
   }
 
   handleDashboard(e) {
-    history.push({pathname: "/ticketmanage/dashboard"});
-    //this.props.fetchDashboardData();
+    //history.push({pathname: "/ticketmanage/dashboard"});
+    history.push({
+      pathname: "/ticketmanage/dashboard",
+      search: "?cioKey=MDB"
+    });
   }
 
-  handleAwaitResponseClick() {
-    history.push("/ticketmanage/tickets?status="+TicketStatus.IN_PROCESS);
+  /* handleAwaitResponseClick() {
+    //history.push("/ticketmanage/tickets?status="+TicketStatus.IN_PROCESS);
+    history.push({
+      pathname: "/ticketmanage/tickets",
+      search: '?status='+TicketStatus.IN_PROCESS+'&'+'cioKey=MDB'
+    });
     this.props.fetchTickets({
       status: TicketStatus.IN_PROCESS,
       sortBy: 'ticketId'
     });
   }
-
+ */
   handleClosedTicketsClick() {
-    history.push("/ticketmanage/tickets?status="+TicketStatus.CLOSE);
-    this.props.fetchTickets({
+   // history.push("/ticketmanage/tickets?status="+TicketStatus.CLOSE);
+   history.push({
+    pathname: "/ticketmanage/tickets",
+    search: '?status='+TicketStatus.CLOSE+'&'+'cioKey=CLT'
+  });
+    /* this.props.fetchTickets({
       status: TicketStatus.CLOSE,
       sortBy: 'ticketId'
-    });
+    }); */
   }
 
   handleAssignTicketsClick() {
-    history.push("/ticketmanage/tickets?status="+TicketStatus.NEW);
-    this.props.fetchTickets({
+    //history.push("/ticketmanage/tickets?status="+TicketStatus.NEW);
+    history.push({
+      pathname: "/ticketmanage/tickets",
+      search: '?status='+TicketStatus.NEW+'&'+'cioKey=AT'
+    });
+    /* this.props.fetchTickets({
       status: TicketStatus.NEW,
       sortBy: 'ticketId'
-    });
+    }); */
 
   }
 
@@ -61,8 +76,12 @@ class SideNavBar extends React.Component {
   }
 
   handleNewTicket() {
-    history.push("/ticketmanage/newticket");
-    this.props.showNewTicketForm();
+    //history.push("/ticketmanage/newticket");
+    history.push({
+      pathname: "/ticketmanage/newticket",
+      search: '?cioKey=NT'
+    });
+    //this.props.showNewTicketForm();
   }
 
   componentDidMount(){

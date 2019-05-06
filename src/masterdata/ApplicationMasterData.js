@@ -67,7 +67,7 @@ export const componentInfoObj = {
             case 'MDB':
             return {
                 title: "Dashboard",
-                subTitle: "Statistics to make informed decisions."
+                subTitle: "Organization wide Ticket-Dynamics to take informed decisions."
             }
 
             case 'ENDB':

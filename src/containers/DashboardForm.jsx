@@ -20,6 +20,9 @@ import {
   BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line,
   PieChart, Pie, Sector
 } from 'recharts';
+import {componentInfoObj} from '../masterdata/ApplicationMasterData';
+import queryString from 'query-string';
+import history from '../history';
 
 /* const pieGraphData = [
   { name: 'Group A', value: 400 },
@@ -141,17 +144,23 @@ class DashBoardForm extends React.Component {
   }
 
   render() {
-    console.log("From render-Dashboard");
     console.log(this.props.fetchDashboardDataMultipleAPICallStatus);
     const { opacity } = this.state;
+
+    //Processing ttsKey to fetch Form Title and SubTitle data
+    const params = queryString.parse(history.location.search);
+
+    const title = params.cioKey ? componentInfoObj.getInfo(params.cioKey).title : componentInfoObj.getDefaultInfo().title;
+    const subTitle = params.cioKey ? componentInfoObj.getInfo(params.cioKey).subTitle : componentInfoObj.getDefaultInfo().subTitle;
+
     return (
       <div style={{ marginLeft: '1%', marginRight: '1%' }}>
         <Container style={{ marginTop: '2%' }}>
           <Row style={{ textAlign: 'left' }}>
-            <h4>Helpdesk Dashboard</h4>
+            <h4>{title}</h4>
           </Row>
           <Row style={{ textAlign: 'left' }}>
-            <p>Organization wide statistics of tickets and activity.</p>
+            <p>{subTitle}</p>
           </Row>
         </Container>
         <hr />
