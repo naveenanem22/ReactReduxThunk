@@ -11,6 +11,7 @@ import { fetchTicketsAPICall } from '../actions/TicketActions';
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
 import { Role } from '../masterdata/ApplicationMasterData';
+import {componentInfoObj} from '../masterdata/ApplicationMasterData';
 
 
 class ViewTicketsForm extends React.Component {
@@ -81,13 +82,20 @@ class ViewTicketsForm extends React.Component {
       suggestions.push({ name: engineer.userFullName });
     });
 
+    //Processing ttsKey to fetch Form Title and SubTitle data
+    const params = queryString.parse(history.location.search);
+
+    const title = params.cioKey ? componentInfoObj.getInfo(params.cioKey).title : componentInfoObj.getDefaultInfo().title;
+    const subTitle = params.cioKey ? componentInfoObj.getInfo(params.cioKey).subTitle : componentInfoObj.getDefaultInfo().subTitle;
+
+
     return (
       <div style={{ marginLeft: '1%', marginRight: '1%' }}>
         <Container style={{ marginTop: '2%' }}><Row style={{ textAlign: 'left' }}>
-          <h4>New Tickets</h4>
+          <h4>{title}</h4>
         </Row>
           <Row style={{ textAlign: 'left' }}>
-            <p>Tickets that need to be actioned.</p>
+            <p>{subTitle}</p>
           </Row>
         </Container>
         <hr />

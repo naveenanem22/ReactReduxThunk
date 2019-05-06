@@ -39,7 +39,7 @@ class LoginForm extends React.Component {
       case Role.ROLE_ENGINEER:
         history.push({
           pathname: "/ticketmaint/dashboard",
-          search: "?cioKey=EDB"
+          search: "?cioKey=ENDB"
         });
         break;
 

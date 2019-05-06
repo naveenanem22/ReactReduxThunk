@@ -3,9 +3,9 @@ import { Nav, NavItem, NavLink, Navbar } from 'reactstrap';
 import { FaUser, FaAngleDoubleRight } from 'react-icons/fa';
 import history from '../history';
 import { connect } from 'react-redux';
-import { fetchTicketsAPICall, showFormNewTicket} from '../actions/TicketActions'
-import {fetchDashboardDataAPICall, fetchDashboardDataMultipleAPICall} from '../actions/DashboardActions';
-import {TicketStatus} from '../masterdata/ApplicationMasterData'
+import { fetchTicketsAPICall, showFormNewTicket } from '../actions/TicketActions'
+import { fetchDashboardDataAPICall, fetchDashboardDataMultipleAPICall } from '../actions/DashboardActions';
+import { TicketStatus } from '../masterdata/ApplicationMasterData'
 
 
 class SideNavBar extends React.Component {
@@ -14,7 +14,6 @@ class SideNavBar extends React.Component {
     this.state = {
     };
     this.handleClosedTicketsClick = this.handleClosedTicketsClick.bind(this);
-    this.handleAssignTicketsClick = this.handleAssignTicketsClick.bind(this);
     this.handleAssignedTicketsClick = this.handleAssignedTicketsClick.bind(this);
     this.handleAwaitResponseClick = this.handleAwaitResponseClick.bind(this);
     this.handleDashboard = this.handleDashboard.bind(this);
@@ -22,46 +21,69 @@ class SideNavBar extends React.Component {
   }
 
   handleDashboard(e) {
-    history.push({pathname: "/ticketmaint/dashboard"});
-    this.props.fetchDashboardData();
+    history.push({ 
+      pathname: '/ticketmaint/dashboard',
+      search :'?cioKey=ENDB'
+     });
+    //this.props.fetchDashboardData();
   }
 
   handleAwaitResponseClick() {
-    history.push("/ticketmaint/tickets?status="+TicketStatus.AWAIT_RESPONSE);
+    //history.push("/ticketmaint/tickets?status=" + TicketStatus.AWAIT_RESPONSE);
+    history.push({ 
+      pathname: '/ticketmaint/tickets',
+      search :'status='+TicketStatus.AWAIT_RESPONSE+'&'+'cioKey=AWT'
+     });
   }
 
   handleClosedTicketsClick() {
-    history.push("/ticketmaint/tickets?status="+TicketStatus.CLOSE);
+    //history.push("/ticketmaint/tickets?status=" + TicketStatus.CLOSE);
+    history.push({ 
+      pathname: '/ticketmaint/tickets',
+      search :'status='+TicketStatus.TicketStatus.CLOSE+'&'+'cioKey=CLT'
+     });
     this.props.fetchTickets({
       status: TicketStatus.CLOSE,
       sortBy: 'ticketId'
     });
   }
 
-  handleAssignTicketsClick() {
-    history.push("/ticketmaint/tickets?status="+TicketStatus.NEW);
+  /* handleAssignTicketsClick() {
+    //history.push("/ticketmaint/tickets?status=" + TicketStatus.NEW);
+    history.push({ 
+      pathname: '/ticketmaint/tickets',
+      search :'status='+TicketStatus.NEW+'&'+'cioKey=AWT'
+     });
     this.props.fetchTickets({
       status: TicketStatus.NEW,
       sortBy: 'ticketId'
     });
 
-  }
+  } */
 
   handleAssignedTicketsClick() {
-    history.push("/ticketmaint/tickets?status="+TicketStatus.ALL);
+    //history.push("/ticketmaint/tickets?status=" + TicketStatus.ALL);
+    history.push({ 
+      pathname: '/ticketmaint/tickets',
+      search :'status='+TicketStatus.ALL+'&'+'cioKey=AST'
+     });
     /* this.props.fetchTickets({
       status: 'all',
       sortBy: 'ticketId'
-    }); */ 
+    }); */
 
   }
 
   handleNewTicket() {
-    history.push("/ticketmaint/newticket");
-    this.props.showNewTicketForm();
+    //history.push("/ticketmaint/newticket");
+    history.push({ 
+      pathname: '/ticketmaint/newticket',
+      search :'cioKey=NT'
+     });
+    //this.props.showNewTicketForm();
   }
 
-  componentDidMount(){
+  componentDidMount() {
   }
 
 
@@ -73,7 +95,7 @@ class SideNavBar extends React.Component {
 
         <Nav style={{ borderRadius: '10px', border: '1px solid grey', backgroundColor: '#FFFFFF' }} vertical >
           <NavItem >
-            <NavLink href="#" onClick = {this.handleDashboard} style={{ borderTopLeftRadius:'10px',borderTopRightRadius:'10px',borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Dashboard
+            <NavLink href="#" onClick={this.handleDashboard} style={{ borderTopLeftRadius: '10px', borderTopRightRadius: '10px', borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Dashboard
             </NavLink>
           </NavItem>
 
@@ -88,7 +110,7 @@ class SideNavBar extends React.Component {
           </NavItem>
 
           <NavItem>
-            <NavLink href="#" onClick={this.handleAssignedTicketsClick} style={{ borderBottomLeftRadius:'10px', borderBottomRightRadius:'10px', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Assigned Tickets</NavLink>
+            <NavLink href="#" onClick={this.handleAssignedTicketsClick} style={{ borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Assigned Tickets</NavLink>
           </NavItem>
         </Nav>
 
@@ -108,10 +130,10 @@ const mapDispatchToProps = dispatch => {
       //dispatch(fetchDashboardDataAPICall());
       dispatch(fetchDashboardDataMultipleAPICall());
     },
-    showNewTicketForm: () =>{
+    showNewTicketForm: () => {
       dispatch(showFormNewTicket());
     }
-    
+
   };
 }
 

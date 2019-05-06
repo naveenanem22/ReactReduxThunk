@@ -37,7 +37,7 @@ export const componentInfoObj = {
             case 'AST':
             return {
                 title: "Assigned Tickets",
-                subTitle: "Tickets that need to be actioned."
+                subTitle: "Tickets that need to be actioned. Action based on priority and severity."
             }
 
             case 'NT':
@@ -58,13 +58,19 @@ export const componentInfoObj = {
                 subTitle: "Monitor your ticket activity and update Tickets that need your response."
             }
 
+            case 'AWT':
+            return {
+                title: "Awaiting Response Tickets",
+                subTitle: "Contact respective employee if no response provided beyond certain time limit."
+            }
+
             case 'MDB':
             return {
                 title: "Dashboard",
                 subTitle: "Statistics to make informed decisions."
             }
 
-            case 'EDB':
+            case 'ENDB':
             return {
                 title: "My Board",
                 subTitle: "Your credits, badges etc. Update the profile if need be."
