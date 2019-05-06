@@ -5,6 +5,8 @@ import { createTicketAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
 import { ScaleLoader } from 'react-spinners';
 import { TicketStatus, TicketStatusCode, TicketType, TicketTypeCode, Priority, PriorityCode } from '../masterdata/ApplicationMasterData';
+import {componentInfoObj} from '../masterdata/ApplicationMasterData';
+import queryString from 'query-string';
 
 class CreateNewTicketForm extends React.Component {
 
@@ -75,7 +77,13 @@ class CreateNewTicketForm extends React.Component {
     })
   }
   render() {
-    console.log(this.props);
+    //Processing ttsKey to fetch Form Title and SubTitle data
+    const params = queryString.parse(history.location.search);
+    
+    const title = params.cioKey? componentInfoObj.getInfo(params.cioKey).title: componentInfoObj.getDefaultInfo().title;
+    const subTitle = params.cioKey? componentInfoObj.getInfo(params.cioKey).subTitle: componentInfoObj.getDefaultInfo().subTitle;
+
+
     return (
       <div style={{ marginLeft: '1%', marginRight: '1%' }}>
 
@@ -84,12 +92,10 @@ class CreateNewTicketForm extends React.Component {
           <FormGroup>
             <Container style={{ marginTop: '2%' }}>
               <Row style={{ textAlign: 'left' }}>
-                <h4>New Ticket</h4>
+                <h4>{title}</h4>
               </Row>
               <Row style={{ textAlign: 'left' }}>
-                <p>Need help with something?
-                Create a request right here. For faster service,
-            please add as much information as possible.</p>
+                <p>{subTitle}</p>
               </Row>
             </Container>
             <hr />

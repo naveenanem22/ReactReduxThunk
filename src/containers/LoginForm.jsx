@@ -19,6 +19,7 @@ class LoginForm extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.onSubmitLogin = this.onSubmitLogin.bind(this);
+    this.onLoginSuccess = this.onLoginSuccess.bind(this);
 
   }
 
@@ -33,30 +34,41 @@ class LoginForm extends React.Component {
     this.props.onLogin(this.state);
   }
 
+  onLoginSuccess() {
+    switch (this.props.user.profile.role) {
+      case Role.ROLE_ENGINEER:
+        history.push({
+          pathname: "/ticketmaint/dashboard",
+          search: "?cioKey=EDB"
+        });
+        break;
+
+      case Role.ROLE_EMPLOYEE:
+        history.push({
+          pathname: "/ticketing/newticket",
+          search: "?cioKey=NT"
+        });
+        break;
+
+      case Role.ROLE_MANAGER:
+      history.push({
+        pathname: "/ticketmanage/dashboard",
+        search: "?cioKey=MDB"
+      });
+      break;
+
+      default:
+        return;
+    }
+  }
+
 
   render() {
+    //Redirecting upon login
     if (this.props.user.isLoggedIn) {
-      switch (this.props.user.profile.role) {
-        case Role.ROLE_ENGINEER:
-          return <Redirect push to={{
-            pathname: "/ticketmaint/dashboard"
-          }} />;
-
-        case Role.ROLE_EMPLOYEE:
-          return <Redirect push to={{
-            pathname: "/ticketing/newticket"
-          }} />;
-
-        case Role.ROLE_MANAGER:
-          return <Redirect push to={{
-            pathname: "/ticketmanage/dashboard"
-          }} />;
-
-        default:
-          return;
-      }
-
+      this.onLoginSuccess();
     }
+
     return (
       <Container style={{ 'width': '60%', paddingBottom: '3%', paddingTop: '3%', marginTop: '2%', backgroundColor: '#E8EAED' }}>
         <h2>Sign In</h2>
