@@ -70,6 +70,12 @@ export const componentInfoObj = {
                 subTitle: "Your credits, badges etc. Update the profile if need be."
             }
             
+            case 'TD':
+            return {
+                title: "Ticket Details",
+                subTitle: "Verify the details and converse further to assist Heldesk to resolve faster."
+            }
+
             default:
             return {
                 title: "Default Title",

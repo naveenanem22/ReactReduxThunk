@@ -10,6 +10,7 @@ import { ScaleLoader } from 'react-spinners';
 import history from '../history';
 import queryString from 'query-string';
 import { Role } from '../masterdata/ApplicationMasterData';
+import {componentInfoObj} from '../masterdata/ApplicationMasterData';
 
 
 
@@ -164,16 +165,22 @@ class ViewTicketDetailsForm extends React.Component {
   }
   render() {
     const ticket = this.props.ticket;
+    //Processing ttsKey to fetch Form Title and SubTitle data
+    const params = queryString.parse(history.location.search);
+
+    const title = params.cioKey ? componentInfoObj.getInfo(params.cioKey).title : componentInfoObj.getDefaultInfo().title;
+    const subTitle = params.cioKey ? componentInfoObj.getInfo(params.cioKey).subTitle : componentInfoObj.getDefaultInfo().subTitle;
+
     return (
 
       <div style={{ marginLeft: '1%', marginRight: '1%' }}>
         {this.state.isViewTicketDetailsSectionVisible && <div>
           <Container style={{ marginTop: '3%' }}>
             <Row style={{ textAlign: 'left' }}>
-              <h4>Ticket Details</h4>
+              <h4>{title}</h4>
             </Row>
             <Row style={{ textAlign: 'left' }}>
-              <p>Ticket details such as - attachments, converstaion and status.</p>
+              <p>{subTitle}</p>
             </Row>
           </Container>
           <hr />

@@ -4,11 +4,11 @@ import { Table, Container, Input, Badge, NavLink, Button, Row, Col, ListGroup, L
 import SearchInput from '../components/SearchInput';
 import { assignAndUpdateMultipleTicketsAPICall } from '../actions/TicketActions';
 import history from '../history';
-import {Role, TicketStatus} from '../masterdata/ApplicationMasterData';
-import {fetchCreatedTicketsAPICall} from '../actions/TicketActions'
+import { Role, TicketStatus } from '../masterdata/ApplicationMasterData';
+import { fetchCreatedTicketsAPICall } from '../actions/TicketActions'
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
-import {componentInfoObj} from '../masterdata/ApplicationMasterData';
+import { componentInfoObj } from '../masterdata/ApplicationMasterData';
 
 class ViewTicketsForm extends React.Component {
 
@@ -33,28 +33,28 @@ class ViewTicketsForm extends React.Component {
   static getDerivedStateFromProps(props, current_state) {
     console.log("setting state after receiving props");
     if (current_state.tickets !== props.tickets) {
-        //Update state with default fields which are not available in props
-        var tempTickets = props.tickets;
-        tempTickets.forEach(ticket => {
-          ticket.isAssignedToInvalid = false;
-          ticket.selected = false;
-          ticket.assignedTo = { userName: '' };
-        });
-        return {
-            tickets: tempTickets              
-        }
+      //Update state with default fields which are not available in props
+      var tempTickets = props.tickets;
+      tempTickets.forEach(ticket => {
+        ticket.isAssignedToInvalid = false;
+        ticket.selected = false;
+        ticket.assignedTo = { userName: '' };
+      });
+      return {
+        tickets: tempTickets
       }
-      return null
+    }
+    return null
   }
-  
-  handleBundleViewClick(){
+
+  handleBundleViewClick() {
     history.push({
       pathname: "/ticketmanage/tickets",
-      search: "?status="+TicketStatus.NEW
+      search: "?status=" + TicketStatus.NEW
     });
   }
 
-  processPropsForInitialState(tickets) {    
+  processPropsForInitialState(tickets) {
     tickets.forEach(ticket => {
       ticket.isAssignedToInvalid = false;
       ticket.selected = false;
@@ -81,7 +81,7 @@ class ViewTicketsForm extends React.Component {
     });
   }
 
-  
+
 
   handleAssign(e) {
     e.preventDefault();
@@ -110,7 +110,7 @@ class ViewTicketsForm extends React.Component {
         return ticket;
       })
       console.log("Ticket to be Assigned and Updated: " + ticketsToUpdate);
-      if (ticketsToUpdate.length > 0){
+      if (ticketsToUpdate.length > 0) {
         this.props.assignAndUpdateTickets(ticketsToUpdate);
       }
     }
@@ -134,17 +134,17 @@ class ViewTicketsForm extends React.Component {
 
   handleClick(e, ticket) {
 
-
+console.log("Handle click");
     if (e.target.type == 'checkbox') {
 
     } else if (e.target.type == 'text') {
 
     } else if (e.target.type == 'suggestion') {
 
-    } else{
+    } else {
       history.push({
         pathname: "/ticketdetails",
-        search: "?ticketId=" + ticket.id
+        search: '?ticketId=' + ticket.id + '&' + 'cioKey=TD'
       });
     }
   }
@@ -186,7 +186,7 @@ class ViewTicketsForm extends React.Component {
 
   }
 
-  componentDidMount(){
+  componentDidMount() {
     if (localStorage.getItem('role') === Role.ROLE_EMPLOYEE) {
       //Extracting query params from url
       console.log("Parsing query params from query-string:");
@@ -216,9 +216,9 @@ class ViewTicketsForm extends React.Component {
 
     //Processing ttsKey to fetch Form Title and SubTitle data
     const params = queryString.parse(history.location.search);
-    
-    const title = params.cioKey? componentInfoObj.getInfo(params.cioKey).title: componentInfoObj.getDefaultInfo().title;
-    const subTitle = params.cioKey? componentInfoObj.getInfo(params.cioKey).subTitle: componentInfoObj.getDefaultInfo().subTitle;
+
+    const title = params.cioKey ? componentInfoObj.getInfo(params.cioKey).title : componentInfoObj.getDefaultInfo().title;
+    const subTitle = params.cioKey ? componentInfoObj.getInfo(params.cioKey).subTitle : componentInfoObj.getDefaultInfo().subTitle;
 
 
     return (
@@ -230,22 +230,22 @@ class ViewTicketsForm extends React.Component {
             <p>{subTitle}</p>
           </Row>
         </Container>
-        <hr/>
+        <hr />
         {(localStorage.getItem('role') === Role.ROLE_MANAGER) &&
-            <Row>
-              <Col style={{textAlign:'right'}}>
-                  <NavLink href="#" onClick={this.handleBundleViewClick} style={{ marginBottom: '', textDecoration: 'none', color: '#546e7a' }}>
-                  <Badge href="#" color="primary">Bundle View</Badge>
-                  </NavLink>
-              </Col>
-            </Row>
-          }
+          <Row>
+            <Col style={{ textAlign: 'right' }}>
+              <NavLink href="#" onClick={this.handleBundleViewClick} style={{ marginBottom: '', textDecoration: 'none', color: '#546e7a' }}>
+                <Badge href="#" color="primary">Bundle View</Badge>
+              </NavLink>
+            </Col>
+          </Row>
+        }
         {this.props.fetchCreatedTicketsAPICallStatus.requested && <div className='view-ticket-loading'>
-              <ScaleLoader
-                color='#00d8ff'
-                loading='true'
-              />
-            </div>
+          <ScaleLoader
+            color='#00d8ff'
+            loading='true'
+          />
+        </div>
         }
         {this.props.fetchCreatedTicketsAPICallStatus.success && <Table size='sm' hover bordered class="rounded mb-0" style={{ marginTop: '1%' }}>
           <thead>
@@ -273,15 +273,15 @@ class ViewTicketsForm extends React.Component {
             )}
           </tbody>
         </Table>}
-        {localStorage.getItem('role') === Role.ROLE_MANAGER && 
-        <Container style={{ marginTop: '3%', marginBottom: '3%' }}><Row style={{ textAlign: 'center' }}>
-          <Col style={{ textAlign: 'center' }}>
-            <Button color="success" style={{ width: '110px', marginRight: '5%' }} onClick={(e) => this.handleAssign(e)}>Assign</Button>
-            <Button color="secondary" style={{ width: '110px', marginLeft: '5%' }}>Close</Button>
-          </Col>
-        </Row>
-        </Container>}
- 
+        {localStorage.getItem('role') === Role.ROLE_MANAGER &&
+          <Container style={{ marginTop: '3%', marginBottom: '3%' }}><Row style={{ textAlign: 'center' }}>
+            <Col style={{ textAlign: 'center' }}>
+              <Button color="success" style={{ width: '110px', marginRight: '5%' }} onClick={(e) => this.handleAssign(e)}>Assign</Button>
+              <Button color="secondary" style={{ width: '110px', marginLeft: '5%' }}>Close</Button>
+            </Col>
+          </Row>
+          </Container>}
+
       </div>
     );
 

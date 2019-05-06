@@ -37,8 +37,8 @@ class SPAEmployeeMainPage extends React.Component {
       switch (localStorage.getItem('role')) {
         case Role.ROLE_EMPLOYEE:
           history.push({
-            pathname: "/ticketing/ticketdetails",
-            search: "?ticketId=" + ticket.id
+            pathname: '/ticketing/ticketdetails',
+            search: '?ticketId=' + ticket.id + '&' + 'cioKey=TD'
           });
           break;
         case Role.ROLE_MANAGER:
