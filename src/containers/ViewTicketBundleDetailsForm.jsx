@@ -1,6 +1,6 @@
 import React from 'react';
 import { Fragment } from 'react';
-import { addMessageAPICall, closeTicketAPICall, downloadAttachmentAPICall, fetchTicketDetailsAPICall, fetchAssignedTicketDetailsAPICall } from '../actions/TicketActions'
+import { assignAndUpdateTicketAPICall, addMessageAPICall, closeTicketAPICall, downloadAttachmentAPICall, fetchTicketDetailsAPICall, fetchAssignedTicketDetailsAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
 import { Badge, Row, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
 import { Button, Card, CardBody, CardHeader, CardText, CardTitle } from 'reactstrap';
@@ -25,6 +25,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
       commentedOn: '',
       isUpload: false,
+      assignedTo: '',
       showSelectTicketMsg: this.props.showSelectTicketMsg
     };
 
@@ -34,12 +35,20 @@ class ViewTicketBundleDetailsForm extends React.Component {
     this.onSubmitCloseTicket = this.onSubmitCloseTicket.bind(this);
     this.onClickLink = this.onClickLink.bind(this);
     this.toggleUpload = this.toggleUpload.bind(this);
+    this.onAssigneeSelection = this.onAssigneeSelection.bind(this);
+    this.onSubmitAssignTicket = this.onSubmitAssignTicket.bind(this);
   }
 
   toggleUpload() {
     this.setState({
       isUpload: !this.state.isUpload
     })
+  }
+
+  onAssigneeSelection(selectedEngineer) {
+    this.setState({
+      assignedTo: selectedEngineer[0].userName
+    });
   }
 
 
@@ -84,6 +93,15 @@ class ViewTicketBundleDetailsForm extends React.Component {
     });
   }
 
+  onSubmitAssignTicket(e) {
+    e.preventDefault();
+    this.setState((prevState, props) => ({
+      status: TicketStatus.OPEN,
+    }), () => {
+      this.props.assignTicket(this.state);
+    });
+  }
+
   onFileUpload(e) {
     e.preventDefault();
     this.setState({
@@ -93,7 +111,6 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
   componentDidMount() {
     //Extracing params from url
-    console.log("Search string: ");
     var searchString = history.location.search;
     console.log(searchString);
     var params = queryString.parse(searchString);
@@ -125,6 +142,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
 
   render() {
+    console.log(this.state);
     return (
       <div>
         {(this.props.fetchTicketDetailsAPICallStatus.requested
@@ -204,13 +222,15 @@ class ViewTicketBundleDetailsForm extends React.Component {
                   <Col size='auto' style={{ textAlign: 'center' }}>
                     <Fragment>
                       <Typeahead
+                        onChange={(selectedOption) => this.onAssigneeSelection(selectedOption)}
                         bsSize='small'
-                        labelKey="name"
-                        dropup = {true}
-                        options={['Australia', 'Angara', 'India', 'Turkey', 'USA', 'United Kingdom',
-                          'Australia', 'Angara', 'India', 'Turkey', 'USA', 'United Kingdom',
-                          'Australia', 'Angara', 'India', 'Turkey', 'USA', 'United Kingdom',
-                          'Australia', 'Angara', 'India', 'Turkey', 'USA', 'United Kingdom']}
+                        labelKey={option => `${option.firstName} ${option.lastName}`}
+                        dropup={true}
+                        options={[{ firstName: 'Art', lastName: 'Blakey', userName: 'art.blakey@pmapi.com' },
+                        { firstName: 'Jimmy', lastName: 'Cobb', userName: 'jimmy.cobb@pmapi.com' },
+                        { firstName: 'Elvin', lastName: 'Jones', userName: 'elvin.jones@pmapi.com' },
+                        { firstName: 'Max', lastName: 'Roach', userName: 'max.roach@pmapi.com' },
+                        { firstName: 'Tony', lastName: 'Williams', userName: 'tony.williams@pmapi.com' }]}
                         placeholder="Choose an Engineer..."
                       />
                     </Fragment>
@@ -218,7 +238,11 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
                 </Row>
                 <Row style={{ marginTop: '2%' }}>
-                  <Col style={{ textAlign: 'center' }}><Button style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Assign</Button></Col>
+                  <Col style={{ textAlign: 'center' }}>
+                    <Button 
+                    onClick = {this.onSubmitAssignTicket}
+                    style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Assign</Button>
+                  </Col>
                 </Row>
               </div>}
           </div>}
@@ -247,7 +271,8 @@ const mapActionsToProps = {
   closeTicket: closeTicketAPICall,
   downloadAttachment: downloadAttachmentAPICall,
   fetchTicketDetails: fetchTicketDetailsAPICall,
-  fetchAssignedTicketDetails: fetchAssignedTicketDetailsAPICall
+  fetchAssignedTicketDetails: fetchAssignedTicketDetailsAPICall,
+  assignTicket: assignAndUpdateTicketAPICall
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(ViewTicketBundleDetailsForm);
