@@ -12,6 +12,7 @@ import ViewTicketBundleDetailsForm from './ViewTicketBundleDetailsForm';
 import EngineerProfileForm from './EngineerProfile';
 import history from '../history';
 import ViewTicketDetailsForm from './ViewTicketDetailsForm';
+import queryString from 'query-string';
 
 class SPAEngineerMainPage extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class SPAEngineerMainPage extends React.Component {
   }
 
   updateRouteAndShowTicketDetails(e, ticket) {
-
+    console.log("updaterouteandshowticketmanager");
 
     if (e.target.type == 'checkbox') {
 
@@ -33,19 +34,23 @@ class SPAEngineerMainPage extends React.Component {
     } else if (e.target.type == 'suggestion') {
 
     } else {
+      //Process url to get the 'cioKey' and append to URL on bundleClick()
+      const params = queryString.parse(history.location.search);
+      console.log(params);
       history.push({
-        pathname: "/ticketmanage/ticketdetails",
-        search: "?ticketId=" + ticket.id
+        pathname: '/ticketmanage/ticketdetails',
+        search: '?ticketId=' + ticket.ticketId + (params.cioKey ? '&cioKey=' + params.cioKey : '')
       });
     }
   }
 
   updateRouteAndShowTicketBundleDetails(ticketId) {
+    //Process url to get the 'cioKey' and append to URL on bundleClick()
+    const params = queryString.parse(history.location.search);
     history.push({
       pathname: '/ticketmanage/tickets',
-      search: '?ticketId=' + ticketId
+      search: '?ticketId=' + ticketId + (params.cioKey ? '&cioKey=' + params.cioKey : '')
     });
-    console.log("ticketId: " + ticketId);
     this.setState({
       showSelectTicketMsg: false
     });
@@ -64,7 +69,7 @@ class SPAEngineerMainPage extends React.Component {
         </div>
         <Row style={{ background: 'rgba(0,0,0,0.3)', marginTop: '1%', marginLeft: '3%', marginRight: '3%', paddingTop: '1%' }}>
           <Col sm='2' ><SideNavBar></SideNavBar></Col>
-          
+
           <Route path="/ticketmanage/newticket"
             component={() =>
               <Col sm='9' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
@@ -95,9 +100,9 @@ class SPAEngineerMainPage extends React.Component {
           <Route path="/ticketmanage/tickets"
             component={() =>
               <Col sm='3'>
-               <div style={{ position: 'sticky', top: 100, zIndex: 1 }}>
-               <ViewTicketBundleDetailsForm showSelectTicketMsg={this.state.showSelectTicketMsg}></ViewTicketBundleDetailsForm>
-               </div>
+                <div style={{ position: 'sticky', top: 100, zIndex: 1 }}>
+                  <ViewTicketBundleDetailsForm showSelectTicketMsg={this.state.showSelectTicketMsg}></ViewTicketBundleDetailsForm>
+                </div>
               </Col>}>
           </Route>
 
@@ -111,7 +116,7 @@ class SPAEngineerMainPage extends React.Component {
           <Route path="/ticketmanage/profile"
             component={() =>
               <Col sm='3'>
-              <EngineerProfileForm ></EngineerProfileForm>
+                <EngineerProfileForm ></EngineerProfileForm>
               </Col>}>
           </Route>
         </Row>
