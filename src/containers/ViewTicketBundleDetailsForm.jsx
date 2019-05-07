@@ -1,4 +1,5 @@
 import React from 'react';
+import { Fragment } from 'react';
 import { addMessageAPICall, closeTicketAPICall, downloadAttachmentAPICall, fetchTicketDetailsAPICall, fetchAssignedTicketDetailsAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
 import { Badge, Row, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
@@ -8,6 +9,9 @@ import history from '../history';
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
 import { Role, TicketStatus } from '../masterdata/ApplicationMasterData';
+import { Typeahead } from 'react-bootstrap-typeahead';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
+import 'react-bootstrap-typeahead/css/Typeahead-bs4.css';
 
 class ViewTicketBundleDetailsForm extends React.Component {
 
@@ -188,12 +192,35 @@ class ViewTicketBundleDetailsForm extends React.Component {
                 </Card>
               </Col>
             </Row>)}
-            {localStorage.getItem('role') === Role.ROLE_ENGINEER && <Row style={{ marginTop: '2%' }}>
+            {localStorage.getItem('role') === Role.ROLE_ENGINEER  && <Row style={{ marginTop: '2%' }}>
               <Col style={{ textAlign: 'center' }}><Button style={{ width: '28%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Close</Button><Button style={{ width: '28%', paddingTop: '0', paddingBottom: '0', marginLeft: '1%' }} size="sm" outline color="warning">Message</Button></Col>
             </Row>}
-            {localStorage.getItem('role') === Role.ROLE_MANAGER && <Row style={{ marginTop: '2%' }}>
-              <Col style={{ textAlign: 'center' }}><Button style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Assign</Button></Col>
-            </Row>}
+            {localStorage.getItem('role') === Role.ROLE_MANAGER &&
+              <div>
+                <Row style={{ marginTop: '5%' }}>
+                  <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Assigned To:</Col>
+                </Row>
+                <Row style={{ marginTop: '2%' }}>
+                  <Col size='auto' style={{ textAlign: 'center' }}>
+                    <Fragment>
+                      <Typeahead
+                        bsSize='small'
+                        labelKey="name"
+                        dropup = {true}
+                        options={['Australia', 'Angara', 'India', 'Turkey', 'USA', 'United Kingdom',
+                          'Australia', 'Angara', 'India', 'Turkey', 'USA', 'United Kingdom',
+                          'Australia', 'Angara', 'India', 'Turkey', 'USA', 'United Kingdom',
+                          'Australia', 'Angara', 'India', 'Turkey', 'USA', 'United Kingdom']}
+                        placeholder="Choose an Engineer..."
+                      />
+                    </Fragment>
+                  </Col>
+
+                </Row>
+                <Row style={{ marginTop: '2%' }}>
+                  <Col style={{ textAlign: 'center' }}><Button style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Assign</Button></Col>
+                </Row>
+              </div>}
           </div>}
 
         {this.state.showSelectTicketMsg && <div>Pls select a ticket to dislay the details.</div>}
