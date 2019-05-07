@@ -46,9 +46,10 @@ class ViewTicketBundleDetailsForm extends React.Component {
   }
 
   onAssigneeSelection(selectedEngineer) {
-    this.setState({
-      assignedTo: selectedEngineer[0].userName
-    });
+    if (selectedEngineer.length > 0)
+      this.setState({
+        assignedTo: selectedEngineer[0].userName
+      });
   }
 
 
@@ -239,9 +240,9 @@ class ViewTicketBundleDetailsForm extends React.Component {
                 </Row>
                 <Row style={{ marginTop: '2%' }}>
                   <Col style={{ textAlign: 'center' }}>
-                    <Button 
-                    onClick = {this.onSubmitAssignTicket}
-                    style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Assign</Button>
+                    <Button
+                      onClick={this.onSubmitAssignTicket}
+                      style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Assign</Button>
                   </Col>
                 </Row>
               </div>}
