@@ -188,9 +188,12 @@ class ViewTicketBundleDetailsForm extends React.Component {
                 </Card>
               </Col>
             </Row>)}
-            <Row style={{ marginTop: '2%' }}>
-              <Col style={{ textAlign: 'center' }}><Button style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Close</Button><Button style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginLeft: '1%' }} size="sm" outline color="warning">Message</Button></Col>
-            </Row>
+            {localStorage.getItem('role') === Role.ROLE_ENGINEER && <Row style={{ marginTop: '2%' }}>
+              <Col style={{ textAlign: 'center' }}><Button style={{ width: '28%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Close</Button><Button style={{ width: '28%', paddingTop: '0', paddingBottom: '0', marginLeft: '1%' }} size="sm" outline color="warning">Message</Button></Col>
+            </Row>}
+            {localStorage.getItem('role') === Role.ROLE_MANAGER && <Row style={{ marginTop: '2%' }}>
+              <Col style={{ textAlign: 'center' }}><Button style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Assign</Button></Col>
+            </Row>}
           </div>}
 
         {this.state.showSelectTicketMsg && <div>Pls select a ticket to dislay the details.</div>}
