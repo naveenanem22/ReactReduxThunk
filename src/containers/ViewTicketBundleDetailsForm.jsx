@@ -27,6 +27,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
       isUpload: false,
       assignedTo: '',
       showSelectTicketMsg: this.props.showSelectTicketMsg
+
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -46,6 +47,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
   }
 
   onAssigneeSelection(selectedEngineer) {
+    //selectedEngineer is returned as an array rather than an object
     if (selectedEngineer.length > 0)
       this.setState({
         assignedTo: selectedEngineer[0].userName
@@ -211,9 +213,55 @@ class ViewTicketBundleDetailsForm extends React.Component {
                 </Card>
               </Col>
             </Row>)}
-            {localStorage.getItem('role') === Role.ROLE_ENGINEER  && <Row style={{ marginTop: '2%' }}>
-              <Col style={{ textAlign: 'center' }}><Button style={{ width: '28%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Close</Button><Button style={{ width: '28%', paddingTop: '0', paddingBottom: '0', marginLeft: '1%' }} size="sm" outline color="warning">Message</Button></Col>
-            </Row>}
+            {localStorage.getItem('role') === Role.ROLE_ENGINEER &&
+              <div>
+                <Row style={{ marginTop: '5%' }}>
+                  <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Engineer Action:</Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <Input style={{ marginTop: '2%', fontSize: '70%' }} type="textarea" name="text" id="exampleText" />
+                  </Col>
+
+                </Row>
+                {this.state.isUpload && <Row>
+                  <Col>
+                    <Label size='sm' style={{ fontSize: '70%', marginBottom:'0'}} for="attachments">Attachments</Label>
+                    <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file1" id="file1" onChange={this.onFileUpload} />
+                    <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file2" id="file2" onChange={this.onFileUpload} />
+                    <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file3" id="file3" onChange={this.onFileUpload} />
+                  </Col>
+                </Row>}
+                <Row>
+                  <Col size='auto' style={{ textAlign: 'left' }}>
+                    <Button
+                      style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }}
+                      onClick={this.toggleUpload}
+                      type="submit"
+                      outline
+                      color="secondary"
+                      size="sm"
+                    >Files</Button>
+                  </Col>
+                  <Col size='auto' style={{ textAlign: 'center' }}>
+                    <Button
+                      style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm"
+                      outline
+                      color="success">Close</Button>
+                  </Col>
+
+                  <Col size='auto' style={{ textAlign: 'center' }}>
+                    <Button
+                      style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginLeft: '1%' }}
+                      size="sm"
+                      outline
+                      color="warning">Message</Button>
+                  </Col>
+                </Row>
+
+
+              </div>
+            }
             {localStorage.getItem('role') === Role.ROLE_MANAGER &&
               <div>
                 <Row style={{ marginTop: '5%' }}>
