@@ -11,6 +11,8 @@ import ViewTicketBundleDetailsForm from './ViewTicketBundleDetailsForm';
 import EngineerProfileForm from './EngineerProfile';
 import history from '../history';
 import queryString from 'query-string';
+import EngineerProfile from './EngineerProfile';
+import ActivityForm from './ActivityForm';
 
 class SPAEngineerMainPage extends React.Component {
   constructor(props) {
@@ -44,10 +46,54 @@ class SPAEngineerMainPage extends React.Component {
           <HeaderNavBar></HeaderNavBar>
         </div>
         <Row style={{ background: 'rgba(0,0,0,0.3)', marginTop: '1%', marginLeft: '3%', marginRight: '3%', paddingTop: '1%' }}>
-          <Col sm='2' ><SideNavBar></SideNavBar></Col>
-          <Col sm='7' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
-            <Route path="/ticketmaint/dashboard" component={DashboardForm}></Route>
-            <Route path="/ticketmaint/newticket" component={CreateTicketForm}></Route>
+          <Col sm='3' >
+            <Row><Col sm='8'><SideNavBar></SideNavBar></Col></Row>
+            <Row style={{ marginTop: '3%' }}><Col><ActivityForm ></ActivityForm></Col></Row>
+          </Col>
+
+          <Route path="/ticketmaint/newticket"
+            component={() =>
+              <Col sm='9' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+                <CreateTicketForm></CreateTicketForm>
+              </Col>}>
+          </Route>
+
+          <Route path="/ticketmaint/dashboard"
+            component={() =>
+              <Col sm='9'>
+                <Row>
+                  <Col sm='8' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+                    <DashboardForm></DashboardForm>
+                  </Col>
+                  <Col sm='4'>
+                    <EngineerProfile></EngineerProfile>
+                  </Col>
+                </Row>
+              </Col>
+            }>
+          </Route>
+
+          <Route path="/ticketmaint/tickets"
+            component={() =>
+              <Col sm='9' >
+                <Row>
+                  <Col sm='8' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+                    <ViewTicketsForm handleTicketBundleClick={this.updateRouteAndShowTicketBundleDetails} />
+                  </Col>
+               
+                  <Col sm='4'>
+                    <div style={{ position: 'sticky', top: 100, zIndex: 1 }}>
+                      <ViewTicketBundleDetailsForm showSelectTicketMsg={this.state.showSelectTicketMsg}></ViewTicketBundleDetailsForm>
+                    </div>
+                  </Col>
+                </Row>
+              </Col>
+            }>
+          </Route>
+
+
+
+          {/* <Col sm='7' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
             <Route path="/ticketmaint/tickets" component={() => <ViewTicketsForm handleTicketBundleClick={this.updateRouteAndShowTicketBundleDetails} />}></Route>
           </Col>
           <Col sm='3'>
@@ -55,8 +101,7 @@ class SPAEngineerMainPage extends React.Component {
               <Route path="/ticketmaint/tickets" component={() => <ViewTicketBundleDetailsForm showSelectTicketMsg={this.state.showSelectTicketMsg}></ViewTicketBundleDetailsForm>}> </Route>
 
             </div>
-            <Route path="/ticketmaint/dashboard" component={() => <EngineerProfileForm ></EngineerProfileForm>}> </Route>
-          </Col>
+          </Col> */}
         </Row>
       </div>
     );
