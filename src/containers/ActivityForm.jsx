@@ -49,8 +49,8 @@ class ActivityForm extends React.Component {
     
 
     return (
-      <div>
-      <div style={{ overflowY:'auto', overflowX:'hidden', height:'500px', border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '10px', paddingLeft: '10px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>        
+      <div style={{overflowX:'hidden', overflowY:'auto',height:'100%'}}>
+      <div style={{ border: '1px solid #E8EAED', borderRadius: '10px',backgroundColor: '#ffffff' }}>        
         <Row>
           <Col style={{textAlign:'left', fontSize:'small', fontWeight:500}}>Activity Log</Col>
         </Row>
@@ -66,7 +66,14 @@ class ActivityForm extends React.Component {
           <Col style={{textAlign:'left', fontSize:'small', fontWeight:500}}>About Me</Col>
         </Row>
         <Row>
-          <Col style={{textAlign:'left', fontSize:'75%', fontWeight:400}}>Madison is a director of brand marketing, with experience managing global teams and multi-million-dollar campaigns. Her background in brand strategy, visual design, and account management inform her mindful but competitive approach.</Col>
+          <Col style={{textAlign:'left', fontSize:'75%', fontWeight:400}}>Madison id multi-million-dollar campaigns. Her background in brand strategy, visual d
+          Madison id multi-million-dollar campaigns. Her background in brand strategy, visual
+          Madison id multi-million-dollar campaigns. Her background in brand strategy, visual
+          Madison id multi-million-dollar campaigns. Her background in brand strategy, visual
+          Madison id multi-million-dollar campaigns. Her background in brand strategy, visual
+          Madison id multi-million-dollar campaigns. Her background in brand strategy, visual
+          Madison id multi-million-dollar campaigns. Her background in brand strategy, visual
+          Madison id multi-million-dollar campaigns. Her background in brand strategy, visualesign, and account management inform her mindful but competitive approach.</Col>
         </Row>
 
         <Row style={{marginTop:'5%'}}>
