@@ -1,6 +1,6 @@
 import React from 'react';
-import { Nav, NavItem, NavLink, Navbar } from 'reactstrap';
-import { FaUser, FaAngleDoubleRight } from 'react-icons/fa';
+import { Container, Label, Row, Col, Nav, NavItem, NavLink, Navbar } from 'reactstrap';
+import { FaUser, FaAngleDoubleRight, FaChartLine, FaClock, FaTicketAlt, FaRegClock, FaFileAlt, FaRegFileAlt, FaListAlt, FaRegListAlt } from 'react-icons/fa';
 import history from '../history';
 import { connect } from 'react-redux';
 import { fetchTicketsAPICall, showFormNewTicket } from '../actions/TicketActions'
@@ -91,49 +91,137 @@ class SideNavBar extends React.Component {
   render() {
 
     return (
-      <div class='sidenavbar' style={{height:'100%', width:'100%'}}>
+      <div class='sidenavbar' style={{ height: '100%', width: '100%' }}>
+      <Container>
+        <Row>
+          <Col style={{
+          }}>
+            <Label style={{
+              marginTop:'1%',
+              marginBottom:'1%',
+              color:'#5C5B5A',
+              fontWeight:'600'
+            }}>Action Bar</Label>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Nav vertical >
+              <NavItem >
+                <NavLink href="#" onClick={this.handleDashboard}
+                  style={{
+                    textDecoration: 'none',
+                    color: '#546e7a',
+                    fontSize: '1vw'
 
-        <Nav vertical >
-          <NavItem >
-            <NavLink href="#" onClick={this.handleDashboard}
-              style={{
-                textDecoration: 'none',
-                color: '#546e7a'
-              }}>
-              <FaAngleDoubleRight style={{ color: '#546e7a' }} /> Dashboard
-            </NavLink>
-          </NavItem>
+                  }}>
+                  <Row style={{
+                    padding: '0',
+                    margin: '0'
+                  }}>
+                    <Col sm='2' style={{
+                      padding: '0',
+                      margin: '0'
+                    }}>
+                      <FaChartLine style={{ color: '#546e7a' }} />
+                    </Col>
+                    <Col sm='10' style={{
+                      padding: '0',
+                      margin: '0'
+                    }}>
+                      Dashboard
+                </Col>
+                  </Row>
 
-          <NavItem>
-            <NavLink href="#" onClick={this.handleAwaitResponseClick}
-              style={{
-                textDecoration: 'none',
-                color: '#546e7a'
-              }}>
-              <FaAngleDoubleRight style={{ color: '#546e7a' }} /> Await Response
-            </NavLink>
-          </NavItem>
+                </NavLink>
+              </NavItem>
 
-          <NavItem>
-            <NavLink href="#" onClick={this.handleNewTicket}
-              style={{
-                textDecoration: 'none',
-                color: '#546e7a'
-              }}>
-              <FaAngleDoubleRight style={{ color: '#546e7a' }} /> New Ticket
-            </NavLink>
-          </NavItem>
+              <NavItem>
+                <NavLink href="#" onClick={this.handleAwaitResponseClick}
+                  style={{
+                    textDecoration: 'none',
+                    color: '#546e7a',
+                    fontSize: '1vw'
+                  }}>
+                  <Row style={{
+                    padding: '0',
+                    margin: '0'
+                  }}>
+                    <Col sm='2' style={{
+                      padding: '0',
+                      margin: '0'
+                    }}>
+                      <FaRegClock style={{ color: '#546e7a' }} />
+                    </Col>
+                    <Col sm='10' style={{
+                      padding: '0',
+                      margin: '0'
+                    }}>
+                      Awaiting
+                </Col>
+                  </Row>
+                </NavLink>
+              </NavItem>
 
-          <NavItem>
-            <NavLink href="#" onClick={this.handleAssignedTicketsClick}
-              style={{
-                textDecoration: 'none',
-                color: '#546e7a'
-              }}>
-              <FaAngleDoubleRight style={{ color: '#546e7a' }} /> Assigned Tickets</NavLink>
-          </NavItem>
-        </Nav>
+              <NavItem>
+                <NavLink href="#" onClick={this.handleNewTicket}
+                  style={{
+                    textDecoration: 'none',
+                    color: '#546e7a',
+                    fontSize: '1vw'
+                  }}>
+                  <Row style={{
+                    padding: '0',
+                    margin: '0'
+                  }}>
+                    <Col sm='2' style={{
+                      padding: '0',
+                      margin: '0'
+                    }}>
+                      <FaRegFileAlt style={{ color: '#546e7a' }} />
+                    </Col>
+                    <Col sm='10' style={{
+                      padding: '0',
+                      margin: '0'
+                    }}>
+                      New Ticket
+                </Col>
+                  </Row>
+                </NavLink>
+              </NavItem>
 
+              <NavItem>
+                <NavLink href="#" onClick={this.handleAssignedTicketsClick}
+                  style={{
+                    textDecoration: 'none',
+                    color: '#546e7a',
+                    fontSize: '1vw'
+                  }}>
+                  <Row style={{
+                    padding: '0',
+                    margin: '0'
+                  }}>
+                    <Col sm='2' style={{
+                      padding: '0',
+                      margin: '0'
+                    }}>
+                      <FaRegListAlt style={{ color: '#546e7a' }} />
+                    </Col>
+                    <Col sm='10' style={{
+                      padding: '0',
+                      margin: '0'
+                    }}>
+                      Assigned
+                </Col>
+                  </Row>
+                </NavLink>
+              </NavItem>
+            </Nav>
+          </Col>
+        </Row>
+
+
+        </Container>
       </div>
     );
   }

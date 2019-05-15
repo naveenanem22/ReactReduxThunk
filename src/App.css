@@ -120,15 +120,15 @@ body {
 }
 
 /*Styling for SideNavBar component START*/
-div.sidenavbar > ul >li>a{
+div.sidenavbar > div.container > div.row > div.col > ul >li>a{
   color: black
 }
 
- div.sidenavbar > ul >li>a:focus{
+div.sidenavbar > div.container > div.row > div.col > ul >li>a:focus{
 background-color: #d4d8d8 !important;  
 } 
 
-div.sidenavbar > ul >li.nav-item >a:hover{
+div.sidenavbar > div.container > div.row > div.col > ul >li>a:hover{
   background-color: #dfe0e0;  
   
 }

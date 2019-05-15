@@ -42,7 +42,7 @@ class SPAEngineerMainPage extends React.Component {
   render() {
     return (
       <div >
-        <div style={{ height: '10vh', width: '100%' }}>
+        <div style={{ position:'relative',zIndex:'1', height: '10vh', width: '100%' }}>
           <HeaderNavBar></HeaderNavBar>
         </div>
         <Row style={{
