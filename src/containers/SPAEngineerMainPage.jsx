@@ -46,10 +46,13 @@ class SPAEngineerMainPage extends React.Component {
           <HeaderNavBar></HeaderNavBar>
         </div>
         <Row style={{
-          height: '89vh',
-          marginTop: '0.5vh',
-          marginLeft: '1vw',
-          marginRight: '1vw'
+          height: '90vh',
+          margin: '0',
+          paddingLeft: '1vw',
+          paddingRight: '1vw',
+          paddingTop: '1vh',
+          paddingBottom:'1vh',
+          backgroundColor: '#ffffff'
         }}>
           <Col sm='2'
             style={{
@@ -85,10 +88,7 @@ class SPAEngineerMainPage extends React.Component {
           <Route path="/ticketmaint/newticket"
             component={() =>
               <Col sm='8' style={{
-                height: '89vh',
-                border: '1px solid #E8EAED',
-                borderRadius: '0.5vw',
-                backgroundColor: '#ffffff'
+                height: '89vh'
               }}>
                 <CreateTicketForm></CreateTicketForm>
               </Col>}>
@@ -99,18 +99,12 @@ class SPAEngineerMainPage extends React.Component {
               <Col sm='9'>
                 <Row>
                   <Col sm='8' style={{
-                    height: '89vh',
-                    border: '1px solid #E8EAED',
-                    borderRadius: '0.5vh',
-                    backgroundColor: '#ffffff'
+                    height: '89vh'
                   }}>
                     <EngineerDashboardForm></EngineerDashboardForm>
                   </Col>
                   <Col sm='4' style={{
-                    height: '89vh',
-                    border: '1px solid #E8EAED',
-                    borderRadius: '0.5vh',
-                    backgroundColor: '#ffffff'
+                    height: '89vh'
                   }}>
                     <EngineerProfile></EngineerProfile>
                   </Col>
@@ -124,19 +118,13 @@ class SPAEngineerMainPage extends React.Component {
               <Col sm='10' >
                 <Row>
                   <Col sm='8' style={{
-                    height: '89vh',
-                    border: '1px solid #E8EAED',
-                    borderRadius: '0.5vw',
-                    backgroundColor: '#ffffff'
+                    height: '89vh'
                   }}>
                     <ViewTicketsForm handleTicketBundleClick={this.updateRouteAndShowTicketBundleDetails} />
                   </Col>
 
                   <Col sm='4' style={{
-                    height: '89vh',
-                    border: '1px solid #E8EAED',
-                    borderRadius: '0.5vw',
-                    backgroundColor: '#ffffff'
+                    height: '89vh'
                   }}>
                     <div style={{ position: 'sticky', top: 100, zIndex: 1 }}>
                       <ViewTicketBundleDetailsForm showSelectTicketMsg={this.state.showSelectTicketMsg}></ViewTicketBundleDetailsForm>
