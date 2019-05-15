@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {
   Collapse,
   Navbar,
@@ -11,11 +11,12 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  DropdownItem
+} from 'reactstrap';
 import { logout } from '../actions/UserActions';
 import history from '../history';
 import { Link } from "react-router-dom";
-import {fetchTicketsAPICall} from '../actions/TicketActions';
+import { fetchTicketsAPICall } from '../actions/TicketActions';
 import { TicketStatus } from '../masterdata/ApplicationMasterData';
 
 
@@ -26,8 +27,8 @@ class HeaderNavBar extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false,
-      options: ['Edit Profile','My Tickets','Logout'],
-      optionsTitle:"Engineer"
+      options: ['Edit Profile', 'My Tickets', 'Logout'],
+      optionsTitle: "Engineer"
     };
     this.onClickLogout = this.onClickLogout.bind(this);
     this.onClickMyTickets = this.onClickMyTickets.bind(this);
@@ -38,9 +39,9 @@ class HeaderNavBar extends React.Component {
     });
   }
 
-  onClickMyTickets(){
+  onClickMyTickets() {
     history.push('/tickets');
-    this.props.fetchTickets({            
+    this.props.fetchTickets({
       status: TicketStatus.ALL,
       sortBy: 'ticketId'
     });
@@ -52,7 +53,7 @@ class HeaderNavBar extends React.Component {
   }
   render() {
     return (
-      
+      <div style={{height:'100%'}}>
         <Navbar color="dark" dark expand="md">
           <NavbarBrand href="/home"><h3>ITS Helpdesk</h3></NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
@@ -62,7 +63,7 @@ class HeaderNavBar extends React.Component {
                 <NavLink href="#" onClick={this.onClickMyTickets}>My Tickets</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink  href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
@@ -70,21 +71,22 @@ class HeaderNavBar extends React.Component {
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    <NavLink style = {{color:'#212529'}} href="#"> {this.state.options[0]}</NavLink>
+                    <NavLink style={{ color: '#212529' }} href="#"> {this.state.options[0]}</NavLink>
                   </DropdownItem>
                   <DropdownItem >
-                    <NavLink style = {{color:'#212529'}} href="#" onClick = {this.onClickMyTickets}>{this.state.options[1]}</NavLink>
+                    <NavLink style={{ color: '#212529' }} href="#" onClick={this.onClickMyTickets}>{this.state.options[1]}</NavLink>
                   </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem onClick = {this.onClickLogout}>
-                    <NavLink style = {{color:'#212529'}} href="#">{this.state.options[2]}</NavLink>
+                  <DropdownItem onClick={this.onClickLogout}>
+                    <NavLink style={{ color: '#212529' }} href="#">{this.state.options[2]}</NavLink>
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
           </Collapse>
         </Navbar>
-      
+      </div>
+
     );
   }
 
@@ -93,11 +95,11 @@ class HeaderNavBar extends React.Component {
 
 
 const mapActionsToProps = {
-  onLogout : logout,
-  fetchTickets: fetchTicketsAPICall    
+  onLogout: logout,
+  fetchTickets: fetchTicketsAPICall
 }
 
-const mapStateToProps = function (state){
+const mapStateToProps = function (state) {
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(HeaderNavBar);

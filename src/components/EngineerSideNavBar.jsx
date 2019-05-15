@@ -21,27 +21,27 @@ class SideNavBar extends React.Component {
   }
 
   handleDashboard(e) {
-    history.push({ 
+    history.push({
       pathname: '/ticketmaint/dashboard',
-      search :'?cioKey=ENDB'
-     });
+      search: '?cioKey=ENDB'
+    });
     //this.props.fetchDashboardData();
   }
 
   handleAwaitResponseClick() {
     //history.push("/ticketmaint/tickets?status=" + TicketStatus.AWAIT_RESPONSE);
-    history.push({ 
+    history.push({
       pathname: '/ticketmaint/tickets',
-      search :'status='+TicketStatus.AWAIT_RESPONSE+'&'+'cioKey=AWT'
-     });
+      search: 'status=' + TicketStatus.AWAIT_RESPONSE + '&' + 'cioKey=AWT'
+    });
   }
 
   handleClosedTicketsClick() {
     //history.push("/ticketmaint/tickets?status=" + TicketStatus.CLOSE);
-    history.push({ 
+    history.push({
       pathname: '/ticketmaint/tickets',
-      search :'status='+TicketStatus.TicketStatus.CLOSE+'&'+'cioKey=CLT'
-     });
+      search: 'status=' + TicketStatus.TicketStatus.CLOSE + '&' + 'cioKey=CLT'
+    });
     this.props.fetchTickets({
       status: TicketStatus.CLOSE,
       sortBy: 'ticketId'
@@ -63,10 +63,10 @@ class SideNavBar extends React.Component {
 
   handleAssignedTicketsClick() {
     //history.push("/ticketmaint/tickets?status=" + TicketStatus.ALL);
-    history.push({ 
+    history.push({
       pathname: '/ticketmaint/tickets',
-      search :'status='+TicketStatus.ALL+'&'+'cioKey=AST'
-     });
+      search: 'status=' + TicketStatus.ALL + '&' + 'cioKey=AST'
+    });
     /* this.props.fetchTickets({
       status: 'all',
       sortBy: 'ticketId'
@@ -76,10 +76,10 @@ class SideNavBar extends React.Component {
 
   handleNewTicket() {
     //history.push("/ticketmaint/newticket");
-    history.push({ 
+    history.push({
       pathname: '/ticketmaint/newticket',
-      search :'cioKey=NT'
-     });
+      search: 'cioKey=NT'
+    });
     //this.props.showNewTicketForm();
   }
 
@@ -91,26 +91,46 @@ class SideNavBar extends React.Component {
   render() {
 
     return (
-      <div class='sidenavbar' style={{}}>
+      <div class='sidenavbar' style={{height:'100%', width:'100%'}}>
 
-        <Nav style={{ borderRadius: '10px', border: '1px solid grey', backgroundColor: '#FFFFFF' }} vertical >
+        <Nav vertical >
           <NavItem >
-            <NavLink href="#" onClick={this.handleDashboard} style={{ borderTopLeftRadius: '10px', borderTopRightRadius: '10px', borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Dashboard
+            <NavLink href="#" onClick={this.handleDashboard}
+              style={{
+                textDecoration: 'none',
+                color: '#546e7a'
+              }}>
+              <FaAngleDoubleRight style={{ color: '#546e7a' }} /> Dashboard
             </NavLink>
           </NavItem>
 
           <NavItem>
-            <NavLink href="#" onClick={this.handleAwaitResponseClick} style={{ borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Await Response
+            <NavLink href="#" onClick={this.handleAwaitResponseClick}
+              style={{
+                textDecoration: 'none',
+                color: '#546e7a'
+              }}>
+              <FaAngleDoubleRight style={{ color: '#546e7a' }} /> Await Response
             </NavLink>
           </NavItem>
 
           <NavItem>
-            <NavLink href="#" onClick={this.handleNewTicket} style={{ borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> New Ticket
+            <NavLink href="#" onClick={this.handleNewTicket}
+              style={{
+                textDecoration: 'none',
+                color: '#546e7a'
+              }}>
+              <FaAngleDoubleRight style={{ color: '#546e7a' }} /> New Ticket
             </NavLink>
           </NavItem>
 
           <NavItem>
-            <NavLink href="#" onClick={this.handleAssignedTicketsClick} style={{ borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Assigned Tickets</NavLink>
+            <NavLink href="#" onClick={this.handleAssignedTicketsClick}
+              style={{
+                textDecoration: 'none',
+                color: '#546e7a'
+              }}>
+              <FaAngleDoubleRight style={{ color: '#546e7a' }} /> Assigned Tickets</NavLink>
           </NavItem>
         </Nav>
 

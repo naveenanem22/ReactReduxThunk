@@ -48,16 +48,15 @@ class SPAEngineerMainPage extends React.Component {
         <Row style={{
           height: '90vh',
           margin: '0',
-          paddingLeft: '1vw',
-          paddingRight: '1vw',
-          paddingTop: '1vh',
-          paddingBottom:'1vh',
+          padding:'0.2vh',
           backgroundColor: '#ffffff'
         }}>
           <Col sm='2'
             style={{
               margin: '0',
-              padding: '0'
+              padding: '0',
+              backgroundColor:'#F3F2F1',
+              height:'100%'
             }}>
             <Row style={{
               margin: '0',
