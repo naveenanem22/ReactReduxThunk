@@ -121,9 +121,10 @@ class SPAEngineerMainPage extends React.Component {
 
           <Route path="/ticketmaint/tickets"
             component={() =>
-              <Col sm='9' >
+              <Col sm='10' >
                 <Row>
                   <Col sm='8' style={{
+                    height: '89vh',
                     border: '1px solid #E8EAED',
                     borderRadius: '0.5vw',
                     backgroundColor: '#ffffff'
@@ -131,7 +132,12 @@ class SPAEngineerMainPage extends React.Component {
                     <ViewTicketsForm handleTicketBundleClick={this.updateRouteAndShowTicketBundleDetails} />
                   </Col>
 
-                  <Col sm='4'>
+                  <Col sm='4' style={{
+                    height: '89vh',
+                    border: '1px solid #E8EAED',
+                    borderRadius: '0.5vw',
+                    backgroundColor: '#ffffff'
+                  }}>
                     <div style={{ position: 'sticky', top: 100, zIndex: 1 }}>
                       <ViewTicketBundleDetailsForm showSelectTicketMsg={this.state.showSelectTicketMsg}></ViewTicketBundleDetailsForm>
                     </div>

@@ -11,7 +11,7 @@ import { fetchTicketsAPICall } from '../actions/TicketActions';
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
 import { Role } from '../masterdata/ApplicationMasterData';
-import {componentInfoObj} from '../masterdata/ApplicationMasterData';
+import { componentInfoObj } from '../masterdata/ApplicationMasterData';
 
 
 class ViewTicketsForm extends React.Component {
@@ -90,7 +90,13 @@ class ViewTicketsForm extends React.Component {
 
 
     return (
-      <div style={{ marginLeft: '1%', marginRight: '1%' }}>
+      <div style={{
+        overflowX: 'hidden',
+        overflowY: 'auto',
+        height: '100%',
+        marginLeft: '1%',
+        marginRight: '1%'
+      }}>
         <Container style={{ marginTop: '2%' }}><Row style={{ textAlign: 'left' }}>
           <h4>{title}</h4>
         </Row>
