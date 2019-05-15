@@ -64,12 +64,13 @@ class SPAEngineerMainPage extends React.Component {
             }}>
               <Col sm='12' style={{
                 height: '30vh',
-                margin: '0',
-                padding: '0'
+                padding: '0',
+                margin:'0'
               }}>
                 <SideNavBar></SideNavBar>
               </Col>
             </Row>
+            <hr></hr>
             <Row style={{
               margin: '0',
               padding: '0'
@@ -77,7 +78,7 @@ class SPAEngineerMainPage extends React.Component {
               <Col sm='12' style={{
                 height: '59vh',
                 margin: '0',
-                padding: '0'
+                padding: '0.5vw'
               }}>
                 <ActivityForm ></ActivityForm>
               </Col>
@@ -86,7 +87,7 @@ class SPAEngineerMainPage extends React.Component {
 
           <Route path="/ticketmaint/newticket"
             component={() =>
-              <Col sm='8' style={{
+              <Col sm='10' style={{
                 height: '89vh'
               }}>
                 <CreateTicketForm></CreateTicketForm>
@@ -95,7 +96,7 @@ class SPAEngineerMainPage extends React.Component {
 
           <Route path="/ticketmaint/dashboard"
             component={() =>
-              <Col sm='9'>
+              <Col sm='10'>
                 <Row>
                   <Col sm='8' style={{
                     height: '89vh'
@@ -103,7 +104,8 @@ class SPAEngineerMainPage extends React.Component {
                     <EngineerDashboardForm></EngineerDashboardForm>
                   </Col>
                   <Col sm='4' style={{
-                    height: '89vh'
+                    height: '89vh',
+                    backgroundColor:'#F3F2F1'
                   }}>
                     <EngineerProfile></EngineerProfile>
                   </Col>
@@ -123,7 +125,8 @@ class SPAEngineerMainPage extends React.Component {
                   </Col>
 
                   <Col sm='4' style={{
-                    height: '89vh'
+                    height: '89vh',
+                    backgroundColor:'#F3F2F1'
                   }}>
                     <div style={{ position: 'sticky', top: 100, zIndex: 1 }}>
                       <ViewTicketBundleDetailsForm showSelectTicketMsg={this.state.showSelectTicketMsg}></ViewTicketBundleDetailsForm>
