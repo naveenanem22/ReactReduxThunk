@@ -107,7 +107,9 @@ class SPAEngineerMainPage extends React.Component {
                   </Col>
                   <Col sm='4' style={{
                     height: '89vh',
-                    backgroundColor:'#F3F2F1'
+                    backgroundColor:'#F3F2F1',
+                    padding:'0',
+                    margin:'0'
                   }}>
                     <EngineerProfile></EngineerProfile>
                   </Col>
