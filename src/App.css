@@ -133,3 +133,15 @@ div.sidenavbar > div.container > div.row > div.col > ul >li>a:hover{
   
 }
 /*Styling for SideNavBar component END*/
+
+/*Zero Margin and Zero Padding div style class START*/
+div.zmzp > div.row{
+  margin: 0px;
+  padding: 0px;
+}
+
+div.zmzp > div.col{
+  margin: '0';
+  padding: '0';
+}
+/*Zero Margin and Zero Padding div style class END*/

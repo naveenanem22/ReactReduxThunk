@@ -7,7 +7,7 @@ import ViewTicketsForm from './ViewTicketBundlesForm';
 import { Route } from 'react-router-dom'
 import SideNavBar from '../components/EngineerSideNavBar';
 import { Row, Col } from 'reactstrap';
-import ViewTicketBundleDetailsForm from './ViewTicketBundleDetailsForm';
+import EngineerViewTicketBundleDetailsForm from './EngineerViewTicketBundleDetailsForm';
 import EngineerProfileForm from './EngineerProfile';
 import history from '../history';
 import queryString from 'query-string';
@@ -42,21 +42,21 @@ class SPAEngineerMainPage extends React.Component {
   render() {
     return (
       <div >
-        <div style={{ position:'relative',zIndex:'1', height: '10vh', width: '100%' }}>
+        <div style={{ position: 'relative', zIndex: '1', height: '10vh', width: '100%' }}>
           <HeaderNavBar></HeaderNavBar>
         </div>
         <Row style={{
           height: '90vh',
           margin: '0',
-          padding:'0.2vh',
+          padding: '0.2vh',
           backgroundColor: '#ffffff'
         }}>
           <Col sm='2'
             style={{
               margin: '0',
               padding: '0',
-              backgroundColor:'#F3F2F1',
-              height:'100%'
+              backgroundColor: '#F3F2F1',
+              height: '100%'
             }}>
             <Row style={{
               margin: '0',
@@ -65,7 +65,7 @@ class SPAEngineerMainPage extends React.Component {
               <Col sm='12' style={{
                 height: '30vh',
                 padding: '0',
-                margin:'0'
+                margin: '0'
               }}>
                 <SideNavBar></SideNavBar>
               </Col>
@@ -100,16 +100,16 @@ class SPAEngineerMainPage extends React.Component {
                 <Row>
                   <Col sm='8' style={{
                     height: '89vh',
-                    padding:'0',
-                    margin:'0'
+                    padding: '0',
+                    margin: '0'
                   }}>
                     <EngineerDashboardForm></EngineerDashboardForm>
                   </Col>
                   <Col sm='4' style={{
                     height: '89vh',
-                    backgroundColor:'#F3F2F1',
-                    padding:'0',
-                    margin:'0'
+                    backgroundColor: '#F3F2F1',
+                    padding: '0',
+                    margin: '0'
                   }}>
                     <EngineerProfile></EngineerProfile>
                   </Col>
@@ -123,18 +123,23 @@ class SPAEngineerMainPage extends React.Component {
               <Col sm='10' >
                 <Row>
                   <Col sm='8' style={{
-                    height: '89vh'
+                    height: '89vh',
+                    padding: '0',
+                    margin: '0'
                   }}>
                     <ViewTicketsForm handleTicketBundleClick={this.updateRouteAndShowTicketBundleDetails} />
                   </Col>
 
                   <Col sm='4' style={{
                     height: '89vh',
-                    backgroundColor:'#F3F2F1'
+                    backgroundColor: '#F3F2F1',
+                    padding: '0',
+                    margin: '0'
                   }}>
-                    <div style={{ position: 'sticky', top: 100, zIndex: 1 }}>
+                    <EngineerViewTicketBundleDetailsForm showSelectTicketMsg={this.state.showSelectTicketMsg}></EngineerViewTicketBundleDetailsForm>
+                    {/* <div style={{ position: 'sticky', top: 100, zIndex: 1 }}>
                       <ViewTicketBundleDetailsForm showSelectTicketMsg={this.state.showSelectTicketMsg}></ViewTicketBundleDetailsForm>
-                    </div>
+                    </div> */}
                   </Col>
                 </Row>
               </Col>
