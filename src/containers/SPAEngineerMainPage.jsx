@@ -99,7 +99,9 @@ class SPAEngineerMainPage extends React.Component {
               <Col sm='10'>
                 <Row>
                   <Col sm='8' style={{
-                    height: '89vh'
+                    height: '89vh',
+                    padding:'0',
+                    margin:'0'
                   }}>
                     <EngineerDashboardForm></EngineerDashboardForm>
                   </Col>

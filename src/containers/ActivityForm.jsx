@@ -7,6 +7,8 @@ import { FaEnvelope, FaMobile, FaHome, FaBuilding } from 'react-icons/fa';
 import { loadFileIcon } from '../util/UIUtils';
 import history from '../history';
 import queryString from 'query-string';
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 
 class ActivityForm extends React.Component {
@@ -49,50 +51,69 @@ class ActivityForm extends React.Component {
 
 
     return (
-      <div style={{
-        overflowX: 'hidden',
-        overflowY: 'auto',
+      <PerfectScrollbar style={{
         height: '100%',
-        border: '1px solid #E8EAED',
-        borderRadius: '0px',
-        backgroundColor: '#ffffff',
-        padding:'5%'
-        
+        width: '100%'
       }}>
-        <div style={{}}>
-          <Row>
-            <Col style={{ textAlign: 'left', fontSize: 'small', fontWeight: 500 }}>Activity Log</Col>
+        <div>
+          <Row style={{
+            margin: '0',
+            padding: '0'
+          }}>
+            <Col style={{
+              textAlign: 'left',
+              fontSize: 'small',
+              fontWeight: 500,
+              margin: '0',
+              padding: '0'
+            }}>Activity Log</Col>
           </Row>
-          <Row>
-            <Col style={{ textAlign: 'left', fontSize: '70%', fontWeight: 400 }}>Organizational Ticket activity</Col>
+          <Row style={{
+            margin: '0',
+            padding: '0'
+          }}>
+            <Col style={{  margin: '0',
+            padding: '0',textAlign: 'left', fontSize: '70%', fontWeight: 400 }}>Organizational Ticket activity</Col>
           </Row>
 
-          <Row style={{ marginTop: '5%' }}>
+          <Row style={{ marginLeft: '0',marginRight:'0',
+            padding: '0',marginTop: '5%' }}>
             <Col><hr></hr></Col>
           </Row>
 
-          <Row>
-            <Col style={{ textAlign: 'left', fontSize: 'small', fontWeight: 500 }}>About Me</Col>
+          <Row style={{
+            margin: '0',
+            padding: '0'
+          }}>
+            <Col style={{  margin: '0',
+            padding: '0',
+            textAlign: 'left', fontSize: 'small', fontWeight: 500 }}>About Me</Col>
           </Row>
-          <Row>
-            <Col style={{ textAlign: 'left', fontSize: '75%', fontWeight: 400 }}>Madison id multi-million-dollar campaigns. Her background in brand strategy, visual d
-            Madison id multi-million-dollar campaigns. Her background in brand strategy, visual
-            Madison id multi-million-dollar campaigns. Her background in brand strategy, visual
-            Madison id multi-million-dollar campaigns. Her background in brand strategy, visual
-            Madison id multi-million-dollar campaigns. Her background in brand strategy, visual
-            Madison id multi-million-dollar campaigns. Her background in brand strategy, visual
-            Madison id multi-million-dollar campaigns. Her background in brand strategy, visual
+          <Row style={{
+            margin: '0',
+            padding: '0'
+          }}>
+            <Col style={{
+              margin: '0',
+              padding: '0', textAlign: 'left', fontSize: '75%', fontWeight: 400
+            }}>Madison id multi-million-dollar campaigns. Her background in brand strategy, visual d
+              Madison id multi-million-dollar campaigns. Her background in brand strategy, visual
+              Madison id multi-million-dollar campaigns. Her background in brand strategy, visual
+              Madison id multi-million-dollar campaigns. Her background in brand strategy, visual
+              Madison id multi-million-dollar campaigns. Her background in brand strategy, visual
+              Madison id multi-million-dollar campaigns. Her background in brand strategy, visual
+              Madison id multi-million-dollar campaigns. Her background in brand strategy, visual
           Madison id multi-million-dollar campaigns. Her background in brand strategy, visualesign, and account management inform her mindful but competitive approach.</Col>
           </Row>
 
-          <Row style={{ marginTop: '5%' }}>
+          <Row style={{
+            margin: '0',
+            padding: '0'
+          }}>
             <Col><hr></hr></Col>
           </Row>
-
         </div>
-
-
-      </div>
+      </PerfectScrollbar>
 
     );
   }
