@@ -1,7 +1,7 @@
 import React from 'react';
 import HeaderNavBar from "../components/EngineerHeaderNavBar";
 import { connect } from 'react-redux';
-import CreateTicketForm from './CreateTicketForm';
+import EngineerCreateTicketForm from './EngineerCreateTicketForm';
 import EngineerDashboardForm from './EngineerDashboard';
 import ViewTicketsForm from './ViewTicketBundlesForm';
 import { Route } from 'react-router-dom'
@@ -90,7 +90,7 @@ class SPAEngineerMainPage extends React.Component {
               <Col sm='10' style={{
                 height: '89vh'
               }}>
-                <CreateTicketForm></CreateTicketForm>
+                <EngineerCreateTicketForm></EngineerCreateTicketForm>
               </Col>}>
           </Route>
 
