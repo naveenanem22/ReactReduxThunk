@@ -12,6 +12,7 @@ import { Role, TicketStatus } from '../masterdata/ApplicationMasterData';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import 'react-bootstrap-typeahead/css/Typeahead-bs4.css';
+import { fetchEngineersAPICall } from '../actions/UserActions';
 
 class ViewTicketBundleDetailsForm extends React.Component {
 
@@ -131,6 +132,13 @@ class ViewTicketBundleDetailsForm extends React.Component {
     if (localStorage.getItem('role') === Role.ROLE_MANAGER && params.ticketId) {
       this.props.fetchTicketDetails({
         ticketId: params.ticketId
+      });
+    }
+
+    //Make fetchUsers with Role ENGINEER to assign stories
+    if (localStorage.getItem('role') === Role.ROLE_MANAGER && params.ticketId) {
+      this.props.fetchEngineers({
+        roleName: Role.ROLE_ENGINEER
       });
     }
 
@@ -275,11 +283,12 @@ class ViewTicketBundleDetailsForm extends React.Component {
                         bsSize='small'
                         labelKey={option => `${option.firstName} ${option.lastName}`}
                         dropup={true}
-                        options={[{ firstName: 'Art', lastName: 'Blakey', userName: 'art.blakey@pmapi.com' },
+                        options={this.props.engineers}
+                        /* options={[{ firstName: 'Art', lastName: 'Blakey', userName: 'art.blakey@pmapi.com' },
                         { firstName: 'Jimmy', lastName: 'Cobb', userName: 'jimmy.cobb@pmapi.com' },
                         { firstName: 'Elvin', lastName: 'Jones', userName: 'elvin.jones@pmapi.com' },
                         { firstName: 'Max', lastName: 'Roach', userName: 'max.roach@pmapi.com' },
-                        { firstName: 'Tony', lastName: 'Williams', userName: 'tony.williams@pmapi.com' }]}
+                        { firstName: 'Tony', lastName: 'Williams', userName: 'tony.williams@pmapi.com' }]} */
                         placeholder="Choose an Engineer..."
                       />
                     </Fragment>
@@ -309,8 +318,10 @@ class ViewTicketBundleDetailsForm extends React.Component {
 const mapStateToProps = function (state) {
   return {
     ticket: state.ticketDetails.ticket,
+    engineers:state.engineerList.engineers,
     fetchTicketDetailsAPICallStatus: state.serviceCallStatus.fetchTicketDetailsAPI,
     fetchAssignedTicketDetailsAPICallStatus: state.serviceCallStatus.fetchAssignedTicketDetailsAPI,
+    fetchEngineersAPICallStatus: state.serviceCallStatus.fetchEngineersAPI
 
   }
 }
@@ -321,7 +332,8 @@ const mapActionsToProps = {
   downloadAttachment: downloadAttachmentAPICall,
   fetchTicketDetails: fetchTicketDetailsAPICall,
   fetchAssignedTicketDetails: fetchAssignedTicketDetailsAPICall,
-  assignTicket: assignAndUpdateTicketAPICall
+  assignTicket: assignAndUpdateTicketAPICall,
+  fetchEngineers: fetchEngineersAPICall
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(ViewTicketBundleDetailsForm);

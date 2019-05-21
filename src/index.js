@@ -31,6 +31,7 @@ const store = createStore(MainReducer, {
         closeTicketAPI: {requested: false, success: false, error: false},
         fetchAssignedTicketsAPI: {requested: false, success: false, error: false},
         fetchCreatedTicketsAPI: {requested: false, success: false, error: false},
+        fetchEngineersAPI: {requested: false, success: false, error: false},
         fetchDashboardDataMultipleAPI: {requested: false, success: false, error: false}
     },
     dashboardData: {
@@ -64,20 +65,7 @@ const store = createStore(MainReducer, {
         }
     },
     engineerList: {
-        engineers: [{ userId: '1', userEmail: 'mike@itshelpdesk.com', userFullName: 'Mike Spanner' },
-        { userId: '2', userEmail: 'matt@itshelpdesk.com', userFullName: 'Matt Dillon' },
-        { userId: '3', userEmail: 'prior@itshelpdesk.com', userFullName: 'Prior Hann' },
-        { userId: '4', userEmail: 'humpty@itshelpdesk.com', userFullName: 'Humpty Nash' },
-        { userId: '5', userEmail: 'sunder@itshelpdesk.com', userFullName: 'Sunder Kumar' },
-        { userId: '6', userEmail: 'pichai@itshelpdesk.com', userFullName: 'Pichai google' },
-        { userId: '7', userEmail: 'salmon@itshelpdesk.com', userFullName: 'Salmon Khan' },
-        { userId: '8', userEmail: 'cambridge@itshelpdesk.com', userFullName: 'Steve Kemp' },
-        { userId: '9', userEmail: 'su@itshelpdesk.com', userFullName: 'Su Chi' },
-        { userId: '10', userEmail: 'wang@itshelpdesk.com', userFullName: 'Wang Robert' },
-        { userId: '11', userEmail: 'tim@itshelpdesk.com', userFullName: 'Tim Hann' },
-        { userId: '12', userEmail: 'cook@itshelpdesk.com', userFullName: 'Cook Brenner' },
-        { userId: '13', userEmail: 'chowhan@itshelpdesk.com', userFullName: 'Chowhan Rahul' },
-        { userId: '14', userEmail: 'rahul@itshelpdesk.com', userFullName: 'Rahul Kumar' }]
+        engineers: []
     },
 
     ticketList: {
