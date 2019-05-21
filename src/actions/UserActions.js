@@ -48,9 +48,9 @@ export function fetchEngineersSuccess(engineerList) {
     var engineers = [];
     engineerList.forEach(engineer => {
         engineers.push({
-            firstName:engineer.userName+' '+'First Name',
-            lastName: engineer.userName+' '+'Last Name',
-            userName:engineer.userName
+            firstName: engineer.firstName,
+            lastName: engineer.lastName,
+            userName: engineer.userName
         })
     })
     return {
