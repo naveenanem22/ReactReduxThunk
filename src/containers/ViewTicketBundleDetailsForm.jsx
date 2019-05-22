@@ -102,7 +102,12 @@ class ViewTicketBundleDetailsForm extends React.Component {
     this.setState((prevState, props) => ({
       status: TicketStatus.OPEN,
     }), () => {
-      this.props.assignTicket(this.state);
+      this.props.assignTicket(this.props.ticket.id, {
+        status: this.state.status,
+        assignedTo: {
+          userName: this.state.assignedTo
+        }
+      });
     });
   }
 
@@ -173,19 +178,19 @@ class ViewTicketBundleDetailsForm extends React.Component {
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Ticket Number:</Col>
             </Row>
             <Row>
-              <Col style={{  fontSize: '90%', textAlign: 'left', fontWeight: 400, color: 'olive' }}>{this.props.ticket.id}</Col>
+              <Col style={{ fontSize: '90%', textAlign: 'left', fontWeight: 400, color: 'olive' }}>{this.props.ticket.id}</Col>
             </Row>
             <Row style={{ marginTop: '5%' }}>
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Title:</Col>
             </Row>
             <Row>
-              <Col style={{  fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.title}</Col>
+              <Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.title}</Col>
             </Row>
             <Row style={{ marginTop: '5%' }}>
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Description:</Col>
             </Row>
             <Row>
-              <Col style={{  fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.description}</Col>
+              <Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.description}</Col>
             </Row>
             <Row style={{ marginTop: '5%' }}>
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Quick Look data:</Col>
@@ -194,16 +199,16 @@ class ViewTicketBundleDetailsForm extends React.Component {
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Status :</Col><Col style={{ textAlign: 'left' }}><Badge color="danger">{this.props.ticket.status.toUpperCase()}</Badge></Col>
             </Row>
             <Row>
-              <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Priority :</Col><Col style={{  fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.priority}</Col>
+              <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Priority :</Col><Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.priority}</Col>
             </Row>
             <Row>
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Open since :</Col><Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}><Badge style={{ width: '20%', height: '90%' }} color="secondary">24</Badge> Days</Col>
             </Row>
             <Row>
-              <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Department :</Col><Col style={{  fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.department.name}</Col>
+              <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Department :</Col><Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.department.name}</Col>
             </Row>
             <Row>
-              <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Updated On :</Col><Col style={{  fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.updatedDate}</Col>
+              <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Updated On :</Col><Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.updatedDate}</Col>
             </Row>
             <Row style={{ marginTop: '5%' }}>
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Attachments:</Col>
@@ -234,7 +239,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
                 </Row>
                 {this.state.isUpload && <Row>
                   <Col>
-                    <Label size='sm' style={{ fontSize: '70%', marginBottom:'0'}} for="attachments">Attachments</Label>
+                    <Label size='sm' style={{ fontSize: '70%', marginBottom: '0' }} for="attachments">Attachments</Label>
                     <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file1" id="file1" onChange={this.onFileUpload} />
                     <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file2" id="file2" onChange={this.onFileUpload} />
                     <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file3" id="file3" onChange={this.onFileUpload} />
@@ -318,7 +323,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
 const mapStateToProps = function (state) {
   return {
     ticket: state.ticketDetails.ticket,
-    engineers:state.engineerList.engineers,
+    engineers: state.engineerList.engineers,
     fetchTicketDetailsAPICallStatus: state.serviceCallStatus.fetchTicketDetailsAPI,
     fetchAssignedTicketDetailsAPICallStatus: state.serviceCallStatus.fetchAssignedTicketDetailsAPI,
     fetchEngineersAPICallStatus: state.serviceCallStatus.fetchEngineersAPI

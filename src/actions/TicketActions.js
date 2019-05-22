@@ -1,12 +1,12 @@
 import { CREATE_TICKET, CLOSE_TICKET_SUCCESS, CLOSE_TICKET_FAILURE, FETCH_ASSIGNED_TICKET_DETAILS, FETCH_ASSIGNED_TICKET_DETAILS_SUCCESS, FETCH_ASSIGNED_TICKET_DETAILS_FAILURE, CREATE_TICKET_FAILURE, CLOSE_TICKET, ASSIGN_UPDATE_MULTIPLE_TICKET, ASSIGN_UPDATE_MULTIPLE_TICKETS, ASSIGN_UPDATE_MULTIPLE_TICKETS_SUCCESS, ASSIGN_UPDATE_MULTIPLE_TICKETS_FAILURE } from './ActionTypes';
-import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS, FETCH_TICKETS,ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET_FAILURE, ASSIGN_UPDATE_TICKET } from './ActionTypes';
-import {FETCH_TICKET_DETAILS,FETCH_TICKET_DETAILS_FAILURE, FETCH_TICKET_DETAILS_SUCCESS} from './ActionTypes';
-import {ADD_MESSAGE, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE} from './ActionTypes';
+import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS, FETCH_TICKETS, ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET_FAILURE, ASSIGN_UPDATE_TICKET } from './ActionTypes';
+import { FETCH_TICKET_DETAILS, FETCH_TICKET_DETAILS_FAILURE, FETCH_TICKET_DETAILS_SUCCESS } from './ActionTypes';
+import { ADD_MESSAGE, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE } from './ActionTypes';
 import { SHOW_FORM_NEW_TICKET } from './ActionTypes';
-import {FETCH_ASSIGNED_TICKETS_SUCCESS, FETCH_ASSIGNED_TICKETS_FAILURE, FETCH_ASSIGNED_TICKETS} from './ActionTypes'
-import {FETCH_CREATED_TICKETS_SUCCESS, FETCH_CREATED_TICKETS_FAILURE, FETCH_CREATED_TICKETS} from './ActionTypes'
-import {FETCH_CREATED_TICKET_DETAILS_SUCCESS, FETCH_CREATED_TICKET_DETAILS_FAILURE, FETCH_CREATED_TICKET_DETAILS} from './ActionTypes';
-import {showLoadingScreen, dismissLoadingScreen} from './LoadingScreenActions';
+import { FETCH_ASSIGNED_TICKETS_SUCCESS, FETCH_ASSIGNED_TICKETS_FAILURE, FETCH_ASSIGNED_TICKETS } from './ActionTypes'
+import { FETCH_CREATED_TICKETS_SUCCESS, FETCH_CREATED_TICKETS_FAILURE, FETCH_CREATED_TICKETS } from './ActionTypes'
+import { FETCH_CREATED_TICKET_DETAILS_SUCCESS, FETCH_CREATED_TICKET_DETAILS_FAILURE, FETCH_CREATED_TICKET_DETAILS } from './ActionTypes';
+import { showLoadingScreen, dismissLoadingScreen } from './LoadingScreenActions';
 import FileSaver from 'file-saver';
 
 export function showFormNewTicket() {
@@ -172,9 +172,9 @@ export function addMessageFailure() {
     }
 }
 
-export function closeTicket(){
+export function closeTicket() {
     return {
-        type : CLOSE_TICKET
+        type: CLOSE_TICKET
     }
 }
 
@@ -465,13 +465,13 @@ export function addMessageAPICall(params) {
     };
 }
 
-export function assignAndUpdateTicketAPICall(params) {
+export function assignAndUpdateTicketAPICall(ticketId, params) {
 
     console.log("assignAndUpdateTicketAPICALL params: " + JSON.stringify(params));
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     headers.append('Content-Type', 'application/json');
-    var url = new URL("http://localhost:8080/v0/ticket-management/tickets");
+    var url = new URL("http://localhost:8080/v0/ticket-management/tickets/" + ticketId);
     return function (dispatch) {
         dispatch(assignAndUpdateTicket());
         return fetch(url, {
