@@ -145,16 +145,30 @@ export function serviceCallStatusReducer(state = {}, action) {
 
         case FETCH_ENGINEERS:
             return {
-                ...state, fetchEngineersAPI:{requested:true, success:false, error:false}
+                ...state, fetchEngineersAPI: { requested: true, success: false, error: false }
             }
         case FETCH_ENGINEERS_SUCCESS:
             return {
-                ...state, fetchEngineersAPI:{requested:false, success:true, error:false}
+                ...state, fetchEngineersAPI: { requested: false, success: true, error: false }
             }
-            
+
         case FETCH_ENGINEERS_FAILURE:
             return {
-                ...state, fetchEngineersAPI:{requested:false, success:false, error:true}
+                ...state, fetchEngineersAPI: { requested: false, success: false, error: true }
+            }
+
+        case ASSIGN_UPDATE_TICKET:
+            return {
+                ...state, assignAndUpdateTicketAPI: { requested: true, success: false, error: false }
+            }
+        case ASSIGN_UPDATE_TICKET_SUCCESS:
+            return {
+                ...state, assignAndUpdateTicketAPI: { requested: false, success: true, error: false }
+            }
+
+        case ASSIGN_UPDATE_TICKET_FAILURE:
+            return {
+                ...state, assignAndUpdateTicketAPI: { requested: false, success: false, error: true }
             }
 
         default:

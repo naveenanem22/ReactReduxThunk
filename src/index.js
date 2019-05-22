@@ -32,6 +32,7 @@ const store = createStore(MainReducer, {
         fetchAssignedTicketsAPI: {requested: false, success: false, error: false},
         fetchCreatedTicketsAPI: {requested: false, success: false, error: false},
         fetchEngineersAPI: {requested: false, success: false, error: false},
+        assignAndUpdateTicketAPI: {requested: false, success: false, error: false},
         fetchDashboardDataMultipleAPI: {requested: false, success: false, error: false}
     },
     dashboardData: {

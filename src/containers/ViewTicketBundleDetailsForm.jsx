@@ -158,7 +158,9 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
 
   render() {
+    console.log("Inside viewticktbundledetailsform");
     console.log(this.state);
+    console.log(this.props);
     return (
       <div>
         {(this.props.fetchTicketDetailsAPICallStatus.requested
@@ -284,6 +286,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
                   <Col size='auto' style={{ textAlign: 'center' }}>
                     <Fragment>
                       <Typeahead
+                        disabled={this.props.assignAndUpdateTicketAPICallStatus.requested}
                         onChange={(selectedOption) => this.onAssigneeSelection(selectedOption)}
                         bsSize='small'
                         labelKey={option => `${option.firstName} ${option.lastName}`}
@@ -303,6 +306,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
                 <Row style={{ marginTop: '2%' }}>
                   <Col style={{ textAlign: 'center' }}>
                     <Button
+                      disabled = {this.props.assignAndUpdateTicketAPICallStatus.requested}
                       onClick={this.onSubmitAssignTicket}
                       style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Assign</Button>
                   </Col>
@@ -326,7 +330,8 @@ const mapStateToProps = function (state) {
     engineers: state.engineerList.engineers,
     fetchTicketDetailsAPICallStatus: state.serviceCallStatus.fetchTicketDetailsAPI,
     fetchAssignedTicketDetailsAPICallStatus: state.serviceCallStatus.fetchAssignedTicketDetailsAPI,
-    fetchEngineersAPICallStatus: state.serviceCallStatus.fetchEngineersAPI
+    fetchEngineersAPICallStatus: state.serviceCallStatus.fetchEngineersAPI,
+    assignAndUpdateTicketAPICallStatus: state.serviceCallStatus.assignAndUpdateTicketAPI
 
   }
 }
