@@ -13,6 +13,8 @@ import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import 'react-bootstrap-typeahead/css/Typeahead-bs4.css';
 import { fetchEngineersAPICall } from '../actions/UserActions';
+import SuccessAlertWithTick from '../components/SuccessAlertWithTick';
+import { HalfCircleSpinner } from 'react-epic-spinners';
 
 class ViewTicketBundleDetailsForm extends React.Component {
 
@@ -303,14 +305,35 @@ class ViewTicketBundleDetailsForm extends React.Component {
                   </Col>
 
                 </Row>
-                <Row style={{ marginTop: '2%' }}>
-                  <Col style={{ textAlign: 'center' }}>
+                {!this.props.assignAndUpdateTicketAPICallStatus.success 
+                  && <Row style={{ marginTop: '2%' }}>
+                  <Col sm='8'
+                  style={{ textAlign: 'right' }}>
                     <Button
                       disabled = {this.props.assignAndUpdateTicketAPICallStatus.requested}
                       onClick={this.onSubmitAssignTicket}
-                      style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Assign</Button>
+                      style={{ paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Assign</Button>
                   </Col>
-                </Row>
+                  {this.props.assignAndUpdateTicketAPICallStatus.requested && <Col sm='4' style={{
+                    paddingTop:'2%',
+                    paddingLeft:'0px'
+                  }}>
+                    <HalfCircleSpinner 
+                    color='green' 
+                    size='20'>
+
+                    </HalfCircleSpinner>
+
+                  </Col>}
+                </Row>}
+                {this.props.assignAndUpdateTicketAPICallStatus.success 
+                  && <Row style={{ marginTop: '2%' }}>
+                  <Col 
+                  style={{ textAlign: 'center' }}>
+                  <SuccessAlertWithTick>
+                  </SuccessAlertWithTick>
+                  </Col>
+                </Row>}
               </div>}
           </div>}
 
