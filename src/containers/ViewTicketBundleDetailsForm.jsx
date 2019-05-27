@@ -29,7 +29,9 @@ class ViewTicketBundleDetailsForm extends React.Component {
       commentedOn: '',
       isUpload: false,
       assignedTo: '',
-      showSelectTicketMsg: this.props.showSelectTicketMsg
+      showSelectTicketMsg: this.props.showSelectTicketMsg,
+      isAlertSectionVisible: false,
+      isAssignButtonSection: true
 
     };
 
@@ -103,6 +105,8 @@ class ViewTicketBundleDetailsForm extends React.Component {
     e.preventDefault();
     this.setState((prevState, props) => ({
       status: TicketStatus.OPEN,
+      isAlertSectionVisible: true,
+      isAssignButtonSection: false
     }), () => {
       this.props.assignTicket(this.props.ticket.id, {
         status: this.state.status,
@@ -305,35 +309,52 @@ class ViewTicketBundleDetailsForm extends React.Component {
                   </Col>
 
                 </Row>
-                {!this.props.assignAndUpdateTicketAPICallStatus.success 
-                  && <Row style={{ marginTop: '2%' }}>
-                  <Col sm='8'
-                  style={{ textAlign: 'right' }}>
+                {this.state.isAssignButtonSection && <Row style={{ marginTop: '2%' }}>
+                  <Col sm='12'
+                    style={{ textAlign: 'center' }}>
                     <Button
-                      disabled = {this.props.assignAndUpdateTicketAPICallStatus.requested}
+                      disabled={false}
                       onClick={this.onSubmitAssignTicket}
-                      style={{ paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Assign</Button>
+                      style={{
+                        paddingTop: '0',
+                        paddingBottom: '0'
+                      }} size="sm" outline color="success">Assign</Button>
                   </Col>
-                  {this.props.assignAndUpdateTicketAPICallStatus.requested && <Col sm='4' style={{
-                    paddingTop:'2%',
-                    paddingLeft:'0px'
-                  }}>
-                    <HalfCircleSpinner 
-                    color='green' 
-                    size='20'>
-
-                    </HalfCircleSpinner>
-
-                  </Col>}
                 </Row>}
-                {this.props.assignAndUpdateTicketAPICallStatus.success 
+                {this.props.assignAndUpdateTicketAPICallStatus.requested
                   && <Row style={{ marginTop: '2%' }}>
-                  <Col 
-                  style={{ textAlign: 'center' }}>
-                  <SuccessAlertWithTick>
-                  </SuccessAlertWithTick>
-                  </Col>
-                </Row>}
+                    <Col sm='8'
+                      style={{ textAlign: 'right' }}>
+                      <Button
+                        disabled={true}
+                        onClick={this.onSubmitAssignTicket}
+                        style={{
+                          paddingTop: '0',
+                          paddingBottom: '0',
+                          marginRight: '1%'
+                        }} size="sm" outline color="success">Assigning...</Button>
+                    </Col>
+                    <Col sm='4' style={{
+                      paddingTop: '2%',
+                      paddingLeft: '0px'
+                    }}>
+                      <HalfCircleSpinner
+                        color='green'
+                        size='20'>
+
+                      </HalfCircleSpinner>
+                    </Col>
+                  </Row>}
+                {this.state.isAlertSectionVisible
+                  &&
+                  this.props.assignAndUpdateTicketAPICallStatus.success
+                  && <Row style={{ marginTop: '2%' }}>
+                    <Col
+                      style={{ textAlign: 'center' }}>
+                      <SuccessAlertWithTick>
+                      </SuccessAlertWithTick>
+                    </Col>
+                  </Row>}
               </div>}
           </div>}
 
