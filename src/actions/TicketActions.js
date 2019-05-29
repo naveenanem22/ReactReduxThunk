@@ -481,16 +481,16 @@ export function assignAndUpdateTicketAPICall(ticketId, params) {
         })
             .then(
                 response => {
+
                     if (response.status === 204) {
                         dispatch(assignAndUpdateTicketSuccess());
                     }
+                    if (response.status === 500) {
+                        dispatch(assignAndUpdateTicketFailure());
+                    }
 
-                },
-                error => {
-                    console.log('An error occurred.', error);
-                    dispatch(assignAndUpdateTicketFailure());
                 }
-            );
+            )
     };
 }
 

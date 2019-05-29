@@ -14,6 +14,7 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 import 'react-bootstrap-typeahead/css/Typeahead-bs4.css';
 import { fetchEngineersAPICall } from '../actions/UserActions';
 import SuccessAlertWithTick from '../components/SuccessAlertWithTick';
+import FailureAlertWithIcon from '../components/FailureAlertWithIcon';
 import { HalfCircleSpinner } from 'react-epic-spinners';
 
 class ViewTicketBundleDetailsForm extends React.Component {
@@ -353,6 +354,16 @@ class ViewTicketBundleDetailsForm extends React.Component {
                       style={{ textAlign: 'center' }}>
                       <SuccessAlertWithTick>
                       </SuccessAlertWithTick>
+                    </Col>
+                  </Row>}
+                {this.state.isAlertSectionVisible
+                  &&
+                  this.props.assignAndUpdateTicketAPICallStatus.error
+                  && <Row style={{ marginTop: '2%' }}>
+                    <Col
+                      style={{ textAlign: 'center' }}>
+                      <FailureAlertWithIcon>
+                      </FailureAlertWithIcon>
                     </Col>
                   </Row>}
               </div>}
