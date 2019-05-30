@@ -10,7 +10,7 @@ import TicketDetailCard from '../components/TicketDetailCard';
 import { fetchTicketsAPICall } from '../actions/TicketActions';
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
-import { Role } from '../masterdata/ApplicationMasterData';
+import { Role, TicketStatus } from '../masterdata/ApplicationMasterData';
 import { componentInfoObj } from '../masterdata/ApplicationMasterData';
 
 
@@ -71,6 +71,24 @@ class ViewTicketsForm extends React.Component {
           status: params.status,
           sortBy: 'ticketId'
         });
+      }
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log("From inside of componentdidupdate");
+    
+    if (this.props.assignAndUpdateTicketAPICallStatus.success !==
+      prevProps.assignAndUpdateTicketAPICallStatus.success) {
+
+
+      console.log("Ticket assigned successfully. Reload the Tickets to be assigned.");
+      //Fetching tickets post ticket update
+      if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
+          this.props.fetchTickets({
+            status: TicketStatus.NEW,
+            sortBy: 'ticketId'
+          });
       }
     }
   }
@@ -149,7 +167,8 @@ const mapStateToProps = function (state) {
     user: state.user,
     engineers: state.engineerList.engineers,
     fetchTicketsAPICallStatus: state.serviceCallStatus.fetchTicketsAPI,
-    fetchAssignedTicketsAPICallStatus: state.serviceCallStatus.fetchAssignedTicketsAPI
+    fetchAssignedTicketsAPICallStatus: state.serviceCallStatus.fetchAssignedTicketsAPI,
+    assignAndUpdateTicketAPICallStatus: state.serviceCallStatus.assignAndUpdateTicketAPI
 
   }
 }
