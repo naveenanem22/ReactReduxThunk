@@ -16,7 +16,7 @@ import { fetchEngineersAPICall } from '../actions/UserActions';
 import SuccessAlertWithTick from '../components/SuccessAlertWithTick';
 import FailureAlertWithIcon from '../components/FailureAlertWithIcon';
 import { HalfCircleSpinner } from 'react-epic-spinners';
-import {getURLParams} from '../util/UIUtils';
+import { getURLParams } from '../util/UIUtils';
 
 class ViewTicketBundleDetailsForm extends React.Component {
 
@@ -167,6 +167,8 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
   render() {
     console.log("Inside viewticktbundledetailsform");
+    console.log(this.props);
+    console.log(this.state);
     return (
       <div>
         {(this.props.fetchTicketDetailsAPICallStatus.requested
@@ -284,50 +286,52 @@ class ViewTicketBundleDetailsForm extends React.Component {
               </div>
             }
             {localStorage.getItem('role') === Role.ROLE_MANAGER &&
-            this.state.isAssignButtonSectionVisible &&
-            (getURLParams().cioKey === 'AT') &&
+              (getURLParams().cioKey === 'AST') &&
 
               <div>
-                <Row style={{ marginTop: '5%' }}>
-                  <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Assigned To:</Col>
-                </Row>
-                <Row style={{ marginTop: '2%' }}>
-                  <Col size='auto' style={{ textAlign: 'center' }}>
-                    <Fragment>
-                      <Typeahead
-                        disabled={this.props.assignAndUpdateTicketAPICallStatus.requested}
-                        onChange={(selectedOption) => this.onAssigneeSelection(selectedOption)}
-                        bsSize='small'
-                        labelKey={option => `${option.firstName} ${option.lastName}`}
-                        dropup={true}
-                        options={this.props.engineers}
-                        /* options={[{ firstName: 'Art', lastName: 'Blakey', userName: 'art.blakey@pmapi.com' },
-                        { firstName: 'Jimmy', lastName: 'Cobb', userName: 'jimmy.cobb@pmapi.com' },
-                        { firstName: 'Elvin', lastName: 'Jones', userName: 'elvin.jones@pmapi.com' },
-                        { firstName: 'Max', lastName: 'Roach', userName: 'max.roach@pmapi.com' },
-                        { firstName: 'Tony', lastName: 'Williams', userName: 'tony.williams@pmapi.com' }]} */
-                        placeholder="Choose an Engineer..."
-                      />
-                    </Fragment>
-                  </Col>
+                {this.state.isAssignButtonSectionVisible &&
+                  <div>
+                    <Row style={{ marginTop: '5%' }}>
+                      <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Assigned To:</Col>
+                    </Row>
+                    <Row style={{ marginTop: '2%' }}>
+                      <Col size='auto' style={{ textAlign: 'center' }}>
+                        <Fragment>
+                          <Typeahead
+                            disabled={this.props.assignAndUpdateTicketAPICallStatus.requested}
+                            onChange={(selectedOption) => this.onAssigneeSelection(selectedOption)}
+                            bsSize='small'
+                            labelKey={option => `${option.firstName} ${option.lastName}`}
+                            dropup={true}
+                            options={this.props.engineers}
+                            /* options={[{ firstName: 'Art', lastName: 'Blakey', userName: 'art.blakey@pmapi.com' },
+                            { firstName: 'Jimmy', lastName: 'Cobb', userName: 'jimmy.cobb@pmapi.com' },
+                            { firstName: 'Elvin', lastName: 'Jones', userName: 'elvin.jones@pmapi.com' },
+                            { firstName: 'Max', lastName: 'Roach', userName: 'max.roach@pmapi.com' },
+                            { firstName: 'Tony', lastName: 'Williams', userName: 'tony.williams@pmapi.com' }]} */
+                            placeholder="Choose an Engineer..."
+                          />
+                        </Fragment>
+                      </Col>
 
-                </Row>
-                {this.state.isAssignButtonSectionVisible && 
-                (localStorage.getItem('role') === Role.ROLE_MANAGER) &&
-                (getURLParams().cioKey === 'AT') &&
+                    </Row>
+                  </div>}
+                {this.state.isAssignButtonSectionVisible &&
+                  (localStorage.getItem('role') === Role.ROLE_MANAGER) &&
+                  (getURLParams().cioKey === 'AST') &&
 
-                <Row style={{ marginTop: '2%' }}>
-                  <Col sm='12'
-                    style={{ textAlign: 'center' }}>
-                    <Button
-                      disabled={false}
-                      onClick={this.onSubmitAssignTicket}
-                      style={{
-                        paddingTop: '0',
-                        paddingBottom: '0'
-                      }} size="sm" outline color="success">Assign</Button>
-                  </Col>
-                </Row>}
+                  <Row style={{ marginTop: '2%' }}>
+                    <Col sm='12'
+                      style={{ textAlign: 'center' }}>
+                      <Button
+                        disabled={false}
+                        onClick={this.onSubmitAssignTicket}
+                        style={{
+                          paddingTop: '0',
+                          paddingBottom: '0'
+                        }} size="sm" outline color="success">Assign</Button>
+                    </Col>
+                  </Row>}
                 {this.props.assignAndUpdateTicketAPICallStatus.requested
                   && <Row style={{ marginTop: '2%' }}>
                     <Col sm='8'

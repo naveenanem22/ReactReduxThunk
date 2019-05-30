@@ -57,7 +57,7 @@ class SideNavBar extends React.Component {
     //history.push("/ticketmanage/tickets?status="+TicketStatus.NEW);
     history.push({
       pathname: "/ticketmanage/tickets",
-      search: '?status='+TicketStatus.NEW+'&'+'cioKey=AT'
+      search: '?status='+TicketStatus.NEW+'&'+'cioKey=AST'
     });
     /* this.props.fetchTickets({
       status: TicketStatus.NEW,
