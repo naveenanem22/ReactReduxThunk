@@ -249,6 +249,9 @@ export function createTicketAPICall(ticket) {
                         dispatch(createTicketSuccess());
                         return response.statusText;
                     }
+                    if (response.status === 500) {
+                        dispatch(createTicketFailure());
+                    }
                 },
                 error => {
                     dispatch(createTicketFailure());

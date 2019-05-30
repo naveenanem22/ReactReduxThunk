@@ -5,8 +5,9 @@ import { createTicketAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
 import { ScaleLoader } from 'react-spinners';
 import { TicketStatus, TicketStatusCode, TicketType, TicketTypeCode, Priority, PriorityCode } from '../masterdata/ApplicationMasterData';
-import {componentInfoObj} from '../masterdata/ApplicationMasterData';
+import { componentInfoObj } from '../masterdata/ApplicationMasterData';
 import queryString from 'query-string';
+import { HalfCircleSpinner } from 'react-epic-spinners';
 
 class CreateNewTicketForm extends React.Component {
 
@@ -45,7 +46,7 @@ class CreateNewTicketForm extends React.Component {
     this.setState((prevState, props) => ({
       isAlertVisible: false
     }), () => {
-      history.push("/ticketing/tickets?status="+TicketStatus.ALL);
+      history.push("/ticketing/tickets?status=" + TicketStatus.ALL);
     });
   }
 
@@ -60,8 +61,8 @@ class CreateNewTicketForm extends React.Component {
     e.preventDefault();
     this.setState((prevState, props) => ({
       status: TicketStatus.NEW,
-      isCreateTicketFormVisible: false,
-      isAlertSectionVisible:true
+      //isCreateTicketFormVisible: false,
+      isAlertSectionVisible: true
 
     }), () => {
       this.props.onCreateTicket(this.state);
@@ -76,124 +77,165 @@ class CreateNewTicketForm extends React.Component {
       [e.target.name]: e.target.files[0]
     })
   }
+
+  componentDidUpdate(prevProps) {
+    //Check the change in value(false -> true) for createTicketAPICallStatus.success 
+    //and createTicketAPICallStatus.error.
+    if (this.props.createTicketAPICallStatus.success === true &&
+      this.props.createTicketAPICallStatus.success !== prevProps.createTicketAPICallStatus.success) {
+      console.log("Create ticket success. Now hide the CreateTicketForm");
+      this.setState({
+        isCreateTicketFormVisible: false
+      })
+    }
+
+    if (this.props.createTicketAPICallStatus.error === true &&
+      this.props.createTicketAPICallStatus.error !== prevProps.createTicketAPICallStatus.error) {
+      console.log("Create ticket failure. Now hide the CreateTicketForm");
+      this.setState({
+        isCreateTicketFormVisible: false
+      })
+    }
+  }
   render() {
     //Processing ttsKey to fetch Form Title and SubTitle data
+    console.log(this.props);
     const params = queryString.parse(history.location.search);
-    
-    const title = params.cioKey? componentInfoObj.getInfo(params.cioKey).title: componentInfoObj.getDefaultInfo().title;
-    const subTitle = params.cioKey? componentInfoObj.getInfo(params.cioKey).subTitle: componentInfoObj.getDefaultInfo().subTitle;
+
+    const title = params.cioKey ? componentInfoObj.getInfo(params.cioKey).title : componentInfoObj.getDefaultInfo().title;
+    const subTitle = params.cioKey ? componentInfoObj.getInfo(params.cioKey).subTitle : componentInfoObj.getDefaultInfo().subTitle;
 
 
     return (
-      <div style={{ overflowX:'hidden', overflowY:'auto', height:'100%', marginLeft: '1%', marginRight: '1%' }}>
+      <div style={{ overflowX: 'hidden', overflowY: 'auto', height: '100%', marginLeft: '1%', marginRight: '1%' }}>
 
 
-        {this.state.isCreateTicketFormVisible && <Form>
-          <FormGroup>
-            <Container style={{ marginTop: '2%' }}>
-              <Row style={{ textAlign: 'left' }}>
-                <h4>{title}</h4>
-              </Row>
-              <Row style={{ textAlign: 'left' }}>
-                <p>{subTitle}</p>
+        {this.state.isCreateTicketFormVisible
+          &&
+          <Form>
+            <FormGroup>
+              <Container style={{ marginTop: '2%' }}>
+                <Row style={{ textAlign: 'left' }}>
+                  <h4>{title}</h4>
+                </Row>
+                <Row style={{ textAlign: 'left' }}>
+                  <p>{subTitle}</p>
+                </Row>
+              </Container>
+              <hr />
+            </FormGroup>
+            <Container style={{ marginTop: '3%' }}>
+              <FormGroup>
+                <Label for="ticketTitle">Title</Label>
+                <Input type="text" name="ticketTitle" id="ticketTitle"
+                  value={this.state.ticketTitle} onChange={this.handleChange} required />
+              </FormGroup>
+              <FormGroup>
+                <Label for="ticketDescription">Description</Label>
+                <Input type="textarea" name="ticketDescription" id="ticketDescription"
+                  value={this.state.titleDescription}
+                  onChange={this.handleChange} required />
+              </FormGroup>
+              <FormGroup>
+                <Label for="department">Department</Label>
+                <Input type="select" name="department" id="department" value={this.state.department} onChange={this.handleChange} required>
+                  <option>Choose department...</option>
+                  {this.props.departments.map((department) =>
+                    <option>{department.name}</option>
+                  )}
+
+                </Input>
+              </FormGroup>
+              <FormGroup>
+                <Label for="priority">Priority</Label>
+                <Input type="select" name="priority" id="priority" value={this.state.priority} onChange={this.handleChange} required>
+                  <option>Choose priority...</option>
+                  <option>{Priority.HIGH}</option>
+                  <option>{Priority.LOW}</option>
+                  <option>{Priority.MEDIUM}</option>
+                </Input>
+              </FormGroup>
+              <FormGroup>
+                <Label for="serviceCategory">Category</Label>
+                <Input type="select" name="serviceCategory" id="serviceCategory" value={this.state.serviceCategory}
+                  onChange={this.handleChange}
+                  required>
+                  <option>Choose category...</option>
+                  {this.props.serviceCategories.map((serviceCategory) =>
+                    <option>{serviceCategory.name}</option>
+                  )}
+                </Input>
+              </FormGroup>
+              <FormGroup>
+                <Label for="officeLocation">Office</Label>
+                <Input type="select" name="officeLocation" id="officeLocation" value={this.state.officeLocation}
+                  onChange={this.handleChange}
+                  required>
+                  <option>Choose office...</option>
+                  <option>Office-Hyderabad</option>
+                  <option>Office-Bangalore</option>
+                  <option>Office-Chennai</option>
+                </Input>
+              </FormGroup>
+              <FormGroup>
+                <Label for="deskNumber">Desk</Label>
+                <Input type="text" name="deskNumber" id="deskNumber"
+                  value={this.state.deskNumber}
+                  onChange={this.handleChange}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="serviceType">Type</Label>
+                <Input type="select" name="serviceType" id="serviceType"
+                  value={this.state.serviceType}
+                  onChange={this.handleChange}
+                  required>
+                  <option>--Select--</option>
+                  <option>{TicketType.TASK}</option>
+                  <option>{TicketType.ISSUE}</option>
+                  <option>{TicketType.PROBLEM}</option>
+                </Input>
+              </FormGroup>
+              <FormGroup>
+                <Label for="notes">Additional Information</Label>
+                <Input type="textarea" name="additionalInfo" id="additionalInfo"
+                  value={this.state.additionalInfo}
+                  onChange={this.handleChange}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="attachments">Attachments</Label>
+                <Input type="file" name="file1" id="file1" onChange={this.onFileUpload} />
+                <Input type="file" name="file2" id="file2" onChange={this.onFileUpload} />
+                <Input type="file" name="file3" id="file3" onChange={this.onFileUpload} />
+                <FormText color="muted">
+                  Any files that can assist the corresponding team to resolve the issues at the earliest.
+          </FormText>
+              </FormGroup>
+              <Row>
+                <Col sm='auto'>
+                  <Button color="success" type="submit" bsSize="large"
+                    onClick={this.onSubmitCreateTicket}>Create Ticket</Button>
+                </Col>
+                {this.props.createTicketAPICallStatus.requested
+                  &&
+                  <Col sm='auto' style={{
+                    paddingTop: '1%'
+                  }}>
+                    <HalfCircleSpinner
+                      size='20'
+                      color='green'>
+
+                    </HalfCircleSpinner>
+
+                  </Col>}
+
+
               </Row>
             </Container>
-            <hr />
-          </FormGroup>
-          <Container style={{ marginTop: '3%' }}>
-            <FormGroup>
-              <Label for="ticketTitle">Title</Label>
-              <Input type="text" name="ticketTitle" id="ticketTitle"
-                value={this.state.ticketTitle} onChange={this.handleChange} required />
-            </FormGroup>
-            <FormGroup>
-              <Label for="ticketDescription">Description</Label>
-              <Input type="textarea" name="ticketDescription" id="ticketDescription"
-                value={this.state.titleDescription}
-                onChange={this.handleChange} required />
-            </FormGroup>
-            <FormGroup>
-              <Label for="department">Department</Label>
-              <Input type="select" name="department" id="department" value={this.state.department} onChange={this.handleChange} required>
-                <option>Choose department...</option>
-                {this.props.departments.map((department) =>
-                  <option>{department.name}</option>
-                )}
+          </Form>}
 
-              </Input>
-            </FormGroup>
-            <FormGroup>
-              <Label for="priority">Priority</Label>
-              <Input type="select" name="priority" id="priority" value={this.state.priority} onChange={this.handleChange} required>
-                <option>Choose priority...</option>
-                <option>{Priority.HIGH}</option>
-                <option>{Priority.LOW}</option>
-                <option>{Priority.MEDIUM}</option>
-              </Input>
-            </FormGroup>
-            <FormGroup>
-              <Label for="serviceCategory">Category</Label>
-              <Input type="select" name="serviceCategory" id="serviceCategory" value={this.state.serviceCategory}
-                onChange={this.handleChange}
-                required>
-                <option>Choose category...</option>
-                {this.props.serviceCategories.map((serviceCategory) =>
-                  <option>{serviceCategory.name}</option>
-                )}
-              </Input>
-            </FormGroup>
-            <FormGroup>
-              <Label for="officeLocation">Office</Label>
-              <Input type="select" name="officeLocation" id="officeLocation" value={this.state.officeLocation}
-                onChange={this.handleChange}
-                required>
-                <option>Choose office...</option>
-                <option>Office-Hyderabad</option>
-                <option>Office-Bangalore</option>
-                <option>Office-Chennai</option>
-              </Input>
-            </FormGroup>
-            <FormGroup>
-              <Label for="deskNumber">Desk</Label>
-              <Input type="text" name="deskNumber" id="deskNumber"
-                value={this.state.deskNumber}
-                onChange={this.handleChange}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="serviceType">Type</Label>
-              <Input type="select" name="serviceType" id="serviceType"
-                value={this.state.serviceType}
-                onChange={this.handleChange}
-                required>
-                <option>--Select--</option>
-                <option>{TicketType.TASK}</option>
-                <option>{TicketType.ISSUE}</option>
-                <option>{TicketType.PROBLEM}</option>
-              </Input>
-            </FormGroup>
-            <FormGroup>
-              <Label for="notes">Additional Information</Label>
-              <Input type="textarea" name="additionalInfo" id="additionalInfo"
-                value={this.state.additionalInfo}
-                onChange={this.handleChange}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="attachments">Attachments</Label>
-              <Input type="file" name="file1" id="file1" onChange={this.onFileUpload} />
-              <Input type="file" name="file2" id="file2" onChange={this.onFileUpload} />
-              <Input type="file" name="file3" id="file3" onChange={this.onFileUpload} />
-              <FormText color="muted">
-                Any files that can assist the corresponding team to resolve the issues at the earliest.
-          </FormText>
-            </FormGroup>
-            <Button color="success" type="submit" bsSize="large"
-              onClick={this.onSubmitCreateTicket}>Create Ticket</Button>
-          </Container>
-        </Form>}
-
-        {this.props.createTicketAPICallStatus.requested && <div className='view-ticket-loading'>
+        {false && this.props.createTicketAPICallStatus.requested && <div className='view-ticket-loading'>
           <ScaleLoader
             color='#00d8ff'
             loading='true'
@@ -201,7 +243,7 @@ class CreateNewTicketForm extends React.Component {
         </div>
         }
 
-        
+
         {this.state.isAlertSectionVisible && this.props.createTicketAPICallStatus.success && <div>
           <Alert color="success" isOpen={this.state.isAlertVisible} toggle={this.onDismissAlert}>
             <h4 className="alert-heading">Well done!</h4>
@@ -216,7 +258,20 @@ class CreateNewTicketForm extends React.Component {
         </p>
           </Alert>
         </div>}
-        
+
+        {this.state.isAlertSectionVisible && this.props.createTicketAPICallStatus.error && <div>
+          <Alert color="danger" isOpen={this.state.isAlertVisible} toggle={this.onDismissAlert}>
+            <h4 className="alert-heading">Failure!</h4>
+            <p>
+              Ticket creation unsuccessful.
+        </p>
+            <hr />
+            <p className="mb-0">
+              Please try again.
+        </p>
+          </Alert>
+        </div>}
+
 
       </div>
     );
