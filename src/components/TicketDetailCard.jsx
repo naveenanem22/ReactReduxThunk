@@ -31,13 +31,13 @@ class TicketDetailCard extends React.Component {
                     <Row>
                         <Col sm='8'>
                             <Row><Col style={{ fontSize: '90%', fontWeight: 600, color: '#222426' }}>{this.state.ticket.title}</Col></Row>
-                            <Row><Col style={{ fontSize: '90%', fontWeight: 300, color: '#222426' }}>Internet connectivity to personal device is requested as per project neeed.</Col></Row>
+                            <Row><Col style={{ fontSize: '90%', fontWeight: 300, color: '#222426' }}>Need internet connectivity based on the project demand and {this.state.ticket.description}</Col></Row>
 
                         </Col>
                         <Col sm='4' style={{ borderLeft: '1px solid rgba(0,0,0,.125)' }}>
                             <Row><Col sm='5' style={{ fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingRight: '0' }}><i>Status</i></Col><Col sm='7' style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingLeft: '0', paddingRight: '0' }}>: {this.state.ticket.status}</Col></Row>
                             <Row><Col sm='5' style={{ fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingRight: '0' }}><i>Days Open</i></Col><Col sm='7' style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingLeft: '0', paddingRight: '0' }}>: 28</Col></Row>
-                            <Row><Col sm='5' style={{ fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingRight: '0' }}><i>Department</i></Col><Col sm='7' style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingLeft: '0', paddingRight: '0' }}>: Network Admin</Col></Row>
+                            <Row><Col sm='5' style={{ fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingRight: '0' }}><i>Department</i></Col><Col sm='7' style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingLeft: '0', paddingRight: '0' }}>: {this.state.ticket.department.name}</Col></Row>
                             <Row><Col sm='5' style={{ fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingRight: '0' }}><i>Updated On</i></Col><Col sm='7' style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingLeft: '0', paddingRight: '0' }}>: {this.state.ticket.updatedDate}</Col></Row>
                         </Col>
                     </Row>

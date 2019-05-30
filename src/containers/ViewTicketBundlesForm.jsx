@@ -95,6 +95,8 @@ class ViewTicketsForm extends React.Component {
 
   render() {
     //Initialize suggestions array with names from engineers array
+    console.log("Tickets...");
+    console.log(this.props.tickets);
     var suggestions = [];
     this.props.engineers.forEach(engineer => {
       suggestions.push({ name: engineer.userFullName });
