@@ -1,11 +1,12 @@
 import React from 'react';
-import { Button, Form, FormGroup, FormFeedback, Label, Input, Container, Col } from 'reactstrap';
+import {Row, Button, Form, FormGroup, FormFeedback, Label, Input, Container, Col } from 'reactstrap';
 import { loginAPICall } from '../actions/UserActions'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { fetchTicketsAPICall } from '../actions/TicketActions'
 import { Role } from '../masterdata/ApplicationMasterData';
 import history from '../history';
+import { HalfCircleSpinner } from 'react-epic-spinners';
 
 class LoginForm extends React.Component {
 
@@ -51,11 +52,11 @@ class LoginForm extends React.Component {
         break;
 
       case Role.ROLE_MANAGER:
-      history.push({
-        pathname: "/ticketmanage/dashboard",
-        search: "?cioKey=MDB"
-      });
-      break;
+        history.push({
+          pathname: "/ticketmanage/dashboard",
+          search: "?cioKey=MDB"
+        });
+        break;
 
       default:
         return;
@@ -99,7 +100,23 @@ class LoginForm extends React.Component {
               />
             </FormGroup>
           </Col>
-          <Button onClick={this.onSubmitLogin}>Submit</Button>
+          <Row>
+            <Col sm='auto' style={{
+              textAlign : 'left'
+            }}>
+              <Button onClick={this.onSubmitLogin}>Submit</Button>
+            </Col>
+            <Col sm='auto' style={{
+              textAlign: 'left',
+              paddingTop:'1%'
+            }}>
+              {this.props.loginAPICallStatus.requested && <HalfCircleSpinner
+                color='green'
+                size='20'></HalfCircleSpinner>}
+            </Col>
+
+          </Row>
+
         </Form>
       </Container>
     );
@@ -115,7 +132,8 @@ const mapStateToProps = function (state) {
   return {
     user: state.user,
     isLoginFailure: state.user.isLoginFailure,
-    loginFailureMessage: state.user.loginFailureMessage
+    loginFailureMessage: state.user.loginFailureMessage,
+    loginAPICallStatus: state.serviceCallStatus.loginAPI
   }
 }
 

@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, FETCH_ENGINEERS_SUCCESS, FETCH_ENGINEERS, FETCH_ENGINEERS_FAILURE } from './ActionTypes';
+import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, FETCH_ENGINEERS_SUCCESS, FETCH_ENGINEERS, FETCH_ENGINEERS_FAILURE, LOGIN } from './ActionTypes';
 export const UPDATE_USER = "users:updateUser";
 
 
@@ -9,6 +9,12 @@ export function updateUser(newUser) {
         payload: {
             user: newUser
         }
+    }
+}
+
+export function login(){
+    return {
+        type: LOGIN
     }
 }
 
@@ -102,6 +108,7 @@ export function loginAPICall(user) {
     headers.append('Content-Type', 'application/json');
 
     return function (dispatch) {
+        dispatch(login());
         return fetch(`http://localhost:8080/auth/login`, {
             method: 'POST',
             headers: headers,
