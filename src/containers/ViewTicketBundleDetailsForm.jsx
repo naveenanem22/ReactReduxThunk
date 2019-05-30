@@ -16,6 +16,7 @@ import { fetchEngineersAPICall } from '../actions/UserActions';
 import SuccessAlertWithTick from '../components/SuccessAlertWithTick';
 import FailureAlertWithIcon from '../components/FailureAlertWithIcon';
 import { HalfCircleSpinner } from 'react-epic-spinners';
+import {getURLParams} from '../util/UIUtils';
 
 class ViewTicketBundleDetailsForm extends React.Component {
 
@@ -32,7 +33,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
       assignedTo: '',
       showSelectTicketMsg: this.props.showSelectTicketMsg,
       isAlertSectionVisible: false,
-      isAssignButtonSection: true
+      isAssignButtonSectionVisible: true
 
     };
 
@@ -107,7 +108,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
     this.setState((prevState, props) => ({
       status: TicketStatus.OPEN,
       isAlertSectionVisible: true,
-      isAssignButtonSection: false
+      isAssignButtonSectionVisible: false
     }), () => {
       this.props.assignTicket(this.props.ticket.id, {
         status: this.state.status,
@@ -166,8 +167,6 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
   render() {
     console.log("Inside viewticktbundledetailsform");
-    console.log(this.state);
-    console.log(this.props);
     return (
       <div>
         {(this.props.fetchTicketDetailsAPICallStatus.requested
@@ -285,6 +284,9 @@ class ViewTicketBundleDetailsForm extends React.Component {
               </div>
             }
             {localStorage.getItem('role') === Role.ROLE_MANAGER &&
+            this.state.isAssignButtonSectionVisible &&
+            (getURLParams().cioKey === 'AT') &&
+
               <div>
                 <Row style={{ marginTop: '5%' }}>
                   <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Assigned To:</Col>
@@ -310,7 +312,11 @@ class ViewTicketBundleDetailsForm extends React.Component {
                   </Col>
 
                 </Row>
-                {this.state.isAssignButtonSection && <Row style={{ marginTop: '2%' }}>
+                {this.state.isAssignButtonSectionVisible && 
+                (localStorage.getItem('role') === Role.ROLE_MANAGER) &&
+                (getURLParams().cioKey === 'AT') &&
+
+                <Row style={{ marginTop: '2%' }}>
                   <Col sm='12'
                     style={{ textAlign: 'center' }}>
                     <Button
