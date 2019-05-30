@@ -4,7 +4,7 @@ import history from '../history';
 import { createTicketAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
 import { ScaleLoader } from 'react-spinners';
-import { TicketStatus, TicketStatusCode, TicketType, TicketTypeCode, Priority, PriorityCode } from '../masterdata/ApplicationMasterData';
+import { TicketStatus, TicketStatusCode, TicketType, TicketTypeCode, Priority, PriorityCode, Role } from '../masterdata/ApplicationMasterData';
 import { componentInfoObj } from '../masterdata/ApplicationMasterData';
 import queryString from 'query-string';
 import { HalfCircleSpinner } from 'react-epic-spinners';
@@ -44,8 +44,11 @@ class CreateNewTicketForm extends React.Component {
   onDismissAlert() {
     this.setState({ isAlertVisible: false });
     this.setState((prevState, props) => ({
-      isAlertVisible: false
+      isAlertSectionVisible: false
     }), () => {
+      if(localStorage.getItem('role') === Role.ROLE_MANAGER)
+      history.push("/ticketmanage/tickets?status=" + TicketStatus.ALL);
+      if(localStorage.getItem('role') === Role.ROLE_EMPLOYEE)
       history.push("/ticketing/tickets?status=" + TicketStatus.ALL);
     });
   }
@@ -245,7 +248,7 @@ class CreateNewTicketForm extends React.Component {
 
 
         {this.state.isAlertSectionVisible && this.props.createTicketAPICallStatus.success && <div>
-          <Alert color="success" isOpen={this.state.isAlertVisible} toggle={this.onDismissAlert}>
+          <Alert color="success" isOpen={true} toggle={this.onDismissAlert}>
             <h4 className="alert-heading">Well done!</h4>
             <p>
               Aww yeah, you successfully read this important alert message. This example text is going
@@ -260,7 +263,7 @@ class CreateNewTicketForm extends React.Component {
         </div>}
 
         {this.state.isAlertSectionVisible && this.props.createTicketAPICallStatus.error && <div>
-          <Alert color="danger" isOpen={this.state.isAlertVisible} toggle={this.onDismissAlert}>
+          <Alert color="danger" isOpen={true} toggle={this.onDismissAlert}>
             <h4 className="alert-heading">Failure!</h4>
             <p>
               Ticket creation unsuccessful.
