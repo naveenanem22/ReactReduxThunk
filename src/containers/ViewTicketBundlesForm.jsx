@@ -77,7 +77,7 @@ class ViewTicketsForm extends React.Component {
 
   componentDidUpdate(prevProps) {
     console.log("From inside of componentdidupdate");
-    
+
     if (this.props.assignAndUpdateTicketAPICallStatus.success !==
       prevProps.assignAndUpdateTicketAPICallStatus.success) {
 
@@ -85,10 +85,10 @@ class ViewTicketsForm extends React.Component {
       console.log("Ticket assigned successfully. Reload the Tickets to be assigned.");
       //Fetching tickets post ticket update
       if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
-          this.props.fetchTickets({
-            status: TicketStatus.NEW,
-            sortBy: 'ticketId'
-          });
+        this.props.fetchTickets({
+          status: TicketStatus.NEW,
+          sortBy: 'ticketId'
+        });
       }
     }
   }
@@ -151,7 +151,9 @@ class ViewTicketsForm extends React.Component {
             this.props.fetchAssignedTicketsAPICallStatus.success)
             && this.props.tickets.map(ticket =>
               <Row style={{ marginBottom: '2%' }}>
-                <NavLink href="#" onClick={() => this.props.handleTicketBundleClick(ticket.id)}><TicketDetailCard ticket={ticket}></TicketDetailCard></NavLink>
+                <Col sm='12'>
+                  <NavLink href="#" onClick={() => this.props.handleTicketBundleClick(ticket.id)}><TicketDetailCard ticket={ticket}></TicketDetailCard></NavLink>
+                </Col>
               </Row>
             )}
         </Container>

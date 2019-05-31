@@ -30,8 +30,8 @@ class TicketDetailCard extends React.Component {
                 <CardBody style={{ paddingTop: '1%', paddingBottom: '1%' }}>
                     <Row>
                         <Col sm='8'>
-                            <Row><Col style={{ fontSize: '90%', fontWeight: 600, color: '#222426' }}>{this.state.ticket.title}</Col></Row>
-                            <Row><Col style={{ fontSize: '90%', fontWeight: 300, color: '#222426' }}>Need internet connectivity based on the project demand and {this.state.ticket.description}</Col></Row>
+                            <Row><Col sm='12' style={{ fontSize: '90%', fontWeight: 600, color: '#222426' }}>{this.state.ticket.title}</Col></Row>
+                            <Row><Col sm='12' style={{ fontSize: '90%', fontWeight: 300, color: '#222426' }}>Need internet connectivity based on the project demand and {this.state.ticket.description}</Col></Row>
 
                         </Col>
                         <Col sm='4' style={{ borderLeft: '1px solid rgba(0,0,0,.125)' }}>
