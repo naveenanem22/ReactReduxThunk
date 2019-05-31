@@ -25,7 +25,9 @@ class TicketDetailCard extends React.Component {
                     <Col sm='2' style={{ textAlign: 'left' }}><Badge color="danger">{this.state.ticket.priority}</Badge></Col>
                     <Col sm='4' style={{ textAlign: 'center' }}>{this.state.ticket.id}</Col>
                     <Col sm='3' style={{ textAlign: 'right', color: '#0000008a', fontSize: '80%', margin: '0', paddingRight: '0' }}><i>Created by</i></Col>
-                    <Col sm='3' style={{ textAlign: 'left', fontWeight: '500', color: '#0000008a', fontSize: '80%', margin: '0' }}>Naveen Kumar Anem</Col>
+                    <Col sm='3' style={{ textAlign: 'left', fontWeight: '500', color: '#0000008a', fontSize: '80%', margin: '0' }}>
+                        {this.state.ticket.createdBy.firstName + ' ' + this.state.ticket.createdBy.lastName}
+                    </Col>
                 </Row></CardHeader>
                 <CardBody style={{ paddingTop: '1%', paddingBottom: '1%' }}>
                     <Row>
