@@ -49,7 +49,7 @@ class TicketDetailCard extends React.Component {
                     <Row>
                         {false && <Col sm='8' style={{ textAlign: 'left' }}><Button style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Close</Button><Button style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginLeft: '1%' }} size="sm" outline color="warning">Message</Button></Col>}
                         <Col sm='auto' style={{ textAlign: 'left', color: '#0000008a', fontSize: '80%', margin: '0', paddingRight: '0' }}><i>Updated by</i></Col>
-                        <Col sm='2' style={{ textAlign: 'left', fontWeight: '500', color: '#0000008a', fontSize: '80%', margin: '0' }}>Mike Brenner</Col>
+                        <Col sm='auto' style={{ textAlign: 'left', fontWeight: '500', color: '#0000008a', fontSize: '80%', margin: '0' }}>Mike Brenner</Col>
                     </Row>
                 </CardFooter>
             </Card>
