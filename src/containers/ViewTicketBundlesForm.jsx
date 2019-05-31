@@ -152,7 +152,8 @@ class ViewTicketsForm extends React.Component {
             && this.props.tickets.map(ticket =>
               <Row style={{ marginBottom: '2%' }}>
                 <Col sm='12'>
-                  <NavLink href="#" onClick={() => this.props.handleTicketBundleClick(ticket.id)}><TicketDetailCard ticket={ticket}></TicketDetailCard></NavLink>
+                  <NavLink href="#" onClick={() => this.props.handleTicketBundleClick(ticket.id)}>
+                    <TicketDetailCard ticket={ticket}></TicketDetailCard></NavLink>
                 </Col>
               </Row>
             )}
