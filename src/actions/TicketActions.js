@@ -459,6 +459,10 @@ export function addMessageAPICall(params) {
                     if (response.status === 204) {
                         dispatch(addMessageSuccess());
                     }
+
+                    if(response.status === 500 || response.status === 400){
+                        dispatch(addMessageFailure());
+                    }
                 },
                 error => {
                     console.log('An error occurred.', error);

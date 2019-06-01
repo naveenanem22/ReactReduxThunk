@@ -10,7 +10,8 @@ import { ScaleLoader } from 'react-spinners';
 import history from '../history';
 import queryString from 'query-string';
 import { Role } from '../masterdata/ApplicationMasterData';
-import {componentInfoObj} from '../masterdata/ApplicationMasterData';
+import { componentInfoObj } from '../masterdata/ApplicationMasterData';
+import { HalfCircleSpinner } from 'react-epic-spinners';
 
 
 
@@ -82,14 +83,14 @@ class ViewTicketDetailsForm extends React.Component {
 
   onSubmitAddMessage(e) {
     e.preventDefault();
-    this.setState((prevState, props) => ({      
+    this.setState((prevState, props) => ({
       id: this.props.ticket.id,
       commentedOn: new Date(Date.now()).toISOString(),
       file1: this.state.isUpload ? prevState.file1 : undefined,
       file2: this.state.isUpload ? prevState.file2 : undefined,
       file3: this.state.isUpload ? prevState.file3 : undefined,
 
-      isViewTicketDetailsSectionVisible: false,
+      //isViewTicketDetailsSectionVisible: false,
       isAlertSectionVisible: true
     }), () => {
       this.props.addMessage(this.state);
@@ -109,7 +110,7 @@ class ViewTicketDetailsForm extends React.Component {
       file2: this.state.isUpload ? prevState.file2 : undefined,
       file3: this.state.isUpload ? prevState.file3 : undefined,
 
-      isViewTicketDetailsSectionVisible: false,
+      //isViewTicketDetailsSectionVisible: false,
       isAlertSectionVisible: true
     }), () => {
       this.props.closeTicket(this.state);
@@ -174,7 +175,7 @@ class ViewTicketDetailsForm extends React.Component {
     return (
 
       <div style={{ marginLeft: '1%', marginRight: '1%' }}>
-        {this.state.isViewTicketDetailsSectionVisible && <div>
+        {true && <div>
           <Container style={{ marginTop: '3%' }}>
             <Row style={{ textAlign: 'left' }}>
               <h4>{title}</h4>
@@ -307,10 +308,56 @@ class ViewTicketDetailsForm extends React.Component {
                           <Button onClick={this.toggleUpload} type="submit" outline color="secondary" bsSize="small"
                           >Attach Files</Button>
                         </Col>
-                        <Col style={{ 'text-align': 'right' }}>
-                          <Button type="submit" color="link" bsSize="small" onClick={this.onSubmitCloseTicket}>
-                            Close Ticket</Button>or
-                 <Button type="submit" color="info" bsSize="small" style={{ 'marginLeft': '2%' }} onClick={this.onSubmitAddMessage}>
+                        {this.props.closeTicketAPICallStatus.requested
+                         && <Col sm='auto' style={{
+                          textAlign: 'right',
+                          paddingTop: '1%',
+                          paddingRight: '0'
+                        }}>
+                          <HalfCircleSpinner
+                            size='20'
+                            color='blue'>
+                          </HalfCircleSpinner>
+                        </Col>}
+                        <Col sm='auto' style={{
+                          paddingLeft:'0',
+                          paddingRight:'0'
+                        }}>
+                          <Button disabled={this.props.closeTicketAPICallStatus.requested}
+                            type="submit"
+                            color="link"
+                            bsSize="small"
+                            onClick={this.onSubmitCloseTicket}>
+                            Close Ticket</Button>
+                        </Col>
+
+                        <Col sm='auto' style={{
+                          paddingTop: '0.7%',
+                          paddingLeft: '0',
+                          paddingRight: '0'
+                        }}>
+                          or
+                        </Col>
+                        {this.props.addMessageAPICallStatus.requested
+                         && <Col sm='auto' style={{
+                          textAlign: 'right',
+                          paddingTop: '1%',
+                          paddingRight: '0'
+                        }}>
+                          <HalfCircleSpinner
+                            size='20'
+                            color='blue'>
+                          </HalfCircleSpinner>
+                        </Col>}
+
+                        <Col sm='auto'>
+                          <Button
+                            type="submit"
+                            color="info"
+                            bsSize="small"
+                            disabled={this.props.addMessageAPICallStatus.requested}
+                            style={{ 'marginLeft': '2%' }}
+                            onClick={this.onSubmitAddMessage}>
                             Add Message</Button>
                         </Col>
                       </Row>
@@ -337,32 +384,32 @@ class ViewTicketDetailsForm extends React.Component {
             </div>}
         </div>}
 
-        {this.state.isAlertSectionVisible && <div>
+        {false && this.state.isAlertSectionVisible && <div>
           {(this.props.addMessageAPICallStatus.requested ||
             this.props.closeTicketAPICallStatus.requested
-            )&& <div className='view-ticket-loading'>
-            <ScaleLoader
-              color='#00d8ff'
-              loading='true'
-            />
-          </div>}
-          
+          ) && <div className='view-ticket-loading'>
+              <ScaleLoader
+                color='#00d8ff'
+                loading='true'
+              />
+            </div>}
+
           {(this.props.addMessageAPICallStatus.success ||
             this.props.closeTicketAPICallStatus.success
-            )&& <div>
-            <Alert color="success" isOpen={this.state.isAlertVisible} toggle={this.onDismissAlert}>
-              <h4 className="alert-heading">Well done!</h4>
-              <p>
-                Aww yeah, you successfully read this important alert message. This example text is going
-                to run a bit longer so that you can see how spacing within an alert works with this kind
-                of content.
+          ) && <div>
+              <Alert color="success" isOpen={this.state.isAlertVisible} toggle={this.onDismissAlert}>
+                <h4 className="alert-heading">Well done!</h4>
+                <p>
+                  Aww yeah, you successfully read this important alert message. This example text is going
+                  to run a bit longer so that you can see how spacing within an alert works with this kind
+                  of content.
         </p>
-              <hr />
-              <p className="mb-0">
-                Whenever you need to, be sure to use margin utilities to keep things nice and tidy.
+                <hr />
+                <p className="mb-0">
+                  Whenever you need to, be sure to use margin utilities to keep things nice and tidy.
         </p>
-            </Alert>
-          </div>}
+              </Alert>
+            </div>}
 
         </div>}
       </div>
@@ -376,7 +423,7 @@ const mapStateToProps = function (state) {
     fetchTicketDetailsAPICallStatus: state.serviceCallStatus.fetchTicketDetailsAPI,
     fetchCreatedTicketDetailsAPICallStatus: state.serviceCallStatus.fetchCreatedTicketDetailsAPI,
     addMessageAPICallStatus: state.serviceCallStatus.addMessageAPI,
-    closeTicketAPICallStatus : state.serviceCallStatus.closeTicketAPI
+    closeTicketAPICallStatus: state.serviceCallStatus.closeTicketAPI
   }
 }
 
