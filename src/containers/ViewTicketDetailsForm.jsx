@@ -1,9 +1,9 @@
 import React from 'react';
 import { addMessageAPICall, closeTicketAPICall, downloadAttachmentAPICall, fetchCreatedTicketDetailsAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
-import { Alert, Button, Row, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
+import { UncontrolledTooltip, Badge, Alert, Button, Row, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
 import { Table, NavLink } from 'reactstrap';
-import { FaFilePdf, FaFileAlt, FaFileImage, FaFile } from 'react-icons/fa';
+import { FaFilePdf, FaFileAlt, FaFileImage, FaFile, FaExclamationCircle } from 'react-icons/fa';
 import { loadFileIcon } from '../util/UIUtils';
 import { fetchTicketDetailsAPICall } from '../actions/TicketActions'
 import { ScaleLoader } from 'react-spinners';
@@ -229,8 +229,13 @@ class ViewTicketDetailsForm extends React.Component {
             && <div class="ticket-details-body">
 
               <Row>
-                <Col md={6} style={{ 'text-align': 'left', 'padding-top': '.75rem' }}><strong>Naveen Anem</strong> - naveen.anem@kony.com</Col>
-                <Col md={6} style={{ 'text-align': 'right', 'padding-top': '.75rem' }}>{ticket.createdDate}</Col>
+                <Col md={6} style={{ 'text-align': 'left', 'padding-top': '.75rem' }}><strong>{'Naveen'+' '+'Anem'}</strong> - naveen.anem@kony.com</Col>
+                <Col md={6} style={{ 'text-align': 'right', 'padding-top': '.75rem' }}>{ticket.createdDate}
+                  <span id='createdDateToolTip' href='#'>
+                    <FaExclamationCircle></FaExclamationCircle></span></Col>
+                <UncontrolledTooltip placement="right" target="createdDateToolTip">
+                  Created Date
+              </UncontrolledTooltip>
               </Row>
 
               <Row>
@@ -238,7 +243,10 @@ class ViewTicketDetailsForm extends React.Component {
               </Row>
               <hr />
               <Row>
-                <Col style={{ 'text-align': 'left', 'padding-top': '.30rem', 'padding-bottom': '.75rem' }}>{ticket.status}</Col>
+                <Col style={{ 'text-align': 'left', 'padding-top': '.30rem', 'padding-bottom': '.75rem' }}>
+                  <Badge color="primary">{ticket.status.toUpperCase()}</Badge>
+
+                </Col>
                 <Col style={{ 'text-align': 'left', 'padding-top': '.30rem', 'padding-bottom': '.75rem' }}>Updated: {ticket.updatedDate}</Col>
                 <Col style={{ 'text-align': 'right', 'padding-top': '.30rem', 'padding-bottom': '.75rem' }}>Ticket ID: {ticket.id}</Col>
               </Row>
