@@ -9,7 +9,7 @@ import { fetchTicketDetailsAPICall } from '../actions/TicketActions'
 import { ScaleLoader } from 'react-spinners';
 import history from '../history';
 import queryString from 'query-string';
-import { Role } from '../masterdata/ApplicationMasterData';
+import { Role, TicketStatus } from '../masterdata/ApplicationMasterData';
 import { componentInfoObj } from '../masterdata/ApplicationMasterData';
 import { HalfCircleSpinner } from 'react-epic-spinners';
 
@@ -28,8 +28,7 @@ class ViewTicketDetailsForm extends React.Component {
       commentedOn: '',
       isUpload: false,
       isViewTicketDetailsSectionVisible: true,
-      isAlertSectionVisible: false,
-      isAlertVisible: true
+      isAlertSectionVisible: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -43,24 +42,20 @@ class ViewTicketDetailsForm extends React.Component {
   }
 
   onDismissAlert() {
-    this.setState({ isAlertVisible: false });
-    this.setState((prevState, props) => ({
-      isAlertVisible: false
-    }), () => {
-      switch (localStorage.getItem('role')) {
-        case Role.ROLE_EMPLOYEE:
-          history.push("/ticketing/tickets?status=all");
-          break;
 
-        case Role.ROLE_ENGINEER:
-          history.push("/ticketmaint/tickets?status=all");
-          break;
+    switch (localStorage.getItem('role')) {
+      case Role.ROLE_EMPLOYEE:
+        history.push("/ticketing/tickets?status=all");
+        break;
 
-        default:
-          break;
-      }
+      case Role.ROLE_ENGINEER:
+        history.push("/ticketmaint/tickets?status=all");
+        break;
 
-    });
+      default:
+        break;
+    }
+
   }
 
   toggleUpload() {
@@ -105,7 +100,7 @@ class ViewTicketDetailsForm extends React.Component {
 
     this.setState((prevState, props) => ({
       commentedOn: new Date(Date.now()).toISOString(),
-      status: 'Closed',
+      status: TicketStatus.CLOSE,
       file1: this.state.isUpload ? prevState.file1 : undefined,
       file2: this.state.isUpload ? prevState.file2 : undefined,
       file3: this.state.isUpload ? prevState.file3 : undefined,
