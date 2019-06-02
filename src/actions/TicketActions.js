@@ -556,6 +556,10 @@ export function closeTicketAPICall(params) {
                     if (response.status === 204) {
                         dispatch(closeTicketSuccess());
                     }
+                    if(response.status === 500 || response.status === 400){
+                        console.log("Dispatching close ticket failure");
+                        dispatch(closeTicketFailure());
+                    }
 
                 },
                 error => {

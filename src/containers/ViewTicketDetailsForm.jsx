@@ -124,6 +124,40 @@ class ViewTicketDetailsForm extends React.Component {
     })
   }
 
+  componentDidUpdate(prevProps) {
+    //Comparing previous and current props to make the ViewTicketDetailsForm hide or visible.
+    if (this.props.addMessageAPICallStatus.success === true &&
+      this.props.addMessageAPICallStatus.success !== prevProps.addMessageAPICallStatus.success) {
+      this.setState({
+        isViewTicketDetailsSectionVisible: false
+      });
+    }
+
+    if (this.props.addMessageAPICallStatus.error === true &&
+      this.props.addMessageAPICallStatus.error !== prevProps.addMessageAPICallStatus.error) {
+      this.setState({
+        isViewTicketDetailsSectionVisible: false
+      });
+    }
+
+    if (this.props.closeTicketAPICallStatus.success === true &&
+      this.props.closeTicketAPICallStatus.success !== prevProps.closeTicketAPICallStatus.success) {
+      this.setState({
+        isViewTicketDetailsSectionVisible: false
+      });
+    }
+
+    if (this.props.closeTicketAPICallStatus.error === true &&
+      this.props.closeTicketAPICallStatus.error !== prevProps.closeTicketAPICallStatus.error) {
+      this.setState({
+        isViewTicketDetailsSectionVisible: false
+      });
+    }
+
+
+
+  }
+
   componentDidMount() {
     //Making service call to fetch Ticket Details based on the key available in the URL or Route
     //Extracing params from url
@@ -165,6 +199,8 @@ class ViewTicketDetailsForm extends React.Component {
 
   }
   render() {
+    console.log("viewticketdteialsform render");
+    console.log(this.props);
     const ticket = this.props.ticket;
     //Processing ttsKey to fetch Form Title and SubTitle data
     const params = queryString.parse(history.location.search);
@@ -175,7 +211,7 @@ class ViewTicketDetailsForm extends React.Component {
     return (
 
       <div style={{ marginLeft: '1%', marginRight: '1%' }}>
-        {true && <div>
+        {this.state.isViewTicketDetailsSectionVisible && <div>
           <Container style={{ marginTop: '3%' }}>
             <Row style={{ textAlign: 'left' }}>
               <h4>{title}</h4>
@@ -309,19 +345,19 @@ class ViewTicketDetailsForm extends React.Component {
                           >Attach Files</Button>
                         </Col>
                         {this.props.closeTicketAPICallStatus.requested
-                         && <Col sm='auto' style={{
-                          textAlign: 'right',
-                          paddingTop: '1%',
-                          paddingRight: '0'
-                        }}>
-                          <HalfCircleSpinner
-                            size='20'
-                            color='blue'>
-                          </HalfCircleSpinner>
-                        </Col>}
+                          && <Col sm='auto' style={{
+                            textAlign: 'right',
+                            paddingTop: '1%',
+                            paddingRight: '0'
+                          }}>
+                            <HalfCircleSpinner
+                              size='20'
+                              color='blue'>
+                            </HalfCircleSpinner>
+                          </Col>}
                         <Col sm='auto' style={{
-                          paddingLeft:'0',
-                          paddingRight:'0'
+                          paddingLeft: '0',
+                          paddingRight: '0'
                         }}>
                           <Button disabled={this.props.closeTicketAPICallStatus.requested}
                             type="submit"
@@ -339,16 +375,16 @@ class ViewTicketDetailsForm extends React.Component {
                           or
                         </Col>
                         {this.props.addMessageAPICallStatus.requested
-                         && <Col sm='auto' style={{
-                          textAlign: 'right',
-                          paddingTop: '1%',
-                          paddingRight: '0'
-                        }}>
-                          <HalfCircleSpinner
-                            size='20'
-                            color='blue'>
-                          </HalfCircleSpinner>
-                        </Col>}
+                          && <Col sm='auto' style={{
+                            textAlign: 'right',
+                            paddingTop: '1%',
+                            paddingRight: '0'
+                          }}>
+                            <HalfCircleSpinner
+                              size='20'
+                              color='blue'>
+                            </HalfCircleSpinner>
+                          </Col>}
 
                         <Col sm='auto'>
                           <Button
@@ -383,35 +419,41 @@ class ViewTicketDetailsForm extends React.Component {
 
             </div>}
         </div>}
-
-        {false && this.state.isAlertSectionVisible && <div>
-          {(this.props.addMessageAPICallStatus.requested ||
-            this.props.closeTicketAPICallStatus.requested
-          ) && <div className='view-ticket-loading'>
-              <ScaleLoader
-                color='#00d8ff'
-                loading='true'
-              />
-            </div>}
-
-          {(this.props.addMessageAPICallStatus.success ||
-            this.props.closeTicketAPICallStatus.success
-          ) && <div>
-              <Alert color="success" isOpen={this.state.isAlertVisible} toggle={this.onDismissAlert}>
-                <h4 className="alert-heading">Well done!</h4>
-                <p>
-                  Aww yeah, you successfully read this important alert message. This example text is going
-                  to run a bit longer so that you can see how spacing within an alert works with this kind
-                  of content.
+        {this.state.isAlertSectionVisible &&
+          <div>
+            {(this.props.closeTicketAPICallStatus.success ||
+              this.props.addMessageAPICallStatus.success)
+              && <div>
+                <Alert color="success" isOpen={true} toggle={this.onDismissAlert}>
+                  <h4 className="alert-heading">Well done!</h4>
+                  <p>
+                    Aww yeah, you successfully read this important alert message. This example text is going
+                    to run a bit longer so that you can see how spacing within an alert works with this kind
+                    of content.
         </p>
-                <hr />
-                <p className="mb-0">
-                  Whenever you need to, be sure to use margin utilities to keep things nice and tidy.
+                  <hr />
+                  <p className="mb-0">
+                    Whenever you need to, be sure to use margin utilities to keep things nice and tidy.
         </p>
-              </Alert>
-            </div>}
+                </Alert>
+              </div>}
 
-        </div>}
+            {(this.props.closeTicketAPICallStatus.error ||
+              this.props.addMessageAPICallStatus.error)
+              && <div>
+                <Alert color="danger" isOpen={true} toggle={this.onDismissAlert}>
+                  <h4 className="alert-heading">Failure!</h4>
+                  <p>
+                    Update ticket failed. Please try again after sometime.
+        </p>
+                  <hr />
+                  <p className="mb-0">
+                    Please try again after sometime.
+        </p>
+                </Alert>
+              </div>}
+          </div>}
+
       </div>
     );
   }
