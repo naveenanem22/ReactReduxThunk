@@ -80,43 +80,66 @@ class EngineerProfileForm extends React.Component {
             paddingRight: '20%'
           }}>
             <FormGroup row>
-              <Label size='sm' style={{ textAlign: 'right' }} for="firstName" sm={3}>First Name</Label>
+              <Label size='sm' style={{
+                textAlign: 'right',
+                fontWeight: '600'
+              }} for="firstName" sm={3}>
+                First Name
+              </Label>
               <Col sm={9}>
                 <Input size='sm' type="text" name="firstName" id="firstName" placeholder="" />
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label size='sm' style={{ textAlign: 'right' }} for="middleName" sm={3}>Middle Name</Label>
+              <Label size='sm' style={{
+                textAlign: 'right',
+                fontWeight: '600'
+              }} for="middleName" sm={3}>Middle Name</Label>
               <Col sm={9}>
                 <Input size='sm' type="text" name="middleName" id="middleName" placeholder="" />
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label size='sm' style={{ textAlign: 'right' }} for="lastName" sm={3}>Last Name</Label>
+              <Label size='sm' style={{
+                textAlign: 'right',
+                fontWeight: '600'
+              }} for="lastName" sm={3}>Last Name</Label>
               <Col sm={9}>
                 <Input size='sm' type="text" name="lastName" id="lastName" placeholder="" />
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label size='sm' style={{ textAlign: 'right' }} for="address" sm={3}>Address</Label>
+              <Label size='sm' style={{
+                textAlign: 'right',
+                fontWeight: '600'
+              }} for="address" sm={3}>Address</Label>
               <Col sm={9}>
                 <Input size='sm' type="textarea" name="address" id="address" placeholder="" />
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label size='sm' style={{ textAlign: 'right' }} for="officePhone" sm={3}>Office Phone</Label>
+              <Label size='sm' style={{
+                textAlign: 'right',
+                fontWeight: '600'
+              }} for="officePhone" sm={3}>Office Phone</Label>
               <Col sm={9}>
                 <Input size='sm' type="text" name="lastName" id="lastName" placeholder="" />
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label size='sm' style={{ textAlign: 'right' }} for="homePhone" sm={3}>Home Phone</Label>
+              <Label size='sm' style={{
+                textAlign: 'right',
+                fontWeight: '600'
+              }} for="homePhone" sm={3}>Home Phone</Label>
               <Col sm={9}>
                 <Input size='sm' type="text" name="homePhone" id="homePhone" placeholder="" />
               </Col>
             </FormGroup>
             <FormGroup row>
-              <Label size='sm' style={{ textAlign: 'right' }} for="mobilePhone" sm={3}>Mobile Phone</Label>
+              <Label size='sm' style={{
+                textAlign: 'right',
+                fontWeight: '600'
+              }} for="mobilePhone" sm={3}>Mobile Phone</Label>
               <Col sm={9}>
                 <Input size='sm' type="text" name="mobilePhone" id="mobilePhone" placeholder="" />
               </Col>
@@ -127,9 +150,10 @@ class EngineerProfileForm extends React.Component {
               <Col sm={{ size: 'auto', offset: 6 }}
                 style={{
                   paddingRight: '0'
-                }}><Button size='sm' color='primary'>
+                }}>
+                <Button size='sm' color='primary'>
                   Done
-            </Button>
+                </Button>
               </Col>
               <Col size='sm' sm='auto' style={{
                 paddingTop: '1%'
@@ -142,8 +166,6 @@ class EngineerProfileForm extends React.Component {
                 </HalfCircleSpinner>
               </Col>
             </Row>
-
-
           </Container>
         </Form>
       </div>

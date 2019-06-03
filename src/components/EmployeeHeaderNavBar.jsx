@@ -41,7 +41,7 @@ class HeaderNavBar extends React.Component {
   }
 
   onClickEditProfile(){
-    history.push('/ticketing/editprofile');
+    history.push('/ticketing/editprofile?cioKey=PRF');
   }
 
   onClickTicketWorkflow(){

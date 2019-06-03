@@ -32,70 +32,75 @@ export const Role = {
 
 /***Form Title and SubTitle data START***/
 export const componentInfoObj = {
-    getInfo : (key) => {
-        switch(key){
+    getInfo: (key) => {
+        switch (key) {
+            case 'PRF':
+                return {
+                    title: "My Profile",
+                    subTitle: "Please verify your profile details and update if you should."
+                }
             case 'AST':
-            return {
-                title: "Assigned Tickets",
-                subTitle: "Tickets that need to be actioned. Action based on priority and severity."
-            }
+                return {
+                    title: "Assigned Tickets",
+                    subTitle: "Tickets that need to be actioned. Action based on priority and severity."
+                }
 
             case 'NT':
-            return {
-                title: 'Create Ticket',
-                subTitle: 'Raise and provide as much as information for speedy resolution.'
-            }
+                return {
+                    title: 'Create Ticket',
+                    subTitle: 'Raise and provide as much as information for speedy resolution.'
+                }
 
             case 'CLT':
-            return {
-                title: "Closed Tickets",
-                subTitle: "Reopen if any of the tickets is not resolved."
-            }
+                return {
+                    title: "Closed Tickets",
+                    subTitle: "Reopen if any of the tickets is not resolved."
+                }
 
             case 'ALT':
-            return {
-                title: "My Tickets",
-                subTitle: "Monitor your ticket activity and update Tickets that need your response."
-            }
+                return {
+                    title: "My Tickets",
+                    subTitle: "Monitor your ticket activity and update Tickets that need your response."
+                }
 
             case 'AWT':
-            return {
-                title: "Awaiting Response Tickets",
-                subTitle: "Contact respective employee if no response provided beyond certain time limit."
-            }
+                return {
+                    title: "Awaiting Response Tickets",
+                    subTitle: "Contact respective employee if no response provided beyond certain time limit."
+                }
 
             case 'MDB':
-            return {
-                title: "Dashboard",
-                subTitle: "Organization wide Ticket-Dynamics to take informed decisions."
-            }
+                return {
+                    title: "Dashboard",
+                    subTitle: "Organization wide Ticket-Dynamics to take informed decisions."
+                }
 
             case 'ENDB':
-            return {
-                title: "My Board",
-                subTitle: "Your credits, badges etc. Update the profile if need be."
-            }
-            
+                return {
+                    title: "My Board",
+                    subTitle: "Your credits, badges etc. Update the profile if need be."
+                }
+
             case 'TD':
-            return {
-                title: "Ticket Details",
-                subTitle: "Verify the details and converse further to assist Heldesk to resolve faster."
-            }
+                return {
+                    title: "Ticket Details",
+                    subTitle: "Verify the details and converse further to assist Heldesk to resolve faster."
+                }
 
             default:
-            return {
-                title: "Default Title",
-                subTitle: "Default Sub-Title."
-            } 
+                return {
+                    title: "Default Title",
+                    subTitle: "Default Sub-Title."
+                }
 
         }
     },
 
-    getDefaultInfo : () => {
+    getDefaultInfo: () => {
         return {
             title: "Default Title",
             subTitle: "Default Sub-Title."
-        } 
+        }
     }
 
 
