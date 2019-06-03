@@ -12,6 +12,7 @@ import ViewTicketBundleDetailsForm from './ViewTicketBundleDetailsForm';
 import EngineerProfileForm from './EngineerProfile';
 import history from '../history';
 import ViewTicketDetailsForm from './ViewTicketDetailsForm';
+import EmployeeProfile from './EmployeeProfile';
 import { Role } from '../masterdata/ApplicationMasterData';
 
 class SPAEmployeeMainPage extends React.Component {
@@ -92,6 +93,13 @@ class SPAEmployeeMainPage extends React.Component {
             component={() =>
               <Col sm='9' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
                 <ViewTicketDetailsForm></ViewTicketDetailsForm>
+              </Col>}>
+          </Route>
+
+          <Route path="/ticketing/editprofile"
+            component={() =>
+              <Col sm='9' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+                <EmployeeProfile></EmployeeProfile>
               </Col>}>
           </Route>
 

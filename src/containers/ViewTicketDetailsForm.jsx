@@ -215,7 +215,9 @@ class ViewTicketDetailsForm extends React.Component {
               <p>{subTitle}</p>
             </Row>
           </Container>
-          <hr />
+          <hr style={{
+            marginBottom:'2%'
+          }}/>
           {(this.props.fetchTicketDetailsAPICallStatus.requested
             || this.props.fetchCreatedTicketDetailsAPICallStatus.requested)
             && <div className='view-ticket-loading'>

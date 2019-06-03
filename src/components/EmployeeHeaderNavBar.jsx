@@ -11,7 +11,7 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  DropdownItem} from 'reactstrap';
 import { logout } from '../actions/UserActions';
 import history from '../history';
 import { Link } from "react-router-dom";
@@ -32,11 +32,16 @@ class HeaderNavBar extends React.Component {
     this.onClickLogout = this.onClickLogout.bind(this);
     this.onClickMyTickets = this.onClickMyTickets.bind(this);
     this.onClickTicketWorkflow = this.onClickTicketWorkflow.bind(this);
+    this.onClickEditProfile = this.onClickEditProfile.bind(this);
   }
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
     });
+  }
+
+  onClickEditProfile(){
+    history.push('/ticketing/editprofile');
   }
 
   onClickTicketWorkflow(){
@@ -71,7 +76,8 @@ class HeaderNavBar extends React.Component {
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    <NavLink style = {{color:'#212529'}} href="#"> {this.state.options[0]}</NavLink>
+                    <NavLink style = {{color:'#212529'}} href="#" onClick={this.onClickEditProfile}> 
+                    {this.state.options[0]}</NavLink>
                   </DropdownItem>
                   <DropdownItem >
                     <NavLink style = {{color:'#212529'}} href="#" onClick = {this.onClickMyTickets}>{this.state.options[1]}</NavLink>
