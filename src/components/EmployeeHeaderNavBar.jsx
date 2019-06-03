@@ -31,6 +31,7 @@ class HeaderNavBar extends React.Component {
     };
     this.onClickLogout = this.onClickLogout.bind(this);
     this.onClickMyTickets = this.onClickMyTickets.bind(this);
+    this.onClickTicketWorkflow = this.onClickTicketWorkflow.bind(this);
   }
   toggle() {
     this.setState({
@@ -38,12 +39,12 @@ class HeaderNavBar extends React.Component {
     });
   }
 
+  onClickTicketWorkflow(){
+    history.push('/ticketworkflow');
+  }
+
   onClickMyTickets(){
-    history.push('/tickets');
-    this.props.fetchTickets({            
-      status: TicketStatus.ALL,
-      sortBy: 'ticketId'
-    });
+    history.push('/ticketing/tickets?status='+TicketStatus.ALL);
   }
 
   onClickLogout() {
@@ -59,7 +60,7 @@ class HeaderNavBar extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="#" onClick={this.onClickMyTickets}>My Tickets</NavLink>
+                <NavLink href="#" onClick={this.onClickTicketWorkflow}>Workflow</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink  href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
