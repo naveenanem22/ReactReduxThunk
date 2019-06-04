@@ -1,5 +1,7 @@
-import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, FETCH_ENGINEERS_SUCCESS, FETCH_ENGINEERS, FETCH_ENGINEERS_FAILURE, LOGIN } from './ActionTypes';
+import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, FETCH_ENGINEERS_SUCCESS, FETCH_ENGINEERS, FETCH_ENGINEERS_FAILURE, LOGIN, GET_PROFILE, GET_PROFILE_SUCCESS, GET_PROFILE_FAILURE } from './ActionTypes';
+
 export const UPDATE_USER = "users:updateUser";
+
 
 
 export function updateUser(newUser) {
@@ -12,7 +14,7 @@ export function updateUser(newUser) {
     }
 }
 
-export function login(){
+export function login() {
     return {
         type: LOGIN
     }
@@ -32,6 +34,33 @@ export function loginFailure() {
 
     return {
         type: LOGIN_FAILURE
+    }
+}
+
+export function getProfile() {
+    return {
+        type: GET_PROFILE
+    }
+}
+
+export function getProfileSuccess(employee) {
+
+    return {
+        type: GET_PROFILE_SUCCESS,
+        payload: {
+            profile: {
+                firstName: employee.firstName,
+                lastName: employee.lastName
+
+            }
+        }
+    }
+}
+
+export function getProfileFailure() {
+
+    return {
+        type: GET_PROFILE_FAILURE
     }
 }
 
@@ -135,6 +164,7 @@ export function loginAPICall(user) {
                     localStorage.setItem('token', jsonResp.token);
                     localStorage.setItem('role', jsonResp.role);
                     localStorage.setItem('username', jsonResp.username);
+                    localStorage.setItem('employeeId', jsonResp.employeeId)
 
                     dispatch(loginSuccess({
                         role: jsonResp.role,
@@ -142,5 +172,33 @@ export function loginAPICall(user) {
                     }));
                 }
             });
+    };
+}
+
+export function getProfileAPICall(params) {
+    let headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    var url = new URL("http://localhost:8080/v0/profile-management/employees/" + params.employeeId);
+
+    return function (dispatch) {
+        dispatch(getProfile());
+        return fetch(url, {
+            method: 'GET',
+            headers: headers
+        })
+            .then(
+                response => {
+                    if (response.status === 200)
+                        return response.json();
+                    if (response.status === 500)
+                        dispatch(getProfileFailure());
+                },
+                error => console.log('An error occurred.', error),
+            )
+            .then((employee) => {
+                console.log("Employee fetched: " + employee);
+                dispatch(getProfileSuccess(employee));
+            },
+            );
     };
 }

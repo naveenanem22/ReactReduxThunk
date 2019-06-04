@@ -8,6 +8,7 @@ import history from '../history';
 import { componentInfoObj } from '../masterdata/ApplicationMasterData';
 import queryString from 'query-string';
 import { HalfCircleSpinner } from 'react-epic-spinners';
+import { getProfileAPICall } from '../actions/UserActions';
 
 
 class EngineerProfileForm extends React.Component {
@@ -22,27 +23,10 @@ class EngineerProfileForm extends React.Component {
 
 
   componentDidMount() {
-    //Extracing params from url
-    console.log("Search string: ");
-    var searchString = history.location.search;
-    console.log(searchString);
-    var params = queryString.parse(searchString);
-    console.log("Extracted params: ");
-    console.log(params);
-
-    //Show SelectTicketMessage if search-string contains the key: status
-    if (params.status) {
-      this.setState({
-        showSelectTicketMsg: true
-      })
-    }
-
-    //Make fetchTicketDetailsAPICall if the search-string contains key: ticketId
-    if (params.ticketId) {
-      this.props.fetchTicketDetails({
-        ticketId: params.ticketId
+    
+      this.props.getProfile({
+        employeeId: localStorage.getItem('employeeId')
       });
-    }
   }
 
 
@@ -87,7 +71,7 @@ class EngineerProfileForm extends React.Component {
                 First Name
               </Label>
               <Col sm={9}>
-                <Input size='sm' type="text" name="firstName" id="firstName" placeholder="" />
+                <Input size='sm' value={this.props.profile.firstName} type="text" name="firstName" id="firstName" placeholder="" />
               </Col>
             </FormGroup>
             <FormGroup row>
@@ -96,7 +80,7 @@ class EngineerProfileForm extends React.Component {
                 fontWeight: '600'
               }} for="middleName" sm={3}>Middle Name</Label>
               <Col sm={9}>
-                <Input size='sm' type="text" name="middleName" id="middleName" placeholder="" />
+                <Input size='sm' value={this.props.profile.middleName} type="text" name="middleName" id="middleName" placeholder="" />
               </Col>
             </FormGroup>
             <FormGroup row>
@@ -105,7 +89,7 @@ class EngineerProfileForm extends React.Component {
                 fontWeight: '600'
               }} for="lastName" sm={3}>Last Name</Label>
               <Col sm={9}>
-                <Input size='sm' type="text" name="lastName" id="lastName" placeholder="" />
+                <Input size='sm' value={this.props.profile.lastName} type="text" name="lastName" id="lastName" placeholder="" />
               </Col>
             </FormGroup>
             <FormGroup row>
@@ -144,7 +128,7 @@ class EngineerProfileForm extends React.Component {
                 <Input size='sm' type="text" name="mobilePhone" id="mobilePhone" placeholder="" />
               </Col>
             </FormGroup>
-            <Row style={{
+            {false && <Row style={{
               textAlign: 'center'
             }}>
               <Col sm={{ size: 'auto', offset: 6 }}
@@ -165,7 +149,7 @@ class EngineerProfileForm extends React.Component {
 
                 </HalfCircleSpinner>
               </Col>
-            </Row>
+            </Row>}
           </Container>
         </Form>
       </div>
@@ -175,12 +159,12 @@ class EngineerProfileForm extends React.Component {
 
 const mapStateToProps = function (state) {
   return {
-    ticket: state.ticketDetails.ticket
+    profile: state.user.profile
   }
 }
 
 const mapActionsToProps = {
-  fetchTicketDetails: fetchTicketDetailsAPICall
+  getProfile: getProfileAPICall
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(EngineerProfileForm);
