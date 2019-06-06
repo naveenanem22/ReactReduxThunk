@@ -23,10 +23,10 @@ class EngineerProfileForm extends React.Component {
 
 
   componentDidMount() {
-    
-      this.props.getProfile({
-        employeeId: localStorage.getItem('employeeId')
-      });
+
+    this.props.getProfile({
+      employeeId: localStorage.getItem('employeeId')
+    });
   }
 
 
@@ -98,7 +98,7 @@ class EngineerProfileForm extends React.Component {
                 fontWeight: '600'
               }} for="address" sm={3}>Address</Label>
               <Col sm={9}>
-                <Input size='sm' type="textarea" name="address" id="address" placeholder="" />
+                <Input size='sm' value={this.props.profile.individualAddress.addressLine1} type="textarea" name="address" id="address" placeholder="" />
               </Col>
             </FormGroup>
             <FormGroup row>
@@ -107,7 +107,10 @@ class EngineerProfileForm extends React.Component {
                 fontWeight: '600'
               }} for="officePhone" sm={3}>Office Phone</Label>
               <Col sm={9}>
-                <Input size='sm' type="text" name="lastName" id="lastName" placeholder="" />
+                <Input size='sm'
+                  value={this.props.profile.contactInfo.officePhoneCountryCode + ' ' +
+                    this.props.profile.contactInfo.officePhone}
+                  type="text" name="officePhone" id="officePhone" placeholder="" />
               </Col>
             </FormGroup>
             <FormGroup row>
@@ -116,7 +119,10 @@ class EngineerProfileForm extends React.Component {
                 fontWeight: '600'
               }} for="homePhone" sm={3}>Home Phone</Label>
               <Col sm={9}>
-                <Input size='sm' type="text" name="homePhone" id="homePhone" placeholder="" />
+                <Input size='sm' 
+                value={this.props.profile.contactInfo.homePhoneCountryCode + ' ' +
+                this.props.profile.contactInfo.homePhone}
+                 type="text" name="homePhone" id="homePhone" placeholder="" />
               </Col>
             </FormGroup>
             <FormGroup row>
@@ -125,7 +131,10 @@ class EngineerProfileForm extends React.Component {
                 fontWeight: '600'
               }} for="mobilePhone" sm={3}>Mobile Phone</Label>
               <Col sm={9}>
-                <Input size='sm' type="text" name="mobilePhone" id="mobilePhone" placeholder="" />
+                <Input size='sm' 
+                value={this.props.profile.contactInfo.primaryMobileCountryCode + ' ' +
+                this.props.profile.contactInfo.primaryMobile}
+                type="text" name="mobilePhone" id="mobilePhone" placeholder="" />
               </Col>
             </FormGroup>
             {false && <Row style={{

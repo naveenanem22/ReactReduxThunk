@@ -48,11 +48,7 @@ export function getProfileSuccess(employee) {
     return {
         type: GET_PROFILE_SUCCESS,
         payload: {
-            profile: {
-                firstName: employee.firstName,
-                lastName: employee.lastName
-
-            }
+            profile: employee
         }
     }
 }
