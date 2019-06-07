@@ -16,7 +16,7 @@ class ViewTicketsForm extends React.Component {
     super(props);
 
     this.state = {
-      tickets: this.processPropsForInitialState(this.props.tickets),
+      tickets: this.processPropsForInitialState(this.props.ticketList.tickets),
       ticketsToAssignAndUpdate: []
 
     };
@@ -34,7 +34,7 @@ class ViewTicketsForm extends React.Component {
     console.log("setting state after receiving props");
     if (current_state.tickets !== props.tickets) {
       //Update state with default fields which are not available in props
-      var tempTickets = props.tickets;
+      var tempTickets = props.ticketList.tickets;
       tempTickets.forEach(ticket => {
         ticket.isAssignedToInvalid = false;
         ticket.selected = false;
@@ -134,7 +134,7 @@ class ViewTicketsForm extends React.Component {
 
   handleClick(e, ticket) {
 
-console.log("Handle click");
+    console.log("Handle click");
     if (e.target.type == 'checkbox') {
 
     } else if (e.target.type == 'text') {
@@ -198,7 +198,9 @@ console.log("Handle click");
       if (params.status) {
         this.props.fetchCreatedTickets({
           status: params.status,
-          sortBy: 'ticketId'
+          sortBy: 'ticketId',
+          pageNumber: params.pageNumber,
+          pageSize: params.pageSize
         });
       }
     }
@@ -216,10 +218,8 @@ console.log("Handle click");
 
     //Processing ttsKey to fetch Form Title and SubTitle data
     const params = queryString.parse(history.location.search);
-
     const title = params.cioKey ? componentInfoObj.getInfo(params.cioKey).title : componentInfoObj.getDefaultInfo().title;
     const subTitle = params.cioKey ? componentInfoObj.getInfo(params.cioKey).subTitle : componentInfoObj.getDefaultInfo().subTitle;
-
 
     return (
       <div style={{ marginLeft: '1%', marginRight: '1%' }}>
@@ -259,7 +259,7 @@ console.log("Handle click");
             </tr>
           </thead>
           <tbody>
-            {this.props.tickets.map((ticket) =>
+            {this.props.ticketList.tickets.map((ticket) =>
 
               <tr onClick={(e) => this.props.handleListViewTicketClick(e, ticket)/* this.handleClick(e, ticket) */}>
                 {localStorage.getItem('role') === Role.ROLE_MANAGER && <td style={{ width: '5%', textAlign: 'center' }}><Input style={{ marginLeft: '0%' }} type="checkbox" onChange={(e) => this.handleCheckAndUnCheck(e, ticket)} /></td>}
@@ -291,7 +291,7 @@ console.log("Handle click");
 
 const mapStateToProps = function (state) {
   return {
-    tickets: state.ticketList.tickets,
+    ticketList: state.ticketList,
     user: state.user,
     engineers: state.engineerList.engineers,
     fetchCreatedTicketsAPICallStatus: state.serviceCallStatus.fetchCreatedTicketsAPI

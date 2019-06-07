@@ -70,11 +70,19 @@ export function fetchAssignedTickets() {
     }
 }
 
-export function fetchCreatedTicketsSuccess(tickets) {
+export function fetchCreatedTicketsSuccess(ticketsData) {
     return {
         type: FETCH_CREATED_TICKETS_SUCCESS,
         payload: {
-            tickets: tickets
+            ticketList: {
+                tickets: ticketsData.content,
+                totalPages: ticketsData.totalPages,
+                totalElements: ticketsData.totalElements,
+                pageSize: ticketsData.size,
+                pageNumber: ticketsData.number,
+                numberOfElements: ticketsData.numberOfElements
+            }
+            
         }
     }
 }
@@ -323,7 +331,12 @@ export function fetchCreatedTicketsAPICall(queryParams) {
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     var url = new URL("http://localhost:8080/v0/ticketing/tickets");
-    var params = { status: queryParams.status, sortBy: queryParams.sortBy };
+    var params = {
+        status: queryParams.status,
+        sortBy: queryParams.sortBy,
+        pageNumber: queryParams.pageNumber,
+        pageSize: queryParams.pageSize
+    };
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
     return function (dispatch) {
@@ -339,9 +352,9 @@ export function fetchCreatedTicketsAPICall(queryParams) {
                 },
                 error => console.log('An error occurred.', error),
             )
-            .then((tickets) => {
-                console.log("Tickets fetched: " + tickets);
-                dispatch(fetchCreatedTicketsSuccess(tickets));
+            .then((ticketsData) => {
+                console.log("Tickets Data: " + ticketsData);
+                dispatch(fetchCreatedTicketsSuccess(ticketsData));
             },
             );
     };
@@ -460,7 +473,7 @@ export function addMessageAPICall(params) {
                         dispatch(addMessageSuccess());
                     }
 
-                    if(response.status === 500 || response.status === 400){
+                    if (response.status === 500 || response.status === 400) {
                         dispatch(addMessageFailure());
                     }
                 },
@@ -556,7 +569,7 @@ export function closeTicketAPICall(params) {
                     if (response.status === 204) {
                         dispatch(closeTicketSuccess());
                     }
-                    if(response.status === 500 || response.status === 400){
+                    if (response.status === 500 || response.status === 400) {
                         console.log("Dispatching close ticket failure");
                         dispatch(closeTicketFailure());
                     }

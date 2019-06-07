@@ -12,7 +12,7 @@ export function ticketReducer(state = {}, action) {
                 isSuccessAlertVisible: false
             };
 
-        
+
 
         case FETCH_TICKETS_SUCCESS:
             return {
@@ -34,7 +34,12 @@ export function ticketReducer(state = {}, action) {
 
         case FETCH_CREATED_TICKETS_SUCCESS:
             return {
-                ...state, tickets: action.payload.tickets
+                ...state, tickets: action.payload.ticketList.tickets,
+                totalPages: action.payload.ticketList.totalPages,
+                totalElements: action.payload.ticketList.totalElements,
+                pageSize: action.payload.ticketList.pageSize,
+                pageNumber: action.payload.ticketList.pageNumber,
+                numberOfElements: action.payload.ticketList.numberOfElements
             };
         case FETCH_CREATED_TICKETS:
             return {

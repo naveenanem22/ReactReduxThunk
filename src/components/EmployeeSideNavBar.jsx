@@ -33,7 +33,7 @@ class SideNavBar extends React.Component {
     //history.push("/ticketing/tickets?status="+TicketStatus.ALL+"&"+"cioKey=ALT");
     history.push({
       pathname: '/ticketing/tickets',
-      search: '?status='+TicketStatus.ALL+'&'+'cioKey=ALT'
+      search: '?status='+TicketStatus.ALL+'&'+'cioKey=ALT'+'&'+'pageNumber=1'+'&'+'pageSize=3'
     });
 
   }
