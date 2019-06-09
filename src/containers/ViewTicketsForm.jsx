@@ -29,6 +29,7 @@ class ViewTicketsForm extends React.Component {
     this.processPropsForInitialState = this.processPropsForInitialState.bind(this);
     this.isEveryTicketHasvalidData = this.isEveryTicketHasvalidData.bind(this);
     this.handleBundleViewClick = this.handleBundleViewClick.bind(this);
+    this.onPaginationPageChange = this.onPaginationPageChange.bind(this);
 
   }
 
@@ -47,6 +48,28 @@ class ViewTicketsForm extends React.Component {
       }
     }
     return null
+  }
+
+  onPaginationPageChange(pageNumber){
+    if(localStorage.getItem('role') === Role.ROLE_EMPLOYEE){
+    //Extracting query params from url
+    console.log("Parsing query params from query-string:");
+    console.log(history.location.search);
+    const params = queryString.parse(history.location.search);
+    console.log("Parsed params: ");
+    console.log(params);
+    
+    //update pageNumber & pageSize params with new values
+    params.pageNumber = pageNumber;
+    
+    //push the url to history
+    history.push({
+      pathname: "/ticketing/tickets",
+      search: "?status=" + params.status+"&"+"cioKey="+params.cioKey+"&"+"pageNumber="+params.pageNumber
+      +"&"+"pageSize="+params.pageSize
+    });
+  }
+
   }
 
   handleBundleViewClick() {
@@ -249,7 +272,7 @@ class ViewTicketsForm extends React.Component {
           />
         </div>
         }
-        {true && <CustomPagination data={this.props.ticketList}>    
+        {true && <CustomPagination data={this.props.ticketList} onPaginationPageChange={this.onPaginationPageChange}>    
         </CustomPagination>
         }
         {this.props.fetchCreatedTicketsAPICallStatus.success && <Table size='sm' hover bordered class="rounded mb-0" style={{ marginTop: '1%' }}>

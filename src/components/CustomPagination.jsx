@@ -15,6 +15,7 @@ class CustomPagination extends Component {
   handlePageChange(selectedPageNumber) {
     if (this.props.data.number !== selectedPageNumber) {
       this.setState({ activePage: selectedPageNumber });
+      this.props.onPaginationPageChange(selectedPageNumber);
     }
 
   }
