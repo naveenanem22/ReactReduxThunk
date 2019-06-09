@@ -15,6 +15,7 @@
     "react-dom": "^16.4.1",
     "react-epic-spinners": "^0.3.0",
     "react-icons": "^3.2.2",
+    "react-js-pagination": "^3.0.2",
     "react-list": "^0.8.10",
     "react-perfect-scrollbar": "^1.5.2",
     "react-redux": "^5.0.7",

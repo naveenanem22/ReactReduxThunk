@@ -9,6 +9,8 @@ import { fetchCreatedTicketsAPICall } from '../actions/TicketActions'
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
 import { componentInfoObj } from '../masterdata/ApplicationMasterData';
+import CustomPagination from '../components/CustomPagination';
+
 
 class ViewTicketsForm extends React.Component {
 
@@ -246,6 +248,9 @@ class ViewTicketsForm extends React.Component {
             loading='true'
           />
         </div>
+        }
+        {true && <CustomPagination data={this.props.ticketList}>    
+        </CustomPagination>
         }
         {this.props.fetchCreatedTicketsAPICallStatus.success && <Table size='sm' hover bordered class="rounded mb-0" style={{ marginTop: '1%' }}>
           <thead>
