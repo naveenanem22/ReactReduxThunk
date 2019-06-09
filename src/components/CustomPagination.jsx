@@ -18,12 +18,14 @@ class CustomPagination extends Component {
   }
 
   render() {
+    console.log('Inside Pagination render...');
+    console.log(this.props);
     return (
       <div>
         <Pagination size='sm'
           activePage={this.state.activePage}
           itemsCountPerPage={this.props.data.size}
-          totalItemsCount={this.props.data.totalElements}
+          totalItemsCount= {this.props.data.totalElements}
           pageRangeDisplayed={5}
           onChange={this.handlePageChange}
         />

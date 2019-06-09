@@ -37,7 +37,7 @@ export function ticketReducer(state = {}, action) {
                 ...state, tickets: action.payload.ticketList.tickets,
                 totalPages: action.payload.ticketList.totalPages,
                 totalElements: action.payload.ticketList.totalElements,
-                pageSize: action.payload.ticketList.pageSize,
+                size: action.payload.ticketList.size,
                 pageNumber: action.payload.ticketList.pageNumber,
                 numberOfElements: action.payload.ticketList.numberOfElements
             };

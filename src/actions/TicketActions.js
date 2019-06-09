@@ -78,7 +78,7 @@ export function fetchCreatedTicketsSuccess(ticketsData) {
                 tickets: ticketsData.content,
                 totalPages: ticketsData.totalPages,
                 totalElements: ticketsData.totalElements,
-                pageSize: ticketsData.size,
+                size: ticketsData.size,
                 pageNumber: ticketsData.number,
                 numberOfElements: ticketsData.numberOfElements
             }
@@ -353,7 +353,8 @@ export function fetchCreatedTicketsAPICall(queryParams) {
                 error => console.log('An error occurred.', error),
             )
             .then((ticketsData) => {
-                console.log("Tickets Data: " + ticketsData);
+                console.log("Tickets Data:");
+                console.log(ticketsData);
                 dispatch(fetchCreatedTicketsSuccess(ticketsData));
             },
             );
