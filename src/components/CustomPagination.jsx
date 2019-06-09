@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 //import ReactPaginate from 'react-paginate';
 import Pagination from "react-js-pagination";
- 
+
 class CustomPagination extends Component {
   constructor(props) {
     super(props);
@@ -12,9 +12,11 @@ class CustomPagination extends Component {
     this.handlePageChange = this.handlePageChange.bind(this);
   }
 
-  handlePageChange(pageNumber) {
-    console.log(`active page is ${pageNumber}`);
-    this.setState({activePage: pageNumber});
+  handlePageChange(selectedPageNumber) {
+    if (this.props.data.number !== selectedPageNumber) {
+      this.setState({ activePage: selectedPageNumber });
+    }
+
   }
 
   render() {
@@ -25,7 +27,7 @@ class CustomPagination extends Component {
         <Pagination size='sm'
           activePage={this.state.activePage}
           itemsCountPerPage={this.props.data.size}
-          totalItemsCount= {this.props.data.totalElements}
+          totalItemsCount={this.props.data.totalElements}
           pageRangeDisplayed={5}
           onChange={this.handlePageChange}
         />
@@ -36,4 +38,3 @@ class CustomPagination extends Component {
 
 
 export default CustomPagination;
- 

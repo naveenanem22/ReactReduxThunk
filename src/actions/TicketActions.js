@@ -79,7 +79,7 @@ export function fetchCreatedTicketsSuccess(ticketsData) {
                 totalPages: ticketsData.totalPages,
                 totalElements: ticketsData.totalElements,
                 size: ticketsData.size,
-                pageNumber: ticketsData.number,
+                number: ticketsData.number,
                 numberOfElements: ticketsData.numberOfElements
             }
             

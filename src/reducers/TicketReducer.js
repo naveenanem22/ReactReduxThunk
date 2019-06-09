@@ -38,7 +38,7 @@ export function ticketReducer(state = {}, action) {
                 totalPages: action.payload.ticketList.totalPages,
                 totalElements: action.payload.ticketList.totalElements,
                 size: action.payload.ticketList.size,
-                pageNumber: action.payload.ticketList.pageNumber,
+                number: action.payload.ticketList.number,
                 numberOfElements: action.payload.ticketList.numberOfElements
             };
         case FETCH_CREATED_TICKETS:
