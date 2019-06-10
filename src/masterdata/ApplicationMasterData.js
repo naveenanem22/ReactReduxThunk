@@ -7,6 +7,12 @@ export const TicketStatusCode = {
     IN_PROCESS: 1, PENDING: 2, NEW: 3, CLOSE: 4, OPEN: 5, AWAIT_RESPONSE: 6
 };
 
+export const TICKETS_PER_PAGE_EMPLOYEE = 3;
+export const TICKETS_PER_PAGE_MANAGER = 5;
+export const TICKETS_PER_PAGE_ENGINEER = 5;
+
+export const PAGINATION_START_PAGE = 1;
+
 
 export const Priority = {
     HIGH: 'High', MEDIUM: 'Medium', LOW: 'Low'

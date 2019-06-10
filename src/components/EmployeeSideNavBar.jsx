@@ -5,7 +5,7 @@ import history from '../history';
 import { connect } from 'react-redux';
 import { fetchTicketsAPICall, showFormNewTicket } from '../actions/TicketActions'
 import { fetchDashboardDataAPICall, fetchDashboardDataMultipleAPICall } from '../actions/DashboardActions';
-import { TicketStatus } from '../masterdata/ApplicationMasterData';
+import { TicketStatus, TICKETS_PER_PAGE_EMPLOYEE, PAGINATION_START_PAGE } from '../masterdata/ApplicationMasterData';
 
 
 class SideNavBar extends React.Component {
@@ -24,7 +24,9 @@ class SideNavBar extends React.Component {
     //history.push("/ticketing/tickets?status="+TicketStatus.CLOSE+"&"+"cioKey=CLT");
     history.push({
       pathname: '/ticketing/tickets',
-      search: '?status='+TicketStatus.CLOSE+'&'+'cioKey=CLT'
+      search: '?status=' + TicketStatus.CLOSE + '&' +
+        'cioKey=CLT' + '&' +
+        'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE
     });
   }
 
@@ -33,7 +35,9 @@ class SideNavBar extends React.Component {
     //history.push("/ticketing/tickets?status="+TicketStatus.ALL+"&"+"cioKey=ALT");
     history.push({
       pathname: '/ticketing/tickets',
-      search: '?status='+TicketStatus.ALL+'&'+'cioKey=ALT'+'&'+'pageNumber=1'+'&'+'pageSize=3'
+      search: '?status=' + TicketStatus.ALL + '&' +
+        'cioKey=ALT' + '&' +
+        'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE
     });
 
   }
@@ -58,7 +62,7 @@ class SideNavBar extends React.Component {
 
         <Nav style={{ borderRadius: '10px', border: '1px solid grey', backgroundColor: '#FFFFFF' }} vertical >
           <NavItem >
-            <NavLink href="#" onClick={this.handleNewTicket} style={{ borderTopLeftRadius:'10px',borderTopRightRadius:'10px',borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> New Ticket
+            <NavLink href="#" onClick={this.handleNewTicket} style={{ borderTopLeftRadius: '10px', borderTopRightRadius: '10px', borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> New Ticket
             </NavLink>
           </NavItem>
           <NavItem>
