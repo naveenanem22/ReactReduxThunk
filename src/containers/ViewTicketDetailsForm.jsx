@@ -231,7 +231,7 @@ class ViewTicketDetailsForm extends React.Component {
             && <div class="ticket-details-body">
 
               <Row>
-                <Col md={6} style={{ 'text-align': 'left', 'padding-top': '.75rem' }}><strong>{'Naveen' + ' ' + 'Anem'}</strong> - naveen.anem@kony.com</Col>
+                <Col md={6} style={{ 'text-align': 'left', 'padding-top': '.75rem' }}><strong>{ticket.createdBy.firstName + ' ' + ticket.createdBy.lastName}</strong></Col>
                 <Col md={6} style={{ 'text-align': 'right', 'padding-top': '.75rem' }}>{ticket.createdDate}
                   <span id='createdDateToolTip' href='#'>
                     <FaExclamationCircle></FaExclamationCircle></span></Col>
