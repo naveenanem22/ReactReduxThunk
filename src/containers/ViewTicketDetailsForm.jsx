@@ -216,8 +216,8 @@ class ViewTicketDetailsForm extends React.Component {
             </Row>
           </Container>
           <hr style={{
-            marginBottom:'2%'
-          }}/>
+            marginBottom: '2%'
+          }} />
           {(this.props.fetchTicketDetailsAPICallStatus.requested
             || this.props.fetchCreatedTicketDetailsAPICallStatus.requested)
             && <div className='view-ticket-loading'>
@@ -326,7 +326,8 @@ class ViewTicketDetailsForm extends React.Component {
                 <div class="ticket-conv-block" >
                   <div class="author">
                     <Row style={{ 'height': '50px' }}>
-                      <Col md={6} style={{ 'text-align': 'left', 'paddingLeft': '3%', 'padding-top': '.75rem', 'padding-bottom': '.75rem' }}>{item.authorName}</Col>
+                      <Col md={6} style={{ 'text-align': 'left', 'paddingLeft': '3%', 'padding-top': '.75rem', 'padding-bottom': '.75rem' }}>
+                        {item.author.firstName + ' ' + item.author.lastName}</Col>
                       <Col md={6} style={{ 'text-align': 'right', 'paddingRight': '3%', 'padding-top': '.75rem', 'padding-bottom': '.75rem' }}>{item.commentedOn}</Col>
                     </Row>
                   </div>
