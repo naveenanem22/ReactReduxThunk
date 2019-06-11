@@ -119,6 +119,16 @@ body {
   background-image: url('./testbg2.jpg');
 }
 
+div.rightHome{
+  background-image : url('./ithelpdesk.jpg');
+  background-size: cover;
+}
+div.leftHome{
+  background-color: white;
+  
+}
+
+
 /*Styling for SideNavBar component START*/
 div.sidenavbar > div.container > div.row > div.col > ul >li>a{
   color: black

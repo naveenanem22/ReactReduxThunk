@@ -31,7 +31,7 @@ class ViewTicketDetailsPage extends React.Component {
   }
    
     render(){
-        var bg=require('../testbg2.jpg');
+        //var bg=require('../testbg2.jpg');
 
         return (
             
