@@ -24,9 +24,9 @@ class EngineerProfileForm extends React.Component {
 
   componentDidMount() {
 
-    this.props.getProfile({
+    /* this.props.getProfile({
       employeeId: localStorage.getItem('employeeId')
-    });
+    }); */
   }
 
 

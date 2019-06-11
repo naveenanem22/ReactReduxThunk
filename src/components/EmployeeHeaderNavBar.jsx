@@ -15,7 +15,6 @@ import {
 import { logout } from '../actions/UserActions';
 import history from '../history';
 import { Link } from "react-router-dom";
-import {fetchTicketsAPICall} from '../actions/TicketActions';
 import { TicketStatus } from '../masterdata/ApplicationMasterData';
 
 
@@ -27,7 +26,7 @@ class HeaderNavBar extends React.Component {
     this.state = {
       isOpen: false,
       options: ['Edit Profile','My Tickets','Logout'],
-      optionsTitle:"Employee"
+      optionsTitle:''
     };
     this.onClickLogout = this.onClickLogout.bind(this);
     this.onClickMyTickets = this.onClickMyTickets.bind(this);
@@ -72,7 +71,8 @@ class HeaderNavBar extends React.Component {
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  {this.state.optionsTitle}
+                  {(this.props.getProfileAPICallStatus.requested && this.state.optionsTitle) 
+                  || this.props.getProfileAPICallStatus.success && this.props.profile.firstName}
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
@@ -100,11 +100,14 @@ class HeaderNavBar extends React.Component {
 
 
 const mapActionsToProps = {
-  onLogout : logout,
-  fetchTickets: fetchTicketsAPICall    
+  onLogout : logout
 }
 
 const mapStateToProps = function (state){
+  return {
+    profile: state.user.profile,
+    getProfileAPICallStatus: state.serviceCallStatus.getProfileAPI
+  }
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(HeaderNavBar);
