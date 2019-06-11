@@ -166,17 +166,22 @@ export function loginAPICall(user) {
                         role: jsonResp.role,
                         username: jsonResp.username
                     }));
+
+                    //Make getProfileAPIcall
+                    getProfileAPICall({ employeeId: jsonResp.employeeId }, dispatch)();
                 }
             });
     };
 }
 
-export function getProfileAPICall(params) {
+
+export function getProfileAPICall(params, dispatch) {
+    console.log("inside getprofile apicall");
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     var url = new URL("http://localhost:8080/v0/profile-management/employees/" + params.employeeId);
 
-    return function (dispatch) {
+    return function () {
         dispatch(getProfile());
         return fetch(url, {
             method: 'GET',

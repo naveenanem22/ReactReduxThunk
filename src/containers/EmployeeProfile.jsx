@@ -172,8 +172,13 @@ const mapStateToProps = function (state) {
   }
 }
 
-const mapActionsToProps = {
-  getProfile: getProfileAPICall
+const mapActionsToProps = (dispatch) => {
+
+  return {
+    getProfile: (params) => {
+        dispatch(getProfileAPICall(params, dispatch))
+    }
+}
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(EngineerProfileForm);
