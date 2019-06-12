@@ -129,19 +129,19 @@ class CreateNewTicketForm extends React.Component {
             </FormGroup>
             <Container style={{ marginTop: '3%' }}>
               <FormGroup>
-                <Label for="ticketTitle">Title</Label>
-                <Input type="text" name="ticketTitle" id="ticketTitle"
+                <Label size='sm' for="ticketTitle">Title</Label>
+                <Input size='sm' type="text" name="ticketTitle" id="ticketTitle"
                   value={this.state.ticketTitle} onChange={this.handleChange} required />
               </FormGroup>
               <FormGroup>
-                <Label for="ticketDescription">Description</Label>
-                <Input type="textarea" name="ticketDescription" id="ticketDescription"
+                <Label size='sm' for="ticketDescription">Description</Label>
+                <Input size='sm' type="textarea" name="ticketDescription" id="ticketDescription"
                   value={this.state.titleDescription}
                   onChange={this.handleChange} required />
               </FormGroup>
               <FormGroup>
-                <Label for="department">Department</Label>
-                <Input type="select" name="department" id="department" value={this.state.department} onChange={this.handleChange} required>
+                <Label size='sm' for="department">Department</Label>
+                <Input size='sm' type="select" name="department" id="department" value={this.state.department} onChange={this.handleChange} required>
                   <option>Choose department...</option>
                   {this.props.departments.map((department) =>
                     <option>{department.name}</option>
@@ -150,8 +150,8 @@ class CreateNewTicketForm extends React.Component {
                 </Input>
               </FormGroup>
               <FormGroup>
-                <Label for="priority">Priority</Label>
-                <Input type="select" name="priority" id="priority" value={this.state.priority} onChange={this.handleChange} required>
+                <Label size='sm' for="priority">Priority</Label>
+                <Input size='sm' type="select" name="priority" id="priority" value={this.state.priority} onChange={this.handleChange} required>
                   <option>Choose priority...</option>
                   <option>{Priority.HIGH}</option>
                   <option>{Priority.LOW}</option>
@@ -159,8 +159,8 @@ class CreateNewTicketForm extends React.Component {
                 </Input>
               </FormGroup>
               <FormGroup>
-                <Label for="serviceCategory">Category</Label>
-                <Input type="select" name="serviceCategory" id="serviceCategory" value={this.state.serviceCategory}
+                <Label size='sm' for="serviceCategory">Category</Label>
+                <Input size='sm' type="select" name="serviceCategory" id="serviceCategory" value={this.state.serviceCategory}
                   onChange={this.handleChange}
                   required>
                   <option>Choose category...</option>
@@ -170,8 +170,8 @@ class CreateNewTicketForm extends React.Component {
                 </Input>
               </FormGroup>
               <FormGroup>
-                <Label for="officeLocation">Office</Label>
-                <Input type="select" name="officeLocation" id="officeLocation" value={this.state.officeLocation}
+                <Label size='sm' for="officeLocation">Office</Label>
+                <Input size='sm' type="select" name="officeLocation" id="officeLocation" value={this.state.officeLocation}
                   onChange={this.handleChange}
                   required>
                   <option>Choose office...</option>
@@ -181,15 +181,15 @@ class CreateNewTicketForm extends React.Component {
                 </Input>
               </FormGroup>
               <FormGroup>
-                <Label for="deskNumber">Desk</Label>
-                <Input type="text" name="deskNumber" id="deskNumber"
+                <Label size='sm' for="deskNumber">Desk</Label>
+                <Input size='sm' type="text" name="deskNumber" id="deskNumber"
                   value={this.state.deskNumber}
                   onChange={this.handleChange}
                 />
               </FormGroup>
               <FormGroup>
-                <Label for="serviceType">Type</Label>
-                <Input type="select" name="serviceType" id="serviceType"
+                <Label size='sm' for="serviceType">Type</Label>
+                <Input size='sm' type="select" name="serviceType" id="serviceType"
                   value={this.state.serviceType}
                   onChange={this.handleChange}
                   required>
@@ -200,24 +200,24 @@ class CreateNewTicketForm extends React.Component {
                 </Input>
               </FormGroup>
               <FormGroup>
-                <Label for="notes">Additional Information</Label>
-                <Input type="textarea" name="additionalInfo" id="additionalInfo"
+                <Label size='sm' for="notes">Additional Information</Label>
+                <Input size='sm' type="textarea" name="additionalInfo" id="additionalInfo"
                   value={this.state.additionalInfo}
                   onChange={this.handleChange}
                 />
               </FormGroup>
               <FormGroup>
-                <Label for="attachments">Attachments</Label>
-                <Input type="file" name="file1" id="file1" onChange={this.onFileUpload} />
-                <Input type="file" name="file2" id="file2" onChange={this.onFileUpload} />
-                <Input type="file" name="file3" id="file3" onChange={this.onFileUpload} />
-                <FormText color="muted">
+                <Label size='sm' for="attachments">Attachments</Label>
+                <Input size='sm' type="file" name="file1" id="file1" onChange={this.onFileUpload} />
+                <Input size='sm' type="file" name="file2" id="file2" onChange={this.onFileUpload} />
+                <Input size='sm' type="file" name="file3" id="file3" onChange={this.onFileUpload} />
+                <FormText size='sm' color="muted">
                   Any files that can assist the corresponding team to resolve the issues at the earliest.
           </FormText>
               </FormGroup>
               <Row>
                 <Col sm='auto'>
-                  <Button color="success" type="submit" bsSize="large"
+                  <Button size='sm' color="success" type="submit" bsSize="large"
                     onClick={this.onSubmitCreateTicket}>Create Ticket</Button>
                 </Col>
                 {this.props.createTicketAPICallStatus.requested
