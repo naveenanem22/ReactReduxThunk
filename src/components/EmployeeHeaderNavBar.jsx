@@ -18,8 +18,8 @@ import {
 import { logout } from '../actions/UserActions';
 import history from '../history';
 import { Link } from "react-router-dom";
-import { TicketStatus } from '../masterdata/ApplicationMasterData';
-import { FaChartLine, FaUser } from 'react-icons/fa';
+import { TicketStatus, PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE } from '../masterdata/ApplicationMasterData';
+import { FaChartLine, FaUser, FaSignOutAlt, FaListAlt } from 'react-icons/fa';
 
 
 class HeaderNavBar extends React.Component {
@@ -52,7 +52,12 @@ class HeaderNavBar extends React.Component {
   }
 
   onClickMyTickets() {
-    history.push('/ticketing/tickets?status=' + TicketStatus.ALL);
+    history.push({
+      pathname: '/ticketing/tickets',
+      search: '?status=' + TicketStatus.ALL + '&' +
+        'cioKey=ALT' + '&' +
+        'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE
+    });
   }
 
   onClickLogout() {
@@ -85,15 +90,19 @@ class HeaderNavBar extends React.Component {
                     padding: '0'
                   }}>
                     <Col sm='2' style={{
-                      margin: '0',
-                      padding:'0'
+                      padding: '0',
+                      textAlign: 'center',
+                      verticalAlign: 'middle'
                     }}>
-                      <FaUser></FaUser>
+                      <FaUser style={{
+                        marginTop: '70%'
+                      }}></FaUser>
 
                     </Col>
 
                     <Col sm='10' style={{
-                      margin: '0'
+                      margin: '0',
+                      padding: '0'
                     }}>
                       <NavLink style={{ color: '#212529' }} href="#" onClick={this.onClickEditProfile}>
                         {this.state.options[0]}</NavLink>
@@ -102,12 +111,59 @@ class HeaderNavBar extends React.Component {
                   </Row>
 
                 </DropdownItem>
-                <DropdownItem >
-                  <NavLink style={{ color: '#212529' }} href="#" onClick={this.onClickMyTickets}>{this.state.options[1]}</NavLink>
+
+                <DropdownItem>
+                  <Row style={{
+                    margin: '0',
+                    padding: '0'
+                  }}>
+                    <Col sm='2' style={{
+                      padding: '0',
+                      textAlign: 'center',
+                      verticalAlign: 'middle'
+                    }}>
+                      <FaListAlt style={{
+                        marginTop: '70%'
+                      }}></FaListAlt>
+
+                    </Col>
+
+                    <Col sm='10' style={{
+                      margin: '0',
+                      padding: '0'
+                    }}>
+                      <NavLink style={{ color: '#212529' }} href="#" onClick={this.onClickMyTickets}>{this.state.options[1]}</NavLink>
+
+                    </Col>
+                  </Row>
+
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem onClick={this.onClickLogout}>
-                  <NavLink style={{ color: '#212529' }} href="#">{this.state.options[2]}</NavLink>
+                <DropdownItem>
+                  <Row style={{
+                    margin: '0',
+                    padding: '0'
+                  }}>
+                    <Col sm='2' style={{
+                      padding: '0',
+                      textAlign: 'center',
+                      verticalAlign: 'middle'
+                    }}>
+                      <FaSignOutAlt style={{
+                        marginTop: '70%'
+                      }}></FaSignOutAlt>
+
+                    </Col>
+
+                    <Col sm='10' style={{
+                      margin: '0',
+                      padding: '0'
+                    }}>
+                      <NavLink style={{ color: '#212529' }} href="#">{this.state.options[2]}</NavLink>
+
+                    </Col>
+                  </Row>
+
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
