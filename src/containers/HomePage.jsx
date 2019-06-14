@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'reactstrap';
+import { Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import HeaderNavBar from "../components/HeaderNavBarHome";
 import { connect } from 'react-redux';
 
@@ -19,24 +19,39 @@ class HomePage extends React.Component {
             <div >
                 <div class='sticky'  >
                     <HeaderNavBar></HeaderNavBar>
-                </div >
+                </div > 
                 <Row style={{
                     height: '89.8vh',
                     padding: '0',
                     margin: '0'
                 }}>
-                    <Col sm='6' style={{
+                    <Col sm='12' style={{
                         padding: '0',
                         margin: '0',
-                        height:'100%'
+                        height: '100%'
                     }}>
-                        <div class='leftHome' style={{
-                            height:'100%'
+                        <div class='home' style={{
+                            height: '100%',
+                            width: '100%'
                         }}>
-                            Text
+                            <div class="bg-text">
+                                <h2>ITS HelpDesk</h2>
+                                <p>However, if you want only the background to change,
+                                     while the text or other child elements would remain opaque,
+                                     there is a way around it using RGBA. If you’re used to hex codes,
+                                     you can learn about the other ways to define colors in CSS,
+                                    namely predefined, RGB/RGBA, and HSL/HSLA colors</p>
+                                <ol>
+                                    <li>Coffee</li>
+                                    <li>Tea</li>
+                                    <li>Milk</li>
+                                </ol>
+                                <p>Login...</p>
+                            </div>
+
                         </div>
                     </Col>
-                    <Col sm='6' style={{
+                    {/* <Col sm='6' style={{
                         padding: '0',
                         height:'100%'
                     }}>
@@ -44,7 +59,7 @@ class HomePage extends React.Component {
                             height:'100%'
                         }}>
                         </div>
-                    </Col>
+                    </Col> */}
                 </Row>
 
 
