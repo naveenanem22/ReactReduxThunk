@@ -14,6 +14,7 @@ import history from '../history';
 import ViewTicketDetailsForm from './ViewTicketDetailsForm';
 import EmployeeProfile from './EmployeeProfile';
 import { Role } from '../masterdata/ApplicationMasterData';
+import PageUnderConstruction from '../components/PageUnderConstruction';
 
 class SPAEmployeeMainPage extends React.Component {
   constructor(props) {
@@ -81,6 +82,20 @@ class SPAEmployeeMainPage extends React.Component {
         </div>
         <Row style={{ background: 'rgba(0,0,0,0.3)', marginTop: '1%', marginLeft: '3%', marginRight: '3%', paddingTop: '1%' }}>
           <Col sm='2' ><SideNavBar></SideNavBar></Col>
+
+          <Route path="/ticketing/workflow"
+            component={() =>
+              <Col sm='9' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+                <PageUnderConstruction></PageUnderConstruction>
+              </Col>}>
+          </Route>
+
+          <Route path="/ticketing/policy"
+            component={() =>
+              <Col sm='9' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+                <PageUnderConstruction></PageUnderConstruction>
+              </Col>}>
+          </Route>
 
           <Route path="/ticketing/newticket"
             component={() =>

@@ -36,6 +36,7 @@ class HeaderNavBar extends React.Component {
     this.onClickMyTickets = this.onClickMyTickets.bind(this);
     this.onClickTicketWorkflow = this.onClickTicketWorkflow.bind(this);
     this.onClickEditProfile = this.onClickEditProfile.bind(this);
+    this.onClickPolicy = this.onClickPolicy.bind(this);
   }
   toggle() {
     this.setState({
@@ -48,7 +49,11 @@ class HeaderNavBar extends React.Component {
   }
 
   onClickTicketWorkflow() {
-    history.push('/ticketworkflow');
+    history.push('/ticketing/workflow');
+  }
+
+  onClickPolicy() {
+    history.push('/ticketing/policy');
   }
 
   onClickMyTickets() {
@@ -76,7 +81,7 @@ class HeaderNavBar extends React.Component {
               <NavLink href="#" onClick={this.onClickTicketWorkflow}>Workflow</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">Policy</NavLink>
+              <NavLink href='#' onClick={this.onClickPolicy}>Policy</NavLink>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
@@ -159,7 +164,10 @@ class HeaderNavBar extends React.Component {
                       margin: '0',
                       padding: '0'
                     }}>
-                      <NavLink style={{ color: '#212529' }} href="#">{this.state.options[2]}</NavLink>
+                      <NavLink
+                        style={{ color: '#212529' }}
+                        href="#"
+                        onClick={this.onClickLogout}>{this.state.options[2]}</NavLink>
 
                     </Col>
                   </Row>
