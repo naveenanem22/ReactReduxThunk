@@ -232,31 +232,44 @@ class ViewTicketDetailsForm extends React.Component {
 
               <Row>
                 <Col sm={6} style={{ 'text-align': 'left', 'padding-top': '.75rem' }}>
-                  <strong>{ticket.createdBy.firstName + ' ' + ticket.createdBy.lastName}
-                  </strong>
+                  <Label size='sm' style={{
+                    margin: '0'
+                  }}>{ticket.createdBy.firstName + ' ' + ticket.createdBy.lastName}</Label>
                 </Col>
-                <Col sm={6} style={{ 'text-align': 'right', 'padding-top': '.75rem' }}>{ticket.createdDate+' '}
+                <Col sm={6} style={{ 'text-align': 'right', 'padding-top': '.75rem' }}>
+                  <Label size='sm' style={{
+                    paddingRight: '1%',
+                    margin: '0'
+                  }}>{ticket.createdDate + ' '}</Label>
+
                   <span id='createdDateToolTip' href='#'>
                     <FaExclamationCircle style={{
-                      marginBottom:'1%'
+                      marginBottom: '1%'
                     }}></FaExclamationCircle></span>
-                    </Col>
+                </Col>
                 <UncontrolledTooltip placement="right" target="createdDateToolTip">
                   Created Date
               </UncontrolledTooltip>
               </Row>
 
               <Row>
-                <Col sm={12}><h4>{ticket.title}</h4></Col>
+                <Col sm={12}><h6>{ticket.title}</h6></Col>
               </Row>
               <hr />
               <Row>
-                <Col style={{ 'text-align': 'left', 'padding-top': '.30rem', 'padding-bottom': '.75rem' }}>
+                <Col style={{ 'text-align': 'left', 'padding-top': '.30rem' }}>
                   <Badge color="primary">{ticket.status.toUpperCase()}</Badge>
 
                 </Col>
-                <Col style={{ 'text-align': 'left', 'padding-top': '.30rem', 'padding-bottom': '.75rem' }}>Updated: {ticket.updatedDate}</Col>
-                <Col style={{ 'text-align': 'right', 'padding-top': '.30rem', 'padding-bottom': '.75rem' }}>Ticket ID: {ticket.id}</Col>
+                <Col style={{ 'text-align': 'left', 'padding-top': '.30rem' }}>
+                  <Label size='sm' style={{
+                    paddingRight: '1%'
+                  }}>Updated:</Label>
+                  <Label size='sm'>{ticket.updatedDate}</Label>
+                </Col>
+                <Col style={{ 'text-align': 'right', 'padding-top': '.30rem' }}>
+                  <Label size='sm'>Ticket ID: {ticket.id}</Label>
+                </Col>
               </Row>
 
               <div class="ticket-table-summary">
@@ -264,24 +277,76 @@ class ViewTicketDetailsForm extends React.Component {
 
                   <tbody>
                     <tr >
-                      <td style={{ width: '20%' }}><strong>Category:</strong></td>
-                      <td style={{ fontStyle: 'italic' }}>{ticket.serviceCategory}</td>
+                      <td style={{ width: '20%' }}>
+                        <Label size='sm' style={{
+                          margin: '0', padding: '0',
+                          fontWeight: '600'
+                        }}>Category:
+                        </Label>
+                      </td>
+                      <td ><Label size='sm' style={{
+                          margin: '0', padding: '0',
+                          fontStyle: 'italic'
+                        }}>{ticket.serviceCategory}
+                        </Label></td>
                     </tr>
                     <tr>
-                      <td><strong>Priority:</strong></td>
-                      <td style={{ fontStyle: 'italic' }}>{ticket.priority}</td>
+                      <td>
+                        <Label size='sm' style={{
+                          margin: '0', padding: '0',
+                          fontWeight: '600'
+                        }}>Priority:
+                        </Label></td>
+
+                      <td>
+                        <Label size='sm' style={{
+                          margin: '0', padding: '0',
+                          fontStyle: 'italic'
+                        }}>{ticket.priority}
+                        </Label>
+                      </td>
                     </tr>
                     <tr>
-                      <td><strong>Department:</strong></td>
-                      <td style={{ fontStyle: 'italic' }}>{ticket.department.name}</td>
+                      <td> <Label size='sm' style={{
+                        margin: '0', padding: '0',
+                        fontWeight: '600'
+                      }}>Department:
+                        </Label></td>
+                      <td >
+                        <Label size='sm' style={{
+                          margin: '0', padding: '0',
+                          fontStyle: 'italic'
+                        }}>{ticket.department.name}
+                        </Label></td>
                     </tr>
                     <tr>
-                      <td><strong>Office:</strong></td>
-                      <td style={{ fontStyle: 'italic' }}>{ticket.officeLocation}</td>
+                      <td> <Label size='sm' style={{
+                        margin: '0', padding: '0',
+                        fontWeight: '600'
+                      }}>Office:
+                        </Label></td>
+                      <td >
+                        <Label size='sm' style={{
+                          margin: '0', padding: '0',
+                          fontStyle: 'italic'
+                        }}>{ticket.officeLocation}
+                        </Label>
+                      </td>
                     </tr>
                     <tr>
-                      <td><strong>Service Type:</strong></td>
-                      <td style={{ fontStyle: 'italic' }}>{ticket.ticketType}</td>
+                      <td> <Label size='sm' style={{
+                        margin: '0', padding: '0',
+                        fontWeight: '600'
+                      }}>Service Type:
+                        </Label>
+                      </td>
+                      <td >
+                        <Label size='sm' style={{
+                          margin: '0', padding: '0',
+                          fontStyle: 'italic'
+                        }}>{ticket.ticketType}
+                        </Label>
+                      </td>
                     </tr>
 
                   </tbody>
