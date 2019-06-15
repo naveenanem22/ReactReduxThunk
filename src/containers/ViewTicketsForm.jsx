@@ -279,9 +279,9 @@ class ViewTicketsForm extends React.Component {
           </Row>
         </Container>
         <hr />
-        {true && <CustomPagination data={this.props.ticketList} 
-        onPaginationPageChange={this.onPaginationPageChange}
-        onPaginationItemsPerPageChange={this.onPaginationItemsPerPageChange}>
+        {true && <CustomPagination data={this.props.ticketList}
+          onPaginationPageChange={this.onPaginationPageChange}
+          onPaginationItemsPerPageChange={this.onPaginationItemsPerPageChange}>
         </CustomPagination>
         }
         {(localStorage.getItem('role') === Role.ROLE_MANAGER) &&
@@ -327,6 +327,11 @@ class ViewTicketsForm extends React.Component {
             )}
           </tbody>
         </Table>}
+        {true && <CustomPagination data={this.props.ticketList}
+          onPaginationPageChange={this.onPaginationPageChange}
+          onPaginationItemsPerPageChange={this.onPaginationItemsPerPageChange}>
+        </CustomPagination>
+        }
         {localStorage.getItem('role') === Role.ROLE_MANAGER &&
           <Container style={{ marginTop: '3%', marginBottom: '3%' }}><Row style={{ textAlign: 'center' }}>
             <Col style={{ textAlign: 'center' }}>
