@@ -4,7 +4,7 @@ import { Table, Container, Input, Badge, NavLink, Button, Row, Col, ListGroup, L
 import SearchInput from '../components/SearchInput';
 import { assignAndUpdateMultipleTicketsAPICall } from '../actions/TicketActions';
 import history from '../history';
-import { Role, TicketStatus } from '../masterdata/ApplicationMasterData';
+import { Role, TicketStatus, PAGINATION_START_PAGE } from '../masterdata/ApplicationMasterData';
 import { fetchCreatedTicketsAPICall } from '../actions/TicketActions'
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
@@ -61,6 +61,29 @@ class ViewTicketsForm extends React.Component {
 
       //update pageNumber & pageSize params with new values
       params.pageNumber = pageNumber;
+
+      //push the url to history
+      history.push({
+        pathname: "/ticketing/tickets",
+        search: "?status=" + params.status + "&" + "cioKey=" + params.cioKey + "&" + "pageNumber=" + params.pageNumber
+          + "&" + "pageSize=" + params.pageSize
+      });
+    }
+
+  }
+
+  onPaginationItemsPerPageChange(itemsPerPage) {
+    if (localStorage.getItem('role') === Role.ROLE_EMPLOYEE) {
+      //Extracting query params from url
+      console.log("Parsing query params from query-string:");
+      console.log(history.location.search);
+      const params = queryString.parse(history.location.search);
+      console.log("Parsed params: ");
+      console.log(params);
+
+      //update pageSize params with new values
+      params.pageSize = itemsPerPage;
+      params.pageNumber = PAGINATION_START_PAGE;
 
       //push the url to history
       history.push({
@@ -256,7 +279,9 @@ class ViewTicketsForm extends React.Component {
           </Row>
         </Container>
         <hr />
-        {true && <CustomPagination data={this.props.ticketList} onPaginationPageChange={this.onPaginationPageChange}>
+        {true && <CustomPagination data={this.props.ticketList} 
+        onPaginationPageChange={this.onPaginationPageChange}
+        onPaginationItemsPerPageChange={this.onPaginationItemsPerPageChange}>
         </CustomPagination>
         }
         {(localStorage.getItem('role') === Role.ROLE_MANAGER) &&

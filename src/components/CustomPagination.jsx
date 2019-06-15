@@ -26,6 +26,8 @@ class CustomPagination extends Component {
   handleItemsPerPageChange(e) {
     this.setState({
       [e.target.name]: e.target.value
+    }, () => {
+      this.props.onPaginationItemsPerPageChange(this.state.itemsPerPage);
     });
 
   }
