@@ -285,10 +285,10 @@ class ViewTicketDetailsForm extends React.Component {
                         </Label>
                       </td>
                       <td ><Label size='sm' style={{
-                          margin: '0', padding: '0',
-                          fontStyle: 'italic'
-                        }}>{ticket.serviceCategory}
-                        </Label></td>
+                        margin: '0', padding: '0',
+                        fontStyle: 'italic'
+                      }}>{ticket.serviceCategory}
+                      </Label></td>
                     </tr>
                     <tr>
                       <td>
@@ -357,32 +357,35 @@ class ViewTicketDetailsForm extends React.Component {
               {(ticket.ticketHistory.length === 0
                 && ticket.status !== TicketStatus.CLOSE)
                 &&
-
                 <div>
                   <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%' }}>
                     <Col >
-                      <Input type="textarea" name="comment" id="comment" onChange={this.handleChange} />
+                      <Input size='sm' type="textarea" name="comment" id="comment" onChange={this.handleChange} />
                     </Col>
                   </Row>
 
                   <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%', 'marginTop': '1%' }}>
                     <Col>
-                      <Button onClick={this.toggleUpload} type="submit" outline color="secondary" bsSize="small"
+                      <Button onClick={this.toggleUpload}
+                        type="submit"
+                        outline
+                        color="secondary"
+                        size="sm"
                       >Attach Files</Button>
                     </Col>
                     <Col style={{ 'text-align': 'right' }}>
-                      <Button type="submit" color="link" bsSize="small" onClick={this.onSubmitCloseTicket}>
+                      <Button type="submit" color="link" size="sm" onClick={this.onSubmitCloseTicket}>
                         Close Ticket</Button>or
-                 <Button type="submit" color="info" bsSize="small" style={{ 'marginLeft': '2%' }} onClick={this.onSubmitAddMessage}>
+                 <Button type="submit" color="info" size="sm" style={{ 'marginLeft': '2%' }} onClick={this.onSubmitAddMessage}>
                         Add Message</Button>
                     </Col>
                   </Row>
                   {this.state.isUpload && <Row>
                     <FormGroup style={{ 'width': '90%', 'paddingLeft': '5%', 'paddingTop': '2%' }}>
-                      <Label for="attachments">Attachments</Label>
-                      <Input type="file" name="file1" id="file1" onChange={this.onFileUpload} />
-                      <Input type="file" name="file2" id="file2" onChange={this.onFileUpload} />
-                      <Input type="file" name="file3" id="file3" onChange={this.onFileUpload} />
+                      <Label size='sm' for="attachments">Attachments</Label>
+                      <Input size='sm' type="file" name="file1" id="file1" onChange={this.onFileUpload} />
+                      <Input size='sm' type="file" name="file2" id="file2" onChange={this.onFileUpload} />
+                      <Input size='sm' type="file" name="file3" id="file3" onChange={this.onFileUpload} />
                       <FormText color="muted">
                         Any files that can assist the corresponding team to resolve the issues at the earliest.
           </FormText>
@@ -397,16 +400,35 @@ class ViewTicketDetailsForm extends React.Component {
                 <div class="ticket-conv-block" >
                   <div class="author">
                     <Row style={{ 'height': '50px' }}>
-                      <Col md={6} style={{ 'text-align': 'left', 'paddingLeft': '3%', 'padding-top': '.75rem', 'padding-bottom': '.75rem' }}>
-                        {item.author.firstName + ' ' + item.author.lastName}</Col>
-                      <Col md={6} style={{ 'text-align': 'right', 'paddingRight': '3%', 'padding-top': '.75rem', 'padding-bottom': '.75rem' }}>{item.commentedOn}</Col>
+                      <Col sm={6} style={{ 'text-align': 'left', 'paddingLeft': '3%', 'padding-top': '.75rem', 'padding-bottom': '.75rem' }}>
+                        <Label size='sm' style={{
+                          margin: '0', padding: '0'
+                        }}>
+                          {item.author.firstName + ' ' + item.author.lastName}</Label>
+
+                      </Col>
+                      <Col sm={6} style={{
+                        'text-align': 'right',
+                        'paddingRight': '3%',
+                        'padding-top': '.75rem',
+                        'padding-bottom': '.75rem'
+                      }}>
+                        <Label size='sm' style={{
+                          margin: '0', padding: '0'
+                        }}>{item.commentedOn}</Label>
+                      </Col>
                     </Row>
                   </div>
                   <hr />
 
                   <div class="message" style={{ 'paddingBottom': '1%' }}>
                     <Row >
-                      <Col style={{ 'paddingLeft': '3%' }}>{item.comment}</Col>
+                      <Col style={{ 'paddingLeft': '3%' }}>
+                        <Label size='sm' style={{
+                          margin: '0', padding: '0'
+                        }}>{item.comment}
+                        </Label>
+                      </Col>
                     </Row>
                     {(item.attachments.length > 0) && <Row style={{ 'marginBottom': '3px', 'paddingLeft': '2%', 'paddingRight': '0%' }}>Attachment(s):</Row>}
                     {(item.attachments.length > 0) && item.attachments.map((attachment) =>
@@ -420,13 +442,17 @@ class ViewTicketDetailsForm extends React.Component {
                       <div>
                         <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%' }}>
                           <Col >
-                            <Input type="textarea" name="comment" id="comment" onChange={this.handleChange} />
+                            <Input size='sm' type="textarea" name="comment" id="comment" onChange={this.handleChange} />
                           </Col>
                         </Row>
 
                         <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%', 'marginTop': '1%' }}>
                           <Col>
-                            <Button onClick={this.toggleUpload} type="submit" outline color="secondary" bsSize="small"
+                            <Button onClick={this.toggleUpload}
+                              type="submit"
+                              outline
+                              color="secondary"
+                              size="sm"
                             >Attach Files</Button>
                           </Col>
                           {this.props.closeTicketAPICallStatus.requested
@@ -447,7 +473,7 @@ class ViewTicketDetailsForm extends React.Component {
                             <Button disabled={this.props.closeTicketAPICallStatus.requested}
                               type="submit"
                               color="link"
-                              bsSize="small"
+                              size="sm"
                               onClick={this.onSubmitCloseTicket}>
                               Close Ticket</Button>
                           </Col>
@@ -475,7 +501,7 @@ class ViewTicketDetailsForm extends React.Component {
                             <Button
                               type="submit"
                               color="info"
-                              bsSize="small"
+                              size="sm"
                               disabled={this.props.addMessageAPICallStatus.requested}
                               style={{ 'marginLeft': '2%' }}
                               onClick={this.onSubmitAddMessage}>
@@ -484,10 +510,10 @@ class ViewTicketDetailsForm extends React.Component {
                         </Row>
                         {this.state.isUpload && <Row>
                           <FormGroup style={{ 'width': '90%', 'paddingLeft': '5%', 'paddingTop': '2%' }}>
-                            <Label for="attachments">Attachments</Label>
-                            <Input type="file" name="file1" id="file1" onChange={this.onFileUpload} />
-                            <Input type="file" name="file2" id="file2" onChange={this.onFileUpload} />
-                            <Input type="file" name="file3" id="file3" onChange={this.onFileUpload} />
+                            <Label size='sm' for="attachments">Attachments</Label>
+                            <Input size='sm' type="file" name="file1" id="file1" onChange={this.onFileUpload} />
+                            <Input size='sm' type="file" name="file2" id="file2" onChange={this.onFileUpload} />
+                            <Input size='sm' type="file" name="file3" id="file3" onChange={this.onFileUpload} />
                             <FormText color="muted">
                               Any files that can assist the corresponding team to resolve the issues at the earliest.
           </FormText>
