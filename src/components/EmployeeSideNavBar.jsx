@@ -79,30 +79,30 @@ class SideNavBar extends React.Component {
               cursor: 'pointer',
               paddingTop:'5%',
               paddingBottom: '5%'
-            }}><NavLink href='#' style={{
+            }}><NavLink href='#' onClick={this.handleNewTicket} style={{
               padding: '0', margin: '0'
             }}><FaPlusSquare style={{
-              marginBottom:'5%',
+              marginBottom:'3%',
               marginRight:'5%'
             }}></FaPlusSquare> New Ticket</NavLink></ListGroupItem>
             <ListGroupItem style={{
               cursor: 'pointer',
               paddingTop:'5%',
               paddingBottom: '5%'
-            }}><NavLink href='#' style={{
+            }}><NavLink onClick={this.handleMyTicketsClick} href='#' style={{
               padding: '0', margin: '0'
             }}><FaListAlt style={{
-              marginBottom:'5%',
+              marginBottom:'3%',
               marginRight:'5%'
             }}></FaListAlt> My Tickets</NavLink></ListGroupItem>
             <ListGroupItem style={{
               cursor: 'pointer',
               paddingTop:'5%',
               paddingBottom: '5%'
-            }}><NavLink href='#' style={{
+            }}><NavLink active onClick={this.handleClosedTicketsClick} href='#' style={{
               padding: '0', margin: '0'
             }}><FaTimesCircle style={{
-              marginBottom:'5%',
+              marginBottom:'3%',
               marginRight:'5%'
             }}></FaTimesCircle> Closed Tickets</NavLink></ListGroupItem>
           </ListGroup>

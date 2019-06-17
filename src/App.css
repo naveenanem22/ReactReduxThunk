@@ -173,7 +173,7 @@ div.sidemenu > ul > li:hover {
 }
 
 div.sidemenu > ul > li > a:focus{
-  color:red;
+  color:#546e7a;
   font-weight: 600;
 }
 
