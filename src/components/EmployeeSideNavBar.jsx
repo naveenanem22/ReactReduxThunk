@@ -1,6 +1,6 @@
 import React from 'react';
-import { Nav, NavItem, NavLink, Navbar } from 'reactstrap';
-import { FaUser, FaAngleDoubleRight } from 'react-icons/fa';
+import { Nav, NavItem, NavLink, Navbar, ButtonGroup, Button, ListGroup, ListGroupItem } from 'reactstrap';
+import { FaUser, FaAngleDoubleRight, FaPlusSquare, FaListAlt, FaTimesCircle } from 'react-icons/fa';
 import history from '../history';
 import { connect } from 'react-redux';
 import { fetchTicketsAPICall, showFormNewTicket } from '../actions/TicketActions'
@@ -60,7 +60,7 @@ class SideNavBar extends React.Component {
     return (
       <div class='sidenavbar' style={{}}>
 
-        <Nav style={{ borderRadius: '10px', border: '1px solid grey', backgroundColor: '#FFFFFF' }} vertical >
+        {/* <Nav style={{ borderRadius: '10px', border: '1px solid grey', backgroundColor: '#FFFFFF' }} vertical >
           <NavItem >
             <NavLink href="#" onClick={this.handleNewTicket} style={{ borderTopLeftRadius: '10px', borderTopRightRadius: '10px', borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> New Ticket
             </NavLink>
@@ -72,7 +72,41 @@ class SideNavBar extends React.Component {
             <NavLink href="#" onClick={this.handleClosedTicketsClick} style={{ borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Closed Tickets</NavLink>
           </NavItem>
 
-        </Nav>
+        </Nav> */}
+        <div class='sidemenu'>
+          <ListGroup size='sm'>
+            <ListGroupItem style={{
+              cursor: 'pointer',
+              paddingTop:'5%',
+              paddingBottom: '5%'
+            }}><NavLink href='#' style={{
+              padding: '0', margin: '0'
+            }}><FaPlusSquare style={{
+              marginBottom:'5%',
+              marginRight:'5%'
+            }}></FaPlusSquare> New Ticket</NavLink></ListGroupItem>
+            <ListGroupItem style={{
+              cursor: 'pointer',
+              paddingTop:'5%',
+              paddingBottom: '5%'
+            }}><NavLink href='#' style={{
+              padding: '0', margin: '0'
+            }}><FaListAlt style={{
+              marginBottom:'5%',
+              marginRight:'5%'
+            }}></FaListAlt> My Tickets</NavLink></ListGroupItem>
+            <ListGroupItem style={{
+              cursor: 'pointer',
+              paddingTop:'5%',
+              paddingBottom: '5%'
+            }}><NavLink href='#' style={{
+              padding: '0', margin: '0'
+            }}><FaTimesCircle style={{
+              marginBottom:'5%',
+              marginRight:'5%'
+            }}></FaTimesCircle> Closed Tickets</NavLink></ListGroupItem>
+          </ListGroup>
+        </div>
 
       </div>
     );

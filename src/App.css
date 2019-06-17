@@ -167,6 +167,21 @@ div.sidenavbar > div.container > div.row > div.col > ul >li>a:hover{
 }
 /*Styling for SideNavBar component END*/
 
+/*Styling for sidemenu component START*/
+div.sidemenu > ul > li:hover {
+  background-color: #e5ebeb;  
+}
+
+div.sidemenu > ul > li > a:focus{
+  color:red;
+  font-weight: 600;
+}
+
+div.sidemenu > ul > li > a{
+  color:rgb(17, 17, 17);
+}
+/*Styling for sidemenu component END*/
+
 /*Zero Margin and Zero Padding div style class START*/
 div.zmzp > div.row{
   margin: 0px;
