@@ -9,7 +9,7 @@ import { fetchTicketDetailsAPICall } from '../actions/TicketActions'
 import { ScaleLoader } from 'react-spinners';
 import history from '../history';
 import queryString from 'query-string';
-import { Role, TicketStatus } from '../masterdata/ApplicationMasterData';
+import { Role, TicketStatus, PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE } from '../masterdata/ApplicationMasterData';
 import { componentInfoObj } from '../masterdata/ApplicationMasterData';
 import { HalfCircleSpinner } from 'react-epic-spinners';
 
@@ -45,7 +45,12 @@ class ViewTicketDetailsForm extends React.Component {
 
     switch (localStorage.getItem('role')) {
       case Role.ROLE_EMPLOYEE:
-        history.push("/ticketing/tickets?status=all");
+        history.push({
+          pathname: '/ticketing/tickets',
+          search: '?status=' + TicketStatus.ALL + '&' +
+            'cioKey=ALT' + '&' +
+            'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE
+        });
         break;
 
       case Role.ROLE_ENGINEER:
