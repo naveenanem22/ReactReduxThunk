@@ -109,6 +109,7 @@ class ViewTicketDetailsForm extends React.Component {
       file1: this.state.isUpload ? prevState.file1 : undefined,
       file2: this.state.isUpload ? prevState.file2 : undefined,
       file3: this.state.isUpload ? prevState.file3 : undefined,
+      id: this.props.ticket.id,
 
       //isViewTicketDetailsSectionVisible: false,
       isAlertSectionVisible: true
