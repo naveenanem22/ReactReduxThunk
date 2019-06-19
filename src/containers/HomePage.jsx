@@ -4,6 +4,7 @@ import HeaderNavBar from "../components/HeaderNavBarHome";
 import { connect } from 'react-redux';
 
 import { ScaleLoader } from 'react-spinners';
+import { FaTicketAlt, FaChartLine, FaChartBar, FaHandshake } from 'react-icons/fa';
 
 
 class HomePage extends React.Component {
@@ -19,7 +20,7 @@ class HomePage extends React.Component {
             <div >
                 <div class='sticky'  >
                     <HeaderNavBar></HeaderNavBar>
-                </div > 
+                </div >
                 <Row style={{
                     height: '89.8vh',
                     padding: '0',
@@ -41,12 +42,99 @@ class HomePage extends React.Component {
                                      there is a way around it using RGBA. If you’re used to hex codes,
                                      you can learn about the other ways to define colors in CSS,
                                     namely predefined, RGB/RGBA, and HSL/HSLA colors</p>
-                                <ol>
-                                    <li>Coffee</li>
-                                    <li>Tea</li>
-                                    <li>Milk</li>
-                                </ol>
-                                <p>Login...</p>
+                                <p>However, if you want only the background to change,
+                                 while the text or other child elements would remain opaque,
+                                 there is a way around it using RGBA. If you’re used to hex codes,
+                                 you can learn about the other ways to define colors in CSS,
+                                    namely predefined, RGB/RGBA, and HSL/HSLA colors. However, if you want only the background to change,
+                                 while the text or other child elements would remain opaque,
+                                 there is a way around it using RGBA. If you’re used to hex codes,
+                                 you can learn about the other ways to define colors in CSS,
+                                    namely predefined, RGB/RGBA, and HSL/HSLA colors.</p>
+                                <Row style={{
+                                    marginTop: '5%'
+                                }}>
+                                    <Col sm='4' >
+                                        <div style={{
+                                            borderRadius: '10px',
+                                            border: '2px solid #ffffff'
+                                        }}>
+                                            <Row>
+                                                <Col>
+                                                    <FaTicketAlt size='90'></FaTicketAlt>
+                                                </Col>
+
+                                            </Row>
+                                            <Row>
+                                                <Col>
+                                                    <div> This is a sample text.
+                                                    This is a sample text.
+                                                    This is a sample text.
+                                                    This is a sample text.
+                                                    This is a sample text.
+                                                    This is a sample text.
+                                                    This is a sample text.
+                                                    This is a sample text.
+                                            </div>
+                                                </Col>
+                                            </Row>
+                                        </div>
+
+                                    </Col>
+                                    <Col sm='4' >
+                                        <div style={{
+                                            borderRadius: '10px',
+                                            border: '2px solid #ffffff'
+                                        }}>
+                                            <Row>
+                                                <Col>
+                                                    <FaHandshake size='90'></FaHandshake>
+                                                </Col>
+
+                                            </Row>
+                                            <Row>
+                                                <Col>
+                                                    <div> This is a sample text.
+                                                    This is a sample text.
+                                                    This is a sample text.
+                                                    This is a sample text.
+                                                    This is a sample text.
+                                                    This is a sample text.
+                                                    This is a sample text.
+                                                    This is a sample text.
+                                            </div>
+                                                </Col>
+                                            </Row>
+                                        </div>
+                                    </Col>
+                                    <Col sm='4' >
+                                        <div style={{
+                                            borderRadius: '10px',
+                                            border: '2px solid #ffffff'
+                                        }}>
+                                            <Row>
+                                                <Col>
+                                                    <FaChartLine size='90'></FaChartLine>
+                                                </Col>
+
+                                            </Row>
+                                            <Row>
+                                                <Col>
+                                                    <div> This is a sample text.
+                                                    This is a sample text.
+                                                    This is a sample text.
+                                                    This is a sample text.
+                                                    This is a sample text.
+                                                    This is a sample text.
+                                                    This is a sample text.
+                                                    This is a sample text.
+                                            </div>
+                                                </Col>
+                                            </Row>
+                                        </div>
+
+                                    </Col>
+                                </Row>
                             </div>
 
                         </div>
