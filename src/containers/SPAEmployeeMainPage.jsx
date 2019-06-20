@@ -8,7 +8,7 @@ import ViewTicketsForm from './ViewTicketsForm';
 import { Route } from 'react-router-dom'
 import SideNavBar from '../components/EmployeeSideNavBar';
 import { Row, Col } from 'reactstrap';
-import ViewTicketBundleDetailsForm from './ViewTicketBundleDetailsForm';
+import EmployeeHome from './EmployeeHome';
 import EngineerProfileForm from './EngineerProfile';
 import history from '../history';
 import ViewTicketDetailsForm from './ViewTicketDetailsForm';
@@ -94,6 +94,13 @@ class SPAEmployeeMainPage extends React.Component {
             component={() =>
               <Col sm='9' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
                 <PageUnderConstruction></PageUnderConstruction>
+              </Col>}>
+          </Route>
+
+          <Route path="/ticketing/home"
+            component={() =>
+              <Col sm='9' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+                <EmployeeHome></EmployeeHome>
               </Col>}>
           </Route>
 

@@ -37,6 +37,7 @@ class HeaderNavBar extends React.Component {
     this.onClickTicketWorkflow = this.onClickTicketWorkflow.bind(this);
     this.onClickEditProfile = this.onClickEditProfile.bind(this);
     this.onClickPolicy = this.onClickPolicy.bind(this);
+    this.onClickHome = this.onClickHome.bind(this);
   }
   toggle() {
     this.setState({
@@ -65,6 +66,10 @@ class HeaderNavBar extends React.Component {
     });
   }
 
+  onClickHome() {
+    history.push('/ticketing/home');
+  }
+
   onClickLogout() {
     history.push('/login');
     this.props.onLogout();
@@ -73,7 +78,7 @@ class HeaderNavBar extends React.Component {
     return (
 
       <Navbar color="dark" dark expand="md">
-        <NavbarBrand href="/home"><h3>ITS Helpdesk</h3></NavbarBrand>
+        <NavbarBrand href='/ticketing/home' onClick={this.onClickHome} ><h3>ITS Helpdesk</h3></NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
