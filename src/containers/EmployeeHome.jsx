@@ -15,7 +15,7 @@ class EmployeeHome extends React.Component {
         return (
             <div style={{ marginLeft: '1%', marginRight: '1%' }}>
                 <Container style={{ marginTop: '3%' }}><Row style={{ textAlign: 'left' }}>
-                    <h4>Welcome, {this.props.profile.firstName}{this.props.profile.lastname}</h4>
+                    <h4>Welcome, {this.props.profile.firstName}{this.props.profile.lastname}!</h4>
                 </Row>
                     <Row style={{ textAlign: 'left' }}>
                         <p>Last login: 11th May 2019: 11:25:30Hrs</p>

@@ -79,7 +79,8 @@ class HeaderNavBar extends React.Component {
 
       <Navbar color="dark" dark expand="md">
         <NavbarBrand onClick={this.onClickHome} ><h3 style={{
-          color:'#ffffff'
+          color:'#ffffff',
+          cursor:'pointer'
         }}>ITS Helpdesk</h3></NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
