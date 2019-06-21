@@ -78,7 +78,9 @@ class HeaderNavBar extends React.Component {
     return (
 
       <Navbar color="dark" dark expand="md">
-        <NavbarBrand href='/ticketing/home' onClick={this.onClickHome} ><h3>ITS Helpdesk</h3></NavbarBrand>
+        <NavbarBrand onClick={this.onClickHome} ><h3 style={{
+          color:'#ffffff'
+        }}>ITS Helpdesk</h3></NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
