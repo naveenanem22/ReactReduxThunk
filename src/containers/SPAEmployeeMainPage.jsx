@@ -15,6 +15,7 @@ import ViewTicketDetailsForm from './ViewTicketDetailsForm';
 import EmployeeProfile from './EmployeeProfile';
 import { Role } from '../masterdata/ApplicationMasterData';
 import PageUnderConstruction from '../components/PageUnderConstruction';
+import Workflow from './Workflow';
 
 class SPAEmployeeMainPage extends React.Component {
   constructor(props) {
@@ -86,7 +87,7 @@ class SPAEmployeeMainPage extends React.Component {
           <Route path="/ticketing/workflow"
             component={() =>
               <Col sm='9' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
-                <PageUnderConstruction></PageUnderConstruction>
+                <Workflow></Workflow>
               </Col>}>
           </Route>
 
