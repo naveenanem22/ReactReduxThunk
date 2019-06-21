@@ -3,7 +3,7 @@ import HeaderNavBar from "../components/EmployeeHeaderNavBar";
 import { connect } from 'react-redux';
 import CreateTicketForm from './CreateTicketForm';
 import DashboardForm from './DashboardForm';
-import ViewTicketsBundlesForm from './ViewTicketBundlesForm';
+import PolicyForm from './PolicyForm';
 import ViewTicketsForm from './ViewTicketsForm';
 import { Route } from 'react-router-dom'
 import SideNavBar from '../components/EmployeeSideNavBar';
@@ -94,7 +94,7 @@ class SPAEmployeeMainPage extends React.Component {
           <Route path="/ticketing/policy"
             component={() =>
               <Col sm='9' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
-                <PageUnderConstruction></PageUnderConstruction>
+                <PolicyForm></PolicyForm>
               </Col>}>
           </Route>
 
