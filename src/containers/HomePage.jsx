@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { ScaleLoader } from 'react-spinners';
 import { FaTicketAlt, FaChartLine, FaChartBar, FaHandshake } from 'react-icons/fa';
+import { subHeading1, subHeading2, raiseTicket, resolveTicket } from '../masterdata/ApplicationMasterData';
 
 
 class HomePage extends React.Component {
@@ -37,20 +38,8 @@ class HomePage extends React.Component {
                         }}>
                             <div class="bg-text">
                                 <h2>ITS HelpDesk</h2>
-                                <p>However, if you want only the background to change,
-                                     while the text or other child elements would remain opaque,
-                                     there is a way around it using RGBA. If you’re used to hex codes,
-                                     you can learn about the other ways to define colors in CSS,
-                                    namely predefined, RGB/RGBA, and HSL/HSLA colors</p>
-                                <p>However, if you want only the background to change,
-                                 while the text or other child elements would remain opaque,
-                                 there is a way around it using RGBA. If you’re used to hex codes,
-                                 you can learn about the other ways to define colors in CSS,
-                                    namely predefined, RGB/RGBA, and HSL/HSLA colors. However, if you want only the background to change,
-                                 while the text or other child elements would remain opaque,
-                                 there is a way around it using RGBA. If you’re used to hex codes,
-                                 you can learn about the other ways to define colors in CSS,
-                                    namely predefined, RGB/RGBA, and HSL/HSLA colors.</p>
+                                <p>{subHeading1}</p>
+                                <p>{subHeading2}</p>
                                 <Row style={{
                                     marginTop: '5%'
                                 }}>
@@ -67,15 +56,7 @@ class HomePage extends React.Component {
                                             </Row>
                                             <Row>
                                                 <Col>
-                                                    <div> This is a sample text.
-                                                    This is a sample text.
-                                                    This is a sample text.
-                                                    This is a sample text.
-                                                    This is a sample text.
-                                                    This is a sample text.
-                                                    This is a sample text.
-                                                    This is a sample text.
-                                            </div>
+                                                    <div>{raiseTicket}</div>
                                                 </Col>
                                             </Row>
                                         </div>
@@ -94,15 +75,7 @@ class HomePage extends React.Component {
                                             </Row>
                                             <Row>
                                                 <Col>
-                                                    <div> This is a sample text.
-                                                    This is a sample text.
-                                                    This is a sample text.
-                                                    This is a sample text.
-                                                    This is a sample text.
-                                                    This is a sample text.
-                                                    This is a sample text.
-                                                    This is a sample text.
-                                            </div>
+                                                    <div>{resolveTicket}</div>
                                                 </Col>
                                             </Row>
                                         </div>
