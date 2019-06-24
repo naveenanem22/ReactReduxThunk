@@ -52,7 +52,7 @@ class EmployeeHome extends React.Component {
                 <Row>
                     <Col sm='auto'>
                         <Label size='sm'><span style={{ fontWeight: '700' }}>
-                            Note 2:</span> Refer <Badge color='info' pill>Policy</Badge> page to know the Dos and Donts with ItsHelpdesk. </Label>
+                            Note 2:</span> Refer <Badge color='info' pill>FAQs</Badge> page to know the Dos and Donts with ItsHelpdesk. </Label>
                     </Col>
                 </Row>
             </div>
