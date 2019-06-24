@@ -113,5 +113,62 @@ export const componentInfoObj = {
 }
 /***Form Title and SubTitle data END***/
 
+/***FAQs data START***/
+export const faqs = [
+    {
+        question: 'Can the ticket be Reoped once it is closed?',
+        answer: 'No. There is ample time provided for the requester to respond before it is auto-closed. Please raise a new ticket if it is not resolved.'
+
+    },
+    {
+        question: 'Is there a limit on the number of tickets to be assigned to Engineer?',
+        answer: 'No'
+
+    }, {
+        question: 'Is there a limit on the number of tickets that a user can create?',
+        answer: 'No'
+
+    },
+    {
+        question: 'Can I escalate the issue if not resolved?',
+        answer: 'Feature will be available in upcoming releases.'
+
+    },
+    {
+        question: 'How to know the stage of my Ticket?',
+        answer: 'Please refer to the Workflow.'
+
+    },
+    {
+        question: 'Can I send an email to create a ticket rather than from NewTicket link?',
+        answer: 'Feature will be availble in future releases.'
+
+    },
+    {
+        question: 'Can an Engineer assign ticket to other Engineers?',
+        answer: 'Yes. This is to speed up the process of resolution. Also, the Engineer can assign a ticket to him/herself without waiting for Manager to assign the same.'
+
+    },
+    {
+        question: 'Can I use the software for any sort of legal formalities?',
+        answer: 'No. The ItsHelpDesk is strictly intended for the purposes of collaboration and does not stand as any form of legal formlities.'
+
+    },
+    {
+        question: 'Is the software operational in Intranet or Internet?',
+        answer: 'Depends on the organizational security aspects.'
+
+    },
+    {
+        question: 'What if I find a discrepancy in the graphs visisble to a Manger?',
+        answer: 'Kindly report the issue to admin@itshelpdesk.com'
+
+    }];
+
+
+/***FAQs data END***/
+
+
+
 
 
