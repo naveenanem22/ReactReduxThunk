@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Button, Form, FormGroup, FormFeedback, Label, Input, Container, Col } from 'reactstrap';
+import { Row, Card, Button, Form, FormGroup, FormFeedback, Label, Input, Container, Col } from 'reactstrap';
 import { loginAPICall } from '../actions/UserActions'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -71,54 +71,65 @@ class LoginForm extends React.Component {
     }
 
     return (
-      <Container style={{ 'width': '60%', paddingBottom: '3%', paddingTop: '3%', marginTop: '2%', backgroundColor: '#E8EAED' }}>
-        <h2>Sign In</h2>
-        <Form className="form">
-          {this.props.isLoginFailure && <Label className="text-danger">{this.props.loginFailureMessage}</Label>}
-          <Col>
-            <FormGroup>
-              <Label>UserId</Label>
-              <Input
-                name="userId"
-                id="userId"
-                placeholder="myemail@email.com"
-                onChange={this.handleChange}
-              />
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup>
-              <Label>Password</Label>
-              <Input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="********"
-
-                value={this.state.password}
-                onChange={this.handleChange}
-              />
-            </FormGroup>
-          </Col>
-          <Row>
-            <Col sm='auto' style={{
-              textAlign : 'left'
-            }}>
-              <Button onClick={this.onSubmitLogin}>Submit</Button>
+      <Card color='light' style={{
+        marginTop:'5%',
+        marginLeft:'35%',
+        marginRight:'35%',
+        padding:'1%'
+      }}>
+          <h4>Sign In</h4>
+          <Form className="form">
+            {this.props.isLoginFailure && <Label className="text-danger">{this.props.loginFailureMessage}</Label>}
+            <Col>
+              <FormGroup>
+                <Label size='sm' style={{
+                  fontWeight: '600'
+                }}>UserId</Label>
+                <Input
+                  size='sm'
+                  name="userId"
+                  id="userId"
+                  placeholder="myemail@email.com"
+                  onChange={this.handleChange}
+                />
+              </FormGroup>
             </Col>
-            <Col sm='auto' style={{
-              textAlign: 'left',
-              paddingTop:'1%'
-            }}>
-              {this.props.loginAPICallStatus.requested && <HalfCircleSpinner
-                color='green'
-                size='20'></HalfCircleSpinner>}
+            <Col>
+              <FormGroup>
+                <Label size='sm' style={{
+                  fontWeight: '600'
+                }}>Password</Label>
+                <Input
+                  size='sm'
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="********"
+
+                  value={this.state.password}
+                  onChange={this.handleChange}
+                />
+              </FormGroup>
             </Col>
+            <Row>
+              <Col sm='auto' style={{
+                textAlign: 'left'
+              }}>
+                <Button size='sm' onClick={this.onSubmitLogin}>Submit</Button>
+              </Col>
+              <Col sm='auto' style={{
+                textAlign: 'left',
+                paddingTop: '1%'
+              }}>
+                {this.props.loginAPICallStatus.requested && <HalfCircleSpinner
+                  color='#17A2B8'
+                  size='20'></HalfCircleSpinner>}
+              </Col>
 
-          </Row>
+            </Row>
 
-        </Form>
-      </Container>
+          </Form>
+      </Card>
     );
   }
 }
