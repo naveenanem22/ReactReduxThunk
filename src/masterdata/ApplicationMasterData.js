@@ -122,11 +122,11 @@ export const faqs = [
     },
     {
         question: 'Is there a limit on the number of tickets to be assigned to Engineer?',
-        answer: 'No'
+        answer: 'No.'
 
     }, {
         question: 'Is there a limit on the number of tickets that a user can create?',
-        answer: 'No'
+        answer: 'No.'
 
     },
     {
