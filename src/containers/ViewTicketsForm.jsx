@@ -4,12 +4,13 @@ import { Table, Container, Input, Badge, NavLink, Button, Row, Col, ListGroup, L
 import SearchInput from '../components/SearchInput';
 import { assignAndUpdateMultipleTicketsAPICall } from '../actions/TicketActions';
 import history from '../history';
-import { Role, TicketStatus, PAGINATION_START_PAGE } from '../masterdata/ApplicationMasterData';
+import { Role, TicketStatus, PAGINATION_START_PAGE, ticketStatusColorCode } from '../masterdata/ApplicationMasterData';
 import { fetchCreatedTicketsAPICall } from '../actions/TicketActions'
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
 import { componentInfoObj } from '../masterdata/ApplicationMasterData';
 import CustomPagination from '../components/CustomPagination';
+import { getTicketStatusColorCode } from '../util/UIUtils';
 
 
 class ViewTicketsForm extends React.Component {
@@ -318,7 +319,8 @@ class ViewTicketsForm extends React.Component {
               <tr onClick={(e) => this.props.handleListViewTicketClick(e, ticket)/* this.handleClick(e, ticket) */}>
                 {localStorage.getItem('role') === Role.ROLE_MANAGER && <td style={{ width: '5%', textAlign: 'center' }}><Input style={{ marginLeft: '0%' }} type="checkbox" onChange={(e) => this.handleCheckAndUnCheck(e, ticket)} /></td>}
                 <td style={{ fontSize: '14px' }}>{ticket.id}</td>
-                <td style={{ fontSize: '14px' }}>{ticket.status}</td>
+                <td style={{ fontSize: '14px' }}><Badge color={getTicketStatusColorCode(ticket.status)}>
+                  {ticket.status}</Badge></td>
                 <td style={{ fontSize: '14px' }}>{ticket.title}</td>
                 <td style={{ fontSize: '14px' }}>{ticket.updatedDate}</td>
                 {localStorage.getItem('role') === Role.ROLE_MANAGER && <td style={{ marginRight: '1%' }}><SearchInput isInValid={ticket.isAssignedToInvalid} onSelectSuggestion={selectedValue => this.updateAssignedValue(selectedValue, ticket)} suggestions={suggestions}></SearchInput>
