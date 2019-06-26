@@ -18,7 +18,7 @@ class EmployeeHome extends React.Component {
                     <h4>Welcome, {this.props.profile.firstName}{this.props.profile.lastname}!</h4>
                 </Row>
                     <Row style={{ textAlign: 'left' }}>
-                        <p>Last login: 11th May 2019: 11:25:30Hrs</p>
+                        <p>Guide to get you started.</p>
                     </Row>
                 </Container>
                 <hr></hr>

@@ -18,6 +18,7 @@ import PageUnderConstruction from '../components/PageUnderConstruction';
 import Workflow from './Workflow';
 import FAQsForm from './FAQsForm';
 import {footerText} from '../masterdata/ApplicationMasterData';
+import { FaCopyright } from 'react-icons/fa';
 
 class SPAEmployeeMainPage extends React.Component {
   constructor(props) {
@@ -147,7 +148,10 @@ class SPAEmployeeMainPage extends React.Component {
           marginTop:'5%',
           marginLeft:'2%'
         }}>
-          <Col><Badge href="#" color="dark">{footerText}</Badge></Col>
+          <Col><Badge href="#" color="dark"><FaCopyright style={{
+            marginBottom:'1%',
+            marginRight:'1%'
+          }}></FaCopyright>{footerText}</Badge></Col>
         </Row>
       </div>
     );
