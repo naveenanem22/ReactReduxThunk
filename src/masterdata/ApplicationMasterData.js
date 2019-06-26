@@ -171,9 +171,13 @@ export const faqs = [
 export const subHeading1='This is a helpdesk software for organizations to assist employees of their IT Infrastructure needs such as - Software, Hardward and Network etc. In addition, it provides deep info-graphics on the support activities at organizational level to enable IT Managers to make informed decisions on a timely basis.'
 export const subHeading2= 'The software is feature-full. It already accommodates decent number of Industry standard must-have features and still growing in number. The striking aspect of ItsHelpdesk is its simplistic design. The whole application can be looked at from 3 major views - Creator, Resolver and Manager. The UI/UX and the functionality across these roles have been kept consistent. State-of-the-art tools and technologies are used in making of this product with a solid architecture at its base. Being stable, powerful and continuously evolving, the software can be definitely termed as Trendy.';
 export const raiseTicket='Raise a ticket if you have pressing IT need. Thats it. Provide the ample information and leave the rest of it to be taken care by Engineer. You will be notified when its addressed.';
-export const resolveTicket= 'Engineer gets assigned a ticket or he/she can assign the ticket if came across one. Resolve the ticket if you can or request for further information from the creator.';
+export const resolveTicket= 'Single Page window design with all the necessary information along with embedded mail drafting and self-ticket-assignment facility to assist Engineer expedite the resolution path.';
 export const ticketAnalytics='Deep info-graphics to assist in every aspect of organizational trends of IT requirements. Stay ahead of the issues and plan efficiently.';
 /***HomePage-PreLogin data END***/
+
+/***Common for all pages START*/
+export const footerText = '2019-2020 ITSHelpDesk - Powered By PMAPI - Helpdesk Software'
+/***Common for all pages END*/
 
 
 

@@ -7,7 +7,7 @@ import PolicyForm from './PolicyForm';
 import ViewTicketsForm from './ViewTicketsForm';
 import { Route } from 'react-router-dom'
 import SideNavBar from '../components/EmployeeSideNavBar';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Badge } from 'reactstrap';
 import EmployeeHome from './EmployeeHome';
 import EngineerProfileForm from './EngineerProfile';
 import history from '../history';
@@ -17,6 +17,7 @@ import { Role } from '../masterdata/ApplicationMasterData';
 import PageUnderConstruction from '../components/PageUnderConstruction';
 import Workflow from './Workflow';
 import FAQsForm from './FAQsForm';
+import {footerText} from '../masterdata/ApplicationMasterData';
 
 class SPAEmployeeMainPage extends React.Component {
   constructor(props) {
@@ -140,6 +141,13 @@ class SPAEmployeeMainPage extends React.Component {
                 <ViewTicketsForm handleListViewTicketClick={this.updateRouteAndShowTicketDetails}></ViewTicketsForm>
               </Col>}>
           </Route>
+        </Row>
+        <Row style={{
+          textAlign:'left',
+          marginTop:'5%',
+          marginLeft:'2%'
+        }}>
+          <Col><Badge href="#" color="dark">{footerText}</Badge></Col>
         </Row>
       </div>
     );

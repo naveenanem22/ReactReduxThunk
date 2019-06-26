@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { ScaleLoader } from 'react-spinners';
 import { FaTicketAlt, FaChartLine, FaChartBar, FaHandshake } from 'react-icons/fa';
-import { subHeading1, subHeading2, raiseTicket, resolveTicket } from '../masterdata/ApplicationMasterData';
+import { subHeading1, subHeading2, raiseTicket, resolveTicket, ticketAnalytics } from '../masterdata/ApplicationMasterData';
 
 
 class HomePage extends React.Component {
@@ -93,15 +93,7 @@ class HomePage extends React.Component {
                                             </Row>
                                             <Row>
                                                 <Col>
-                                                    <div> This is a sample text.
-                                                    This is a sample text.
-                                                    This is a sample text.
-                                                    This is a sample text.
-                                                    This is a sample text.
-                                                    This is a sample text.
-                                                    This is a sample text.
-                                                    This is a sample text.
-                                            </div>
+                                                    <div>{ticketAnalytics}</div>
                                                 </Col>
                                             </Row>
                                         </div>
