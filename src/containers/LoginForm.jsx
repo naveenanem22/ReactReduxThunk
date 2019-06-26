@@ -46,8 +46,7 @@ class LoginForm extends React.Component {
 
       case Role.ROLE_EMPLOYEE:
         history.push({
-          pathname: "/ticketing/newticket",
-          search: "?cioKey=NT"
+          pathname: "/ticketing/home"
         });
         break;
 
