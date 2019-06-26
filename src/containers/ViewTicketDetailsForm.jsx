@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { UncontrolledTooltip, Badge, Alert, Button, Row, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
 import { Table, NavLink } from 'reactstrap';
 import { FaFilePdf, FaFileAlt, FaFileImage, FaFile, FaExclamationCircle } from 'react-icons/fa';
-import { loadFileIcon } from '../util/UIUtils';
+import { loadFileIcon, getTicketStatusColorCode } from '../util/UIUtils';
 import { fetchTicketDetailsAPICall } from '../actions/TicketActions'
 import { ScaleLoader } from 'react-spinners';
 import history from '../history';
@@ -264,7 +264,7 @@ class ViewTicketDetailsForm extends React.Component {
               <hr />
               <Row>
                 <Col style={{ 'text-align': 'left', 'padding-top': '.30rem' }}>
-                  <Badge color="primary">{ticket.status.toUpperCase()}</Badge>
+                  <Badge color={getTicketStatusColorCode(ticket.status)}>{ticket.status}</Badge>
 
                 </Col>
                 <Col style={{ 'text-align': 'left', 'padding-top': '.30rem' }}>
