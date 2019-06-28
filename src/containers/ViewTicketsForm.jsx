@@ -67,7 +67,7 @@ class ViewTicketsForm extends React.Component {
       history.push({
         pathname: "/ticketing/tickets",
         search: "?status=" + params.status + "&" + "cioKey=" + params.cioKey + "&" + "pageNumber=" + params.pageNumber
-          + "&" + "pageSize=" + params.pageSize
+          + "&" + "pageSize=" + params.pageSize + "&" + "sortBy=" + params.sortBy + "&" + "sortOrder=" + params.sortOrder
       });
     }
 
@@ -247,7 +247,8 @@ class ViewTicketsForm extends React.Component {
       if (params.status) {
         this.props.fetchCreatedTickets({
           status: params.status,
-          sortBy: 'ticketId',
+          sortBy: params.sortBy,
+          sortOrder: params.sortOrder,
           pageNumber: params.pageNumber,
           pageSize: params.pageSize
         });

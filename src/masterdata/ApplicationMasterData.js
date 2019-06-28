@@ -1,3 +1,13 @@
+export const SortOrder ={
+    ASCENDING: 'ascending', DESCENDING: 'descending'
+}
+
+export const TicketsSortBy = {
+    TICKET_ID:'ticketId', TICKET_STATUS : 'ticketStatus', TICKET_UPDATED_DATE:'ticketUpdatedDate',
+    TICKET_TITLE : 'ticketTitle'
+
+}
+
 export const TicketStatus = {
     OPEN: 'Open', CLOSE: 'Closed', NEW: 'New', IN_PROCESS: 'Processing', PENDING: 'Pending',
     AWAIT_RESPONSE: 'AwaitingResponse', ALL: 'all'

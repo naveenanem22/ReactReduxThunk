@@ -5,7 +5,7 @@ import history from '../history';
 import { connect } from 'react-redux';
 import { fetchTicketsAPICall, showFormNewTicket } from '../actions/TicketActions'
 import { fetchDashboardDataAPICall, fetchDashboardDataMultipleAPICall } from '../actions/DashboardActions';
-import { TicketStatus, TICKETS_PER_PAGE_EMPLOYEE, PAGINATION_START_PAGE } from '../masterdata/ApplicationMasterData';
+import { TicketStatus, TICKETS_PER_PAGE_EMPLOYEE, PAGINATION_START_PAGE, TicketsSortBy, SortOrder } from '../masterdata/ApplicationMasterData';
 
 
 class SideNavBar extends React.Component {
@@ -37,7 +37,8 @@ class SideNavBar extends React.Component {
       pathname: '/ticketing/tickets',
       search: '?status=' + TicketStatus.ALL + '&' +
         'cioKey=ALT' + '&' +
-        'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE
+        'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE + '&' +
+        'sortOrder=' + SortOrder.DESCENDING + '&' + 'sortBy=' + TicketsSortBy.TICKET_ID
     });
 
   }
@@ -77,33 +78,33 @@ class SideNavBar extends React.Component {
           <ListGroup size='sm'>
             <ListGroupItem style={{
               cursor: 'pointer',
-              paddingTop:'5%',
+              paddingTop: '5%',
               paddingBottom: '5%'
             }}><NavLink href='#' onClick={this.handleNewTicket} style={{
               padding: '0', margin: '0'
             }}><FaPlusSquare style={{
-              marginBottom:'3%',
-              marginRight:'5%'
+              marginBottom: '3%',
+              marginRight: '5%'
             }}></FaPlusSquare> New Ticket</NavLink></ListGroupItem>
             <ListGroupItem style={{
               cursor: 'pointer',
-              paddingTop:'5%',
+              paddingTop: '5%',
               paddingBottom: '5%'
             }}><NavLink onClick={this.handleMyTicketsClick} href='#' style={{
               padding: '0', margin: '0'
             }}><FaListAlt style={{
-              marginBottom:'3%',
-              marginRight:'5%'
+              marginBottom: '3%',
+              marginRight: '5%'
             }}></FaListAlt> My Tickets</NavLink></ListGroupItem>
             <ListGroupItem style={{
               cursor: 'pointer',
-              paddingTop:'5%',
+              paddingTop: '5%',
               paddingBottom: '5%'
             }}><NavLink active onClick={this.handleClosedTicketsClick} href='#' style={{
               padding: '0', margin: '0'
             }}><FaTimesCircle style={{
-              marginBottom:'3%',
-              marginRight:'5%'
+              marginBottom: '3%',
+              marginRight: '5%'
             }}></FaTimesCircle> Closed Tickets</NavLink></ListGroupItem>
           </ListGroup>
         </div>

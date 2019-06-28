@@ -335,7 +335,8 @@ export function fetchCreatedTicketsAPICall(queryParams) {
         status: queryParams.status,
         sortBy: queryParams.sortBy,
         pageNumber: queryParams.pageNumber,
-        pageSize: queryParams.pageSize
+        pageSize: queryParams.pageSize,
+        sortOrder: queryParams.sortOrder
     };
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
