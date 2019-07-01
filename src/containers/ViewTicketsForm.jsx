@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Table, Container, Input, Badge, NavLink, Button, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
+import { Table, Container, Label, Input, Badge, NavLink, Button, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 import SearchInput from '../components/SearchInput';
 import { assignAndUpdateMultipleTicketsAPICall } from '../actions/TicketActions';
 import history from '../history';
@@ -33,6 +33,56 @@ class ViewTicketsForm extends React.Component {
     this.handleBundleViewClick = this.handleBundleViewClick.bind(this);
     this.onPaginationPageChange = this.onPaginationPageChange.bind(this);
     this.showOrHideSortIcon = this.showOrHideSortIcon.bind(this);
+    this.handleSort = this.handleSort.bind(this);
+
+  }
+
+  handleSort(e) {
+    console.log("Parsing query params from query-string:");
+    console.log(history.location.search);
+    const params = queryString.parse(history.location.search);
+    console.log("Parsed params: ");
+    console.log(params);
+    var sortBy = '';
+    var sortOrder = '';
+
+    switch (e.target.innerText) {
+      case 'Ticket#':
+        //check if sortOrder is already present in url and toggle the same
+        //update sortBy and sortOrder
+        //Extracting query params from url
+
+        sortBy = TicketsSortBy.TICKET_ID;
+        break;
+
+      case 'Status':
+        sortBy = TicketsSortBy.TICKET_STATUS;
+        break;
+      case 'Title':
+        sortBy = TicketsSortBy.TICKET_TITLE;
+        break;
+      case 'Updated':
+        sortBy = TicketsSortBy.TICKET_UPDATED_DATE;
+        break;
+      default:
+        break;
+    }
+
+    params.sortBy = sortBy;
+
+    if (params.sortOrder) {
+      params.sortOrder === SortOrder.ASCENDING ? sortOrder = SortOrder.DESCENDING : sortOrder = SortOrder.ASCENDING;
+      params.sortOrder = sortOrder;
+    }
+    else
+      params.sortOrder = SortOrder.ASCENDING;
+
+    //push the url to history
+    history.push({
+      pathname: "/ticketing/tickets",
+      search: "?status=" + params.status + "&" + "cioKey=" + params.cioKey + "&" + "pageNumber=" + params.pageNumber
+        + "&" + "pageSize=" + params.pageSize + "&" + "sortBy=" + params.sortBy + "&" + "sortOrder=" + params.sortOrder
+    });
 
   }
 
@@ -345,10 +395,10 @@ class ViewTicketsForm extends React.Component {
           <thead>
             <tr>
               {localStorage.getItem('role') === Role.ROLE_MANAGER && <th></th>}
-              <th>{this.showOrHideSortIcon()}Ticket#</th>
-              <th>{this.showOrHideSortIcon()}Status</th>
-              <th>{this.showOrHideSortIcon()}Title</th>
-              <th>{this.showOrHideSortIcon()}Updated</th>
+              <th>{this.showOrHideSortIcon()}<Label onClick={this.handleSort} style={{ cursor: 'pointer' }}>Ticket#</Label></th>
+              <th>{this.showOrHideSortIcon()}<Label style={{ cursor: 'pointer' }}>Status</Label></th>
+              <th>{this.showOrHideSortIcon()}<Label style={{ cursor: 'pointer' }}>Title</Label></th>
+              <th>{this.showOrHideSortIcon()}<Label style={{ cursor: 'pointer' }}>Updated</Label></th>
               {localStorage.getItem('role') === Role.ROLE_MANAGER && <th>Assign To</th>}
             </tr>
           </thead>
