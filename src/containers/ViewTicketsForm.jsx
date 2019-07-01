@@ -4,13 +4,14 @@ import { Table, Container, Input, Badge, NavLink, Button, Row, Col, ListGroup, L
 import SearchInput from '../components/SearchInput';
 import { assignAndUpdateMultipleTicketsAPICall } from '../actions/TicketActions';
 import history from '../history';
-import { Role, TicketStatus, PAGINATION_START_PAGE, ticketStatusColorCode } from '../masterdata/ApplicationMasterData';
+import { Role, TicketStatus, PAGINATION_START_PAGE, ticketStatusColorCode, TicketsSortBy } from '../masterdata/ApplicationMasterData';
 import { fetchCreatedTicketsAPICall } from '../actions/TicketActions'
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
-import { componentInfoObj } from '../masterdata/ApplicationMasterData';
+import { componentInfoObj, SortOrder } from '../masterdata/ApplicationMasterData';
 import CustomPagination from '../components/CustomPagination';
 import { getTicketStatusColorCode } from '../util/UIUtils';
+import { FaLongArrowAltDown, FaLongArrowAltUp } from 'react-icons/fa';
 
 
 class ViewTicketsForm extends React.Component {
@@ -31,6 +32,7 @@ class ViewTicketsForm extends React.Component {
     this.isEveryTicketHasvalidData = this.isEveryTicketHasvalidData.bind(this);
     this.handleBundleViewClick = this.handleBundleViewClick.bind(this);
     this.onPaginationPageChange = this.onPaginationPageChange.bind(this);
+    this.showOrHideSortIcon = this.showOrHideSortIcon.bind(this);
 
   }
 
@@ -235,6 +237,42 @@ class ViewTicketsForm extends React.Component {
 
   }
 
+  showOrHideSortIcon() {
+    //Show or Hide sort icon(Ascending or Descending)
+    console.log("Parsing query params from query-string: showorhide");
+    console.log(history.location.search);
+    const params = queryString.parse(history.location.search);
+    console.log("Parsed params: ");
+    console.log(params);
+
+    switch (params.sortBy) {
+      case TicketsSortBy.TICKET_ID:
+        console.log('from switch');
+        return params.sortOrder === SortOrder.ASCENDING ?
+          <FaLongArrowAltUp></FaLongArrowAltUp> : <FaLongArrowAltDown></FaLongArrowAltDown>
+
+      case TicketsSortBy.TICKET_STATUS:
+        console.log('from switch');
+        return params.sortOrder === SortOrder.ASCENDING ?
+          <FaLongArrowAltUp></FaLongArrowAltUp> : <FaLongArrowAltDown></FaLongArrowAltDown>
+
+      case TicketsSortBy.TICKET_TITLE:
+        console.log('from switch');
+        return params.sortOrder === SortOrder.ASCENDING ?
+          <FaLongArrowAltUp></FaLongArrowAltUp> : <FaLongArrowAltDown></FaLongArrowAltDown>
+
+      case TicketsSortBy.TICKET_UPDATED_DATE:
+        console.log('from switch');
+        return params.sortOrder === SortOrder.ASCENDING ?
+          <FaLongArrowAltUp></FaLongArrowAltUp> : <FaLongArrowAltDown></FaLongArrowAltDown>
+
+      default:
+        return;
+
+    }
+
+  }
+
   componentDidMount() {
     if (localStorage.getItem('role') === Role.ROLE_EMPLOYEE) {
       //Extracting query params from url
@@ -307,10 +345,10 @@ class ViewTicketsForm extends React.Component {
           <thead>
             <tr>
               {localStorage.getItem('role') === Role.ROLE_MANAGER && <th></th>}
-              <th>Ticket#</th>
-              <th>Status</th>
-              <th>Title</th>
-              <th>Updated</th>
+              <th>{this.showOrHideSortIcon()}Ticket#</th>
+              <th>{this.showOrHideSortIcon()}Status</th>
+              <th>{this.showOrHideSortIcon()}Title</th>
+              <th>{this.showOrHideSortIcon()}Updated</th>
               {localStorage.getItem('role') === Role.ROLE_MANAGER && <th>Assign To</th>}
             </tr>
           </thead>
