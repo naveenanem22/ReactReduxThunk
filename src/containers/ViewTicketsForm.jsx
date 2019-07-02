@@ -48,10 +48,7 @@ class ViewTicketsForm extends React.Component {
 
     switch (e.target.innerText) {
       case 'Ticket#':
-        //check if sortOrder is already present in url and toggle the same
-        //update sortBy and sortOrder
-        //Extracting query params from url
-
+        //update sortBy
         sortBy = TicketsSortBy.TICKET_ID;
         break;
 
@@ -70,6 +67,7 @@ class ViewTicketsForm extends React.Component {
 
     params.sortBy = sortBy;
 
+    //Update sortOrder
     if (params.sortOrder) {
       params.sortOrder === SortOrder.ASCENDING ? sortOrder = SortOrder.DESCENDING : sortOrder = SortOrder.ASCENDING;
       params.sortOrder = sortOrder;
@@ -287,32 +285,33 @@ class ViewTicketsForm extends React.Component {
 
   }
 
-  showOrHideSortIcon() {
+  showOrHideSortIcon(fieldName) {
     //Show or Hide sort icon(Ascending or Descending)
+    console.log(fieldName);
     console.log("Parsing query params from query-string: showorhide");
     console.log(history.location.search);
     const params = queryString.parse(history.location.search);
     console.log("Parsed params: ");
     console.log(params);
 
+    //return nothing if params.sortBy is matching fieldname
+    if (params.sortBy !== fieldName)
+      return;
+
     switch (params.sortBy) {
       case TicketsSortBy.TICKET_ID:
-        console.log('from switch');
         return params.sortOrder === SortOrder.ASCENDING ?
           <FaLongArrowAltUp></FaLongArrowAltUp> : <FaLongArrowAltDown></FaLongArrowAltDown>
 
       case TicketsSortBy.TICKET_STATUS:
-        console.log('from switch');
         return params.sortOrder === SortOrder.ASCENDING ?
           <FaLongArrowAltUp></FaLongArrowAltUp> : <FaLongArrowAltDown></FaLongArrowAltDown>
 
       case TicketsSortBy.TICKET_TITLE:
-        console.log('from switch');
         return params.sortOrder === SortOrder.ASCENDING ?
           <FaLongArrowAltUp></FaLongArrowAltUp> : <FaLongArrowAltDown></FaLongArrowAltDown>
 
       case TicketsSortBy.TICKET_UPDATED_DATE:
-        console.log('from switch');
         return params.sortOrder === SortOrder.ASCENDING ?
           <FaLongArrowAltUp></FaLongArrowAltUp> : <FaLongArrowAltDown></FaLongArrowAltDown>
 
@@ -395,10 +394,10 @@ class ViewTicketsForm extends React.Component {
           <thead>
             <tr>
               {localStorage.getItem('role') === Role.ROLE_MANAGER && <th></th>}
-              <th>{this.showOrHideSortIcon()}<Label onClick={this.handleSort} style={{ cursor: 'pointer' }}>Ticket#</Label></th>
-              <th>{this.showOrHideSortIcon()}<Label style={{ cursor: 'pointer' }}>Status</Label></th>
-              <th>{this.showOrHideSortIcon()}<Label style={{ cursor: 'pointer' }}>Title</Label></th>
-              <th>{this.showOrHideSortIcon()}<Label style={{ cursor: 'pointer' }}>Updated</Label></th>
+              <th>{this.showOrHideSortIcon(TicketsSortBy.TICKET_ID)}<Label onClick={this.handleSort} style={{ cursor: 'pointer' }}>Ticket#</Label></th>
+              <th>{this.showOrHideSortIcon(TicketsSortBy.TICKET_STATUS)}<Label onClick={this.handleSort} style={{ cursor: 'pointer' }}>Status</Label></th>
+              <th>{this.showOrHideSortIcon(TicketsSortBy.TICKET_TITLE)}<Label onClick={this.handleSort} style={{ cursor: 'pointer' }}>Title</Label></th>
+              <th>{this.showOrHideSortIcon(TicketsSortBy.TICKET_UPDATED_DATE)}<Label onClick={this.handleSort} style={{ cursor: 'pointer' }}>Updated</Label></th>
               {localStorage.getItem('role') === Role.ROLE_MANAGER && <th>Assign To</th>}
             </tr>
           </thead>
