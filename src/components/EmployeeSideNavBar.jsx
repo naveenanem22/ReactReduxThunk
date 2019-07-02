@@ -26,7 +26,8 @@ class SideNavBar extends React.Component {
       pathname: '/ticketing/tickets',
       search: '?status=' + TicketStatus.CLOSE + '&' +
         'cioKey=CLT' + '&' +
-        'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE
+        'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE + '&' +
+        'sortOrder=' + SortOrder.ASCENDING + '&' + 'sortBy=' + TicketsSortBy.TICKET_ID
     });
   }
 

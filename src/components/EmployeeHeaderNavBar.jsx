@@ -20,6 +20,7 @@ import history from '../history';
 import { Link } from "react-router-dom";
 import { TicketStatus, PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE } from '../masterdata/ApplicationMasterData';
 import { FaChartLine, FaUser, FaSignOutAlt, FaListAlt } from 'react-icons/fa';
+import { SortOrder, TicketsSortBy } from '../masterdata/ApplicationMasterData';
 
 
 class HeaderNavBar extends React.Component {
@@ -46,7 +47,7 @@ class HeaderNavBar extends React.Component {
     });
   }
 
-  onClickFAQs(){
+  onClickFAQs() {
     history.push('/ticketing/faqs');
   }
 
@@ -67,7 +68,8 @@ class HeaderNavBar extends React.Component {
       pathname: '/ticketing/tickets',
       search: '?status=' + TicketStatus.ALL + '&' +
         'cioKey=ALT' + '&' +
-        'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE
+        'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE + '&' +
+        'sortOrder=' + SortOrder.ASCENDING + '&' + 'sortBy=' + TicketsSortBy.TICKET_ID
     });
   }
 
@@ -84,8 +86,8 @@ class HeaderNavBar extends React.Component {
 
       <Navbar color="dark" dark expand="md">
         <NavbarBrand onClick={this.onClickHome} ><h3 style={{
-          color:'#ffffff',
-          cursor:'pointer'
+          color: '#ffffff',
+          cursor: 'pointer'
         }}>ITS Helpdesk</h3></NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
