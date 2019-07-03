@@ -5,7 +5,7 @@ import { createTicketAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
 import { ScaleLoader } from 'react-spinners';
 import { TicketStatus, TicketStatusCode, TicketType, TicketTypeCode, Priority, PriorityCode, Role } from '../masterdata/ApplicationMasterData';
-import { componentInfoObj } from '../masterdata/ApplicationMasterData';
+import { componentInfoObj, TicketsSortBy, PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE, SortOrder } from '../masterdata/ApplicationMasterData';
 import queryString from 'query-string';
 import { HalfCircleSpinner } from 'react-epic-spinners';
 
@@ -46,10 +46,17 @@ class CreateNewTicketForm extends React.Component {
     this.setState((prevState, props) => ({
       isAlertSectionVisible: false
     }), () => {
-      if(localStorage.getItem('role') === Role.ROLE_MANAGER)
-      history.push("/ticketmanage/tickets?status=" + TicketStatus.ALL);
-      if(localStorage.getItem('role') === Role.ROLE_EMPLOYEE)
-      history.push("/ticketing/tickets?status=" + TicketStatus.ALL);
+      if (localStorage.getItem('role') === Role.ROLE_MANAGER)
+        history.push("/ticketmanage/tickets?status=" + TicketStatus.ALL);
+      if (localStorage.getItem('role') === Role.ROLE_EMPLOYEE){
+        history.push({
+          pathname: '/ticketing/tickets',
+          search: '?status=' + TicketStatus.ALL + '&' +
+            'cioKey=ALT' + '&' +
+            'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE + '&' +
+            'sortOrder=' + SortOrder.DESCENDING + '&' + 'sortBy=' + TicketsSortBy.TICKET_UPDATED_DATE
+        });
+      }
     });
   }
 
