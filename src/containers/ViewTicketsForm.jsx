@@ -140,7 +140,8 @@ class ViewTicketsForm extends React.Component {
       history.push({
         pathname: "/ticketing/tickets",
         search: "?status=" + params.status + "&" + "cioKey=" + params.cioKey + "&" + "pageNumber=" + params.pageNumber
-          + "&" + "pageSize=" + params.pageSize
+          + "&" + "pageSize=" + params.pageSize + '&' +
+          'sortOrder=' + params.sortOrder + '&' + 'sortBy=' + params.sortBy
       });
     }
 
