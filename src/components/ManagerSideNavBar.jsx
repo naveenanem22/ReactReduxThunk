@@ -1,11 +1,12 @@
 import React from 'react';
-import { Nav, NavItem, NavLink, Navbar } from 'reactstrap';
-import { FaUser, FaAngleDoubleRight } from 'react-icons/fa';
+import { Nav, NavItem, NavLink, ListGroup, ListGroupItem } from 'reactstrap';
+import { FaUser, FaAngleDoubleRight, FaChartLine, FaTasks } from 'react-icons/fa';
 import history from '../history';
 import { connect } from 'react-redux';
 import { fetchTicketsAPICall, showFormNewTicket} from '../actions/TicketActions'
 import {fetchDashboardDataAPICall, fetchDashboardDataMultipleAPICall} from '../actions/DashboardActions';
 import { TicketStatus } from '../masterdata/ApplicationMasterData';
+import {FaTimesCircle, FaListAlt,FaPlusSquare} from 'react-icons/fa';
 
 
 class SideNavBar extends React.Component {
@@ -94,7 +95,7 @@ class SideNavBar extends React.Component {
     return (
       <div class='sidenavbar' style={{}}>
 
-        <Nav style={{ borderRadius: '10px', border: '1px solid grey', backgroundColor: '#FFFFFF' }} vertical >
+        {/* <Nav style={{ borderRadius: '10px', border: '1px solid grey', backgroundColor: '#FFFFFF' }} vertical >
           <NavItem >
             <NavLink href="#" onClick = {this.handleDashboard} style={{ borderTopLeftRadius:'10px',borderTopRightRadius:'10px',borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Dashboard
             </NavLink>
@@ -118,7 +119,61 @@ class SideNavBar extends React.Component {
             <NavLink href="#" onClick={this.handleClosedTicketsClick} style={{ borderBottomLeftRadius:'10px', borderBottomRightRadius:'10px', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Closed Tickets</NavLink>
           </NavItem>
 
-        </Nav>
+        </Nav> */}
+        <div class='sidemenu'>
+          <ListGroup size='sm'>
+            <ListGroupItem style={{
+              cursor: 'pointer',
+              paddingTop: '5%',
+              paddingBottom: '5%'
+            }}><NavLink href='#' onClick={this.handleDashboard} style={{
+              padding: '0', margin: '0'
+            }}><FaChartLine style={{
+              marginBottom: '3%',
+              marginRight: '5%'
+            }}></FaChartLine>Dashboard</NavLink></ListGroupItem>
+            <ListGroupItem style={{
+              cursor: 'pointer',
+              paddingTop: '5%',
+              paddingBottom: '5%'
+            }}><NavLink onClick={this.handleAssignTicketsClick} href='#' style={{
+              padding: '0', margin: '0'
+            }}><FaTasks style={{
+              marginBottom: '3%',
+              marginRight: '5%'
+            }}></FaTasks> Assign Tickets</NavLink></ListGroupItem>
+            <ListGroupItem style={{
+              cursor: 'pointer',
+              paddingTop: '5%',
+              paddingBottom: '5%'
+            }}><NavLink active onClick={this.handleNewTicket} href='#' style={{
+              padding: '0', margin: '0'
+            }}><FaPlusSquare style={{
+              marginBottom: '3%',
+              marginRight: '5%'
+            }}></FaPlusSquare> New Ticket</NavLink></ListGroupItem>
+            <ListGroupItem style={{
+              cursor: 'pointer',
+              paddingTop: '5%',
+              paddingBottom: '5%'
+            }}><NavLink active onClick={this.handleMyTicketsClick} href='#' style={{
+              padding: '0', margin: '0'
+            }}><FaListAlt style={{
+              marginBottom: '3%',
+              marginRight: '5%'
+            }}></FaListAlt> My Tickets</NavLink></ListGroupItem>
+            <ListGroupItem style={{
+              cursor: 'pointer',
+              paddingTop: '5%',
+              paddingBottom: '5%'
+            }}><NavLink active onClick={this.handleClosedTicketsClick} href='#' style={{
+              padding: '0', margin: '0'
+            }}><FaTimesCircle style={{
+              marginBottom: '3%',
+              marginRight: '5%'
+            }}></FaTimesCircle> Closed Tickets</NavLink></ListGroupItem>
+          </ListGroup>
+        </div>
 
       </div>
     );
