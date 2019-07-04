@@ -1,10 +1,10 @@
-export const SortOrder ={
+export const SortOrder = {
     ASCENDING: 'ascending', DESCENDING: 'descending'
 }
 
 export const TicketsSortBy = {
-    TICKET_ID:'ticketId', TICKET_STATUS : 'ticketStatus', TICKET_UPDATED_DATE:'ticketUpdatedDate',
-    TICKET_TITLE : 'ticketTitle'
+    TICKET_ID: 'ticketId', TICKET_STATUS: 'ticketStatus', TICKET_UPDATED_DATE: 'ticketUpdatedDate',
+    TICKET_TITLE: 'ticketTitle'
 
 }
 
@@ -87,6 +87,12 @@ export const componentInfoObj = {
                 return {
                     title: "My Tickets",
                     subTitle: "Monitor your ticket activity and update Tickets that need your response."
+                }
+
+            case 'MT':
+                return {
+                    title: "My Tickets",
+                    subTitle: "Monitor ticket activity across organization and update Tickets that need your response."
                 }
 
             case 'AWT':

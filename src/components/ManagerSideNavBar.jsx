@@ -7,7 +7,7 @@ import { fetchTicketsAPICall, showFormNewTicket } from '../actions/TicketActions
 import { fetchDashboardDataAPICall, fetchDashboardDataMultipleAPICall } from '../actions/DashboardActions';
 import { TicketStatus } from '../masterdata/ApplicationMasterData';
 import { FaTimesCircle, FaListAlt, FaPlusSquare } from 'react-icons/fa';
-import {PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE} from '../masterdata/ApplicationMasterData';
+import { PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE } from '../masterdata/ApplicationMasterData';
 
 
 class SideNavBar extends React.Component {
@@ -56,31 +56,26 @@ class SideNavBar extends React.Component {
     //history.push("/ticketmanage/tickets?status="+TicketStatus.NEW);
     history.push({
       pathname: "/ticketmanage/tickets",
-      search: '?status=' + TicketStatus.NEW + '&' + 'cioKey=AST'
+      search: '?status=' + TicketStatus.NEW + '&' + 'cioKey=AST' + '&' +
+        'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE
     });
-    /* this.props.fetchTickets({
-      status: TicketStatus.NEW,
-      sortBy: 'ticketId'
-    }); */
 
   }
 
   handleMyTicketsClick() {
-    history.push("/ticketmanage/tickets?status=" + TicketStatus.ALL);
-    /* this.props.fetchTickets({
-      status: 'all',
-      sortBy: 'ticketId'
-    }); */
+    history.push({
+      pathname: "/ticketmanage/tickets",
+      search: '?status=' + TicketStatus.ALL + '&' + 'cioKey=MT' + '&' +
+        'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE
+    });
 
   }
 
   handleNewTicket() {
-    //history.push("/ticketmanage/newticket");
     history.push({
       pathname: "/ticketmanage/newticket",
       search: '?cioKey=NT'
     });
-    //this.props.showNewTicketForm();
   }
 
   componentDidMount() {
