@@ -11,7 +11,7 @@ import { fetchTicketsAPICall } from '../actions/TicketActions';
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
 import { Role, TicketStatus, TicketsSortBy } from '../masterdata/ApplicationMasterData';
-import { componentInfoObj } from '../masterdata/ApplicationMasterData';
+import { componentInfoObj, PAGINATION_START_PAGE } from '../masterdata/ApplicationMasterData';
 import CustomPagination from '../components/CustomPagination';
 
 
@@ -26,6 +26,7 @@ class ViewTicketsForm extends React.Component {
     };
     this.handleTicketBundleClick = this.handleTicketBundleClick.bind(this);
     this.handleListViewClick = this.handleListViewClick.bind(this);
+    this.onPaginationPageChange = this.onPaginationPageChange.bind(this);
 
   }
 
@@ -41,6 +42,51 @@ class ViewTicketsForm extends React.Component {
       pathname: '/ticketmaint/tickets',
       search: '?ticketId=3'
     });
+  }
+
+  onPaginationPageChange(pageNumber) {
+    if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
+      //Extracting query params from url
+      console.log("Parsing query params from query-string:");
+      console.log(history.location.search);
+      const params = queryString.parse(history.location.search);
+      console.log("Parsed params: ");
+      console.log(params);
+
+      //update pageNumber & pageSize params with new values
+      params.pageNumber = pageNumber;
+
+      //push the url to history
+      history.push({
+        pathname: "/ticketmanage/tickets",
+        search: "?status=" + params.status + "&" + "cioKey=" + params.cioKey + "&" + "pageNumber=" + params.pageNumber
+          + "&" + "pageSize=" + params.pageSize
+      });
+    }
+
+  }
+
+  onPaginationItemsPerPageChange(itemsPerPage) {
+    if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
+      //Extracting query params from url
+      console.log("Parsing query params from query-string:");
+      console.log(history.location.search);
+      const params = queryString.parse(history.location.search);
+      console.log("Parsed params: ");
+      console.log(params);
+
+      //update pageSize params with new values
+      params.pageSize = itemsPerPage;
+      params.pageNumber = PAGINATION_START_PAGE;
+
+      //push the url to history
+      history.push({
+        pathname: "/ticketmanage/tickets",
+        search: "?status=" + params.status + "&" + "cioKey=" + params.cioKey + "&" + "pageNumber=" + params.pageNumber
+          + "&" + "pageSize=" + params.pageSize
+      });
+    }
+
   }
 
   componentDidMount() {
@@ -117,10 +163,10 @@ class ViewTicketsForm extends React.Component {
         </Container>
         <hr />
         {(this.props.fetchTicketsAPICallStatus.success ||
-            this.props.fetchAssignedTicketsAPICallStatus.success) && <CustomPagination data={this.props.ticketList}
-          onPaginationPageChange={this.onPaginationPageChange}
-          onPaginationItemsPerPageChange={this.onPaginationItemsPerPageChange}>
-        </CustomPagination>
+          this.props.fetchAssignedTicketsAPICallStatus.success) && <CustomPagination data={this.props.ticketList}
+            onPaginationPageChange={this.onPaginationPageChange}
+            onPaginationItemsPerPageChange={this.onPaginationItemsPerPageChange}>
+          </CustomPagination>
         }
         <Container>
           {(this.props.fetchTicketsAPICallStatus.requested ||
