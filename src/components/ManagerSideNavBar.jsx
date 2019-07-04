@@ -17,7 +17,7 @@ class SideNavBar extends React.Component {
     };
     this.handleClosedTicketsClick = this.handleClosedTicketsClick.bind(this);
     this.handleAssignTicketsClick = this.handleAssignTicketsClick.bind(this);
-    this.handleMyTicketsClick = this.handleMyTicketsClick.bind(this);
+    this.handleAllTicketsClick = this.handleAllTicketsClick.bind(this);
 
     this.handleDashboard = this.handleDashboard.bind(this);
     this.handleNewTicket = this.handleNewTicket.bind(this);
@@ -62,7 +62,7 @@ class SideNavBar extends React.Component {
 
   }
 
-  handleMyTicketsClick() {
+  handleAllTicketsClick() {
     history.push({
       pathname: "/ticketmanage/tickets",
       search: '?status=' + TicketStatus.ALL + '&' + 'cioKey=MT' + '&' +
@@ -149,12 +149,12 @@ class SideNavBar extends React.Component {
               cursor: 'pointer',
               paddingTop: '5%',
               paddingBottom: '5%'
-            }}><NavLink active onClick={this.handleMyTicketsClick} href='#' style={{
+            }}><NavLink active onClick={this.handleAllTicketsClick} href='#' style={{
               padding: '0', margin: '0'
             }}><FaListAlt style={{
               marginBottom: '3%',
               marginRight: '5%'
-            }}></FaListAlt> My Tickets</NavLink></ListGroupItem>
+            }}></FaListAlt> All Tickets</NavLink></ListGroupItem>
             <ListGroupItem style={{
               cursor: 'pointer',
               paddingTop: '5%',

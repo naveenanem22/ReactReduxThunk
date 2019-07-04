@@ -13,6 +13,8 @@ import EngineerProfileForm from './EngineerProfile';
 import history from '../history';
 import ViewTicketDetailsForm from './ViewTicketDetailsForm';
 import queryString from 'query-string';
+import FAQsForm from './FAQsForm';
+import Workflow from './Workflow';
 
 class SPAEngineerMainPage extends React.Component {
   constructor(props) {
@@ -69,6 +71,21 @@ class SPAEngineerMainPage extends React.Component {
         </div>
         <Row style={{ background: 'rgba(0,0,0,0.3)', marginTop: '1%', marginLeft: '3%', marginRight: '3%', paddingTop: '1%' }}>
           <Col sm='2' ><SideNavBar></SideNavBar></Col>
+
+          <Route path="/ticketmanage/workflow"
+            component={() =>
+              <Col sm='9' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+                <Workflow></Workflow>
+              </Col>}>
+          </Route>
+
+          <Route path="/ticketmanage/faqs"
+            component={() =>
+              <Col sm='9' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+                <FAQsForm></FAQsForm>
+              </Col>}>
+          </Route>
+
 
           <Route path="/ticketmanage/newticket"
             component={() =>
