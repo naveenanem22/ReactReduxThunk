@@ -17,6 +17,7 @@ import SuccessAlertWithTick from '../components/SuccessAlertWithTick';
 import FailureAlertWithIcon from '../components/FailureAlertWithIcon';
 import { HalfCircleSpinner } from 'react-epic-spinners';
 import { getURLParams } from '../util/UIUtils';
+import BlankForm from '../components/BlankForm';
 
 class ViewTicketBundleDetailsForm extends React.Component {
 
@@ -379,7 +380,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
               </div>}
           </div>}
 
-        {this.state.showSelectTicketMsg && <div>Pls select a ticket to dislay the details.</div>}
+        {this.state.showSelectTicketMsg && <BlankForm></BlankForm>}
 
 
 
