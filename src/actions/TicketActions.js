@@ -34,11 +34,19 @@ export function createTicketFailure() {
     }
 }
 
-export function fetchTicketsSuccess(tickets) {
+export function fetchTicketsSuccess(ticketsData) {
     return {
         type: FETCH_TICKETS_SUCCESS,
         payload: {
-            tickets: tickets
+            ticketList: {
+                tickets: ticketsData.content,
+                totalPages: ticketsData.totalPages,
+                totalElements: ticketsData.totalElements,
+                size: ticketsData.size,
+                number: ticketsData.number,
+                numberOfElements: ticketsData.numberOfElements
+            }
+            
         }
     }
 }
@@ -273,7 +281,8 @@ export function fetchTicketsAPICall(queryParams) {
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     var url = new URL("http://localhost:8080/v0/ticket-management/tickets");
-    var params = { status: queryParams.status, sortBy: queryParams.sortBy };
+    var params = { status: queryParams.status, pageNumber: queryParams.pageNumber,
+    pageSize:queryParams.pageSize };
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
     return function (dispatch) {
@@ -290,10 +299,11 @@ export function fetchTicketsAPICall(queryParams) {
                 },
                 error => console.log('An error occurred.', error),
             )
-            .then((tickets) => {
-                console.log("Tickets fetched: " + tickets);
+            .then((ticketsData) => {
+                console.log("Tickets Data:");
+                console.log(ticketsData);
                 dispatch(dismissLoadingScreen());
-                dispatch(fetchTicketsSuccess(tickets));
+                dispatch(fetchTicketsSuccess(ticketsData));
             },
             );
     };

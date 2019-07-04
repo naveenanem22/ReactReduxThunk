@@ -16,7 +16,13 @@ export function ticketReducer(state = {}, action) {
 
         case FETCH_TICKETS_SUCCESS:
             return {
-                ...state, tickets: action.payload.tickets, isViewTicketsFormVisible: true
+                ...state, tickets: action.payload.ticketList.tickets,
+                totalPages: action.payload.ticketList.totalPages,
+                totalElements: action.payload.ticketList.totalElements,
+                size: action.payload.ticketList.size,
+                number: action.payload.ticketList.number,
+                numberOfElements: action.payload.ticketList.numberOfElements,
+                isViewTicketsFormVisible: true
             };
         case FETCH_TICKETS:
             return {

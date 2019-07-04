@@ -3,10 +3,11 @@ import { Nav, NavItem, NavLink, ListGroup, ListGroupItem } from 'reactstrap';
 import { FaUser, FaAngleDoubleRight, FaChartLine, FaTasks } from 'react-icons/fa';
 import history from '../history';
 import { connect } from 'react-redux';
-import { fetchTicketsAPICall, showFormNewTicket} from '../actions/TicketActions'
-import {fetchDashboardDataAPICall, fetchDashboardDataMultipleAPICall} from '../actions/DashboardActions';
+import { fetchTicketsAPICall, showFormNewTicket } from '../actions/TicketActions'
+import { fetchDashboardDataAPICall, fetchDashboardDataMultipleAPICall } from '../actions/DashboardActions';
 import { TicketStatus } from '../masterdata/ApplicationMasterData';
-import {FaTimesCircle, FaListAlt,FaPlusSquare} from 'react-icons/fa';
+import { FaTimesCircle, FaListAlt, FaPlusSquare } from 'react-icons/fa';
+import {PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE} from '../masterdata/ApplicationMasterData';
 
 
 class SideNavBar extends React.Component {
@@ -17,7 +18,7 @@ class SideNavBar extends React.Component {
     this.handleClosedTicketsClick = this.handleClosedTicketsClick.bind(this);
     this.handleAssignTicketsClick = this.handleAssignTicketsClick.bind(this);
     this.handleMyTicketsClick = this.handleMyTicketsClick.bind(this);
-    
+
     this.handleDashboard = this.handleDashboard.bind(this);
     this.handleNewTicket = this.handleNewTicket.bind(this);
   }
@@ -43,22 +44,19 @@ class SideNavBar extends React.Component {
   }
  */
   handleClosedTicketsClick() {
-   // history.push("/ticketmanage/tickets?status="+TicketStatus.CLOSE);
-   history.push({
-    pathname: "/ticketmanage/tickets",
-    search: '?status='+TicketStatus.CLOSE+'&'+'cioKey=CLT'
-  });
-    /* this.props.fetchTickets({
-      status: TicketStatus.CLOSE,
-      sortBy: 'ticketId'
-    }); */
+    // history.push("/ticketmanage/tickets?status="+TicketStatus.CLOSE);
+    history.push({
+      pathname: "/ticketmanage/tickets",
+      search: '?status=' + TicketStatus.CLOSE + '&' + 'cioKey=CLT' + '&' +
+        'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE
+    });
   }
 
   handleAssignTicketsClick() {
     //history.push("/ticketmanage/tickets?status="+TicketStatus.NEW);
     history.push({
       pathname: "/ticketmanage/tickets",
-      search: '?status='+TicketStatus.NEW+'&'+'cioKey=AST'
+      search: '?status=' + TicketStatus.NEW + '&' + 'cioKey=AST'
     });
     /* this.props.fetchTickets({
       status: TicketStatus.NEW,
@@ -68,11 +66,11 @@ class SideNavBar extends React.Component {
   }
 
   handleMyTicketsClick() {
-    history.push("/ticketmanage/tickets?status="+TicketStatus.ALL);
+    history.push("/ticketmanage/tickets?status=" + TicketStatus.ALL);
     /* this.props.fetchTickets({
       status: 'all',
       sortBy: 'ticketId'
-    }); */ 
+    }); */
 
   }
 
@@ -85,7 +83,7 @@ class SideNavBar extends React.Component {
     //this.props.showNewTicketForm();
   }
 
-  componentDidMount(){
+  componentDidMount() {
   }
 
 
@@ -191,10 +189,10 @@ const mapDispatchToProps = dispatch => {
       //dispatch(fetchDashboardDataAPICall());
       dispatch(fetchDashboardDataMultipleAPICall());
     },
-    showNewTicketForm: () =>{
+    showNewTicketForm: () => {
       dispatch(showFormNewTicket());
     }
-    
+
   };
 }
 

@@ -10,8 +10,10 @@ import TicketDetailCard from '../components/TicketDetailCard';
 import { fetchTicketsAPICall } from '../actions/TicketActions';
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
-import { Role, TicketStatus } from '../masterdata/ApplicationMasterData';
+import { Role, TicketStatus, TicketsSortBy } from '../masterdata/ApplicationMasterData';
 import { componentInfoObj } from '../masterdata/ApplicationMasterData';
+import CustomPagination from '../components/CustomPagination';
+
 
 
 class ViewTicketsForm extends React.Component {
@@ -53,26 +55,15 @@ class ViewTicketsForm extends React.Component {
       if (params.status) {
         this.props.fetchTickets({
           status: params.status,
-          sortBy: 'ticketId'
+          sortBy: TicketsSortBy.TICKET_ID,
+          sortOrder: params.sortOrder,
+          pageNumber: params.pageNumber,
+          pageSize: params.pageSize
+
         });
       }
     }
 
-    if (localStorage.getItem('role') === Role.ROLE_ENGINEER) {
-      //Extracting query params from url
-      console.log("Parsing query params from query-string:");
-      console.log(history.location.search);
-      const params = queryString.parse(history.location.search);
-      console.log("Parsed params: ");
-      console.log(params);
-
-      if (params.status) {
-        this.props.fetchAssignedTickets({
-          status: params.status,
-          sortBy: 'ticketId'
-        });
-      }
-    }
   }
 
   componentDidUpdate(prevProps) {
@@ -125,6 +116,12 @@ class ViewTicketsForm extends React.Component {
           </Row>
         </Container>
         <hr />
+        {(this.props.fetchTicketsAPICallStatus.success ||
+            this.props.fetchAssignedTicketsAPICallStatus.success) && <CustomPagination data={this.props.ticketList}
+          onPaginationPageChange={this.onPaginationPageChange}
+          onPaginationItemsPerPageChange={this.onPaginationItemsPerPageChange}>
+        </CustomPagination>
+        }
         <Container>
           {(this.props.fetchTicketsAPICallStatus.requested ||
             this.props.fetchAssignedTicketsAPICallStatus.requested)
@@ -169,6 +166,7 @@ class ViewTicketsForm extends React.Component {
 const mapStateToProps = function (state) {
   return {
     tickets: state.ticketList.tickets,
+    ticketList: state.ticketList,
     user: state.user,
     engineers: state.engineerList.engineers,
     fetchTicketsAPICallStatus: state.serviceCallStatus.fetchTicketsAPI,
