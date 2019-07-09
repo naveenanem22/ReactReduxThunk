@@ -1,3 +1,24 @@
+export const Priority = {
+    HIGH: 'High', MEDIUM: 'Medium', LOW: 'Low'
+}
+
+export const PriorityCode = {
+    HIGH: 1, MEDIUM: 2, LOW: 3
+}
+
+
+export const TicketType = {
+    TASK: 'Task', ISSUE: 'Issue', PROBLEM: 'Problem'
+}
+
+export const TicketTypeCode = {
+    TASK: 1, ISSUE: 2, PROBLEM: 3
+}
+
+export const Role = {
+    ROLE_USER: 'ROLE_USER', ROLE_ADMIN: 'ROLE_ADMIN',
+    ROLE_ENGINEER: 'ROLE_ENGINEER', ROLE_EMPLOYEE: 'ROLE_EMPLOYEE', ROLE_MANAGER: 'ROLE_MANAGER'
+}
 export const SortOrder = {
     ASCENDING: 'ascending', DESCENDING: 'descending'
 }
@@ -27,6 +48,10 @@ export const TicketStatusColorCode = {
     PENDING: glbColorCodes.DANGER, AWAIT_RESPONSE: glbColorCodes.SUCCESS
 }
 
+export const TicketPriorityColorCode = {
+    HIGH: glbColorCodes.DANGER, MEDIUM: glbColorCodes.WARNING, LOW: glbColorCodes.INFO
+}
+
 export const TICKETS_PER_PAGE_EMPLOYEE = 3;
 export const TICKETS_PER_PAGE_MANAGER = 5;
 export const TICKETS_PER_PAGE_ENGINEER = 5;
@@ -34,27 +59,7 @@ export const TICKETS_PER_PAGE_ENGINEER = 5;
 export const PAGINATION_START_PAGE = 1;
 
 
-export const Priority = {
-    HIGH: 'High', MEDIUM: 'Medium', LOW: 'Low'
-}
 
-export const PriorityCode = {
-    HIGH: 1, MEDIUM: 2, LOW: 3
-}
-
-
-export const TicketType = {
-    TASK: 'Task', ISSUE: 'Issue', PROBLEM: 'Problem'
-}
-
-export const TicketTypeCode = {
-    TASK: 1, ISSUE: 2, PROBLEM: 3
-}
-
-export const Role = {
-    ROLE_USER: 'ROLE_USER', ROLE_ADMIN: 'ROLE_ADMIN',
-    ROLE_ENGINEER: 'ROLE_ENGINEER', ROLE_EMPLOYEE: 'ROLE_EMPLOYEE', ROLE_MANAGER: 'ROLE_MANAGER'
-}
 
 /***Form Title and SubTitle data START***/
 export const componentInfoObj = {
@@ -69,7 +74,7 @@ export const componentInfoObj = {
                 return {
                     title: "Assigned Tickets",
                     subTitle: "Tickets that need to be actioned. Action based on priority and severity.",
-                    statusFilterValue:TicketStatus.NEW
+                    statusFilterValue: TicketStatus.NEW
                 }
 
             case 'NT':
@@ -82,7 +87,7 @@ export const componentInfoObj = {
                 return {
                     title: "Closed Tickets",
                     subTitle: "Reopen if any of the tickets is not resolved.",
-                    statusFilterValue:TicketStatus.CLOSE
+                    statusFilterValue: TicketStatus.CLOSE
                 }
 
             case 'ALT':

@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Card, CardHeader, CardBody, CardTitle, CardText, Button, CardFooter } from 'reactstrap';
 import { Badge } from 'reactstrap';
-import { getURLParams } from '../util/UIUtils'
+import { getURLParams, getTicketPriorityColorCode, getTicketStatusColorCode } from '../util/UIUtils'
+import { TicketPriorityColorCode } from '../masterdata/ApplicationMasterData';
 
 class TicketDetailCard extends React.Component {
     constructor(props) {
@@ -28,7 +29,7 @@ class TicketDetailCard extends React.Component {
                 boxShadow: this.state.ticket.id == getURLParams().ticketId ? '0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.15)' : '0 0 0 0'
             }}>
                 <CardHeader style={{ paddingTop: '1%', paddingBottom: '1%', paddingRight: '0' }}><Row>
-                    <Col sm='2' style={{ textAlign: 'left' }}><Badge color="danger">{this.state.ticket.priority}</Badge></Col>
+                    <Col sm='2' style={{ textAlign: 'left' }}><Badge color={getTicketPriorityColorCode(this.state.ticket.priority)}>{this.state.ticket.priority}</Badge></Col>
                     <Col sm='4' style={{ textAlign: 'center' }}>{this.state.ticket.id}</Col>
                     <Col sm='3' style={{ textAlign: 'right', color: '#0000008a', fontSize: '80%', margin: '0', paddingRight: '0' }}><i>Created by</i></Col>
                     <Col sm='3' style={{ textAlign: 'left', fontWeight: '500', color: '#0000008a', fontSize: '80%', margin: '0' }}>
@@ -43,7 +44,8 @@ class TicketDetailCard extends React.Component {
 
                         </Col>
                         <Col sm='4' style={{ borderLeft: '1px solid rgba(0,0,0,.125)' }}>
-                            <Row><Col sm='5' style={{ fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingRight: '0' }}><i>Status</i></Col><Col sm='7' style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingLeft: '0', paddingRight: '0' }}>: {this.state.ticket.status}</Col></Row>
+                            <Row><Col sm='5' style={{ fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingRight: '0' }}><i>Status</i></Col><Col sm='7' style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingLeft: '0', paddingRight: '0' }}>:
+                            <Badge style={{marginLeft:'4%'}}color={getTicketStatusColorCode(this.state.ticket.status)}>{this.state.ticket.status}</Badge></Col></Row>
                             <Row><Col sm='5' style={{ fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingRight: '0' }}><i>Days Open</i></Col><Col sm='7' style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingLeft: '0', paddingRight: '0' }}>: 28</Col></Row>
                             <Row><Col sm='5' style={{ fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingRight: '0' }}><i>Department</i></Col><Col sm='7' style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingLeft: '0', paddingRight: '0' }}>: {this.state.ticket.department.name}</Col></Row>
                             <Row><Col sm='5' style={{ fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingRight: '0' }}><i>Updated On</i></Col><Col sm='7' style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingLeft: '0', paddingRight: '0' }}>: {this.state.ticket.updatedDate}</Col></Row>
@@ -57,7 +59,7 @@ class TicketDetailCard extends React.Component {
                             {false && <Col sm='8' style={{ textAlign: 'left' }}><Button style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm" outline color="success">Close</Button><Button style={{ width: '25%', paddingTop: '0', paddingBottom: '0', marginLeft: '1%' }} size="sm" outline color="warning">Message</Button></Col>}
                             <Col sm='auto' style={{ textAlign: 'left', color: '#0000008a', fontSize: '80%', margin: '0', paddingRight: '0' }}><i>Updated by</i></Col>
                             <Col sm='auto' style={{ textAlign: 'left', fontWeight: '500', color: '#0000008a', fontSize: '80%', margin: '0' }}>
-                            {this.state.ticket.updatedBy.firstName+' '+this.state.ticket.updatedBy.lastName}</Col>
+                                {this.state.ticket.updatedBy.firstName + ' ' + this.state.ticket.updatedBy.lastName}</Col>
                         </Row>
                     </CardFooter>}
             </Card>

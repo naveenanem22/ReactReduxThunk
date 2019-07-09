@@ -2,7 +2,7 @@ import { FaFilePdf, FaFileAlt, FaFileImage, FaFile, FaFileWord } from 'react-ico
 import React from 'react';
 import history from '../history';
 import queryString from 'query-string';
-import {TicketStatus, TicketStatusColorCode} from '../masterdata/ApplicationMasterData';
+import {TicketStatus, TicketStatusColorCode, Priority, TicketPriorityColorCode} from '../masterdata/ApplicationMasterData';
 
 export function loadFileIcon(fileType) {
   switch (fileType) {
@@ -33,6 +33,20 @@ export function getTicketStatusColorCode(ticketStatus) {
           return TicketStatusColorCode.AWAIT_RESPONSE;
       default:
           return TicketStatusColorCode.LIGHT
+
+  }
+}
+
+export function getTicketPriorityColorCode(ticketPriority) {
+  switch (ticketPriority) {
+      case Priority.LOW:
+          return TicketPriorityColorCode.LOW;
+      case Priority.MEDIUM:
+          return TicketPriorityColorCode.MEDIUM;
+      case Priority.HIGH:
+          return TicketPriorityColorCode.HIGH;
+      default:
+          return TicketPriorityColorCode.LOW;
 
   }
 }
