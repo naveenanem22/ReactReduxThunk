@@ -65,7 +65,7 @@ class SideNavBar extends React.Component {
   handleAllTicketsClick() {
     history.push({
       pathname: "/ticketmanage/tickets",
-      search: '?status=' + TicketStatus.ALL + '&' + 'cioKey=MT' + '&' +
+      search: '?status=' + TicketStatus.ALL + '&' + 'cioKey=ALT' + '&' +
         'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE
     });
 

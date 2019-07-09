@@ -81,13 +81,15 @@ export const componentInfoObj = {
             case 'CLT':
                 return {
                     title: "Closed Tickets",
-                    subTitle: "Reopen if any of the tickets is not resolved."
+                    subTitle: "Reopen if any of the tickets is not resolved.",
+                    statusFilterValue:TicketStatus.CLOSE
                 }
 
             case 'ALT':
                 return {
-                    title: "My Tickets",
-                    subTitle: "Monitor your ticket activity and update Tickets that need your response."
+                    title: "All Tickets",
+                    subTitle: "Monitor your ticket activity and update Tickets that need your response.",
+                    statusFilterValue: TicketStatus.ALL
                 }
 
             case 'MT':
