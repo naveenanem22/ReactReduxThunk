@@ -12,11 +12,26 @@ export function fetchDashboardData() {
 }
 
 export function fetchDashboardDataSuccess(dashboardData) {
-
+    console.log("Raw lineGraphData: " + JSON.stringify(dashboardData.lineGraphData));
     console.log("Raw barChartData: " + JSON.stringify(dashboardData.barChartData));
     console.log("Raw pieChartData: " + JSON.stringify(dashboardData.pieChartData));
-    console.log("lastHourNewTicketCount: "+JSON.stringify(dashboardData.lastHourNewTicketCount));
-    console.log("lastHourClosedTicketCount: "+JSON.stringify(dashboardData.lastHourClosedTicketCount));
+    console.log("lastHourNewTicketCount: " + JSON.stringify(dashboardData.lastHourNewTicketCount));
+    console.log("lastHourClosedTicketCount: " + JSON.stringify(dashboardData.lastHourClosedTicketCount));
+
+
+    //Processing rawLineGraph data to the Component reuqired format
+    var processedLineGraphData = [];
+    var processedLineGraphDataItem = {};
+    dashboardData.lineGraphData.forEach(item => {
+        processedLineGraphDataItem = {
+            name: getThreeLetterMonthName(item.month) + "'" + gettwoDigitYear(item.year),
+            Closed: getValueByKey(item.dataPoints, TicketStatus.CLOSE),
+            Open: getValueByKey(item.dataPoints, TicketStatus.OPEN),
+            New: getValueByKey(item.dataPoints, TicketStatus.NEW)
+        };
+        processedLineGraphData.push(processedLineGraphDataItem);
+    });
+    console.log("Processed lineGraphData: " + JSON.stringify(processedLineGraphData));
 
     //Processing rawBarChart data to the Component reuqired format
     var processedBarChartData = [];
@@ -46,6 +61,7 @@ export function fetchDashboardDataSuccess(dashboardData) {
     return {
         type: FETCH_DASHBOARD_DATA_SUCCESS,
         payload: {
+            lineGraphData: processedLineGraphData,
             barChartData: processedBarChartData,
             pieChartData: processedPieChartData,
             lastHourNewTicketCount: dashboardData.lastHourNewTicketCount,
@@ -93,14 +109,27 @@ export function fetchDashboardDataAPICall() {
 export function fetchDashboardDataMultipleAPICall() {
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    var lineGraphUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/lineGraph");
     var barChartUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/barChart");
     var pieChartUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/pieChart");
-    var lastHourNewTicketUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/lasthour/"+TicketStatus.NEW);
-    var lastHourClosedTicketUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/lasthour/"+TicketStatus.CLOSE);
+    var lastHourNewTicketUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/lasthour/" + TicketStatus.NEW);
+    var lastHourClosedTicketUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/lasthour/" + TicketStatus.CLOSE);
 
     return function (dispatch) {
         dispatch(showLoadingScreen());
         dispatch(fetchDashboardData());
+
+        var lineGraphApiRequest = fetch(lineGraphUrl, {
+            method: 'GET',
+            headers: headers
+        })
+            .then(
+                response => {
+                    if (response.status === 200)
+                        return response.json();
+                },
+                error => console.log('An error occurred.', error),
+            );
 
         var barChartApiRequest = fetch(barChartUrl, {
             method: 'GET',
@@ -125,7 +154,7 @@ export function fetchDashboardDataMultipleAPICall() {
                 },
                 error => console.log('An error occurred.', error),
             );
-        
+
         var lastHourNewTicketCountApiRequest = fetch(lastHourNewTicketUrl, {
             method: 'GET',
             headers: headers
@@ -150,12 +179,13 @@ export function fetchDashboardDataMultipleAPICall() {
                 error => console.log('An error occurred.', error),
             );
 
-        var dashboardData = { 'barChartData': [], 'pieChartData': [], 'lastHourNewTicketCount':0, 'lastHourClosedTicketCount':0 };
-        Promise.all([barChartApiRequest, pieChartApiRequest, lastHourNewTicketCountApiRequest, lastHourClosedTicketCountApiRequest]).then(function (values) {
-            dashboardData.barChartData = values[0];
-            dashboardData.pieChartData = values[1];
-            dashboardData.lastHourNewTicketCount = values[2],
-            dashboardData.lastHourClosedTicketCount = values[3]
+        var dashboardData = { 'lineGraphData': [], 'barChartData': [], 'pieChartData': [], 'lastHourNewTicketCount': 0, 'lastHourClosedTicketCount': 0 };
+        Promise.all([lineGraphApiRequest, barChartApiRequest, pieChartApiRequest, lastHourNewTicketCountApiRequest, lastHourClosedTicketCountApiRequest]).then(function (values) {
+            dashboardData.lineGraphData = values[0];
+            dashboardData.barChartData = values[1];
+            dashboardData.pieChartData = values[2];
+            dashboardData.lastHourNewTicketCount = values[3],
+                dashboardData.lastHourClosedTicketCount = values[4]
             dispatch(dismissLoadingScreen());
             dispatch(fetchDashboardDataSuccess(dashboardData));
         });

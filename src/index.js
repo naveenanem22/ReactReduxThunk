@@ -45,7 +45,7 @@ const store = createStore(MainReducer, {
             data: []
 
         },
-        lineChart: {
+        lineGraph: {
             data: []
         },
         lastHourTicketCount: {

@@ -49,26 +49,41 @@ const renderCustomizedLabel = ({
 
 const lineGraphData = [
   {
-    name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
+    name: 'Jan 19', Close: 4000, New: 2400, Open:1000, amt: 2400
   },
   {
-    name: 'Page B', uv: 3000, pv: 1398, amt: 2210,
+    name: 'Feb 19', Close: 5000, New: 3200, Open:1100, amt: 2400
   },
   {
-    name: 'Page C', uv: 2000, pv: 9800, amt: 2290,
+    name: 'Mar 19', Close: 3500, New: 1100, Open:1200, amt: 2400
   },
   {
-    name: 'Page D', uv: 2780, pv: 3908, amt: 2000,
+    name: 'Apr 19', Close: 2500, New: 2800, Open:1300, amt: 2400
   },
   {
-    name: 'Page E', uv: 1890, pv: 4800, amt: 2181,
+    name: 'May 19', Close: 1500, New: 1500, Open:1500, amt: 2400
   },
   {
-    name: 'Page F', uv: 2390, pv: 3800, amt: 2500,
+    name: 'Jun 19', Close: 2700, New: 1300, Open:1800, amt: 2400
   },
   {
-    name: 'Page G', uv: 3490, pv: 4300, amt: 2100,
+    name: 'Jul 19', Close: 4000, New: 1200, Open:1900, amt: 2400
   },
+  {
+    name: 'Aug 19', Close: 2700, New: 1300, Open:1800, amt: 2400
+  },
+  {
+    name: 'Sep 19', Close: 2700, New: 1300, Open:1800, amt: 2400
+  },
+  {
+    name: 'Oct 19', Close: 2700, New: 1300, Open:1800, amt: 2400
+  },
+  {
+    name: 'Nov 19', Close: 2700, New: 1300, Open:1800, amt: 2400
+  },
+  {
+    name: 'Dec 19', Close: 2700, New: 1300, Open:1800, amt: 2400
+  }
 ];
 
 /* const barGraphdata = [
@@ -144,6 +159,8 @@ class DashBoardForm extends React.Component {
   }
 
   render() {
+    console.log("LineGraph: ");
+    console.log(this.props.lineGraph);
     console.log(this.props.fetchDashboardDataMultipleAPICallStatus);
     const { opacity } = this.state;
 
@@ -285,11 +302,12 @@ class DashBoardForm extends React.Component {
               <Col style={{ width: '100%' }}>
                 <Card style={{ backgroundColor: '#fff' }}>
                   <CardBody>
-                    <CardTitle>Department-wise workload</CardTitle>
+                    <CardTitle>Organization wise Ticket Activity</CardTitle>
                     <LineChart
-                      width={500}
+                      width={800}
                       height={300}
-                      data={lineGraphData}
+                      //data={lineGraphData}
+                      data={this.props.lineGraph.data}
                       margin={{
                         top: 5, right: 30, left: 20, bottom: 5,
                       }}
@@ -299,8 +317,9 @@ class DashBoardForm extends React.Component {
                       <YAxis />
                       <Tooltip />
                       <Legend onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} />
-                      <Line type="monotone" dataKey="pv" strokeOpacity={opacity.pv} stroke="#8884d8" activeDot={{ r: 8 }} />
-                      <Line type="monotone" dataKey="uv" strokeOpacity={opacity.uv} stroke="#82ca9d" />
+                      <Line type="monotone" dataKey="Open" strokeOpacity={opacity.Open} stroke="#8884d8" activeDot={{ r: 8 }} />
+                      <Line type="monotone" dataKey="Closed" strokeOpacity={opacity.Close} stroke="#82ca9d" activeDot={{ r: 8 }}/>
+                      <Line type="monotone" dataKey="New" strokeOpacity={opacity.New} stroke="#FF0000" activeDot={{ r: 8 }}/>
                     </LineChart>
                   </CardBody>
                 </Card>
@@ -386,6 +405,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = function (state) {
   return {
+    lineGraph: state.dashboardData.lineGraph,
     barChart: state.dashboardData.barChart,
     pieChart: state.dashboardData.pieChart,
     lastHourTicketCount: state.dashboardData.lastHourTicketCount,
