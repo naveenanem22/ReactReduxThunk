@@ -302,7 +302,7 @@ class DashBoardForm extends React.Component {
               <Col style={{ width: '100%' }}>
                 <Card style={{ backgroundColor: '#fff' }}>
                   <CardBody>
-                    <CardTitle>Organization wise Ticket Activity</CardTitle>
+                    <CardTitle>Organization-wise Ticket Activity</CardTitle>
                     <LineChart
                       width={800}
                       height={300}
