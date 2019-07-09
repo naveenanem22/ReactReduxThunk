@@ -17,6 +17,7 @@ export function fetchDashboardDataSuccess(dashboardData) {
     console.log("Raw pieChartData: " + JSON.stringify(dashboardData.pieChartData));
     console.log("lastHourNewTicketCount: " + JSON.stringify(dashboardData.lastHourNewTicketCount));
     console.log("lastHourClosedTicketCount: " + JSON.stringify(dashboardData.lastHourClosedTicketCount));
+    console.log("totalTicketCountFromStart:" + JSON.stringify(dashboardData.totalTicketCountFromStart));
 
 
     //Processing rawLineGraph data to the Component reuqired format
@@ -65,7 +66,8 @@ export function fetchDashboardDataSuccess(dashboardData) {
             barChartData: processedBarChartData,
             pieChartData: processedPieChartData,
             lastHourNewTicketCount: dashboardData.lastHourNewTicketCount,
-            lastHourClosedTicketCount: dashboardData.lastHourClosedTicketCount
+            lastHourClosedTicketCount: dashboardData.lastHourClosedTicketCount,
+            totalTicketCountFromStart: dashboardData.totalTicketCountFromStart
         }
     }
 }
@@ -112,6 +114,7 @@ export function fetchDashboardDataMultipleAPICall() {
     var lineGraphUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/lineGraph");
     var barChartUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/barChart");
     var pieChartUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/pieChart");
+    var totalTicketCountFromStartUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/totalTicketCount");
     var lastHourNewTicketUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/lasthour/" + TicketStatus.NEW);
     var lastHourClosedTicketUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/lasthour/" + TicketStatus.CLOSE);
 
@@ -167,6 +170,18 @@ export function fetchDashboardDataMultipleAPICall() {
                 error => console.log('An error occurred.', error),
             );
 
+        var totalTicketCountFromStartApiRequest = fetch(totalTicketCountFromStartUrl, {
+            method: 'GET',
+            headers: headers
+        })
+            .then(
+                response => {
+                    if (response.status === 200)
+                        return response.json();
+                },
+                error => console.log('An error occurred.', error),
+            );
+
         var lastHourClosedTicketCountApiRequest = fetch(lastHourClosedTicketUrl, {
             method: 'GET',
             headers: headers
@@ -179,15 +194,28 @@ export function fetchDashboardDataMultipleAPICall() {
                 error => console.log('An error occurred.', error),
             );
 
-        var dashboardData = { 'lineGraphData': [], 'barChartData': [], 'pieChartData': [], 'lastHourNewTicketCount': 0, 'lastHourClosedTicketCount': 0 };
-        Promise.all([lineGraphApiRequest, barChartApiRequest, pieChartApiRequest, lastHourNewTicketCountApiRequest, lastHourClosedTicketCountApiRequest]).then(function (values) {
-            dashboardData.lineGraphData = values[0];
-            dashboardData.barChartData = values[1];
-            dashboardData.pieChartData = values[2];
-            dashboardData.lastHourNewTicketCount = values[3],
-                dashboardData.lastHourClosedTicketCount = values[4]
-            dispatch(dismissLoadingScreen());
-            dispatch(fetchDashboardDataSuccess(dashboardData));
-        });
+        var dashboardData = {
+            'lineGraphData': [],
+            'barChartData': [],
+            'pieChartData': [],
+            'lastHourNewTicketCount': 0,
+            'lastHourClosedTicketCount': 0,
+            'totalTicketCountFromStart': 0
+        };
+        Promise.all([lineGraphApiRequest,
+            barChartApiRequest,
+            pieChartApiRequest,
+            lastHourNewTicketCountApiRequest,
+            lastHourClosedTicketCountApiRequest,
+            totalTicketCountFromStartApiRequest]).then(function (values) {
+                dashboardData.lineGraphData = values[0];
+                dashboardData.barChartData = values[1];
+                dashboardData.pieChartData = values[2];
+                dashboardData.lastHourNewTicketCount = values[3];
+                dashboardData.lastHourClosedTicketCount = values[4];
+                dashboardData.totalTicketCountFromStart = values[5];
+                dispatch(dismissLoadingScreen());
+                dispatch(fetchDashboardDataSuccess(dashboardData));
+            });
     };
 }

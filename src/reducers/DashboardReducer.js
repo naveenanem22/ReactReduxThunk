@@ -6,11 +6,14 @@ export function dashboardReducer(state = {}, action) {
         case FETCH_DASHBOARD_DATA_SUCCESS:
             console.log("Inside success reducer");
             return {
-                ...state, isDashboardFormVisible: true, 
-                lineGraph: {data: action.payload.lineGraphData},
-                barChart: { data: action.payload.barChartData }, 
+                ...state, isDashboardFormVisible: true,
+                lineGraph: { data: action.payload.lineGraphData },
+                barChart: { data: action.payload.barChartData },
                 pieChart: { data: action.payload.pieChartData },
-                lastHourTicketCount: { New: action.payload.lastHourNewTicketCount.ticketCount, Closed: action.payload.lastHourClosedTicketCount.ticketCount }
+                lastHourTicketCount: { New: action.payload.lastHourNewTicketCount.ticketCount, Closed: action.payload.lastHourClosedTicketCount.ticketCount },
+                totalTicketCountFromStart: {
+                    count: action.payload.totalTicketCountFromStart.ticketCount
+                }
             };
 
         case FETCH_DASHBOARD_DATA:

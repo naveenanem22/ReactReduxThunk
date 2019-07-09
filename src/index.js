@@ -22,20 +22,20 @@ const allStoreEnhancers = compose(
 )
 const store = createStore(MainReducer, {
     serviceCallStatus: {
-        fetchTicketsAPI: {requested: false, success: false, error: false},
-        loginAPI: {requested: false, success: false, error: false},
-        getProfileAPI: {requested: false, success: false, error: false},
-        createTicketAPI: {requested: false, success: false, error: false},
-        fetchTicketDetailsAPI: {requested: false, success: false, error: false},
-        fetchAssignedTicketDetailsAPI: {requested: false, success: false, error: false},
-        fetchCreatedTicketDetailsAPI: {requested: false, success: false, error: false},
-        addMessageAPI: {requested: false, success: false, error: false},
-        closeTicketAPI: {requested: false, success: false, error: false},
-        fetchAssignedTicketsAPI: {requested: false, success: false, error: false},
-        fetchCreatedTicketsAPI: {requested: false, success: false, error: false},
-        fetchEngineersAPI: {requested: false, success: false, error: false},
-        assignAndUpdateTicketAPI: {requested: false, success: false, error: false},
-        fetchDashboardDataMultipleAPI: {requested: false, success: false, error: false}
+        fetchTicketsAPI: { requested: false, success: false, error: false },
+        loginAPI: { requested: false, success: false, error: false },
+        getProfileAPI: { requested: false, success: false, error: false },
+        createTicketAPI: { requested: false, success: false, error: false },
+        fetchTicketDetailsAPI: { requested: false, success: false, error: false },
+        fetchAssignedTicketDetailsAPI: { requested: false, success: false, error: false },
+        fetchCreatedTicketDetailsAPI: { requested: false, success: false, error: false },
+        addMessageAPI: { requested: false, success: false, error: false },
+        closeTicketAPI: { requested: false, success: false, error: false },
+        fetchAssignedTicketsAPI: { requested: false, success: false, error: false },
+        fetchCreatedTicketsAPI: { requested: false, success: false, error: false },
+        fetchEngineersAPI: { requested: false, success: false, error: false },
+        assignAndUpdateTicketAPI: { requested: false, success: false, error: false },
+        fetchDashboardDataMultipleAPI: { requested: false, success: false, error: false }
     },
     dashboardData: {
         barChart: {
@@ -53,6 +53,9 @@ const store = createStore(MainReducer, {
             New: 0,
             AwaitingUserResponse: 0
         },
+        totalTicketCountFromStart: {
+            count: 0
+        },
         isDashboardFormVisible: false
     },
     loadingScreen: {
@@ -63,7 +66,7 @@ const store = createStore(MainReducer, {
     products: [],
     user: {
         isLoggedIn: false, isLoginFailure: false, loginFailureMessage: '', profile: {
-            contactInfo:{}, individualAddress:{}
+            contactInfo: {}, individualAddress: {}
         }
     },
     engineerList: {

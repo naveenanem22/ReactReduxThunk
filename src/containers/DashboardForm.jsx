@@ -233,8 +233,8 @@ class DashBoardForm extends React.Component {
                     <Row>
                       <Col><FaTicketAlt size={70} style={{ color: 'orange' }} /></Col>
                       <Col>
-                        <Row><Col ><h6>Tickets Raised</h6></Col></Row>
-                        <Row><Col ><h1>23</h1></Col></Row>
+                        <Row><Col ><h6>Total Tickets</h6></Col></Row>
+                        <Row><Col ><h1>{this.props.totalTicketCountFromStart.count}</h1></Col></Row>
                       </Col>
                     </Row>
                     <hr></hr>
@@ -409,6 +409,7 @@ const mapStateToProps = function (state) {
     barChart: state.dashboardData.barChart,
     pieChart: state.dashboardData.pieChart,
     lastHourTicketCount: state.dashboardData.lastHourTicketCount,
+    totalTicketCountFromStart: state.dashboardData.totalTicketCountFromStart,
     fetchDashboardDataMultipleAPICallStatus: state.serviceCallStatus.fetchDashboardDataMultipleAPI
   }
 }
