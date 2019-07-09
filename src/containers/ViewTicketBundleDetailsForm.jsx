@@ -16,7 +16,7 @@ import { fetchEngineersAPICall } from '../actions/UserActions';
 import SuccessAlertWithTick from '../components/SuccessAlertWithTick';
 import FailureAlertWithIcon from '../components/FailureAlertWithIcon';
 import { HalfCircleSpinner } from 'react-epic-spinners';
-import { getURLParams } from '../util/UIUtils';
+import { getURLParams, getTicketStatusColorCode } from '../util/UIUtils';
 import BlankForm from '../components/BlankForm';
 
 class ViewTicketBundleDetailsForm extends React.Component {
@@ -207,7 +207,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Quick Look data:</Col>
             </Row>
             <Row>
-              <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Status :</Col><Col style={{ textAlign: 'left' }}><Badge color="danger">{this.props.ticket.status.toUpperCase()}</Badge></Col>
+              <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Status :</Col><Col style={{ textAlign: 'left' }}><Badge color={getTicketStatusColorCode(this.props.ticket.status)}>{this.props.ticket.status.toUpperCase()}</Badge></Col>
             </Row>
             <Row>
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Priority :</Col><Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.priority}</Col>
