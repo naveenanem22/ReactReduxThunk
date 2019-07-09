@@ -68,7 +68,8 @@ export const componentInfoObj = {
             case 'AST':
                 return {
                     title: "Assigned Tickets",
-                    subTitle: "Tickets that need to be actioned. Action based on priority and severity."
+                    subTitle: "Tickets that need to be actioned. Action based on priority and severity.",
+                    statusFilterValue:TicketStatus.NEW
                 }
 
             case 'NT':

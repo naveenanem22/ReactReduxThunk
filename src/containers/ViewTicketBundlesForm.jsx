@@ -79,6 +79,11 @@ class ViewTicketsForm extends React.Component {
       params.pageSize = itemsPerPage;
       params.pageNumber = PAGINATION_START_PAGE;
 
+      //update status param if its missing in URL based on cioKey
+      if (!params.status)
+        if (params.cioKey)
+          params.status = componentInfoObj.getInfo(params.cioKey).statusFilterValue
+
       //push the url to history
       history.push({
         pathname: "/ticketmanage/tickets",
