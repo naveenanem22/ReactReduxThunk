@@ -173,7 +173,7 @@ class ViewTicketDetailsForm extends React.Component {
     if (params.ticketId) {
       switch (localStorage.getItem('role')) {
         case Role.ROLE_MANAGER:
-          this.props.fetchTicketDetails({
+          this.props.fetchCreatedTicketDetails({
             ticketId: params.ticketId
           });
           break;
