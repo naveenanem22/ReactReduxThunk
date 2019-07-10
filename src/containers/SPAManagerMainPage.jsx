@@ -15,6 +15,7 @@ import ViewTicketDetailsForm from './ViewTicketDetailsForm';
 import queryString from 'query-string';
 import FAQsForm from './FAQsForm';
 import Workflow from './Workflow';
+import {Role} from '../masterdata/ApplicationMasterData';
 
 class SPAEngineerMainPage extends React.Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class SPAEngineerMainPage extends React.Component {
   }
 
   updateRouteAndShowTicketDetails(e, ticket) {
-    console.log("updaterouteandshowticketmanager");
+
 
     if (e.target.type == 'checkbox') {
 
@@ -36,13 +37,24 @@ class SPAEngineerMainPage extends React.Component {
     } else if (e.target.type == 'suggestion') {
 
     } else {
-      //Process url to get the 'cioKey' and append to URL on bundleClick()
-      const params = queryString.parse(history.location.search);
-      console.log(params);
-      history.push({
-        pathname: '/ticketmanage/ticketdetails',
-        search: '?ticketId=' + ticket.ticketId + (params.cioKey ? '&cioKey=' + params.cioKey : '')
-      });
+      switch (localStorage.getItem('role')) {
+        case Role.ROLE_EMPLOYEE:
+          history.push({
+            pathname: '/ticketing/ticketdetails',
+            search: '?ticketId=' + ticket.id + '&' + 'cioKey=TD'
+          });
+          break;
+        case Role.ROLE_MANAGER:
+          history.push({
+            pathname: "/ticketmanage/ticketdetails",
+            search: "?ticketId=" + ticket.id
+          });
+          break;
+        default:
+          break;
+
+      }
+
     }
   }
 
@@ -91,6 +103,13 @@ class SPAEngineerMainPage extends React.Component {
             component={() =>
               <Col sm='9' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
                 <CreateTicketForm></CreateTicketForm>
+              </Col>}>
+          </Route>
+
+          <Route path="/ticketmanage/mytickets"
+            component={() =>
+              <Col sm='9' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+                <ViewTicketsForm handleListViewTicketClick={this.updateRouteAndShowTicketDetails}></ViewTicketsForm>
               </Col>}>
           </Route>
 

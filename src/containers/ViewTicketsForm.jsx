@@ -344,6 +344,23 @@ class ViewTicketsForm extends React.Component {
     }
 
     if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
+
+      //Extracting query params from url
+      console.log("Parsing query params from query-string:");
+      console.log(history.location.search);
+      const params = queryString.parse(history.location.search);
+      console.log("Parsed params: ");
+      console.log(params);
+
+      if (params.status) {
+        this.props.fetchCreatedTickets({
+          status: params.status,
+          sortBy: params.sortBy,
+          sortOrder: params.sortOrder,
+          pageNumber: params.pageNumber,
+          pageSize: params.pageSize
+        });
+      }
     }
   }
 

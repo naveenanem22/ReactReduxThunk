@@ -17,7 +17,7 @@ import { logout } from '../actions/UserActions';
 import history from '../history';
 import { Link } from "react-router-dom";
 import { fetchTicketsAPICall } from '../actions/TicketActions';
-import { TicketStatus } from '../masterdata/ApplicationMasterData';
+import { TicketStatus, TICKETS_PER_PAGE_MANAGER, SortOrder, PAGINATION_START_PAGE, TicketsSortBy } from '../masterdata/ApplicationMasterData';
 
 
 class HeaderNavBar extends React.Component {
@@ -47,11 +47,14 @@ class HeaderNavBar extends React.Component {
   }
 
   onClickMyTickets() {
-    history.push('/tickets');
-    this.props.fetchTickets({
-      status: TicketStatus.ALL,
-      sortBy: 'ticketId'
+    history.push({
+      pathname: '/ticketmanage/mytickets',
+      search: '?status=' + TicketStatus.ALL + '&' +
+        'cioKey=MT' + '&' +
+        'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_MANAGER + '&' +
+        'sortOrder=' + SortOrder.ASCENDING + '&' + 'sortBy=' + TicketsSortBy.TICKET_ID
     });
+
   }
 
   onClickLogout() {
