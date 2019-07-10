@@ -68,69 +68,80 @@ export const componentInfoObj = {
             case 'PRF':
                 return {
                     title: "My Profile",
-                    subTitle: "Please verify your profile details and update if you should."
+                    subTitle: "Please verify your profile details and update if you should.",
+                    createdByMe:false
                 }
             case 'AST':
                 return {
                     title: "Assigned Tickets",
                     subTitle: "Tickets that need to be actioned. Action based on priority and severity.",
-                    statusFilterValue: TicketStatus.NEW
+                    statusFilterValue: TicketStatus.NEW,
+                    createdByMe:false
                 }
 
             case 'NT':
                 return {
                     title: 'Create Ticket',
-                    subTitle: 'Raise and provide as much as information for speedy resolution.'
+                    subTitle: 'Raise and provide as much as information for speedy resolution.',
+                    createdByMe:false
                 }
 
             case 'CLT':
                 return {
                     title: "Closed Tickets",
                     subTitle: "Reopen if any of the tickets is not resolved.",
-                    statusFilterValue: TicketStatus.CLOSE
+                    statusFilterValue: TicketStatus.CLOSE,
+                    createdByMe:false
                 }
 
             case 'ALT':
                 return {
                     title: "All Tickets",
                     subTitle: "Monitor your ticket activity and update Tickets that need your response.",
-                    statusFilterValue: TicketStatus.ALL
+                    statusFilterValue: TicketStatus.ALL,
+                    createdByMe:false
                 }
 
             case 'MT':
                 return {
                     title: "My Tickets",
-                    subTitle: "Monitor ticket activity across organization and update Tickets that need your response."
+                    subTitle: "Monitor ticket activity across organization and update Tickets that need your response.",
+                    createdByMe:true
                 }
 
             case 'AWT':
                 return {
                     title: "Awaiting Response Tickets",
-                    subTitle: "Contact respective employee if no response provided beyond certain time limit."
+                    subTitle: "Contact respective employee if no response provided beyond certain time limit.",
+                    createdByMe:false
                 }
 
             case 'MDB':
                 return {
                     title: "Dashboard",
-                    subTitle: "Organization wide Ticket-Dynamics to take informed decisions."
+                    subTitle: "Organization wide Ticket-Dynamics to take informed decisions.",
+                    createdByMe:false
                 }
 
             case 'ENDB':
                 return {
                     title: "My Board",
-                    subTitle: "Your credits, badges etc. Update the profile if need be."
+                    subTitle: "Your credits, badges etc. Update the profile if need be.",
+                    createdByMe:false
                 }
 
             case 'TD':
                 return {
                     title: "Ticket Details",
-                    subTitle: "Verify the details and converse further to assist Heldesk to resolve faster."
+                    subTitle: "Verify the details and converse further to assist Heldesk to resolve faster.",
+                    createdByMe:false
                 }
 
             default:
                 return {
                     title: "Default Title",
-                    subTitle: "Default Sub-Title."
+                    subTitle: "Default Sub-Title.",
+                    createdByMe:false
                 }
 
         }

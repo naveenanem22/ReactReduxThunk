@@ -282,7 +282,7 @@ export function fetchTicketsAPICall(queryParams) {
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     var url = new URL("http://localhost:8080/v0/ticket-management/tickets");
     var params = { status: queryParams.status, pageNumber: queryParams.pageNumber,
-    pageSize:queryParams.pageSize };
+    pageSize:queryParams.pageSize, createdByMe: queryParams.createdByMe };
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
     return function (dispatch) {

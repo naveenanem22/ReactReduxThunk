@@ -48,7 +48,7 @@ class HeaderNavBar extends React.Component {
 
   onClickMyTickets() {
     history.push({
-      pathname: '/ticketmanage/mytickets',
+      pathname: '/ticketmanage/tickets',
       search: '?status=' + TicketStatus.ALL + '&' +
         'cioKey=MT' + '&' +
         'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_MANAGER + '&' +

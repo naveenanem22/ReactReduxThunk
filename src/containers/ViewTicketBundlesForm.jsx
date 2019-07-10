@@ -109,8 +109,8 @@ class ViewTicketsForm extends React.Component {
           sortBy: TicketsSortBy.TICKET_ID,
           sortOrder: params.sortOrder,
           pageNumber: params.pageNumber,
-          pageSize: params.pageSize
-
+          pageSize: params.pageSize,
+          createdByMe: componentInfoObj.getInfo(params.cioKey).createdByMe
         });
       }
     }
