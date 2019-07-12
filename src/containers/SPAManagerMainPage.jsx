@@ -16,6 +16,7 @@ import queryString from 'query-string';
 import FAQsForm from './FAQsForm';
 import Workflow from './Workflow';
 import {Role} from '../masterdata/ApplicationMasterData';
+import EngineerDashboard from './EngineerDashboard';
 
 class SPAEngineerMainPage extends React.Component {
   constructor(props) {
@@ -149,10 +150,22 @@ class SPAEngineerMainPage extends React.Component {
               </Col>}>
           </Route>
 
-          <Route path="/ticketmanage/profile"
+          {/* <Route path="/ticketmanage/profile"
             component={() =>
               <Col sm='3'>
                 <EngineerProfileForm ></EngineerProfileForm>
+              </Col>}>
+          </Route> */}
+          <Route path="/ticketmanage/profile"
+            component={() =>
+              <Col sm='7' style={{ border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '5px', paddingLeft: '5px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+                <EngineerDashboard></EngineerDashboard>
+              </Col>}>
+          </Route>
+          <Route path="/ticketmanage/profile"
+            component={() =>
+              <Col sm='3'>
+                <EngineerProfileForm></EngineerProfileForm>
               </Col>}>
           </Route>
         </Row>

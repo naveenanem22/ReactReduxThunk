@@ -35,6 +35,7 @@ class HeaderNavBar extends React.Component {
     this.onClickHome = this.onClickHome.bind(this);
     this.onClickTicketWorkflow = this.onClickTicketWorkflow.bind(this);
     this.onClickFAQs = this.onClickFAQs.bind(this);
+    this.onClickEditProfile = this.onClickEditProfile.bind(this);
   }
   toggle() {
     this.setState({
@@ -53,6 +54,14 @@ class HeaderNavBar extends React.Component {
         'cioKey=MT' + '&' +
         'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_MANAGER + '&' +
         'sortOrder=' + SortOrder.ASCENDING + '&' + 'sortBy=' + TicketsSortBy.TICKET_ID
+    });
+
+  }
+
+  onClickEditProfile() {
+    history.push({
+      pathname: '/ticketmanage/profile',
+      search: '?cioKey=MT'
     });
 
   }
@@ -96,7 +105,7 @@ class HeaderNavBar extends React.Component {
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem>
-                  <NavLink style={{ color: '#212529' }} href="#"> {this.state.options[0]}</NavLink>
+                  <NavLink style={{ color: '#212529' }} onClick ={this.onClickEditProfile} href="#"> {this.state.options[0]}</NavLink>
                 </DropdownItem>
                 <DropdownItem >
                   <NavLink style={{ color: '#212529' }} href="#" onClick={this.onClickMyTickets}>{this.state.options[1]}</NavLink>
