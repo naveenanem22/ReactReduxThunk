@@ -5,7 +5,7 @@ export function getValueByKey(arr, key){
       var keysArr = Object.keys(arr[i]);
       var valuesArr = Object.values(arr[i]);
       
-      if(keysArr[0] == key){
+      if(keysArr[0] === key){
             result=valuesArr[0];          
            break;
       }         
