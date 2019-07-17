@@ -61,7 +61,7 @@ class HeaderNavBar extends React.Component {
   onClickEditProfile() {
     history.push({
       pathname: '/ticketmanage/profile',
-      search: '?cioKey=MT'
+      search: '?cioKey=ENDB'
     });
 
   }

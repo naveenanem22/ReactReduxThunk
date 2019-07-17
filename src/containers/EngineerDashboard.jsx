@@ -59,7 +59,7 @@ class DashboardForm extends React.Component {
           <Row>
             
               {true && this.props.profile.badges.map(badge =>
-              <Col>
+              <Col size='auto'>
                 <Row>
                   <Col style={{ textAlign: 'center' }}>
                     <img style={{ borderRadius: '50%', height: '170px', width: '130px' }} src={`data:image/jpeg;base64,${badge.base64Image}`} />
@@ -80,14 +80,14 @@ class DashboardForm extends React.Component {
             <Col><hr></hr></Col>
           </Row>
           <Row>
-            <Col style={{ width: '10%' }}>
+            <Col sm='6'>
               <Card>
                 <CardBody>
                   <Row>
                     <Col><FaTicketAlt size={70} style={{ color: 'red' }} /></Col>
                     <Col>
                       <Row><Col ><p style={{ marginBottom: '0%' }}>Points</p></Col></Row>
-                      <Row><Col ><h1>296</h1></Col></Row>
+                      <Row><Col ><h1>{this.props.profile.credits}</h1></Col></Row>
                     </Col>
                   </Row>
                   <hr></hr>
