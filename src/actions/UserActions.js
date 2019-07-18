@@ -1,4 +1,5 @@
 import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, FETCH_ENGINEERS_SUCCESS, FETCH_ENGINEERS, FETCH_ENGINEERS_FAILURE, LOGIN, GET_PROFILE, GET_PROFILE_SUCCESS, GET_PROFILE_FAILURE } from './ActionTypes';
+import {PMAPI_BASE_URL} from '../masterdata/EnvironmentConfig';
 
 export const UPDATE_USER = "users:updateUser";
 
@@ -103,7 +104,7 @@ export function fetchEngineersFailure() {
 export function fetchEngineersAPICall(queryParams) {
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    var url = new URL("http://localhost:8080/v0/user-management/users");
+    var url = new URL(PMAPI_BASE_URL+"/v0/user-management/users");
     var params = { roleName: queryParams.roleName };
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
@@ -179,7 +180,7 @@ export function getProfileAPICall(params, dispatch) {
     console.log("inside getprofile apicall");
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    var url = new URL("http://localhost:8080/v0/profile-management/employees/" + params.employeeId);
+    var url = new URL(PMAPI_BASE_URL+"/v0/profile-management/employees/" + params.employeeId);
 
     return function () {
         dispatch(getProfile());

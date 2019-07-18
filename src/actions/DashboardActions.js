@@ -3,6 +3,7 @@ import { showLoadingScreen, dismissLoadingScreen } from './LoadingScreenActions'
 import { getThreeLetterMonthName, gettwoDigitYear } from '../util/CalendarUtil';
 import { getValueByKey } from '../util/ArrayUtil';
 import { TicketStatus } from '../masterdata/ApplicationMasterData';
+import { PMAPI_BASE_URL } from '../masterdata/EnvironmentConfig';
 
 
 export function fetchDashboardData() {
@@ -82,7 +83,7 @@ export function fetchDashboardDataFailure() {
 export function fetchDashboardDataAPICall() {
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    var url = new URL("http://localhost:8080/v0/ticket-management/dashboard/barChart");
+    var url = new URL(PMAPI_BASE_URL+'/v0/ticket-management/dashboard/barChart');
 
     return function (dispatch) {
         dispatch(showLoadingScreen());
@@ -111,12 +112,12 @@ export function fetchDashboardDataAPICall() {
 export function fetchDashboardDataMultipleAPICall() {
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    var lineGraphUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/lineGraph");
-    var barChartUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/barChart");
-    var pieChartUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/pieChart");
-    var totalTicketCountFromStartUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/totalTicketCount");
-    var lastHourNewTicketUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/lasthour/" + TicketStatus.NEW);
-    var lastHourClosedTicketUrl = new URL("http://localhost:8080/v0/ticket-management/dashboard/lasthour/" + TicketStatus.CLOSE);
+    var lineGraphUrl = new URL(PMAPI_BASE_URL+"/v0/ticket-management/dashboard/lineGraph");
+    var barChartUrl = new URL(PMAPI_BASE_URL+"/v0/ticket-management/dashboard/barChart");
+    var pieChartUrl = new URL(PMAPI_BASE_URL+"/v0/ticket-management/dashboard/pieChart");
+    var totalTicketCountFromStartUrl = new URL(PMAPI_BASE_URL+"/v0/ticket-management/dashboard/totalTicketCount");
+    var lastHourNewTicketUrl = new URL(PMAPI_BASE_URL+"/v0/ticket-management/dashboard/lasthour/" + TicketStatus.NEW);
+    var lastHourClosedTicketUrl = new URL(PMAPI_BASE_URL+"/v0/ticket-management/dashboard/lasthour/" + TicketStatus.CLOSE);
 
     return function (dispatch) {
         dispatch(showLoadingScreen());

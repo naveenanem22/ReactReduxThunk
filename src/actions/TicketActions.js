@@ -8,6 +8,7 @@ import { FETCH_CREATED_TICKETS_SUCCESS, FETCH_CREATED_TICKETS_FAILURE, FETCH_CRE
 import { FETCH_CREATED_TICKET_DETAILS_SUCCESS, FETCH_CREATED_TICKET_DETAILS_FAILURE, FETCH_CREATED_TICKET_DETAILS } from './ActionTypes';
 import { showLoadingScreen, dismissLoadingScreen } from './LoadingScreenActions';
 import FileSaver from 'file-saver';
+import {PMAPI_BASE_URL} from '../masterdata/EnvironmentConfig';
 
 export function showFormNewTicket() {
     return {
@@ -280,7 +281,7 @@ export function createTicketAPICall(ticket) {
 export function fetchTicketsAPICall(queryParams) {
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    var url = new URL("http://localhost:8080/v0/ticket-management/tickets");
+    var url = new URL(PMAPI_BASE_URL+"/v0/ticket-management/tickets");
     var params = { status: queryParams.status, pageNumber: queryParams.pageNumber,
     pageSize:queryParams.pageSize, createdByMe: queryParams.createdByMe };
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
@@ -312,7 +313,7 @@ export function fetchTicketsAPICall(queryParams) {
 export function fetchAssignedTicketsAPICall(queryParams) {
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    var url = new URL("http://localhost:8080/v0/ticket-support/tickets");
+    var url = new URL(PMAPI_BASE_URL+"/v0/ticket-support/tickets");
     var params = { status: queryParams.status, sortBy: queryParams.sortBy };
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
@@ -340,7 +341,7 @@ export function fetchAssignedTicketsAPICall(queryParams) {
 export function fetchCreatedTicketsAPICall(queryParams) {
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    var url = new URL("http://localhost:8080/v0/ticketing/tickets");
+    var url = new URL(PMAPI_BASE_URL+"/v0/ticketing/tickets");
     var params = {
         status: queryParams.status,
         sortBy: queryParams.sortBy,
@@ -375,7 +376,7 @@ export function fetchCreatedTicketsAPICall(queryParams) {
 export function fetchTicketDetailsAPICall(pathParams) {
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    var url = new URL("http://localhost:8080/v0/ticket-management/tickets/" + pathParams.ticketId);
+    var url = new URL(PMAPI_BASE_URL+"/v0/ticket-management/tickets/" + pathParams.ticketId);
     console.log(url);
     return function (dispatch) {
         dispatch(fetchTicketDetails());
@@ -405,7 +406,7 @@ export function fetchTicketDetailsAPICall(pathParams) {
 export function fetchAssignedTicketDetailsAPICall(pathParams) {
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    var url = new URL("http://localhost:8080/v0/ticket-support/tickets/" + pathParams.ticketId);
+    var url = new URL(PMAPI_BASE_URL+"/v0/ticket-support/tickets/" + pathParams.ticketId);
     console.log(url);
     return function (dispatch) {
         dispatch(fetchAssignedTicketDetails());
@@ -435,7 +436,7 @@ export function fetchAssignedTicketDetailsAPICall(pathParams) {
 export function fetchCreatedTicketDetailsAPICall(pathParams) {
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    var url = new URL("http://localhost:8080/v0/ticketing/tickets/" + pathParams.ticketId);
+    var url = new URL(PMAPI_BASE_URL+"/v0/ticketing/tickets/" + pathParams.ticketId);
     console.log(url);
     return function (dispatch) {
         dispatch(fetchCreatedTicketDetails());
@@ -470,7 +471,7 @@ export function addMessageAPICall(params) {
     for (var name in params) {
         formData.append(name, params[name]);
     }
-    var url = new URL("http://localhost:8080/v0/ticket-support/tickets/" + params.id);
+    var url = new URL(PMAPI_BASE_URL+"/v0/ticket-support/tickets/" + params.id);
     console.log(url);
     return function (dispatch) {
         dispatch(addMessage());
@@ -503,7 +504,7 @@ export function assignAndUpdateTicketAPICall(ticketId, params) {
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     headers.append('Content-Type', 'application/json');
-    var url = new URL("http://localhost:8080/v0/ticket-management/tickets/" + ticketId);
+    var url = new URL(PMAPI_BASE_URL+"/v0/ticket-management/tickets/" + ticketId);
     return function (dispatch) {
         dispatch(assignAndUpdateTicket());
         return fetch(url, {
@@ -532,7 +533,7 @@ export function assignAndUpdateMultipleTicketsAPICall(params) {
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     headers.append('Content-Type', 'application/json');
-    var url = new URL("http://localhost:8080/v0/ticket-management/tickets");
+    var url = new URL(PMAPI_BASE_URL+"/v0/ticket-management/tickets");
     return function (dispatch) {
         dispatch(showLoadingScreen());
         dispatch(assignAndUpdateMultipleTickets());
@@ -568,7 +569,7 @@ export function closeTicketAPICall(params) {
         formData.append(name, params[name]);
     }
     console.log("Formdata: " + JSON.stringify(formData));
-    var url = new URL("http://localhost:8080/v0/ticket-support/tickets/" + params.id);
+    var url = new URL(PMAPI_BASE_URL+"/v0/ticket-support/tickets/" + params.id);
     return function (dispatch) {
         dispatch(closeTicket());
         return fetch(url, {
@@ -601,7 +602,7 @@ export function downloadAttachmentAPICall(params) {
     console.log(params);
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    var url = new URL("http://localhost:8080/v0/ticket-management/tickets/downloadFile/123198_getAlertPackageResponse.txt");
+    var url = new URL(PMAPI_BASE_URL+"/v0/ticket-management/tickets/downloadFile/123198_getAlertPackageResponse.txt");
     return function (dispatch) {
         return fetch(url, {
             method: 'GET',
