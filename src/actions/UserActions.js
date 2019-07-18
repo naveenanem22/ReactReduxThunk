@@ -135,7 +135,7 @@ export function loginAPICall(user) {
 
     return function (dispatch) {
         dispatch(login());
-        return fetch(`http://localhost:8080/auth/login`, {
+        return fetch(PMAPI_BASE_URL+"/auth/login", {
             method: 'POST',
             headers: headers,
             body: JSON.stringify({
