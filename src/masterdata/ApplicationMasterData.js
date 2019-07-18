@@ -224,6 +224,24 @@ export const ticketAnalytics = 'Deep info-graphics to assist in every aspect of 
 export const footerText = '2019-2020 ITSHelpDesk - Powered By PMAPI - Helpdesk Software'
 /***Common for all pages END*/
 
+/***Messages for all modules START*/
+export const applicationMessages = {
+    errorMessages:{
+        LOGIN_FAILURE: '',
+        TICKET_CREATION_FAILURE: 'Ticket creation failed. Please try again after sometime.',
+        TICKET_UPDATE_FAILURE: 'Updated ticket failed. Please try again after sometime.'
+
+    },
+
+    successMessages: {
+        TICKET_CREATION_SUCCESS: 'Ticket created successfully.',
+        TICKET_UPDATE_SUCCESS: 'Ticket updated successfully.'
+
+    }
+
+}
+/***Messages for all modules END*/
+
 
 
 

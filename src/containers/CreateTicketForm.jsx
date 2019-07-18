@@ -4,7 +4,7 @@ import history from '../history';
 import { createTicketAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
 import { ScaleLoader } from 'react-spinners';
-import { TicketStatus, TicketStatusCode, TicketType, TicketTypeCode, Priority, PriorityCode, Role } from '../masterdata/ApplicationMasterData';
+import { TicketStatus, TicketStatusCode, TicketType, TicketTypeCode, Priority, PriorityCode, Role, applicationMessages } from '../masterdata/ApplicationMasterData';
 import { componentInfoObj, TicketsSortBy, PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE, SortOrder } from '../masterdata/ApplicationMasterData';
 import queryString from 'query-string';
 import { HalfCircleSpinner } from 'react-epic-spinners';
@@ -257,11 +257,7 @@ class CreateNewTicketForm extends React.Component {
         {this.state.isAlertSectionVisible && this.props.createTicketAPICallStatus.success && <div>
           <Alert color="success" isOpen={true} toggle={this.onDismissAlert}>
             <h4 className="alert-heading">Well done!</h4>
-            <p>
-              Aww yeah, you successfully read this important alert message. This example text is going
-              to run a bit longer so that you can see how spacing within an alert works with this kind
-              of content.
-        </p>
+            <p> {applicationMessages.successMessages.TICKET_CREATION_SUCCESS}</p>
             <hr />
             <p className="mb-0">
               Whenever you need to, be sure to use margin utilities to keep things nice and tidy.
