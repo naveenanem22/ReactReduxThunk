@@ -13,7 +13,7 @@ import EngineerProfileForm from './EngineerProfile';
 import history from '../history';
 import ViewTicketDetailsForm from './ViewTicketDetailsForm';
 import EmployeeProfile from './EmployeeProfile';
-import { Role } from '../masterdata/ApplicationMasterData';
+import { Role, glbColorCodes } from '../masterdata/ApplicationMasterData';
 import PageUnderConstruction from '../components/PageUnderConstruction';
 import Workflow from './Workflow';
 import FAQsForm from './FAQsForm';
@@ -148,7 +148,7 @@ class SPAEmployeeMainPage extends React.Component {
           marginTop:'5%',
           marginLeft:'2%'
         }}>
-          <Col><Badge href="#" color="dark"><FaCopyright style={{
+          <Col><Badge color={glbColorCodes.DARK}><FaCopyright style={{
             marginBottom:'1%',
             marginRight:'1%'
           }}></FaCopyright>{footerText}</Badge></Col>
