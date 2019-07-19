@@ -8,6 +8,8 @@ import { TicketStatus, TicketStatusCode, TicketType, TicketTypeCode, Priority, P
 import { componentInfoObj, TicketsSortBy, PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE, SortOrder } from '../masterdata/ApplicationMasterData';
 import queryString from 'query-string';
 import { HalfCircleSpinner } from 'react-epic-spinners';
+import CustomAlert from '../components/CustomAlert';
+import {glbColorCodes} from '../masterdata/ApplicationMasterData';
 
 class CreateNewTicketForm extends React.Component {
 
@@ -48,7 +50,7 @@ class CreateNewTicketForm extends React.Component {
     }), () => {
       if (localStorage.getItem('role') === Role.ROLE_MANAGER)
         history.push("/ticketmanage/tickets?status=" + TicketStatus.ALL);
-      if (localStorage.getItem('role') === Role.ROLE_EMPLOYEE){
+      if (localStorage.getItem('role') === Role.ROLE_EMPLOYEE) {
         history.push({
           pathname: '/ticketing/tickets',
           search: '?status=' + TicketStatus.ALL + '&' +
@@ -252,17 +254,17 @@ class CreateNewTicketForm extends React.Component {
           />
         </div>
         }
-
-
+        
         {this.state.isAlertSectionVisible && this.props.createTicketAPICallStatus.success && <div>
-          <Alert color="success" isOpen={true} toggle={this.onDismissAlert}>
-            <h4 className="alert-heading">Well done!</h4>
-            <p> {applicationMessages.successMessages.TICKET_CREATION_SUCCESS}</p>
-            <hr />
-            <p className="mb-0">
-              Whenever you need to, be sure to use margin utilities to keep things nice and tidy.
-        </p>
-          </Alert>
+          <CustomAlert data={{
+            alertColor:glbColorCodes.SUCCESS,
+            isOpen:true,
+            messageHeader:'Well done!',
+            detailedMessage: applicationMessages.successMessages.TICKET_CREATION_SUCCESS,
+            defaultFooterMessage: 'Whenever you need to, be sure to use margin utilities to keep things nice and tidy.'
+          }} toggle={this.onDismissAlert} >
+
+          </CustomAlert>
         </div>}
 
         {this.state.isAlertSectionVisible && this.props.createTicketAPICallStatus.error && <div>

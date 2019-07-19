@@ -230,12 +230,16 @@ export const applicationMessages = {
         LOGIN_FAILURE: '',
         TICKET_CREATION_FAILURE: 'Ticket creation failed. Please try again after sometime.',
         TICKET_UPDATE_FAILURE: 'Updated ticket failed. Please try again after sometime.'
-
     },
 
     successMessages: {
         TICKET_CREATION_SUCCESS: 'Ticket created successfully.',
         TICKET_UPDATE_SUCCESS: 'Ticket updated successfully.'
+    },
+
+    messageHeaders:{
+        TICKET_CREATION_SUCCESS: 'SUCCESS',
+        TICKET_UPDATE_SUCCESS : 'SUCCESS'
 
     }
 
