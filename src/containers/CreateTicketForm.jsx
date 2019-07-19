@@ -9,7 +9,7 @@ import { componentInfoObj, TicketsSortBy, PAGINATION_START_PAGE, TICKETS_PER_PAG
 import queryString from 'query-string';
 import { HalfCircleSpinner } from 'react-epic-spinners';
 import CustomAlert from '../components/CustomAlert';
-import {glbColorCodes} from '../masterdata/ApplicationMasterData';
+import { glbColorCodes } from '../masterdata/ApplicationMasterData';
 
 class CreateNewTicketForm extends React.Component {
 
@@ -254,21 +254,30 @@ class CreateNewTicketForm extends React.Component {
           />
         </div>
         }
-        
+
         {this.state.isAlertSectionVisible && this.props.createTicketAPICallStatus.success && <div>
           <CustomAlert data={{
-            alertColor:glbColorCodes.SUCCESS,
-            isOpen:true,
-            messageHeader:'Well done!',
+            alertColor: glbColorCodes.SUCCESS,
+            isOpen: true,
+            messageHeader: applicationMessages.messageHeaders.TICKET_CREATION_SUCCESS,
             detailedMessage: applicationMessages.successMessages.TICKET_CREATION_SUCCESS,
-            defaultFooterMessage: 'Whenever you need to, be sure to use margin utilities to keep things nice and tidy.'
+            defaultFooterMessage: applicationMessages.defaultFooterMessages.TICKET_CREATION_SUCCESS
           }} toggle={this.onDismissAlert} >
 
           </CustomAlert>
         </div>}
 
         {this.state.isAlertSectionVisible && this.props.createTicketAPICallStatus.error && <div>
-          <Alert color="danger" isOpen={true} toggle={this.onDismissAlert}>
+          <CustomAlert data={{
+            alertColor: glbColorCodes.DANGER,
+            isOpen: true,
+            messageHeader: applicationMessages.messageHeaders.TICKET_CREATION_FAILURE,
+            detailedMessage: applicationMessages.errorMessages.TICKET_CREATION_FAILURE,
+            defaultFooterMessage: applicationMessages.defaultFooterMessages.TICKET_CREATION_FAILURE
+          }} toggle={this.onDismissAlert} >
+
+          </CustomAlert>
+          {/* <Alert color="danger" isOpen={true} toggle={this.onDismissAlert}>
             <h4 className="alert-heading">Failure!</h4>
             <p>
               Ticket creation unsuccessful.
@@ -277,7 +286,7 @@ class CreateNewTicketForm extends React.Component {
             <p className="mb-0">
               Please try again.
         </p>
-          </Alert>
+          </Alert> */}
         </div>}
 
 

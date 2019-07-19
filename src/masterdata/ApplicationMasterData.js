@@ -239,8 +239,14 @@ export const applicationMessages = {
 
     messageHeaders:{
         TICKET_CREATION_SUCCESS: 'SUCCESS',
-        TICKET_UPDATE_SUCCESS : 'SUCCESS'
+        TICKET_UPDATE_SUCCESS : 'SUCCESS',
+        TICKET_CREATION_FAILURE: 'FAILURE',
+        TICKET_UPDATE_FAILURE : 'FAILURE',
 
+    },
+    defaultFooterMessages:{
+        TICKET_CREATION_SUCCESS: 'Please reach out to itssupport for further support.',
+        TICKET_CREATION_FAILURE: 'Please try again after sometime.'
     }
 
 }
