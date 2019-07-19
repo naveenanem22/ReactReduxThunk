@@ -184,7 +184,7 @@ class ViewTicketsForm extends React.Component {
               />
             </div>
           }
-          {(localStorage.getItem('role') === Role.ROLE_MANAGER) &&
+          {false && (localStorage.getItem('role') === Role.ROLE_MANAGER) &&
             <Row>
               <Col style={{ textAlign: 'right' }}>
                 <NavLink href="#" onClick={this.handleListViewClick} style={{ marginBottom: '', textDecoration: 'none', color: '#546e7a' }}>
