@@ -124,7 +124,7 @@ class SideNavBar extends React.Component {
             }}><FaChartLine style={{
               marginBottom: '3%',
               marginRight: '5%'
-            }}></FaChartLine>Dashboard</NavLink></ListGroupItem>
+            }}></FaChartLine> Dashboard</NavLink></ListGroupItem>
             <ListGroupItem style={{
               cursor: 'pointer',
               paddingTop: '5%',
