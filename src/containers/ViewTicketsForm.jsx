@@ -435,7 +435,7 @@ class ViewTicketsForm extends React.Component {
             )}
           </tbody>
         </Table>}
-        {true && <CustomPagination data={this.props.ticketList}
+        {this.props.fetchCreatedTicketsAPICallStatus.success && <CustomPagination data={this.props.ticketList}
           onPaginationPageChange={this.onPaginationPageChange}
           onPaginationItemsPerPageChange={this.onPaginationItemsPerPageChange}>
         </CustomPagination>
