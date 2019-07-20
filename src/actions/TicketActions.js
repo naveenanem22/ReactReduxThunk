@@ -254,7 +254,7 @@ export function createTicketAPICall(ticket) {
     console.log(JSON.stringify(formData));
     return function (dispatch) {
         dispatch(createTicket());
-        return fetch(`http://localhost:8080/v0/ticketing/tickets`, {
+        return fetch(PMAPI_BASE_URL+"/v0/ticketing/tickets", {
             method: 'POST',
             body: formData,
             headers: headers
