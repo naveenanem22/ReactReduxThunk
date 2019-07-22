@@ -52,7 +52,7 @@ export const TicketPriorityColorCode = {
     HIGH: glbColorCodes.DANGER, MEDIUM: glbColorCodes.WARNING, LOW: glbColorCodes.INFO
 }
 
-export const TICKETS_PER_PAGE_EMPLOYEE = 3;
+export const TICKETS_PER_PAGE_EMPLOYEE = 10;
 export const TICKETS_PER_PAGE_MANAGER = 5;
 export const TICKETS_PER_PAGE_ENGINEER = 5;
 
