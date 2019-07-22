@@ -39,6 +39,7 @@ class ViewTicketDetailsForm extends React.Component {
     this.onClickLink = this.onClickLink.bind(this);
     this.toggleUpload = this.toggleUpload.bind(this);
     this.onDismissAlert = this.onDismissAlert.bind(this);
+    this.handleCommentChange = this.handleCommentChange.bind(this);
 
   }
 
@@ -77,13 +78,16 @@ class ViewTicketDetailsForm extends React.Component {
   }
 
   handleChange(e) {
-    var isCommentInvalidToggle = true;
-    if (e.target.name === 'comment' && this.state.isCommentInvalid)
-      isCommentInvalidToggle = false;
     this.setState({
-      [e.target.name]: e.target.value,
-      isCommentInvalid : isCommentInvalidToggle
+      [e.target.name]: e.target.value
     });
+  }
+
+  handleCommentChange(e) {
+    this.setState({
+      comment: e.target.value,
+      isCommentInvalid: false
+    })
   }
 
   onSubmitAddMessage(e) {
@@ -379,7 +383,7 @@ class ViewTicketDetailsForm extends React.Component {
                   <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%' }}>
                     <Col >
                       <FormGroup>
-                        <Input invalid={this.state.isCommentInvalid} size='sm' type="textarea" name="comment" id="comment" onChange={this.handleChange} />
+                        <Input invalid={this.state.isCommentInvalid} size='sm' type="textarea" name="comment" id="comment" onChange={this.handleCommentChange} />
                       </FormGroup>
                     </Col>
                   </Row>
@@ -462,7 +466,7 @@ class ViewTicketDetailsForm extends React.Component {
                       <div>
                         <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%' }}>
                           <Col >
-                            <Input invalid={this.state.isCommentInvalid} size='sm' type="textarea" name="comment" id="comment" onChange={this.handleChange} />
+                            <Input invalid={this.state.isCommentInvalid} size='sm' type="textarea" name="comment" id="comment" onChange={this.handleCommentChange} />
                           </Col>
                         </Row>
 
