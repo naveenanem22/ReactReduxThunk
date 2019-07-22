@@ -1,7 +1,7 @@
 import React from 'react';
 import { addMessageAPICall, closeTicketAPICall, downloadAttachmentAPICall, fetchCreatedTicketDetailsAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
-import { UncontrolledTooltip, Badge, Alert, Button, Row, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
+import { UncontrolledTooltip, Badge, Alert, Button, Row, Form, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
 import { Table, NavLink } from 'reactstrap';
 import { FaFilePdf, FaFileAlt, FaFileImage, FaFile, FaExclamationCircle } from 'react-icons/fa';
 import { loadFileIcon, getTicketStatusColorCode } from '../util/UIUtils';
@@ -24,6 +24,7 @@ class ViewTicketDetailsForm extends React.Component {
       id: this.props.ticket.id,
       status: '',
       comment: '',
+      isCommentInvalid: false,
 
       commentedOn: '',
       isUpload: false,
@@ -76,8 +77,12 @@ class ViewTicketDetailsForm extends React.Component {
   }
 
   handleChange(e) {
+    var isCommentInvalidToggle = true;
+    if (e.target.name === 'comment' && this.state.isCommentInvalid)
+      isCommentInvalidToggle = false;
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
+      isCommentInvalid : isCommentInvalidToggle
     });
   }
 
@@ -103,19 +108,26 @@ class ViewTicketDetailsForm extends React.Component {
   onSubmitCloseTicket(e) {
     e.preventDefault();
 
-    this.setState((prevState, props) => ({
-      commentedOn: new Date(Date.now()).toISOString(),
-      status: TicketStatus.CLOSE,
-      file1: this.state.isUpload ? prevState.file1 : undefined,
-      file2: this.state.isUpload ? prevState.file2 : undefined,
-      file3: this.state.isUpload ? prevState.file3 : undefined,
-      id: this.props.ticket.id,
+    //Validate the comment is not empty while closing the ticket
+    if (this.state.comment === '') {
+      this.setState({
+        isCommentInvalid: true
+      })
+    }
+    else
+      this.setState((prevState, props) => ({
+        commentedOn: new Date(Date.now()).toISOString(),
+        status: TicketStatus.CLOSE,
+        file1: this.state.isUpload ? prevState.file1 : undefined,
+        file2: this.state.isUpload ? prevState.file2 : undefined,
+        file3: this.state.isUpload ? prevState.file3 : undefined,
+        id: this.props.ticket.id,
 
-      //isViewTicketDetailsSectionVisible: false,
-      isAlertSectionVisible: true
-    }), () => {
-      this.props.closeTicket(this.state);
-    });
+        //isViewTicketDetailsSectionVisible: false,
+        isAlertSectionVisible: true
+      }), () => {
+        this.props.closeTicket(this.state);
+      });
   }
 
   onFileUpload(e) {
@@ -234,7 +246,7 @@ class ViewTicketDetailsForm extends React.Component {
             </div>}
           {(this.props.fetchTicketDetailsAPICallStatus.success ||
             this.props.fetchCreatedTicketDetailsAPICallStatus.success)
-            && <div class="ticket-details-body">
+            && <Form> <div class="ticket-details-body">
 
               <Row>
                 <Col sm={6} style={{ 'text-align': 'left', 'padding-top': '.75rem' }}>
@@ -366,7 +378,9 @@ class ViewTicketDetailsForm extends React.Component {
                 <div>
                   <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%' }}>
                     <Col >
-                      <Input size='sm' type="textarea" name="comment" id="comment" onChange={this.handleChange} />
+                      <FormGroup>
+                        <Input invalid={this.state.isCommentInvalid} size='sm' type="textarea" name="comment" id="comment" onChange={this.handleChange} />
+                      </FormGroup>
                     </Col>
                   </Row>
 
@@ -448,7 +462,7 @@ class ViewTicketDetailsForm extends React.Component {
                       <div>
                         <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%' }}>
                           <Col >
-                            <Input size='sm' type="textarea" name="comment" id="comment" onChange={this.handleChange} />
+                            <Input invalid={this.state.isCommentInvalid} size='sm' type="textarea" name="comment" id="comment" onChange={this.handleChange} />
                           </Col>
                         </Row>
 
@@ -534,7 +548,8 @@ class ViewTicketDetailsForm extends React.Component {
                 </div>
               )}
 
-            </div>}
+            </div>
+            </Form>}
         </div>}
         {this.state.isAlertSectionVisible &&
           <div>
