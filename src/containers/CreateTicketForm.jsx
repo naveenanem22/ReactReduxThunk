@@ -1,15 +1,17 @@
 import React from 'react';
-import { Container, Row, Col, Button, Form, FormGroup, Label, Input, FormText, Alert } from 'reactstrap';
+import { Container,UncontrolledTooltip, Row, Col, Button, Form, FormGroup, Label, Input, FormText, Alert } from 'reactstrap';
 import history from '../history';
 import { createTicketAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
 import { ScaleLoader } from 'react-spinners';
-import { TicketStatus, TicketStatusCode, TicketType, TicketTypeCode, Priority, PriorityCode, Role, applicationMessages } from '../masterdata/ApplicationMasterData';
+import { TicketStatus, TicketStatusCode, TicketType, TicketTypeCode, Priority, PriorityCode, Role, applicationMessages, toolTips } from '../masterdata/ApplicationMasterData';
 import { componentInfoObj, TicketsSortBy, PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE, SortOrder } from '../masterdata/ApplicationMasterData';
 import queryString from 'query-string';
 import { HalfCircleSpinner } from 'react-epic-spinners';
 import CustomAlert from '../components/CustomAlert';
 import { glbColorCodes } from '../masterdata/ApplicationMasterData';
+import {FaExclamationCircle} from 'react-icons/fa';
+
 
 class CreateNewTicketForm extends React.Component {
 
@@ -138,12 +140,28 @@ class CreateNewTicketForm extends React.Component {
             </FormGroup>
             <Container style={{ marginTop: '3%' }}>
               <FormGroup>
-                <Label size='sm' for="ticketTitle">Title</Label>
+                <Label size='sm' style={{paddingRight: '4px'}}for="ticketTitle">Title</Label>
+                <span id='titleToolTip' href='#'>
+                  <FaExclamationCircle style={{
+                    marginBottom: '1px'
+                  }}></FaExclamationCircle></span>
+
+                <UncontrolledTooltip placement="right" target="titleToolTip">
+                  {toolTips.createTicketForm.TITLE}
+                </UncontrolledTooltip>
                 <Input size='sm' type="text" name="ticketTitle" id="ticketTitle"
                   value={this.state.ticketTitle} onChange={this.handleChange} required />
               </FormGroup>
               <FormGroup>
-                <Label size='sm' for="ticketDescription">Description</Label>
+                <Label size='sm' style={{paddingRight: '4px'}} for="ticketDescription">Description</Label>
+                <span id='descriptionToolTip' href='#'>
+                  <FaExclamationCircle style={{
+                    marginBottom: '1px'
+                  }}></FaExclamationCircle></span>
+
+                <UncontrolledTooltip placement="right" target="descriptionToolTip">
+                {toolTips.createTicketForm.DESCRIPTION}
+                </UncontrolledTooltip>
                 <Input size='sm' type="textarea" name="ticketDescription" id="ticketDescription"
                   value={this.state.titleDescription}
                   onChange={this.handleChange} required />
@@ -209,7 +227,15 @@ class CreateNewTicketForm extends React.Component {
                 </Input>
               </FormGroup>
               <FormGroup>
-                <Label size='sm' for="notes">Additional Information</Label>
+                <Label size='sm' style={{paddingRight: '4px'}} for="notes">Additional Information</Label>
+                <span id='additionalInfoToolTip' href='#'>
+                  <FaExclamationCircle style={{
+                    marginBottom: '1px'
+                  }}></FaExclamationCircle></span>
+
+                <UncontrolledTooltip placement="right" target="additionalInfoToolTip">
+                {toolTips.createTicketForm.ADDITIONAL_INFO}
+                </UncontrolledTooltip>
                 <Input size='sm' type="textarea" name="additionalInfo" id="additionalInfo"
                   value={this.state.additionalInfo}
                   onChange={this.handleChange}

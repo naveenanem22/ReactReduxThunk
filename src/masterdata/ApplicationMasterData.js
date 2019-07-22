@@ -69,21 +69,21 @@ export const componentInfoObj = {
                 return {
                     title: "My Profile",
                     subTitle: "Please verify your profile details and update if you should.",
-                    createdByMe:false
+                    createdByMe: false
                 }
             case 'AST':
                 return {
                     title: "Assigned Tickets",
                     subTitle: "Tickets that need to be actioned. Action based on priority and severity.",
                     statusFilterValue: TicketStatus.NEW,
-                    createdByMe:false
+                    createdByMe: false
                 }
 
             case 'NT':
                 return {
                     title: 'Create Ticket',
                     subTitle: 'Raise and provide as much as information for speedy resolution.',
-                    createdByMe:false
+                    createdByMe: false
                 }
 
             case 'CLT':
@@ -91,7 +91,7 @@ export const componentInfoObj = {
                     title: "Closed Tickets",
                     subTitle: "Reopen if any of the tickets is not resolved.",
                     statusFilterValue: TicketStatus.CLOSE,
-                    createdByMe:false
+                    createdByMe: false
                 }
 
             case 'ALT':
@@ -99,49 +99,49 @@ export const componentInfoObj = {
                     title: "All Tickets",
                     subTitle: "Monitor your ticket activity and update Tickets that need your response.",
                     statusFilterValue: TicketStatus.ALL,
-                    createdByMe:false
+                    createdByMe: false
                 }
 
             case 'MT':
                 return {
                     title: "My Tickets",
                     subTitle: "Monitor ticket activity across organization and update Tickets that need your response.",
-                    createdByMe:true
+                    createdByMe: true
                 }
 
             case 'AWT':
                 return {
                     title: "Awaiting Response Tickets",
                     subTitle: "Contact respective employee if no response provided beyond certain time limit.",
-                    createdByMe:false
+                    createdByMe: false
                 }
 
             case 'MDB':
                 return {
                     title: "Dashboard",
                     subTitle: "Organization wide Ticket-Dynamics to take informed decisions.",
-                    createdByMe:false
+                    createdByMe: false
                 }
 
             case 'ENDB':
                 return {
                     title: "My Board",
                     subTitle: "Your credits, badges etc. Update the profile if need be.",
-                    createdByMe:false
+                    createdByMe: false
                 }
 
             case 'TD':
                 return {
                     title: "Ticket Details",
                     subTitle: "Verify the details and converse further to assist Heldesk to resolve faster.",
-                    createdByMe:false
+                    createdByMe: false
                 }
 
             default:
                 return {
                     title: "Default Title",
                     subTitle: "Default Sub-Title.",
-                    createdByMe:false
+                    createdByMe: false
                 }
 
         }
@@ -226,7 +226,7 @@ export const footerText = '2019-2020 ITSHelpDesk - Powered By PMAPI - Helpdesk S
 
 /***Messages for all modules START*/
 export const applicationMessages = {
-    errorMessages:{
+    errorMessages: {
         LOGIN_FAILURE: '',
         TICKET_CREATION_FAILURE: 'Ticket creation failed. Please try again after sometime.',
         TICKET_UPDATE_FAILURE: 'Updated ticket failed. Please try again after sometime.'
@@ -237,20 +237,30 @@ export const applicationMessages = {
         TICKET_UPDATE_SUCCESS: 'Ticket updated successfully.'
     },
 
-    messageHeaders:{
+    messageHeaders: {
         TICKET_CREATION_SUCCESS: 'SUCCESS',
-        TICKET_UPDATE_SUCCESS : 'SUCCESS',
+        TICKET_UPDATE_SUCCESS: 'SUCCESS',
         TICKET_CREATION_FAILURE: 'FAILURE',
-        TICKET_UPDATE_FAILURE : 'FAILURE',
+        TICKET_UPDATE_FAILURE: 'FAILURE',
 
     },
-    defaultFooterMessages:{
+    defaultFooterMessages: {
         TICKET_CREATION_SUCCESS: 'Please reach out to itssupport for further support.',
         TICKET_CREATION_FAILURE: 'Please try again after sometime.'
     }
 
 }
 /***Messages for all modules END*/
+
+/***Tooltip for all modules START*/
+export const toolTips = {
+    createTicketForm: {
+        TITLE: 'Maximum of 255 characters is allowed',
+        DESCRIPTION: 'Maximum of 5000 characters is allowed',
+        ADDITIONAL_INFO: 'Maximum of 5000 characters is allowed'
+    }
+}
+/***Tooltip for all modules END*/
 
 
 
