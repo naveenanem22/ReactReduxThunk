@@ -10,8 +10,10 @@ import { ScaleLoader } from 'react-spinners';
 import history from '../history';
 import queryString from 'query-string';
 import { Role, TicketStatus, PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE } from '../masterdata/ApplicationMasterData';
-import { componentInfoObj } from '../masterdata/ApplicationMasterData';
+import { componentInfoObj, glbColorCodes, applicationMessages } from '../masterdata/ApplicationMasterData';
 import { HalfCircleSpinner } from 'react-epic-spinners';
+import CustomAlert from '../components/CustomAlert';
+
 
 
 
@@ -565,18 +567,15 @@ class ViewTicketDetailsForm extends React.Component {
             {(this.props.closeTicketAPICallStatus.success ||
               this.props.addMessageAPICallStatus.success)
               && <div>
-                <Alert color="success" isOpen={true} toggle={this.onDismissAlert}>
-                  <h4 className="alert-heading">Well done!</h4>
-                  <p>
-                    Aww yeah, you successfully read this important alert message. This example text is going
-                    to run a bit longer so that you can see how spacing within an alert works with this kind
-                    of content.
-        </p>
-                  <hr />
-                  <p className="mb-0">
-                    Whenever you need to, be sure to use margin utilities to keep things nice and tidy.
-        </p>
-                </Alert>
+                <CustomAlert data={{
+            alertColor: glbColorCodes.SUCCESS,
+            isOpen: true,
+            messageHeader: applicationMessages.messageHeaders.TICKET_UPDATE_SUCCESS,
+            detailedMessage: applicationMessages.successMessages.TICKET_UPDATE_SUCCESS,
+            defaultFooterMessage: applicationMessages.defaultFooterMessages.TICKET_UPDATE_SUCCESS
+          }} toggle={this.onDismissAlert} >
+
+          </CustomAlert>
               </div>}
 
             {(this.props.closeTicketAPICallStatus.error ||

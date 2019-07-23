@@ -246,7 +246,8 @@ export const applicationMessages = {
     },
     defaultFooterMessages: {
         TICKET_CREATION_SUCCESS: 'Please reach out to itssupport for further support.',
-        TICKET_CREATION_FAILURE: 'Please try again after sometime.'
+        TICKET_CREATION_FAILURE: 'Please try again after sometime.',
+        TICKET_UPDATE_SUCCESS: 'Please reach out to itssupport for further support.'
     }
 
 }
