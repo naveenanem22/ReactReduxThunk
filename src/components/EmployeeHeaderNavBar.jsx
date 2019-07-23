@@ -69,7 +69,7 @@ class HeaderNavBar extends React.Component {
       search: '?status=' + TicketStatus.ALL + '&' +
         'cioKey=ALT' + '&' +
         'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE + '&' +
-        'sortOrder=' + SortOrder.ASCENDING + '&' + 'sortBy=' + TicketsSortBy.TICKET_ID
+        'sortOrder=' + SortOrder.DESCENDING + '&' + 'sortBy=' + TicketsSortBy.TICKET_UPDATED_DATE
     });
   }
 
