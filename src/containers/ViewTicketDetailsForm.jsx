@@ -255,7 +255,7 @@ class ViewTicketDetailsForm extends React.Component {
             </div>}
           {(this.props.fetchTicketDetailsAPICallStatus.success ||
             this.props.fetchCreatedTicketDetailsAPICallStatus.success)
-            && <Form> <div class="ticket-details-body">
+            && <div class="ticket-details-body">
 
               <Row>
                 <Col sm={6} style={{ 'text-align': 'left', 'padding-top': '.75rem' }}>
@@ -558,7 +558,7 @@ class ViewTicketDetailsForm extends React.Component {
               )}
 
             </div>
-            </Form>}
+            }
         </div>}
         {this.state.isAlertSectionVisible &&
           <div>
