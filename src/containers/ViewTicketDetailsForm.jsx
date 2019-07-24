@@ -13,6 +13,7 @@ import { Role, TicketStatus, PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE } 
 import { componentInfoObj, glbColorCodes, applicationMessages } from '../masterdata/ApplicationMasterData';
 import { HalfCircleSpinner } from 'react-epic-spinners';
 import CustomAlert from '../components/CustomAlert';
+import {getLocalTimeStamp} from '../util/CalendarUtil';
 
 
 
@@ -269,7 +270,7 @@ class ViewTicketDetailsForm extends React.Component {
                   <Label size='sm' style={{
                     paddingRight: '1%',
                     margin: '0'
-                  }}>{ticket.createdDate + ' '}</Label>
+                  }}>{getLocalTimeStamp(ticket.createdDate) + ' '}</Label>
 
                   <span id='createdDateToolTip' href='#'>
                     <FaExclamationCircle style={{
@@ -294,7 +295,7 @@ class ViewTicketDetailsForm extends React.Component {
                   <Label size='sm' style={{
                     paddingRight: '1%'
                   }}>Updated:</Label>
-                  <Label size='sm'>{ticket.updatedDate}</Label>
+                  <Label size='sm'>{getLocalTimeStamp(ticket.updatedDate)}</Label>
                 </Col>
                 <Col style={{ 'text-align': 'right', 'padding-top': '.30rem' }}>
                   <Label size='sm'>Ticket ID: {ticket.id}</Label>

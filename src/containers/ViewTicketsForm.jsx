@@ -12,6 +12,7 @@ import { componentInfoObj, SortOrder } from '../masterdata/ApplicationMasterData
 import CustomPagination from '../components/CustomPagination';
 import { getTicketStatusColorCode, truncate } from '../util/UIUtils';
 import { FaLongArrowAltDown, FaLongArrowAltUp } from 'react-icons/fa';
+import { getLocalTimeStamp } from '../util/CalendarUtil';
 
 
 class ViewTicketsForm extends React.Component {
@@ -428,7 +429,7 @@ class ViewTicketsForm extends React.Component {
                 <td style={{ fontSize: '14px' }}><Badge color={getTicketStatusColorCode(ticket.status)}>
                   {ticket.status}</Badge></td>
                 <td style={{ fontSize: '14px' }}>{truncate.apply(ticket.title, [75, true])}</td>
-                <td style={{ fontSize: '14px' }}>{ticket.updatedDate}</td>
+                <td style={{ fontSize: '14px' }}>{getLocalTimeStamp(ticket.updatedDate)}</td>
                 {localStorage.getItem('role') === Role.ROLE_MANAGER && <td style={{ marginRight: '1%' }}><SearchInput isInValid={ticket.isAssignedToInvalid} onSelectSuggestion={selectedValue => this.updateAssignedValue(selectedValue, ticket)} suggestions={suggestions}></SearchInput>
                 </td>}
               </tr>

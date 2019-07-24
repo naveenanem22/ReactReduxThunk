@@ -32,3 +32,9 @@ export function gettwoDigitYear(year){
     return year.substring(2,4);
     
 }
+
+export function getLocalTimeStamp(utcTimeStamp)
+{
+  var d=new Date(utcTimeStamp+" UTC");
+  return d.toLocaleString();
+}
