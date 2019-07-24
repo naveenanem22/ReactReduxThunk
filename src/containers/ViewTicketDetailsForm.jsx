@@ -447,7 +447,7 @@ class ViewTicketDetailsForm extends React.Component {
                       }}>
                         <Label size='sm' style={{
                           margin: '0', padding: '0'
-                        }}>{item.commentedOn}</Label>
+                        }}>{getLocalTimeStamp(item.commentedOn)}</Label>
                       </Col>
                     </Row>
                   </div>
