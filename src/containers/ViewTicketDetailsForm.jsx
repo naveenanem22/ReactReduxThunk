@@ -13,7 +13,7 @@ import { Role, TicketStatus, PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE } 
 import { componentInfoObj, glbColorCodes, applicationMessages } from '../masterdata/ApplicationMasterData';
 import { HalfCircleSpinner } from 'react-epic-spinners';
 import CustomAlert from '../components/CustomAlert';
-import {getLocalTimeStamp} from '../util/CalendarUtil';
+import {getLocalTimeStamp, timeAgo} from '../util/CalendarUtil';
 
 
 
@@ -447,7 +447,7 @@ class ViewTicketDetailsForm extends React.Component {
                       }}>
                         <Label size='sm' style={{
                           margin: '0', padding: '0'
-                        }}>{getLocalTimeStamp(item.commentedOn)}</Label>
+                        }}>{timeAgo(getLocalTimeStamp(item.commentedOn))}</Label>
                       </Col>
                     </Row>
                   </div>

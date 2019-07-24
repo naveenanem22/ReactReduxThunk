@@ -113,7 +113,8 @@ class CreateNewTicketForm extends React.Component {
   }
   render() {
     //Processing ttsKey to fetch Form Title and SubTitle data
-    console.log(this.props);
+    console.log("From Create Ticket");
+    console.log(this.state);
     const params = queryString.parse(history.location.search);
 
     const title = params.cioKey ? componentInfoObj.getInfo(params.cioKey).title : componentInfoObj.getDefaultInfo().title;
