@@ -301,6 +301,11 @@ class ViewTicketDetailsForm extends React.Component {
                   <Label size='sm'>Ticket ID: {ticket.id}</Label>
                 </Col>
               </Row>
+              <hr />
+              <Row>
+                <Col sm={12}><Label size='sm'>{ticket.description}</Label></Col>
+              </Row>
+              <hr />
 
               <div class="ticket-table-summary">
                 <Table bordered size="sm">
