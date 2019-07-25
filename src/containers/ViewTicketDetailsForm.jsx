@@ -1,7 +1,7 @@
 import React from 'react';
 import { addMessageAPICall, closeTicketAPICall, downloadAttachmentAPICall, fetchCreatedTicketDetailsAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
-import { UncontrolledTooltip, Badge, Alert, Button, Row, Form, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
+import { UncontrolledTooltip, CardText, Badge, Alert, Button, Row, Form, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
 import { Table, NavLink } from 'reactstrap';
 import { FaFilePdf, FaFileAlt, FaFileImage, FaFile, FaExclamationCircle } from 'react-icons/fa';
 import { loadFileIcon, getTicketStatusColorCode } from '../util/UIUtils';
@@ -13,7 +13,7 @@ import { Role, TicketStatus, PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE } 
 import { componentInfoObj, glbColorCodes, applicationMessages } from '../masterdata/ApplicationMasterData';
 import { HalfCircleSpinner } from 'react-epic-spinners';
 import CustomAlert from '../components/CustomAlert';
-import {getLocalTimeStamp, timeAgo} from '../util/CalendarUtil';
+import { getLocalTimeStamp, timeAgo } from '../util/CalendarUtil';
 
 
 
@@ -450,9 +450,9 @@ class ViewTicketDetailsForm extends React.Component {
                         'padding-top': '.75rem',
                         'padding-bottom': '.75rem'
                       }}>
-                        <Label size='sm' style={{
-                          margin: '0', padding: '0'
-                        }}>{timeAgo(getLocalTimeStamp(item.commentedOn))}</Label>
+                        <CardText>
+                          <small className="text-muted">{timeAgo(getLocalTimeStamp(item.commentedOn))}</small>
+                        </CardText>
                       </Col>
                     </Row>
                   </div>
@@ -566,7 +566,7 @@ class ViewTicketDetailsForm extends React.Component {
               )}
 
             </div>
-            }
+          }
         </div>}
         {this.state.isAlertSectionVisible &&
           <div>
@@ -574,14 +574,14 @@ class ViewTicketDetailsForm extends React.Component {
               this.props.addMessageAPICallStatus.success)
               && <div>
                 <CustomAlert data={{
-            alertColor: glbColorCodes.SUCCESS,
-            isOpen: true,
-            messageHeader: applicationMessages.messageHeaders.TICKET_UPDATE_SUCCESS,
-            detailedMessage: applicationMessages.successMessages.TICKET_UPDATE_SUCCESS,
-            defaultFooterMessage: applicationMessages.defaultFooterMessages.TICKET_UPDATE_SUCCESS
-          }} toggle={this.onDismissAlert} >
+                  alertColor: glbColorCodes.SUCCESS,
+                  isOpen: true,
+                  messageHeader: applicationMessages.messageHeaders.TICKET_UPDATE_SUCCESS,
+                  detailedMessage: applicationMessages.successMessages.TICKET_UPDATE_SUCCESS,
+                  defaultFooterMessage: applicationMessages.defaultFooterMessages.TICKET_UPDATE_SUCCESS
+                }} toggle={this.onDismissAlert} >
 
-          </CustomAlert>
+                </CustomAlert>
               </div>}
 
             {(this.props.closeTicketAPICallStatus.error ||
