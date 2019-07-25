@@ -423,7 +423,7 @@ class ViewTicketsForm extends React.Component {
           <tbody>
             {this.props.ticketList.tickets.map((ticket) =>
 
-              <tr onClick={(e) => this.props.handleListViewTicketClick(e, ticket)/* this.handleClick(e, ticket) */}>
+              <tr style={{ cursor: 'pointer' }} onClick={(e) => this.props.handleListViewTicketClick(e, ticket)/* this.handleClick(e, ticket) */}>
                 {localStorage.getItem('role') === Role.ROLE_MANAGER && <td style={{ width: '5%', textAlign: 'center' }}><Input style={{ marginLeft: '0%' }} type="checkbox" onChange={(e) => this.handleCheckAndUnCheck(e, ticket)} /></td>}
                 <td style={{ fontSize: '14px' }}>{ticket.id}</td>
                 <td style={{ fontSize: '14px' }}><Badge color={getTicketStatusColorCode(ticket.status)}>
