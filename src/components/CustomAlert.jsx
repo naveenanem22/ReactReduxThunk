@@ -12,7 +12,7 @@ class CustomAlert extends React.Component {
 
 
     render() {
-        return (<Alert color={this.props.data.alertColor} isOpen={this.props.data.isOpen} toggle={this.onDismissAlert}>
+        return (<Alert color={this.props.data.alertColor} isOpen={true} toggle={this.props.toggle}>
             <h4 className="alert-heading">{this.props.data.messageHeader}</h4>
             <p>{this.props.data.detailedMessage}</p>
             <hr />
