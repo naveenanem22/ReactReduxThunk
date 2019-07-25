@@ -44,7 +44,7 @@ export const glbColorCodes = {
 }
 
 export const TicketStatusColorCode = {
-    OPEN: glbColorCodes.WARNING, CLOSE: glbColorCodes.INFO, NEW: glbColorCodes.PRIMARY, IN_PROCESS: glbColorCodes.PRIMARY,
+    OPEN: glbColorCodes.WARNING, CLOSE: glbColorCodes.DARK, NEW: glbColorCodes.PRIMARY, IN_PROCESS: glbColorCodes.PRIMARY,
     PENDING: glbColorCodes.DANGER, AWAIT_RESPONSE: glbColorCodes.SUCCESS
 }
 
