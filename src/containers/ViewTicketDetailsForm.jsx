@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { UncontrolledTooltip, CardText, Badge, Alert, Button, Row, Form, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
 import { Table, NavLink } from 'reactstrap';
 import { FaFilePdf, FaFileAlt, FaFileImage, FaFile, FaExclamationCircle } from 'react-icons/fa';
-import { loadFileIcon, getTicketStatusColorCode } from '../util/UIUtils';
+import { loadFileIcon, getTicketStatusColorCode, getTicketPriorityColorCode } from '../util/UIUtils';
 import { fetchTicketDetailsAPICall } from '../actions/TicketActions'
 import { ScaleLoader } from 'react-spinners';
 import history from '../history';
@@ -335,9 +335,9 @@ class ViewTicketDetailsForm extends React.Component {
 
                       <td>
                         <Label size='sm' style={{
-                          margin: '0', padding: '0',
-                          fontStyle: 'italic'
-                        }}>{ticket.priority}
+                          margin: '0', padding: '0'
+                        }}><Badge color={getTicketPriorityColorCode(ticket.priority)}>
+                        {ticket.priority}</Badge>
                         </Label>
                       </td>
                     </tr>
