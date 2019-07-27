@@ -18,9 +18,10 @@ import {
 import { logout } from '../actions/UserActions';
 import history from '../history';
 import { Link } from "react-router-dom";
-import { TicketStatus, PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE } from '../masterdata/ApplicationMasterData';
+import { TicketStatus, PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE, employeeSideMenuOptions } from '../masterdata/ApplicationMasterData';
 import { FaChartLine, FaUser, FaSignOutAlt, FaListAlt } from 'react-icons/fa';
 import { SortOrder, TicketsSortBy } from '../masterdata/ApplicationMasterData';
+import {setEmployeeActiveSideMenuOption} from '../actions/ActiveSideMenuActions'
 
 
 class HeaderNavBar extends React.Component {
@@ -53,14 +54,23 @@ class HeaderNavBar extends React.Component {
 
   onClickEditProfile() {
     history.push('/ticketing/editprofile?cioKey=PRF');
+    
+    //Unfocus all side menu options
+    this.props.setActiveSideMenuItem('');
   }
 
   onClickTicketWorkflow() {
     history.push('/ticketing/workflow');
+    
+    //Unfocus all side menu options
+    this.props.setActiveSideMenuItem('');
   }
 
   onClickPolicy() {
     history.push('/ticketing/policy');
+    
+    //Unfocus all side menu options
+    this.props.setActiveSideMenuItem('');
   }
 
   onClickMyTickets() {
@@ -71,15 +81,24 @@ class HeaderNavBar extends React.Component {
         'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE + '&' +
         'sortOrder=' + SortOrder.DESCENDING + '&' + 'sortBy=' + TicketsSortBy.TICKET_UPDATED_DATE
     });
+
+    //Focus MyTicket sidemenu option
+    this.props.setActiveSideMenuItem(employeeSideMenuOptions.MY_TICKETS);
   }
 
   onClickHome() {
     history.push('/ticketing/home');
+
+    //Unfocus all side menu options
+    this.props.setActiveSideMenuItem('');
   }
 
   onClickLogout() {
     history.push('/login');
     this.props.onLogout();
+    
+    //Unfocus all side menu options
+    this.props.setActiveSideMenuItem('');
   }
   render() {
     return (
@@ -201,8 +220,20 @@ class HeaderNavBar extends React.Component {
 }
 
 
-const mapActionsToProps = {
+/* const mapActionsToProps = {
   onLogout: logout
+} */
+
+const mapActionsToProps = dispatch => {
+
+  return {
+    onLogout: () => {
+      dispatch(logout());
+    },
+    setActiveSideMenuItem: (activeSideMenuItem) => {
+      dispatch(setEmployeeActiveSideMenuOption(activeSideMenuItem));
+    },
+  };
 }
 
 const mapStateToProps = function (state) {
