@@ -13,7 +13,7 @@ class EmployeeHome extends React.Component {
 
     render() {
         return (
-            <div style={{ marginLeft: '1%', marginRight: '1%' }}>
+            <div style={{ marginLeft: '1%', marginRight: '1%', marginBottom: '2%'}}>
                 <Container style={{ marginTop: '3%' }}><Row style={{ textAlign: 'left' }}>
                     <h4>Welcome, {this.props.profile.firstName}{this.props.profile.lastname}!</h4>
                 </Row>

@@ -148,7 +148,7 @@ class SPAEmployeeMainPage extends React.Component {
           marginTop:'5%',
           marginLeft:'2%'
         }}>
-          <Col><Badge color={glbColorCodes.DARK}><FaCopyright style={{
+          <Col><Badge color={glbColorCodes.DARK} style={{paddingRight : '1%'}}><FaCopyright style={{
             marginBottom:'1%',
             marginRight:'1%'
           }}></FaCopyright>{footerText}</Badge></Col>

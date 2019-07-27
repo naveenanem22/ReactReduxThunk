@@ -122,7 +122,11 @@ class CreateNewTicketForm extends React.Component {
 
 
     return (
-      <div style={{ overflowX: 'hidden', overflowY: 'auto', height: '100%', marginLeft: '1%', marginRight: '1%' }}>
+      <div style={{ overflowX: 'hidden', overflowY: 'auto', 
+      height: '100%', 
+      marginLeft: '1%', 
+      marginRight: '1%',
+      marginBottom: '2%' }}>
 
 
         {this.state.isCreateTicketFormVisible
