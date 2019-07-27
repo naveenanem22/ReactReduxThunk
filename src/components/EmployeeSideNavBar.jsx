@@ -109,21 +109,7 @@ class SideNavBar extends React.Component {
     console.log(this.state);
 
     return (
-      <div class='sidenavbar' style={{}}>
-
-        {/* <Nav style={{ borderRadius: '10px', border: '1px solid grey', backgroundColor: '#FFFFFF' }} vertical >
-          <NavItem >
-            <NavLink href="#" onClick={this.handleNewTicket} style={{ borderTopLeftRadius: '10px', borderTopRightRadius: '10px', borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> New Ticket
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="#" onClick={this.handleMyTicketsClick} style={{ borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> My Tickets</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="#" onClick={this.handleClosedTicketsClick} style={{ borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Closed Tickets</NavLink>
-          </NavItem>
-
-        </Nav> */}
+      <div class='sidenavbar' style={{}}>        
         <div class='sidemenu'>
           <ListGroup size='sm'>
             <ListGroupItem style={{
@@ -133,7 +119,7 @@ class SideNavBar extends React.Component {
             }}><NavLink href='#' onClick={this.handleNewTicket} style={this.getMenuOptionStyle(employeeSideMenuOptions.NEW_TICKET)}><FaPlusSquare style={{
               marginBottom: '3%',
               marginRight: '5%'
-            }}></FaPlusSquare> New Ticket</NavLink></ListGroupItem>
+            }}></FaPlusSquare> {employeeSideMenuOptions.NEW_TICKET}</NavLink></ListGroupItem>
             <ListGroupItem style={{
               cursor: 'pointer',
               paddingTop: '5%',
@@ -141,7 +127,7 @@ class SideNavBar extends React.Component {
             }}><NavLink onClick={this.handleMyTicketsClick} href='#' style={this.getMenuOptionStyle(employeeSideMenuOptions.MY_TICKETS)}><FaListAlt style={{
               marginBottom: '3%',
               marginRight: '5%'
-            }}></FaListAlt> My Tickets</NavLink></ListGroupItem>
+            }}></FaListAlt> {employeeSideMenuOptions.MY_TICKETS}</NavLink></ListGroupItem>
             <ListGroupItem style={{
               cursor: 'pointer',
               paddingTop: '5%',
@@ -149,7 +135,7 @@ class SideNavBar extends React.Component {
             }}><NavLink active onClick={this.handleClosedTicketsClick} href='#' style={this.getMenuOptionStyle(employeeSideMenuOptions.CLOSED_TICKETS)}><FaTimesCircle style={{
               marginBottom: '3%',
               marginRight: '5%'
-            }}></FaTimesCircle> Closed Tickets</NavLink></ListGroupItem>
+            }}></FaTimesCircle> {employeeSideMenuOptions.CLOSED_TICKETS}</NavLink></ListGroupItem>
           </ListGroup>
         </div>
 
