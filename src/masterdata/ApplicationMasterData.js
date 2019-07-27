@@ -264,6 +264,18 @@ export const toolTips = {
 /***Tooltip for all modules END*/
 
 
+/***** Employee SideMenu Options START *****/
+export const employeeSideMenuOptions = {
+    MY_TICKETS: 'My Tickets',
+    CLOSED_TICKETS: 'Closed Tickets',
+    NEW_TICKET: 'New Ticket'
+}
+export const employeeSideMenuOptionsArray = [employeeSideMenuOptions.MY_TICKETS,
+employeeSideMenuOptions.CLOSED_TICKETS,
+employeeSideMenuOptions.NEW_TICKET]
+/***** Employee SideMenu Options END *****/
+
+
 
 
 

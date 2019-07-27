@@ -172,14 +172,14 @@ div.sidemenu > ul > li:hover {
   background-color: #e5ebeb;  
 }
 
-div.sidemenu > ul > li > a:focus{
+/* div.sidemenu > ul > li > a:focus{
   color:#17a2b8;
   font-weight: 600;
 }
 
 div.sidemenu > ul > li > a{
-  color:rgb(17, 17, 17);
-}
+  color:#111111;
+} */
 /*Styling for sidemenu component END*/
 
 /*Zero Margin and Zero Padding div style class START*/

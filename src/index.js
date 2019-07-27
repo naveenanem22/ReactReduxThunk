@@ -16,6 +16,7 @@ import DashboardPage from './containers/DashboardPage';
 import SPAEngineerMainPage from './containers/SPAEngineerMainPage';
 import SPAManagerMainPage from './containers/SPAManagerMainPage';
 import SPAEmployeeMainPage from './containers/SPAEmployeeMainPage';
+import { employeeSideMenuOptions } from './masterdata/ApplicationMasterData';
 
 const allStoreEnhancers = compose(
     applyMiddleware(thunk)
@@ -60,6 +61,11 @@ const store = createStore(MainReducer, {
     },
     loadingScreen: {
         isLoadingScreenVisible: false
+    },
+    activeSideMenuItem: {
+        employeeView: {activeSideMenuOption:''},
+        managerView: {},
+        engineerView: {}
     },
     departments: [{ id: '1', name: 'ITS' }, { id: '2', name: 'RMG' }, { id: '3', name: 'HR' }],
     serviceCategories: [{ id: '1', name: 'Network' }, { id: '2', name: 'Printer' }, { id: '3', name: 'Desktop/Laptop' }, { id: '4', name: 'Software/OS' }],

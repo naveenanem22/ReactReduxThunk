@@ -4,9 +4,10 @@ import { loginAPICall } from '../actions/UserActions'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { fetchTicketsAPICall } from '../actions/TicketActions'
-import { Role } from '../masterdata/ApplicationMasterData';
+import { Role, employeeSideMenuOptions } from '../masterdata/ApplicationMasterData';
 import history from '../history';
 import { HalfCircleSpinner } from 'react-epic-spinners';
+import { setEmployeeActiveSideMenuOption } from '../actions/ActiveSideMenuActions';
 
 class LoginForm extends React.Component {
 
@@ -42,6 +43,8 @@ class LoginForm extends React.Component {
           pathname: "/ticketmaint/dashboard",
           search: "?cioKey=ENDB"
         });
+        //Unfocus all the side-menu options for Employee view
+        this.props.setActiveSideMenuItem('');
         break;
 
       case Role.ROLE_EMPLOYEE:
@@ -71,71 +74,88 @@ class LoginForm extends React.Component {
 
     return (
       <Card color='light' style={{
-        marginTop:'5%',
-        marginLeft:'35%',
-        marginRight:'35%',
-        padding:'1%'
+        marginTop: '5%',
+        marginLeft: '35%',
+        marginRight: '35%',
+        padding: '1%'
       }}>
-          <h4>Sign In</h4>
-          <Form className="form">
-            {this.props.isLoginFailure && <Label className="text-danger">{this.props.loginFailureMessage}</Label>}
-            <Col>
-              <FormGroup>
-                <Label size='sm' style={{
-                  fontWeight: '600'
-                }}>UserId</Label>
-                <Input
-                  size='sm'
-                  name="userId"
-                  id="userId"
-                  placeholder="myemail@email.com"
-                  onChange={this.handleChange}
-                />
-              </FormGroup>
+        <h4>Sign In</h4>
+        <Form className="form">
+          {this.props.isLoginFailure && <Label className="text-danger">{this.props.loginFailureMessage}</Label>}
+          <Col>
+            <FormGroup>
+              <Label size='sm' style={{
+                fontWeight: '600'
+              }}>UserId</Label>
+              <Input
+                size='sm'
+                name="userId"
+                id="userId"
+                placeholder="myemail@email.com"
+                onChange={this.handleChange}
+              />
+            </FormGroup>
+          </Col>
+          <Col>
+            <FormGroup>
+              <Label size='sm' style={{
+                fontWeight: '600'
+              }}>Password</Label>
+              <Input
+                size='sm'
+                type="password"
+                name="password"
+                id="password"
+                placeholder="********"
+
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
+            </FormGroup>
+          </Col>
+          <Row>
+            <Col sm='auto' style={{
+              textAlign: 'left'
+            }}>
+              <Button size='sm' onClick={this.onSubmitLogin}>Submit</Button>
             </Col>
-            <Col>
-              <FormGroup>
-                <Label size='sm' style={{
-                  fontWeight: '600'
-                }}>Password</Label>
-                <Input
-                  size='sm'
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="********"
-
-                  value={this.state.password}
-                  onChange={this.handleChange}
-                />
-              </FormGroup>
+            <Col sm='auto' style={{
+              textAlign: 'left',
+              paddingTop: '1%'
+            }}>
+              {this.props.loginAPICallStatus.requested && <HalfCircleSpinner
+                color='#17A2B8'
+                size='20'></HalfCircleSpinner>}
             </Col>
-            <Row>
-              <Col sm='auto' style={{
-                textAlign: 'left'
-              }}>
-                <Button size='sm' onClick={this.onSubmitLogin}>Submit</Button>
-              </Col>
-              <Col sm='auto' style={{
-                textAlign: 'left',
-                paddingTop: '1%'
-              }}>
-                {this.props.loginAPICallStatus.requested && <HalfCircleSpinner
-                  color='#17A2B8'
-                  size='20'></HalfCircleSpinner>}
-              </Col>
 
-            </Row>
+          </Row>
 
-          </Form>
+        </Form>
       </Card>
     );
   }
 }
 
-const mapActionsToProps = {
+/* const mapActionsToProps = {
   onLogin: loginAPICall,
   fetchTickets: fetchTicketsAPICall
+} */
+
+const mapActionsToProps = dispatch => {
+
+  return {
+    onLogin: (params) => {
+      dispatch(loginAPICall(params));
+    },
+    fetchTickets: (params) => {
+      dispatch(fetchTicketsAPICall(params));
+    },
+    setActiveSideMenuItem: (activeSideMenuItem) => {
+      dispatch(setEmployeeActiveSideMenuOption(activeSideMenuItem));
+    }
+
+
+  };
 }
 
 const mapStateToProps = function (state) {
