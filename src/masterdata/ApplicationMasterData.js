@@ -48,7 +48,7 @@ export const glbColorCodes = {
 export const glbHexColorCodes = {
     MUTED: 'muted', PRIMARY: '#007bff', SUCCESS: '#28a745', INFO: '#17a2b8', WARNING: '#ffc107',
     DANGER: '#dc3545', WHITE: '#ffffff', DARK: '#343a40', LIGHT: '#f8f9fa', SECONDARY: '#6c757d',
-    TYRIANPURPLE: '##581845'
+    TYRIANPURPLE: '#581845'
 
 }
 

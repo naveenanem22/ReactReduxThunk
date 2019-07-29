@@ -9,7 +9,7 @@ import { fetchTicketDetailsAPICall } from '../actions/TicketActions'
 import { ScaleLoader } from 'react-spinners';
 import history from '../history';
 import queryString from 'query-string';
-import { Role, TicketStatus, PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE } from '../masterdata/ApplicationMasterData';
+import { Role, TicketStatus, PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE, glbHexColorCodes } from '../masterdata/ApplicationMasterData';
 import { componentInfoObj, glbColorCodes, applicationMessages } from '../masterdata/ApplicationMasterData';
 import { HalfCircleSpinner } from 'react-epic-spinners';
 import CustomAlert from '../components/CustomAlert';
@@ -298,7 +298,12 @@ class ViewTicketDetailsForm extends React.Component {
                   <Label size='sm'>{getLocalTimeStamp(ticket.updatedDate)}</Label>
                 </Col>
                 <Col style={{ 'text-align': 'right', 'padding-top': '.30rem' }}>
-                  <Label size='sm'>Ticket ID: {ticket.id}</Label>
+                  <Label size='sm' style={{
+                    paddingRight:'2%'
+                  }}>Ticket ID:</Label>
+                  <Badge style={{
+                    backgroundColor: glbHexColorCodes.TYRIANPURPLE
+                  }}>{ticket.id}</Badge>
                 </Col>
               </Row>
               <hr />
