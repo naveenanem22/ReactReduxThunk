@@ -38,9 +38,18 @@ export const TicketStatusCode = {
     IN_PROCESS: 1, PENDING: 2, NEW: 3, CLOSE: 4, OPEN: 5, AWAIT_RESPONSE: 6
 };
 
+/**Bootstrap color codes */
 export const glbColorCodes = {
     MUTED: 'muted', PRIMARY: 'primary', SUCCESS: 'success', INFO: 'info', WARNING: 'warning',
     DANGER: 'danger', WHITE: 'white', DARK: 'dark', LIGHT: 'light', SECONDARY: 'secondary'
+}
+
+/**Hex color codes respective to Bootstrap names */
+export const glbHexColorCodes = {
+    MUTED: 'muted', PRIMARY: '#007bff', SUCCESS: '#28a745', INFO: '#17a2b8', WARNING: '#ffc107',
+    DANGER: '#dc3545', WHITE: '#ffffff', DARK: '#343a40', LIGHT: '#f8f9fa', SECONDARY: '#6c757d',
+    TYRIANPURPLE: '##581845'
+
 }
 
 export const TicketStatusColorCode = {
