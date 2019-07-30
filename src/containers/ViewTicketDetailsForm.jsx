@@ -5,6 +5,7 @@ import { UncontrolledTooltip, CardText, Badge, Alert, Button, Row, Form, Col, Co
 import { Table, NavLink } from 'reactstrap';
 import { FaFilePdf, FaFileAlt, FaFileImage, FaFile, FaExclamationCircle } from 'react-icons/fa';
 import { loadFileIcon, getTicketStatusColorCode, getTicketPriorityColorCode } from '../util/UIUtils';
+import {uiUtil} from '../util/UIUtils';
 import { fetchTicketDetailsAPICall } from '../actions/TicketActions'
 import { ScaleLoader } from 'react-spinners';
 import history from '../history';
@@ -475,7 +476,7 @@ class ViewTicketDetailsForm extends React.Component {
                     {(item.attachments.length > 0) && <Row style={{ 'marginBottom': '3px', 'paddingLeft': '2%', 'paddingRight': '0%' }}>Attachment(s):</Row>}
                     {(item.attachments.length > 0) && item.attachments.map((attachment) =>
                       <Row style={{ 'marginBottom': '3px', 'paddingLeft': '2%', 'paddingRight': '0%' }}>
-                        <Col ><NavLink style={{ padding: '0%' }} onClick={this.onClickLink} href="#">{loadFileIcon(attachment.fileType)}<code style={{ 'color': '#c7254e' }}>{attachment.name}</code></NavLink></Col>
+                        <Col ><NavLink style={{ padding: '0%' }} onClick={this.onClickLink} href="#">{uiUtil.loadFileIcon(attachment.fileType)}<code style={{ 'color': '#c7254e' }}>{attachment.name}</code></NavLink></Col>
                       </Row>)}
                     {(ticket.ticketHistory.indexOf(item) === 0
                       &&

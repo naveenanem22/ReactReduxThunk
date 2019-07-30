@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Row, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
 import { NavLink } from 'reactstrap';
-import {loadFileIcon} from '../util/UIUtils';
 
 class TicketConversationBlock extends React.Component{
     constructor(props){
