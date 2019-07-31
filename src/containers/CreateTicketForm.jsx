@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container,UncontrolledTooltip, Row, Col, Button, Form, FormGroup, Label, Input, FormText, Alert } from 'reactstrap';
+import { Container, UncontrolledTooltip, Row, Col, Button, Form, FormGroup, Label, Input, FormText, Alert } from 'reactstrap';
 import history from '../history';
 import { createTicketAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
@@ -9,8 +9,9 @@ import { componentInfoObj, TicketsSortBy, PAGINATION_START_PAGE, TICKETS_PER_PAG
 import queryString from 'query-string';
 import { HalfCircleSpinner } from 'react-epic-spinners';
 import CustomAlert from '../components/CustomAlert';
-import { glbColorCodes } from '../masterdata/ApplicationMasterData';
-import {FaExclamationCircle} from 'react-icons/fa';
+import { glbColorCodes, employeeSideMenuOptions } from '../masterdata/ApplicationMasterData';
+import { FaExclamationCircle } from 'react-icons/fa';
+import { setEmployeeActiveSideMenuOption } from '../actions/ActiveSideMenuActions';
 
 
 class CreateNewTicketForm extends React.Component {
@@ -62,6 +63,11 @@ class CreateNewTicketForm extends React.Component {
         });
       }
     });
+
+    //Set focus MyTickets Item for Employee-SideMenu
+    if (localStorage.getItem('role') === Role.ROLE_EMPLOYEE) {
+      this.props.setActiveSideMenuItem(employeeSideMenuOptions.MY_TICKETS);
+    }
   }
 
 
@@ -122,11 +128,13 @@ class CreateNewTicketForm extends React.Component {
 
 
     return (
-      <div style={{ overflowX: 'hidden', overflowY: 'auto', 
-      height: '100%', 
-      marginLeft: '1%', 
-      marginRight: '1%',
-      marginBottom: '2%' }}>
+      <div style={{
+        overflowX: 'hidden', overflowY: 'auto',
+        height: '100%',
+        marginLeft: '1%',
+        marginRight: '1%',
+        marginBottom: '2%'
+      }}>
 
 
         {this.state.isCreateTicketFormVisible
@@ -145,7 +153,7 @@ class CreateNewTicketForm extends React.Component {
             </FormGroup>
             <Container style={{ marginTop: '3%' }}>
               <FormGroup>
-                <Label size='sm' style={{paddingRight: '4px'}}for="ticketTitle">Title</Label>
+                <Label size='sm' style={{ paddingRight: '4px' }} for="ticketTitle">Title</Label>
                 <span id='titleToolTip' href='#'>
                   <FaExclamationCircle style={{
                     marginBottom: '1px'
@@ -158,14 +166,14 @@ class CreateNewTicketForm extends React.Component {
                   value={this.state.ticketTitle} onChange={this.handleChange} required />
               </FormGroup>
               <FormGroup>
-                <Label size='sm' style={{paddingRight: '4px'}} for="ticketDescription">Description</Label>
+                <Label size='sm' style={{ paddingRight: '4px' }} for="ticketDescription">Description</Label>
                 <span id='descriptionToolTip' href='#'>
                   <FaExclamationCircle style={{
                     marginBottom: '1px'
                   }}></FaExclamationCircle></span>
 
                 <UncontrolledTooltip placement="right" target="descriptionToolTip">
-                {toolTips.createTicketForm.DESCRIPTION}
+                  {toolTips.createTicketForm.DESCRIPTION}
                 </UncontrolledTooltip>
                 <Input size='sm' type="textarea" name="ticketDescription" id="ticketDescription"
                   value={this.state.titleDescription}
@@ -232,14 +240,14 @@ class CreateNewTicketForm extends React.Component {
                 </Input>
               </FormGroup>
               <FormGroup>
-                <Label size='sm' style={{paddingRight: '4px'}} for="notes">Additional Information</Label>
+                <Label size='sm' style={{ paddingRight: '4px' }} for="notes">Additional Information</Label>
                 <span id='additionalInfoToolTip' href='#'>
                   <FaExclamationCircle style={{
                     marginBottom: '1px'
                   }}></FaExclamationCircle></span>
 
                 <UncontrolledTooltip placement="right" target="additionalInfoToolTip">
-                {toolTips.createTicketForm.ADDITIONAL_INFO}
+                  {toolTips.createTicketForm.ADDITIONAL_INFO}
                 </UncontrolledTooltip>
                 <Input size='sm' type="textarea" name="additionalInfo" id="additionalInfo"
                   value={this.state.additionalInfo}
@@ -326,8 +334,23 @@ class CreateNewTicketForm extends React.Component {
   }
 }
 
-const mapActionsToProps = {
+/* const mapActionsToProps = {
   onCreateTicket: createTicketAPICall
+}
+ */
+const mapActionsToProps = dispatch => {
+
+  return {
+    setActiveSideMenuItem: (activeSideMenuItem) => {
+      dispatch(setEmployeeActiveSideMenuOption(activeSideMenuItem));
+    },
+
+    onCreateTicket: (params) => {
+      dispatch(createTicketAPICall(params));
+    }
+
+
+  };
 }
 
 const mapStateToProps = function (state) {
