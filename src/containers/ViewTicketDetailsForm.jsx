@@ -5,16 +5,17 @@ import { UncontrolledTooltip, CardText, Badge, Alert, Button, Row, Form, Col, Co
 import { Table, NavLink } from 'reactstrap';
 import { FaFilePdf, FaFileAlt, FaFileImage, FaFile, FaExclamationCircle } from 'react-icons/fa';
 import { loadFileIcon, getTicketStatusColorCode, getTicketPriorityColorCode } from '../util/UIUtils';
-import {uiUtil} from '../util/UIUtils';
+import { uiUtil } from '../util/UIUtils';
 import { fetchTicketDetailsAPICall } from '../actions/TicketActions'
 import { ScaleLoader } from 'react-spinners';
 import history from '../history';
 import queryString from 'query-string';
 import { Role, TicketStatus, PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE, glbHexColorCodes } from '../masterdata/ApplicationMasterData';
-import { componentInfoObj, glbColorCodes, applicationMessages } from '../masterdata/ApplicationMasterData';
+import { componentInfoObj, glbColorCodes, applicationMessages, employeeSideMenuOptions, SortOrder, TicketsSortBy } from '../masterdata/ApplicationMasterData';
 import { HalfCircleSpinner } from 'react-epic-spinners';
 import CustomAlert from '../components/CustomAlert';
 import { getLocalTimeStamp, timeAgo } from '../util/CalendarUtil';
+import { setEmployeeActiveSideMenuOption } from '../actions/ActiveSideMenuActions';
 
 
 
@@ -55,8 +56,12 @@ class ViewTicketDetailsForm extends React.Component {
           pathname: '/ticketing/tickets',
           search: '?status=' + TicketStatus.ALL + '&' +
             'cioKey=ALT' + '&' +
-            'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE
+            'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE + '&' +
+            'sortOrder=' + SortOrder.DESCENDING + '&' + 'sortBy=' + TicketsSortBy.TICKET_UPDATED_DATE
         });
+
+        //Set focus MyTickets Item for Employee-SideMenu
+        this.props.setActiveSideMenuItem(employeeSideMenuOptions.MY_TICKETS);
         break;
 
       case Role.ROLE_ENGINEER:
@@ -300,7 +305,7 @@ class ViewTicketDetailsForm extends React.Component {
                 </Col>
                 <Col style={{ 'text-align': 'right', 'padding-top': '.30rem' }}>
                   <Label size='sm' style={{
-                    paddingRight:'2%'
+                    paddingRight: '2%'
                   }}>Ticket ID:</Label>
                   <Badge style={{
                     backgroundColor: glbHexColorCodes.TYRIANPURPLE
@@ -343,7 +348,7 @@ class ViewTicketDetailsForm extends React.Component {
                         <Label size='sm' style={{
                           margin: '0', padding: '0'
                         }}><Badge color={getTicketPriorityColorCode(ticket.priority)}>
-                        {ticket.priority}</Badge>
+                            {ticket.priority}</Badge>
                         </Label>
                       </td>
                     </tr>
@@ -621,12 +626,40 @@ const mapStateToProps = function (state) {
   }
 }
 
-const mapActionsToProps = {
+/* const mapActionsToProps = {
   addMessage: addMessageAPICall,
   closeTicket: closeTicketAPICall,
   downloadAttachment: downloadAttachmentAPICall,
   fetchTicketDetails: fetchTicketDetailsAPICall,
   fetchCreatedTicketDetails: fetchCreatedTicketDetailsAPICall
+} */
+
+
+const mapActionsToProps = dispatch => {
+
+  return {
+    setActiveSideMenuItem: (activeSideMenuItem) => {
+      dispatch(setEmployeeActiveSideMenuOption(activeSideMenuItem));
+    },
+
+    addMessage: (params) => {
+      dispatch(addMessageAPICall(params));
+    },
+    closeTicket: (params) => {
+      dispatch(closeTicketAPICall(params));
+    },
+    downloadAttachment: (params) => {
+      dispatch(downloadAttachmentAPICall(params));
+    },
+    fetchTicketDetails: (params) => {
+      dispatch(fetchTicketDetailsAPICall(params));
+    },
+    fetchCreatedTicketDetails: (params) => {
+      dispatch(fetchCreatedTicketDetailsAPICall(params));
+    }
+
+
+  };
 }
 
 export default connect(mapStateToProps, mapActionsToProps)(ViewTicketDetailsForm);
