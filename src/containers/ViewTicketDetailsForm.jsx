@@ -473,7 +473,9 @@ class ViewTicketDetailsForm extends React.Component {
                     <Row >
                       <Col style={{ 'paddingLeft': '3%' }}>
                         <Label size='sm' style={{
-                          margin: '0', padding: '0'
+                          margin: '0', padding: '0',
+                          wordWrap: 'break-word',
+                          maxWidth:'100%'
                         }}>{item.comment}
                         </Label>
                       </Col>
