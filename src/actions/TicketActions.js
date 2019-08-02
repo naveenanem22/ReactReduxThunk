@@ -264,7 +264,7 @@ export function createTicketAPICall(ticket) {
                     console.log(response);
                     if (response.status === 201) {
                         dispatch(createTicketSuccess());
-                        return response.statusText;
+                        return response.json();
                     }
                     if (response.status === 500) {
                         dispatch(createTicketFailure());
@@ -274,6 +274,10 @@ export function createTicketAPICall(ticket) {
                     dispatch(createTicketFailure());
                     console.log('An error occurred.', error);
                 }
+            ).then((ticketData) => {
+                console.log("Created ticket:");
+                console.log(ticketData);
+            }
             );
     };
 }
