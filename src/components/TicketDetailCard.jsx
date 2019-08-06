@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Card, CardHeader, CardBody, CardTitle, CardText, Button, CardFooter } from 'reactstrap';
+import { Label, Row, Col, Card, CardHeader, CardBody, CardTitle, CardText, Button, CardFooter } from 'reactstrap';
 import { Badge } from 'reactstrap';
 import { getURLParams, getTicketPriorityColorCode, getTicketStatusColorCode } from '../util/UIUtils'
 import { TicketPriorityColorCode, maxCharLimit } from '../masterdata/ApplicationMasterData';
@@ -40,8 +40,8 @@ class TicketDetailCard extends React.Component {
                 <CardBody style={{ paddingTop: '1%', paddingBottom: '1%' }}>
                     <Row>
                         <Col sm='8'>
-                            <Row><Col sm='12' style={{ fontSize: '90%', fontWeight: 600, color: '#222426' }}>{uiUtil.truncate.apply(this.state.ticket.title, [maxCharLimit.TICKET_LIST_TITLE, true])}</Col></Row>
-                            <Row><Col sm='12' style={{ fontSize: '90%' }}>{uiUtil.truncate.apply(this.state.ticket.description, [maxCharLimit.TICKET_BUNDLE_DESCRIPTION, true])}</Col></Row>
+                            <Row><Col sm='12' style={{ fontSize: '90%', fontWeight: 600 }}>{uiUtil.truncate.apply(this.state.ticket.title, [maxCharLimit.TICKET_LIST_TITLE, true])}</Col></Row>
+                            <Row><Col sm='12'><Label size='sm'>{uiUtil.truncate.apply(this.state.ticket.description, [maxCharLimit.TICKET_BUNDLE_DESCRIPTION, true])}</Label></Col></Row>
 
                         </Col>
                         <Col sm='4' style={{ borderLeft: '1px solid rgba(0,0,0,.125)' }}>
