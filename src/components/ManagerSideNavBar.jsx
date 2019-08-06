@@ -5,20 +5,26 @@ import history from '../history';
 import { connect } from 'react-redux';
 import { fetchTicketsAPICall, showFormNewTicket } from '../actions/TicketActions'
 import { fetchDashboardDataAPICall, fetchDashboardDataMultipleAPICall } from '../actions/DashboardActions';
-import { TicketStatus } from '../masterdata/ApplicationMasterData';
+import { TicketStatus, managerSideMenuOptions } from '../masterdata/ApplicationMasterData';
 import { FaTimesCircle, FaListAlt, FaPlusSquare } from 'react-icons/fa';
 import { PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE } from '../masterdata/ApplicationMasterData';
+import { managerSideMenuOptionsArray, employeeSideMenuOptions } from '../masterdata/ApplicationMasterData';
 
 
 class SideNavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      menuItemState: {
+        focused: [],
+        unfocused: managerSideMenuOptionsArray
+
+      }
     };
     this.handleClosedTicketsClick = this.handleClosedTicketsClick.bind(this);
     this.handleAssignTicketsClick = this.handleAssignTicketsClick.bind(this);
     this.handleAllTicketsClick = this.handleAllTicketsClick.bind(this);
-
+    this.getMenuOptionStyle = this.getMenuOptionStyle.bind(this);
     this.handleDashboard = this.handleDashboard.bind(this);
     this.handleNewTicket = this.handleNewTicket.bind(this);
   }
@@ -43,6 +49,14 @@ class SideNavBar extends React.Component {
     });
   }
  */
+
+  getMenuOptionStyle(menuItem) {
+    //check if it is present in focused list and return focusStyle
+    return this.state.menuItemState.focused.includes(menuItem) ?
+      { padding: '0', margin: '0', color: '#17a2b8', fontWeight: 600 } :
+      { padding: '0', margin: '0', color: '#111111' }
+  }
+
   handleClosedTicketsClick() {
     // history.push("/ticketmanage/tickets?status="+TicketStatus.CLOSE);
     history.push({
@@ -119,52 +133,42 @@ class SideNavBar extends React.Component {
               cursor: 'pointer',
               paddingTop: '5%',
               paddingBottom: '5%'
-            }}><NavLink href='#' onClick={this.handleDashboard} style={{
-              padding: '0', margin: '0'
-            }}><FaChartLine style={{
+            }}><NavLink href='#' onClick={this.handleDashboard} style={this.getMenuOptionStyle(managerSideMenuOptions.DASHBOARD)}><FaChartLine style={{
               marginBottom: '3%',
               marginRight: '5%'
-            }}></FaChartLine> Dashboard</NavLink></ListGroupItem>
+            }}></FaChartLine> {managerSideMenuOptions.DASHBOARD}</NavLink></ListGroupItem>
             <ListGroupItem style={{
               cursor: 'pointer',
               paddingTop: '5%',
               paddingBottom: '5%'
-            }}><NavLink onClick={this.handleAssignTicketsClick} href='#' style={{
-              padding: '0', margin: '0'
-            }}><FaTasks style={{
+            }}><NavLink onClick={this.handleAssignTicketsClick} href='#' style={this.getMenuOptionStyle(managerSideMenuOptions.ASSIGN_TICKETS)}><FaTasks style={{
               marginBottom: '3%',
               marginRight: '5%'
-            }}></FaTasks> Assign Tickets</NavLink></ListGroupItem>
+            }}></FaTasks> {managerSideMenuOptions.ASSIGN_TICKETS}</NavLink></ListGroupItem>
             <ListGroupItem style={{
               cursor: 'pointer',
               paddingTop: '5%',
               paddingBottom: '5%'
-            }}><NavLink active onClick={this.handleNewTicket} href='#' style={{
-              padding: '0', margin: '0'
-            }}><FaPlusSquare style={{
+            }}><NavLink active onClick={this.handleNewTicket} href='#' style={this.getMenuOptionStyle(managerSideMenuOptions.NEW_TICKET)}><FaPlusSquare style={{
               marginBottom: '3%',
               marginRight: '5%'
-            }}></FaPlusSquare> New Ticket</NavLink></ListGroupItem>
+            }}></FaPlusSquare> {managerSideMenuOptions.NEW_TICKET}</NavLink></ListGroupItem>
             <ListGroupItem style={{
               cursor: 'pointer',
               paddingTop: '5%',
               paddingBottom: '5%'
-            }}><NavLink active onClick={this.handleAllTicketsClick} href='#' style={{
-              padding: '0', margin: '0'
-            }}><FaListAlt style={{
+            }}><NavLink active onClick={this.handleAllTicketsClick} href='#' style={this.getMenuOptionStyle(managerSideMenuOptions.ALL_TICKETS)}><FaListAlt style={{
               marginBottom: '3%',
               marginRight: '5%'
-            }}></FaListAlt> All Tickets</NavLink></ListGroupItem>
+            }}></FaListAlt> {managerSideMenuOptions.ALL_TICKETS}</NavLink></ListGroupItem>
             <ListGroupItem style={{
               cursor: 'pointer',
               paddingTop: '5%',
               paddingBottom: '5%'
-            }}><NavLink active onClick={this.handleClosedTicketsClick} href='#' style={{
-              padding: '0', margin: '0'
-            }}><FaTimesCircle style={{
+            }}><NavLink active onClick={this.handleClosedTicketsClick} href='#' style={this.getMenuOptionStyle(managerSideMenuOptions.CLOSED_TICKETS)}><FaTimesCircle style={{
               marginBottom: '3%',
               marginRight: '5%'
-            }}></FaTimesCircle> Closed Tickets</NavLink></ListGroupItem>
+            }}></FaTimesCircle> {managerSideMenuOptions.CLOSED_TICKETS}</NavLink></ListGroupItem>
           </ListGroup>
         </div>
 

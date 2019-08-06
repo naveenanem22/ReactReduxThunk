@@ -284,6 +284,20 @@ employeeSideMenuOptions.CLOSED_TICKETS,
 employeeSideMenuOptions.NEW_TICKET]
 /***** Employee SideMenu Options END *****/
 
+/***** Manager SideMenu Options START *****/
+export const managerSideMenuOptions = {
+    DASHBOARD : 'Dashboard',
+    ASSIGN_TICKETS : 'Assign Tickets',
+    NEW_TICKET: 'New Ticket',
+    ALL_TICKETS: 'All Tickets',
+    CLOSED_TICKETS: 'Closed Tickets'
+
+}
+export const managerSideMenuOptionsArray = [managerSideMenuOptions.DASHBOARD,
+managerSideMenuOptions.ASSIGN_TICKETS,managerSideMenuOptions.NEW_TICKET, managerSideMenuOptions.ALL_TICKETS,
+managerSideMenuOptions.CLOSED_TICKETS]
+/***** Manager SideMenu Options END *****/
+
 
 
 
