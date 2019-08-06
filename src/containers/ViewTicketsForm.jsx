@@ -4,7 +4,7 @@ import { Table, Container, Label, Input, Badge, NavLink, Button, Row, Col, ListG
 import SearchInput from '../components/SearchInput';
 import { assignAndUpdateMultipleTicketsAPICall } from '../actions/TicketActions';
 import history from '../history';
-import { Role, TicketStatus, PAGINATION_START_PAGE, ticketStatusColorCode, TicketsSortBy } from '../masterdata/ApplicationMasterData';
+import { Role, TicketStatus, PAGINATION_START_PAGE, ticketStatusColorCode, TicketsSortBy, maxCharLimit } from '../masterdata/ApplicationMasterData';
 import { fetchCreatedTicketsAPICall } from '../actions/TicketActions'
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
@@ -428,7 +428,7 @@ class ViewTicketsForm extends React.Component {
                 <td style={{ fontSize: '14px' }}>{ticket.id}</td>
                 <td style={{ fontSize: '14px' }}><Badge color={getTicketStatusColorCode(ticket.status)}>
                   {ticket.status}</Badge></td>
-                <td style={{ fontSize: '14px' }}>{truncate.apply(ticket.title, [75, true])}</td>
+                <td style={{ fontSize: '14px' }}>{truncate.apply(ticket.title, [maxCharLimit.TICKET_LIST_TITLE, true])}</td>
                 <td style={{ fontSize: '14px' }}>{getLocalTimeStamp(ticket.updatedDate)}</td>
                 {localStorage.getItem('role') === Role.ROLE_MANAGER && <td style={{ marginRight: '1%' }}><SearchInput isInValid={ticket.isAssignedToInvalid} onSelectSuggestion={selectedValue => this.updateAssignedValue(selectedValue, ticket)} suggestions={suggestions}></SearchInput>
                 </td>}

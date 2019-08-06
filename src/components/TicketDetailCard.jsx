@@ -41,7 +41,7 @@ class TicketDetailCard extends React.Component {
                     <Row>
                         <Col sm='8'>
                             <Row><Col sm='12' style={{ fontSize: '90%', fontWeight: 600, color: '#222426' }}>{uiUtil.truncate.apply(this.state.ticket.title, [maxCharLimit.TICKET_LIST_TITLE, true])}</Col></Row>
-                            <Row><Col sm='12' style={{ fontSize: '90%', fontWeight: 300, color: '#222426' }}>{uiUtil.truncate.apply(this.state.ticket.description, [maxCharLimit.TICKET_BUNDLE_DESCRIPTION, true])}</Col></Row>
+                            <Row><Col sm='12' style={{ fontSize: '90%' }}>{uiUtil.truncate.apply(this.state.ticket.description, [maxCharLimit.TICKET_BUNDLE_DESCRIPTION, true])}</Col></Row>
 
                         </Col>
                         <Col sm='4' style={{ borderLeft: '1px solid rgba(0,0,0,.125)' }}>
