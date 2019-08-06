@@ -64,7 +64,7 @@ const store = createStore(MainReducer, {
     },
     activeSideMenuItem: {
         employeeView: {activeSideMenuOption:''},
-        managerView: {},
+        managerView: {activeSideMenuOption:''},
         engineerView: {}
     },
     departments: [{ id: '1', name: 'ITS' }, { id: '2', name: 'RMG' }, { id: '3', name: 'HR' }],

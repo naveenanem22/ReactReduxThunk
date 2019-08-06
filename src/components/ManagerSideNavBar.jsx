@@ -9,6 +9,7 @@ import { TicketStatus, managerSideMenuOptions } from '../masterdata/ApplicationM
 import { FaTimesCircle, FaListAlt, FaPlusSquare } from 'react-icons/fa';
 import { PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE } from '../masterdata/ApplicationMasterData';
 import { managerSideMenuOptionsArray, employeeSideMenuOptions } from '../masterdata/ApplicationMasterData';
+import { setManagerActiveSideMenuOption } from '../actions/ActiveSideMenuActions';
 
 
 class SideNavBar extends React.Component {
@@ -27,6 +28,7 @@ class SideNavBar extends React.Component {
     this.getMenuOptionStyle = this.getMenuOptionStyle.bind(this);
     this.handleDashboard = this.handleDashboard.bind(this);
     this.handleNewTicket = this.handleNewTicket.bind(this);
+    this.getInactiveSideMenuItems = this.getInactiveSideMenuItems.bind(this);
   }
 
   handleDashboard(e) {
@@ -35,20 +37,10 @@ class SideNavBar extends React.Component {
       pathname: "/ticketmanage/dashboard",
       search: "?cioKey=MDB"
     });
-  }
 
-  /* handleAwaitResponseClick() {
-    //history.push("/ticketmanage/tickets?status="+TicketStatus.IN_PROCESS);
-    history.push({
-      pathname: "/ticketmanage/tickets",
-      search: '?status='+TicketStatus.IN_PROCESS+'&'+'cioKey=MDB'
-    });
-    this.props.fetchTickets({
-      status: TicketStatus.IN_PROCESS,
-      sortBy: 'ticketId'
-    });
+    //Set Active Item for Employee-SideMenu
+    this.props.setActiveSideMenuItem(managerSideMenuOptions.DASHBOARD);
   }
- */
 
   getMenuOptionStyle(menuItem) {
     //check if it is present in focused list and return focusStyle
@@ -64,6 +56,9 @@ class SideNavBar extends React.Component {
       search: '?status=' + TicketStatus.CLOSE + '&' + 'cioKey=CLT' + '&' +
         'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE
     });
+
+    //Set Active Item for Employee-SideMenu
+    this.props.setActiveSideMenuItem(managerSideMenuOptions.CLOSED_TICKETS);
   }
 
   handleAssignTicketsClick() {
@@ -74,6 +69,9 @@ class SideNavBar extends React.Component {
         'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE
     });
 
+    //Set Active Item for Employee-SideMenu
+    this.props.setActiveSideMenuItem(managerSideMenuOptions.ASSIGN_TICKETS);
+
   }
 
   handleAllTicketsClick() {
@@ -83,6 +81,9 @@ class SideNavBar extends React.Component {
         'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE
     });
 
+    //Set Active Item for Employee-SideMenu
+    this.props.setActiveSideMenuItem(managerSideMenuOptions.ALL_TICKETS);
+
   }
 
   handleNewTicket() {
@@ -90,6 +91,31 @@ class SideNavBar extends React.Component {
       pathname: "/ticketmanage/newticket",
       search: '?cioKey=NT'
     });
+
+    //Set Active Item for Employee-SideMenu
+    this.props.setActiveSideMenuItem(managerSideMenuOptions.NEW_TICKET);
+  }
+
+  getInactiveSideMenuItems(value) {
+    return value !== this.props.activeSideMenuItem
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log("inside componentdidupdate - Manager Side Menu");
+    console.log(prevProps);
+    if (prevProps.activeSideMenuItem !== this.props.activeSideMenuItem) {
+      console.log("Change in Active-Menu-Item and setting the state");
+      this.setState({
+        menuItemState: {
+          focused: [this.props.activeSideMenuItem],
+          unfocused: managerSideMenuOptionsArray.filter(this.getInactiveSideMenuItems)
+        }
+
+      });
+
+    }
+
+
   }
 
   componentDidMount() {
@@ -102,31 +128,6 @@ class SideNavBar extends React.Component {
     return (
       <div class='sidenavbar' style={{}}>
 
-        {/* <Nav style={{ borderRadius: '10px', border: '1px solid grey', backgroundColor: '#FFFFFF' }} vertical >
-          <NavItem >
-            <NavLink href="#" onClick = {this.handleDashboard} style={{ borderTopLeftRadius:'10px',borderTopRightRadius:'10px',borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Dashboard
-            </NavLink>
-          </NavItem>
-
-          <NavItem>
-            <NavLink href="#" onClick={this.handleAssignTicketsClick} style={{ borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Assign Tickets
-            </NavLink>
-          </NavItem>
-
-          <NavItem>
-            <NavLink href="#" onClick={this.handleNewTicket} style={{ borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> New Ticket
-            </NavLink>
-          </NavItem>
-
-          <NavItem>
-            <NavLink href="#" onClick={this.handleMyTicketsClick} style={{ borderBottom: '1px solid #bdb7b7', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> My Tickets</NavLink>
-          </NavItem>
-
-          <NavItem>
-            <NavLink href="#" onClick={this.handleClosedTicketsClick} style={{ borderBottomLeftRadius:'10px', borderBottomRightRadius:'10px', marginBottom: '', textDecoration: 'none', color: '#546e7a' }}><FaAngleDoubleRight style={{ color: '#546e7a' }} /> Closed Tickets</NavLink>
-          </NavItem>
-
-        </Nav> */}
         <div class='sidemenu'>
           <ListGroup size='sm'>
             <ListGroupItem style={{
@@ -190,13 +191,18 @@ const mapDispatchToProps = dispatch => {
     },
     showNewTicketForm: () => {
       dispatch(showFormNewTicket());
+    },
+    setActiveSideMenuItem: (activeSideMenuItem) => {
+      dispatch(setManagerActiveSideMenuOption(activeSideMenuItem));
     }
 
   };
 }
 
 const mapStateToProps = function (state) {
-
+  return {
+    activeSideMenuItem: state.activeSideMenuItem.managerView.activeSideMenuOption
+  }
 };
 
 
