@@ -67,6 +67,12 @@ export const TICKETS_PER_PAGE_ENGINEER = 5;
 
 export const PAGINATION_START_PAGE = 1;
 
+export const maxCharLimit = {
+    TICKET_BUNDLE_DESCRIPTION: 150,
+    TICKET_LIST_TITLE: 70,
+    TICKET_BUNDLE_TITLE: 70
+}
+
 
 
 
