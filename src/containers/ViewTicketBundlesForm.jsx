@@ -48,24 +48,6 @@ class ViewTicketsForm extends React.Component {
   }
 
   onPaginationPageChange(pageNumber) {
-    /* if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
-      //Extracting query params from url
-      console.log("Parsing query params from query-string:");
-      console.log(history.location.search);
-      const params = queryString.parse(history.location.search);
-      console.log("Parsed params: ");
-      console.log(params);
-
-      //update pageNumber & pageSize params with new values
-      params.pageNumber = pageNumber;
-
-      //push the url to history
-      history.push({
-        pathname: "/ticketmanage/tickets",
-        search: "?status=" + params.status + "&" + "cioKey=" + params.cioKey + "&" + "pageNumber=" + params.pageNumber
-          + "&" + "pageSize=" + params.pageSize
-      });
-    } */
 
     if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
       const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
@@ -86,30 +68,6 @@ class ViewTicketsForm extends React.Component {
   }
 
   onPaginationItemsPerPageChange(itemsPerPage) {
-    /* if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
-      //Extracting query params from url
-      console.log("Parsing query params from query-string:");
-      console.log(history.location.search);
-      const params = queryString.parse(history.location.search);
-      console.log("Parsed params: ");
-      console.log(params);
-
-      //update pageSize params with new values
-      params.pageSize = itemsPerPage;
-      params.pageNumber = PAGINATION_START_PAGE;
-
-      //update status param if its missing in URL based on cioKey
-      if (!params.status)
-        if (params.cioKey)
-          params.status = componentInfoObj.getInfo(params.cioKey).statusFilterValue
-
-      //push the url to history
-      history.push({
-        pathname: "/ticketmanage/tickets",
-        search: "?status=" + params.status + "&" + "cioKey=" + params.cioKey + "&" + "pageNumber=" + params.pageNumber
-          + "&" + "pageSize=" + params.pageSize
-      });
-    } */
     if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
       const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
 
@@ -130,25 +88,6 @@ class ViewTicketsForm extends React.Component {
 
 
   componentDidMount() {
-    /* if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
-      //Extracting query params from url
-      console.log("Parsing query params from query-string:");
-      console.log(history.location.search);
-      const params = queryString.parse(history.location.search);
-      console.log("Parsed params: ");
-      console.log(params);
-
-      if (params.status) {
-        this.props.fetchTickets({
-          status: params.status,
-          sortBy: TicketsSortBy.TICKET_ID,
-          sortOrder: params.sortOrder,
-          pageNumber: params.pageNumber,
-          pageSize: params.pageSize,
-          createdByMe: componentInfoObj.getInfo(params.cioKey).createdByMe
-        });
-      }
-    } */
 
     if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
       const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
