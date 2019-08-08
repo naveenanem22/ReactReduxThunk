@@ -152,18 +152,13 @@ class ViewTicketsForm extends React.Component {
 
   render() {
     //Initialize suggestions array with names from engineers array
-    console.log("Tickets...");
-    console.log(this.props.tickets);
     var suggestions = [];
     this.props.engineers.forEach(engineer => {
       suggestions.push({ name: engineer.userFullName });
     });
 
-    //Processing ttsKey to fetch Form Title and SubTitle data
-    const params = queryString.parse(history.location.search);
-
-    const title = params.cioKey ? componentInfoObj.getInfo(params.cioKey).title : componentInfoObj.getDefaultInfo().title;
-    const subTitle = params.cioKey ? componentInfoObj.getInfo(params.cioKey).subTitle : componentInfoObj.getDefaultInfo().subTitle;
+    const title = this.props.ticketList.managerTicketSearchCriteria.cioKey ? componentInfoObj.getInfo(this.props.ticketList.managerTicketSearchCriteria.cioKey).title : componentInfoObj.getDefaultInfo().title;
+    const subTitle = this.props.ticketList.managerTicketSearchCriteria.cioKey ? componentInfoObj.getInfo(this.props.ticketList.managerTicketSearchCriteria.cioKey).subTitle : componentInfoObj.getDefaultInfo().subTitle;
 
 
     return (
