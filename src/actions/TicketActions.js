@@ -1,4 +1,4 @@
-import { CREATE_TICKET, CLOSE_TICKET_SUCCESS, CLOSE_TICKET_FAILURE, FETCH_ASSIGNED_TICKET_DETAILS, FETCH_ASSIGNED_TICKET_DETAILS_SUCCESS, FETCH_ASSIGNED_TICKET_DETAILS_FAILURE, CREATE_TICKET_FAILURE, CLOSE_TICKET, ASSIGN_UPDATE_MULTIPLE_TICKET, ASSIGN_UPDATE_MULTIPLE_TICKETS, ASSIGN_UPDATE_MULTIPLE_TICKETS_SUCCESS, ASSIGN_UPDATE_MULTIPLE_TICKETS_FAILURE } from './ActionTypes';
+import { CREATE_TICKET, CLOSE_TICKET_SUCCESS, CLOSE_TICKET_FAILURE, FETCH_ASSIGNED_TICKET_DETAILS, FETCH_ASSIGNED_TICKET_DETAILS_SUCCESS, FETCH_ASSIGNED_TICKET_DETAILS_FAILURE, CREATE_TICKET_FAILURE, CLOSE_TICKET, ASSIGN_UPDATE_MULTIPLE_TICKET, ASSIGN_UPDATE_MULTIPLE_TICKETS, ASSIGN_UPDATE_MULTIPLE_TICKETS_SUCCESS, ASSIGN_UPDATE_MULTIPLE_TICKETS_FAILURE, SET_MANAGER_TICKET_SEARCH_CRITERIA } from './ActionTypes';
 import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS, FETCH_TICKETS, ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET_FAILURE, ASSIGN_UPDATE_TICKET } from './ActionTypes';
 import { FETCH_TICKET_DETAILS, FETCH_TICKET_DETAILS_FAILURE, FETCH_TICKET_DETAILS_SUCCESS } from './ActionTypes';
 import { ADD_MESSAGE, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE } from './ActionTypes';
@@ -240,6 +240,25 @@ export function assignAndUpdateMultipleTicketsSuccess() {
 export function assignAndUpdateMultipleTicketsFailure() {
     return {
         type: ASSIGN_UPDATE_MULTIPLE_TICKETS_FAILURE
+    }
+}
+
+export function setManagerTicketSearchCriteria(params) {
+    return {
+        type: SET_MANAGER_TICKET_SEARCH_CRITERIA,
+        payload: {
+            ticketList: {
+                managerTicketSearchCriteria: {
+                    cioKey: params.cioKey,
+                    status: params.status,
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    isLoad: params.isLoad,
+                    sortBy: params.sortBy,
+                    sortOrder: params.sortOrder
+                }
+            }
+        }
     }
 }
 

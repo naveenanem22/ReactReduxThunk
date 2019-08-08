@@ -95,7 +95,7 @@ class ViewTicketsForm extends React.Component {
   }
 
   componentDidMount() {
-    if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
+    /* if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
       //Extracting query params from url
       console.log("Parsing query params from query-string:");
       console.log(history.location.search);
@@ -111,6 +111,21 @@ class ViewTicketsForm extends React.Component {
           pageNumber: params.pageNumber,
           pageSize: params.pageSize,
           createdByMe: componentInfoObj.getInfo(params.cioKey).createdByMe
+        });
+      }
+    } */
+
+    if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
+      const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
+
+      if (searchCriteria.isLoad) {
+        this.props.fetchTickets({
+          status: searchCriteria.status,
+          sortBy: searchCriteria.sortBy,
+          sortOrder: searchCriteria.sortOrder,
+          pageNumber: searchCriteria.pageNumber,
+          pageSize: searchCriteria.pageSize,
+          createdByMe: componentInfoObj.getInfo(searchCriteria.cioKey).createdByMe
         });
       }
     }

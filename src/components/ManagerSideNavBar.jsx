@@ -3,9 +3,9 @@ import { Nav, NavItem, NavLink, ListGroup, ListGroupItem } from 'reactstrap';
 import { FaUser, FaAngleDoubleRight, FaChartLine, FaTasks } from 'react-icons/fa';
 import history from '../history';
 import { connect } from 'react-redux';
-import { fetchTicketsAPICall, showFormNewTicket } from '../actions/TicketActions'
+import { fetchTicketsAPICall, showFormNewTicket, setManagerTicketSearchCriteria } from '../actions/TicketActions'
 import { fetchDashboardDataAPICall, fetchDashboardDataMultipleAPICall } from '../actions/DashboardActions';
-import { TicketStatus, managerSideMenuOptions } from '../masterdata/ApplicationMasterData';
+import { TicketStatus, managerSideMenuOptions, TICKETS_PER_PAGE_MANAGER, TicketsSortBy, SortOrder } from '../masterdata/ApplicationMasterData';
 import { FaTimesCircle, FaListAlt, FaPlusSquare } from 'react-icons/fa';
 import { PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE } from '../masterdata/ApplicationMasterData';
 import { managerSideMenuOptionsArray, employeeSideMenuOptions } from '../masterdata/ApplicationMasterData';
@@ -68,6 +68,18 @@ class SideNavBar extends React.Component {
       search: '?status=' + TicketStatus.NEW + '&' + 'cioKey=AST' + '&' +
         'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE
     });
+
+    //set managerTicketSearchCriteria
+    this.props.setManagerTicketSearchCriteria({
+      cioKey: 'AST',
+      status: TicketStatus.NEW,
+      pageNumber: PAGINATION_START_PAGE,
+      pageSize: TICKETS_PER_PAGE_MANAGER,
+      sortBy: TicketsSortBy.TICKET_UPDATED_DATE,
+      sortOrder: SortOrder.DESCENDING,
+      isLoad: true
+    });
+
 
     //Set Active Item for Employee-SideMenu
     this.props.setActiveSideMenuItem(managerSideMenuOptions.ASSIGN_TICKETS);
@@ -194,6 +206,9 @@ const mapDispatchToProps = dispatch => {
     },
     setActiveSideMenuItem: (activeSideMenuItem) => {
       dispatch(setManagerActiveSideMenuOption(activeSideMenuItem));
+    },
+    setManagerTicketSearchCriteria: (searchCriteria) => {
+      dispatch(setManagerTicketSearchCriteria(searchCriteria));
     }
 
   };

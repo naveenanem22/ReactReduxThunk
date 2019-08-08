@@ -63,8 +63,8 @@ const store = createStore(MainReducer, {
         isLoadingScreenVisible: false
     },
     activeSideMenuItem: {
-        employeeView: {activeSideMenuOption:''},
-        managerView: {activeSideMenuOption:''},
+        employeeView: { activeSideMenuOption: '' },
+        managerView: { activeSideMenuOption: '' },
         engineerView: {}
     },
     departments: [{ id: '1', name: 'ITS' }, { id: '2', name: 'RMG' }, { id: '3', name: 'HR' }],
@@ -84,8 +84,18 @@ const store = createStore(MainReducer, {
         isCreateTicketFormVisible: false,
         isCreateTicketFailureFormVisible: false,
         isViewTicketsFormVisible: false,
-        isSuccessAlertVisible: false
+        isSuccessAlertVisible: false,
+        managerTicketSearchCriteria: {
+            cioKey: '',
+            status: '',
+            pageNumber: '',
+            pageSize: '',
+            isLoad: false,
+            sortBy:'',
+            sortOrder: ''
+        }
     },
+
     ticketDetails: {
         ticket: {},
         isViewTicketDetailsFormVisible: false,

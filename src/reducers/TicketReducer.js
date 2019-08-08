@@ -1,4 +1,4 @@
-import { CREATE_TICKET, CREATE_TICKET_SUCCESS, CREATE_TICKET_FAILURE, FETCH_TICKETS_SUCCESS, FETCH_TICKETS, FETCH_CREATED_TICKETS_SUCCESS, FETCH_CREATED_TICKETS } from '../actions/ActionTypes';
+import { CREATE_TICKET, CREATE_TICKET_SUCCESS, CREATE_TICKET_FAILURE, FETCH_TICKETS_SUCCESS, FETCH_TICKETS, FETCH_CREATED_TICKETS_SUCCESS, FETCH_CREATED_TICKETS, SET_MANAGER_TICKET_SEARCH_CRITERIA } from '../actions/ActionTypes';
 import { ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET, ASSIGN_UPDATE_TICKET_FAILURE } from '../actions/ActionTypes'
 import { SHOW_FORM_NEW_TICKET } from '../actions/ActionTypes';
 import { FETCH_ASSIGNED_TICKETS, FETCH_ASSIGNED_TICKETS_FAILURE, FETCH_ASSIGNED_TICKETS_SUCCESS } from '../actions/ActionTypes';
@@ -11,8 +11,6 @@ export function ticketReducer(state = {}, action) {
                 ...state, isCreateTicketFormVisible: true, isViewTicketsFormVisible: false,
                 isSuccessAlertVisible: false
             };
-
-
 
         case FETCH_TICKETS_SUCCESS:
             return {
@@ -59,6 +57,19 @@ export function ticketReducer(state = {}, action) {
             return {
                 ...state, isViewTicketsFormVisible: false, isCreateTicketFormVisible: false, isSuccessAlertVisible: false
             };
+        case SET_MANAGER_TICKET_SEARCH_CRITERIA:
+            return {
+                ...state, managerTicketSearchCriteria: {
+                    cioKey: action.payload.ticketList.managerTicketSearchCriteria.cioKey,
+                    status: action.payload.ticketList.managerTicketSearchCriteria.status,
+                    pageNumber: action.payload.ticketList.managerTicketSearchCriteria.pageNumber,
+                    pageSize: action.payload.ticketList.managerTicketSearchCriteria.pageSize,
+                    isLoad: action.payload.ticketList.managerTicketSearchCriteria.isLoad,
+                    sortBy: action.payload.ticketList.managerTicketSearchCriteria.sortBy,
+                    sortOrder: action.payload.ticketList.managerTicketSearchCriteria.sortOrder
+                }
+            };
+
 
         default:
             return state;
