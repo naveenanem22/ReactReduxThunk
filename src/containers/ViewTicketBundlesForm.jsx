@@ -49,26 +49,36 @@ class ViewTicketsForm extends React.Component {
 
   onPaginationPageChange(pageNumber) {
 
-    if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
-      const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
-      this.props.setManagerTicketSearchCriteria({
-        //this is updated with new value
-        pageNumber: pageNumber,
+      if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
+        history.push({
+          pathname: '/ticketmanage/tickets'
+        });
 
-        //the following retains the same values
-        cioKey: searchCriteria.cioKey,
-        status: searchCriteria.status,
-        pageSize: searchCriteria.pageSize,
-        sortBy: searchCriteria.sortBy,
-        sortOrder: searchCriteria.sortOrder,
-        isLoad: true
-      })
-    }
+        const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
+        this.props.setManagerTicketSearchCriteria({
+          //this is updated with new value
+          pageNumber: pageNumber,
+
+          //the following retains the same values
+          cioKey: searchCriteria.cioKey,
+          status: searchCriteria.status,
+          pageSize: searchCriteria.pageSize,
+          sortBy: searchCriteria.sortBy,
+          sortOrder: searchCriteria.sortOrder,
+          isLoad: true
+        })
+      }
 
   }
 
   onPaginationItemsPerPageChange(itemsPerPage) {
+
     if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
+
+      history.push({
+        pathname: '/ticketmanage/tickets'
+      });
+
       const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
 
       this.props.setManagerTicketSearchCriteria({
@@ -149,7 +159,7 @@ class ViewTicketsForm extends React.Component {
         });
       }
     }
-    
+
   }
 
   render() {
