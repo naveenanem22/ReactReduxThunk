@@ -136,7 +136,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
     console.log(params);
 
     //Show SelectTicketMessage if search-string contains the key: status
-    if (params.status) {
+    if (!params.ticketId) {
       this.setState({
         showSelectTicketMsg: true
       })
