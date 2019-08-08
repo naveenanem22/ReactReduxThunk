@@ -29,6 +29,7 @@ class ViewTicketsForm extends React.Component {
     this.handleTicketBundleClick = this.handleTicketBundleClick.bind(this);
     this.handleListViewClick = this.handleListViewClick.bind(this);
     this.onPaginationPageChange = this.onPaginationPageChange.bind(this);
+    this.onPaginationItemsPerPageChange = this.onPaginationItemsPerPageChange.bind(this);
 
   }
 
@@ -65,8 +66,9 @@ class ViewTicketsForm extends React.Component {
           + "&" + "pageSize=" + params.pageSize
       });
     } */
-    const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
+
     if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
+      const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
       this.props.setManagerTicketSearchCriteria({
         //this is updated with new value
         pageNumber: pageNumber,
@@ -84,7 +86,7 @@ class ViewTicketsForm extends React.Component {
   }
 
   onPaginationItemsPerPageChange(itemsPerPage) {
-    if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
+    /* if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
       //Extracting query params from url
       console.log("Parsing query params from query-string:");
       console.log(history.location.search);
@@ -107,9 +109,25 @@ class ViewTicketsForm extends React.Component {
         search: "?status=" + params.status + "&" + "cioKey=" + params.cioKey + "&" + "pageNumber=" + params.pageNumber
           + "&" + "pageSize=" + params.pageSize
       });
-    }
+    } */
+    if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
+      const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
 
+      this.props.setManagerTicketSearchCriteria({
+        //this is updated with new value
+        pageSize: itemsPerPage,
+        pageNumber: PAGINATION_START_PAGE,
+
+        //the following retains the same values
+        cioKey: searchCriteria.cioKey,
+        status: searchCriteria.status,
+        sortBy: searchCriteria.sortBy,
+        sortOrder: searchCriteria.sortOrder,
+        isLoad: true
+      });
+    }
   }
+
 
   componentDidMount() {
     /* if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
