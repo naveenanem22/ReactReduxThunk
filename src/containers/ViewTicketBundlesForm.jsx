@@ -106,16 +106,6 @@ class ViewTicketsForm extends React.Component {
         });
       }
 
-      //reset isLoad to false post service call
-      /* this.props.setManagerTicketSearchCriteria({
-        cioKey: searchCriteria.cioKey,
-        pageSize: searchCriteria.pageSize,
-        pageNumber: searchCriteria.pageNumber,
-        status: searchCriteria.status,
-        sortBy: searchCriteria.sortBy,
-        sortOrder: searchCriteria.sortOrder,
-        isLoad: false //resetting to false post service call
-      }); */
     }
 
   }
