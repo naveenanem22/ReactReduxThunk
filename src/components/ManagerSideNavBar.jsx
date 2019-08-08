@@ -50,11 +50,19 @@ class SideNavBar extends React.Component {
   }
 
   handleClosedTicketsClick() {
-    // history.push("/ticketmanage/tickets?status="+TicketStatus.CLOSE);
     history.push({
-      pathname: "/ticketmanage/tickets",
-      search: '?status=' + TicketStatus.CLOSE + '&' + 'cioKey=CLT' + '&' +
-        'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE
+      pathname: "/ticketmanage/tickets"
+    });
+
+    //set managerTicketSearchCriteria
+    this.props.setManagerTicketSearchCriteria({
+      cioKey: 'CLT',
+      status: TicketStatus.CLOSE,
+      pageNumber: PAGINATION_START_PAGE,
+      pageSize: TICKETS_PER_PAGE_MANAGER,
+      sortBy: TicketsSortBy.TICKET_UPDATED_DATE,
+      sortOrder: SortOrder.DESCENDING,
+      isLoad: true
     });
 
     //Set Active Item for Employee-SideMenu
@@ -62,11 +70,8 @@ class SideNavBar extends React.Component {
   }
 
   handleAssignTicketsClick() {
-    //history.push("/ticketmanage/tickets?status="+TicketStatus.NEW);
     history.push({
-      pathname: "/ticketmanage/tickets",
-      search: '?status=' + TicketStatus.NEW + '&' + 'cioKey=AST' + '&' +
-        'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE
+      pathname: "/ticketmanage/tickets"
     });
 
     //set managerTicketSearchCriteria
@@ -80,7 +85,6 @@ class SideNavBar extends React.Component {
       isLoad: true
     });
 
-
     //Set Active Item for Employee-SideMenu
     this.props.setActiveSideMenuItem(managerSideMenuOptions.ASSIGN_TICKETS);
 
@@ -88,9 +92,18 @@ class SideNavBar extends React.Component {
 
   handleAllTicketsClick() {
     history.push({
-      pathname: "/ticketmanage/tickets",
-      search: '?status=' + TicketStatus.ALL + '&' + 'cioKey=ALT' + '&' +
-        'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE
+      pathname: "/ticketmanage/tickets"
+    });
+
+    //set managerTicketSearchCriteria
+    this.props.setManagerTicketSearchCriteria({
+      cioKey: 'ALT',
+      status: TicketStatus.ALL,
+      pageNumber: PAGINATION_START_PAGE,
+      pageSize: TICKETS_PER_PAGE_MANAGER,
+      sortBy: TicketsSortBy.TICKET_UPDATED_DATE,
+      sortOrder: SortOrder.DESCENDING,
+      isLoad: true
     });
 
     //Set Active Item for Employee-SideMenu
