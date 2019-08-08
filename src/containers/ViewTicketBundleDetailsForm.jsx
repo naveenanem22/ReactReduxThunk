@@ -136,11 +136,12 @@ class ViewTicketBundleDetailsForm extends React.Component {
     console.log(params);
 
     //Show SelectTicketMessage if search-string contains the key: status
-    if (!params.ticketId) {
-      this.setState({
-        showSelectTicketMsg: true
-      })
-    }
+    if (localStorage.getItem('role') === Role.ROLE_MANAGER)
+      if (!params.ticketId) {
+        this.setState({
+          showSelectTicketMsg: true
+        });
+      }
 
     //Make fetchTicketDetailsAPICall if the search-string contains key: ticketId
     if (localStorage.getItem('role') === Role.ROLE_MANAGER && params.ticketId) {
