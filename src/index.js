@@ -93,7 +93,9 @@ const store = createStore(MainReducer, {
             isLoad: false,
             sortBy:'',
             sortOrder: ''
-        }
+        },
+        loadManagerTickets: false
+
     },
 
     ticketDetails: {

@@ -20,7 +20,8 @@ export function ticketReducer(state = {}, action) {
                 size: action.payload.ticketList.size,
                 number: action.payload.ticketList.number,
                 numberOfElements: action.payload.ticketList.numberOfElements,
-                isViewTicketsFormVisible: true
+                isViewTicketsFormVisible: true,
+                loadManagerTickets : false
             };
         case FETCH_TICKETS:
             return {
@@ -67,7 +68,7 @@ export function ticketReducer(state = {}, action) {
                     isLoad: action.payload.ticketList.managerTicketSearchCriteria.isLoad,
                     sortBy: action.payload.ticketList.managerTicketSearchCriteria.sortBy,
                     sortOrder: action.payload.ticketList.managerTicketSearchCriteria.sortOrder
-                }
+                }, loadManagerTickets: action.payload.ticketList.loadManagerTickets
             };
 
 

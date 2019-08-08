@@ -89,10 +89,13 @@ class ViewTicketsForm extends React.Component {
 
   componentDidMount() {
 
+    console.log("Inside componentdidmount of viewticketbundleform");
+
     if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
       const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
 
-      if (searchCriteria.isLoad) {
+      //make service call if isLoad of search criteria is true
+      if (this.props.ticketList.loadManagerTickets) {
         this.props.fetchTickets({
           status: searchCriteria.status,
           sortBy: searchCriteria.sortBy,
@@ -102,6 +105,17 @@ class ViewTicketsForm extends React.Component {
           createdByMe: componentInfoObj.getInfo(searchCriteria.cioKey).createdByMe
         });
       }
+
+      //reset isLoad to false post service call
+      /* this.props.setManagerTicketSearchCriteria({
+        cioKey: searchCriteria.cioKey,
+        pageSize: searchCriteria.pageSize,
+        pageNumber: searchCriteria.pageNumber,
+        status: searchCriteria.status,
+        sortBy: searchCriteria.sortBy,
+        sortOrder: searchCriteria.sortOrder,
+        isLoad: false //resetting to false post service call
+      }); */
     }
 
   }
@@ -124,11 +138,17 @@ class ViewTicketsForm extends React.Component {
     }
 
     //Reload the tickets on searchCriteria changes
-    if (prevProps.ticketList.managerTicketSearchCriteria !== this.props.ticketList.managerTicketSearchCriteria) {
+    const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
+    if (prevProps.ticketList.managerTicketSearchCriteria.cioKey !== this.props.ticketList.managerTicketSearchCriteria.cioKey
+      || prevProps.ticketList.managerTicketSearchCriteria.status !== this.props.ticketList.managerTicketSearchCriteria.status
+      || prevProps.ticketList.managerTicketSearchCriteria.pageNumber !== this.props.ticketList.managerTicketSearchCriteria.pageNumber
+      || prevProps.ticketList.managerTicketSearchCriteria.pageSize !== this.props.ticketList.managerTicketSearchCriteria.pageSize
+      || prevProps.ticketList.managerTicketSearchCriteria.isLoad !== this.props.ticketList.managerTicketSearchCriteria.isLoad
+      || prevProps.ticketList.managerTicketSearchCriteria.sortBy !== this.props.ticketList.managerTicketSearchCriteria.sortBy
+      || prevProps.ticketList.managerTicketSearchCriteria.sortOrder !== this.props.ticketList.managerTicketSearchCriteria.sortOrder
+    ) {
       console.log("Manager Search criteria changed...reload the tickets");
-      const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
-
-      if (searchCriteria.isLoad) {
+      if (this.props.ticketList.loadManagerTickets) {
         this.props.fetchTickets({
           status: searchCriteria.status,
           sortBy: searchCriteria.sortBy,
@@ -139,6 +159,7 @@ class ViewTicketsForm extends React.Component {
         });
       }
     }
+    
   }
 
   render() {

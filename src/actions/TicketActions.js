@@ -256,7 +256,8 @@ export function setManagerTicketSearchCriteria(params) {
                     isLoad: params.isLoad,
                     sortBy: params.sortBy,
                     sortOrder: params.sortOrder
-                }
+                },
+                loadManagerTickets:params.isLoad
             }
         }
     }
