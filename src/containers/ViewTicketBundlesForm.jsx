@@ -13,6 +13,8 @@ import { ScaleLoader } from 'react-spinners';
 import { Role, TicketStatus, TicketsSortBy } from '../masterdata/ApplicationMasterData';
 import { componentInfoObj, PAGINATION_START_PAGE } from '../masterdata/ApplicationMasterData';
 import CustomPagination from '../components/CustomPagination';
+import { setManagerTicketSearchCriteria } from '../actions/TicketActions';
+import { setManagerActiveSideMenuOption } from '../actions/ActiveSideMenuActions';
 
 
 
@@ -45,7 +47,7 @@ class ViewTicketsForm extends React.Component {
   }
 
   onPaginationPageChange(pageNumber) {
-    if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
+    /* if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
       //Extracting query params from url
       console.log("Parsing query params from query-string:");
       console.log(history.location.search);
@@ -62,6 +64,21 @@ class ViewTicketsForm extends React.Component {
         search: "?status=" + params.status + "&" + "cioKey=" + params.cioKey + "&" + "pageNumber=" + params.pageNumber
           + "&" + "pageSize=" + params.pageSize
       });
+    } */
+    const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
+    if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
+      this.props.setManagerTicketSearchCriteria({
+        //this is updated with new value
+        pageNumber: pageNumber,
+
+        //the following retains the same values
+        cioKey: searchCriteria.cioKey,
+        status: searchCriteria.status,
+        pageSize: searchCriteria.pageSize,
+        sortBy: searchCriteria.sortBy,
+        sortOrder: searchCriteria.sortOrder,
+        isLoad: true
+      })
     }
 
   }
@@ -148,6 +165,23 @@ class ViewTicketsForm extends React.Component {
         });
       }
     }
+
+    //Reload the tickets on searchCriteria changes
+    if (prevProps.ticketList.managerTicketSearchCriteria !== this.props.ticketList.managerTicketSearchCriteria) {
+      console.log("Manager Search criteria changed...reload the tickets");
+      const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
+
+      if (searchCriteria.isLoad) {
+        this.props.fetchTickets({
+          status: searchCriteria.status,
+          sortBy: searchCriteria.sortBy,
+          sortOrder: searchCriteria.sortOrder,
+          pageNumber: searchCriteria.pageNumber,
+          pageSize: searchCriteria.pageSize,
+          createdByMe: componentInfoObj.getInfo(searchCriteria.cioKey).createdByMe
+        });
+      }
+    }
   }
 
   render() {
@@ -212,7 +246,7 @@ class ViewTicketsForm extends React.Component {
                 <Col sm='12'>
                   <div style={{
                     cursor: 'pointer'
-                  }}onClick={() => this.props.handleTicketBundleClick(ticket.id)}>
+                  }} onClick={() => this.props.handleTicketBundleClick(ticket.id)}>
                     <TicketDetailCard ticket={ticket}></TicketDetailCard></div>
                 </Col>
               </Row>
@@ -239,9 +273,30 @@ const mapStateToProps = function (state) {
   }
 }
 
-const mapActionsToProps = {
-  fetchTickets: fetchTicketsAPICall,
+/* const mapActionsToProps = {
   fetchAssignedTickets: fetchAssignedTicketsAPICall
+} */
+
+const mapActionsToProps = dispatch => {
+
+  return {
+    fetchTickets: (params) => {
+      dispatch(fetchTicketsAPICall(params));
+    },
+
+    fetchAssignedTickets: (params) => {
+      dispatch(fetchAssignedTicketsAPICall(params));
+    },
+
+    setActiveSideMenuItem: (activeSideMenuItem) => {
+      dispatch(setManagerActiveSideMenuOption(activeSideMenuItem));
+    },
+
+    setManagerTicketSearchCriteria: (searchCriteria) => {
+      dispatch(setManagerTicketSearchCriteria(searchCriteria));
+    }
+
+  };
 }
 
 
