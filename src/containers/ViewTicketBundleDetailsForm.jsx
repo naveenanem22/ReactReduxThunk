@@ -288,7 +288,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
               </div>
             }
             {localStorage.getItem('role') === Role.ROLE_MANAGER &&
-              (getURLParams().cioKey === 'AST') &&
+              (this.props.managerCioKey === 'AST') &&
 
               <div>
                 {this.state.isAssignButtonSectionVisible &&
@@ -320,7 +320,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
                   </div>}
                 {this.state.isAssignButtonSectionVisible &&
                   (localStorage.getItem('role') === Role.ROLE_MANAGER) &&
-                  (getURLParams().cioKey === 'AST') &&
+                  (this.props.managerCioKey === 'AST') &&
 
                   <Row style={{ marginTop: '2%' }}>
                     <Col sm='12'
@@ -395,6 +395,7 @@ const mapStateToProps = function (state) {
   return {
     ticket: state.ticketDetails.ticket,
     engineers: state.engineerList.engineers,
+    managerCioKey: state.ticketList.managerTicketSearchCriteria.cioKey,
     fetchTicketDetailsAPICallStatus: state.serviceCallStatus.fetchTicketDetailsAPI,
     fetchAssignedTicketDetailsAPICallStatus: state.serviceCallStatus.fetchAssignedTicketDetailsAPI,
     fetchEngineersAPICallStatus: state.serviceCallStatus.fetchEngineersAPI,

@@ -49,25 +49,25 @@ class ViewTicketsForm extends React.Component {
 
   onPaginationPageChange(pageNumber) {
 
-      if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
-        history.push({
-          pathname: '/ticketmanage/tickets'
-        });
+    if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
+      history.push({
+        pathname: '/ticketmanage/tickets'
+      });
 
-        const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
-        this.props.setManagerTicketSearchCriteria({
-          //this is updated with new value
-          pageNumber: pageNumber,
+      const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
+      this.props.setManagerTicketSearchCriteria({
+        //this is updated with new value
+        pageNumber: pageNumber,
 
-          //the following retains the same values
-          cioKey: searchCriteria.cioKey,
-          status: searchCriteria.status,
-          pageSize: searchCriteria.pageSize,
-          sortBy: searchCriteria.sortBy,
-          sortOrder: searchCriteria.sortOrder,
-          isLoad: true
-        })
-      }
+        //the following retains the same values
+        cioKey: searchCriteria.cioKey,
+        status: searchCriteria.status,
+        pageSize: searchCriteria.pageSize,
+        sortBy: searchCriteria.sortBy,
+        sortOrder: searchCriteria.sortOrder,
+        isLoad: true
+      })
+    }
 
   }
 
@@ -122,23 +122,26 @@ class ViewTicketsForm extends React.Component {
 
   componentDidUpdate(prevProps) {
     console.log("From inside of componentdidupdate");
+    const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
 
     if (this.props.assignAndUpdateTicketAPICallStatus.success !==
       prevProps.assignAndUpdateTicketAPICallStatus.success) {
-
-
       console.log("Ticket assigned successfully. Reload the Tickets to be assigned.");
       //Fetching tickets post ticket update
       if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
         this.props.fetchTickets({
-          status: TicketStatus.NEW,
-          sortBy: 'ticketId'
+          status: searchCriteria.status,
+          sortBy: searchCriteria.sortBy,
+          sortOrder: searchCriteria.sortOrder,
+          pageNumber: searchCriteria.pageNumber,
+          pageSize: searchCriteria.pageSize,
+          createdByMe: componentInfoObj.getInfo(searchCriteria.cioKey).createdByMe
         });
       }
     }
 
     //Reload the tickets on searchCriteria changes
-    const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
+
     if (prevProps.ticketList.managerTicketSearchCriteria.cioKey !== this.props.ticketList.managerTicketSearchCriteria.cioKey
       || prevProps.ticketList.managerTicketSearchCriteria.status !== this.props.ticketList.managerTicketSearchCriteria.status
       || prevProps.ticketList.managerTicketSearchCriteria.pageNumber !== this.props.ticketList.managerTicketSearchCriteria.pageNumber
