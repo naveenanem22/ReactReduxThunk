@@ -4,10 +4,11 @@ import { loginAPICall } from '../actions/UserActions'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { fetchTicketsAPICall } from '../actions/TicketActions'
-import { Role, employeeSideMenuOptions } from '../masterdata/ApplicationMasterData';
+import { Role, employeeSideMenuOptions, managerSideMenuOptions } from '../masterdata/ApplicationMasterData';
 import history from '../history';
 import { HalfCircleSpinner } from 'react-epic-spinners';
-import { setEmployeeActiveSideMenuOption } from '../actions/ActiveSideMenuActions';
+import { setEmployeeActiveSideMenuOption, setManagerActiveSideMenuOption } from '../actions/ActiveSideMenuActions';
+
 
 class LoginForm extends React.Component {
 
@@ -44,7 +45,7 @@ class LoginForm extends React.Component {
           search: "?cioKey=ENDB"
         });
         //Unfocus all the side-menu options for Employee view
-        this.props.setActiveSideMenuItem('');
+        this.props.setEmployeeActiveSideMenuItem('');
         break;
 
       case Role.ROLE_EMPLOYEE:
@@ -58,6 +59,9 @@ class LoginForm extends React.Component {
           pathname: "/ticketmanage/dashboard",
           search: "?cioKey=MDB"
         });
+
+        //Set Active Item for Manager-SideMenu
+        this.props.setManagerActiveSideMenuItem(managerSideMenuOptions.DASHBOARD);
         break;
 
       default:
@@ -150,8 +154,11 @@ const mapActionsToProps = dispatch => {
     fetchTickets: (params) => {
       dispatch(fetchTicketsAPICall(params));
     },
-    setActiveSideMenuItem: (activeSideMenuItem) => {
+    setEmployeeActiveSideMenuItem: (activeSideMenuItem) => {
       dispatch(setEmployeeActiveSideMenuOption(activeSideMenuItem));
+    },
+    setManagerActiveSideMenuItem: (activeSideMenuItem) => {
+      dispatch(setManagerActiveSideMenuOption(activeSideMenuItem));
     }
 
 
@@ -166,5 +173,6 @@ const mapStateToProps = function (state) {
     loginAPICallStatus: state.serviceCallStatus.loginAPI
   }
 }
+
 
 export default connect(mapStateToProps, mapActionsToProps)(LoginForm);

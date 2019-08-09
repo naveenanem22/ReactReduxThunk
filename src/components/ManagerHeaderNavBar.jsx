@@ -18,6 +18,8 @@ import history from '../history';
 import { Link } from "react-router-dom";
 import { fetchTicketsAPICall } from '../actions/TicketActions';
 import { TicketStatus, TICKETS_PER_PAGE_MANAGER, SortOrder, PAGINATION_START_PAGE, TicketsSortBy } from '../masterdata/ApplicationMasterData';
+import {setManagerActiveSideMenuOption} from '../actions/ActiveSideMenuActions';
+import {managerSideMenuOptions} from '../masterdata/ApplicationMasterData';
 
 
 class HeaderNavBar extends React.Component {
@@ -45,6 +47,9 @@ class HeaderNavBar extends React.Component {
 
   onClickFAQs() {
     history.push('/ticketmanage/faqs');
+
+    //Set Active Item for Employee-SideMenu
+    this.props.setActiveSideMenuItem('');
   }
 
   onClickMyTickets() {
@@ -64,6 +69,9 @@ class HeaderNavBar extends React.Component {
       search: '?cioKey=ENDB'
     });
 
+    //Set Active Item for Employee-SideMenu
+    this.props.setActiveSideMenuItem('');
+
   }
 
   onClickLogout() {
@@ -76,10 +84,16 @@ class HeaderNavBar extends React.Component {
       pathname: "/ticketmanage/dashboard",
       search: "?cioKey=MDB"
     });
+
+    //Set Active Item for Employee-SideMenu
+    this.props.setActiveSideMenuItem(managerSideMenuOptions.DASHBOARD);
   }
 
   onClickTicketWorkflow() {
     history.push('/ticketmanage/workflow');
+
+    //Set Active Item for Employee-SideMenu
+    this.props.setActiveSideMenuItem('');
   }
 
   render() {
@@ -127,9 +141,24 @@ class HeaderNavBar extends React.Component {
 }
 
 
-const mapActionsToProps = {
-  onLogout: logout,
-  fetchTickets: fetchTicketsAPICall
+
+
+const mapActionsToProps = dispatch => {
+
+  return {
+    fetchTickets: (params) => {
+      dispatch(fetchTicketsAPICall(params));
+    },
+
+    onLogout: (params) => {
+      dispatch(logout(params));
+    },
+    
+    setActiveSideMenuItem: (activeSideMenuItem) => {
+      dispatch(setManagerActiveSideMenuOption(activeSideMenuItem));
+    }    
+
+  };
 }
 
 const mapStateToProps = function (state) {
