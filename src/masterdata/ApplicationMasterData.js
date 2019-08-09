@@ -2,9 +2,14 @@ export const Priority = {
     HIGH: 'High', MEDIUM: 'Medium', LOW: 'Low'
 }
 
+
+
 export const PriorityCode = {
     HIGH: 1, MEDIUM: 2, LOW: 3
 }
+
+export const PriorityArrary = [{name:Priority.HIGH, code:PriorityCode.HIGH},
+    {name:Priority.LOW, code: PriorityCode.LOW},{name:Priority.MEDIUM} ];
 
 
 export const TicketType = {

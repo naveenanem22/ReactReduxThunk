@@ -8,7 +8,7 @@ import { FaFilePdf, FaFileAlt, FaFileImage, FaFile } from 'react-icons/fa';
 import history from '../history';
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
-import { Role, TicketStatus } from '../masterdata/ApplicationMasterData';
+import { Role, TicketStatus, Priority, PriorityArrary } from '../masterdata/ApplicationMasterData';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import 'react-bootstrap-typeahead/css/Typeahead-bs4.css';
@@ -34,7 +34,8 @@ class ViewTicketBundleDetailsForm extends React.Component {
       assignedTo: '',
       showSelectTicketMsg: this.props.showSelectTicketMsg,
       isAlertSectionVisible: false,
-      isAssignButtonSectionVisible: true
+      isAssignButtonSectionVisible: true,
+      priority: ''
 
     };
 
@@ -46,6 +47,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
     this.toggleUpload = this.toggleUpload.bind(this);
     this.onAssigneeSelection = this.onAssigneeSelection.bind(this);
     this.onSubmitAssignTicket = this.onSubmitAssignTicket.bind(this);
+    this.onPrioritySelection = this.onPrioritySelection.bind(this);
   }
 
   toggleUpload() {
@@ -60,6 +62,14 @@ class ViewTicketBundleDetailsForm extends React.Component {
       this.setState({
         assignedTo: selectedEngineer[0].userName
       });
+  }
+
+  onPrioritySelection(selectedPriority) {
+    //selectedPriority is returned as an array rather than an object
+    if (selectedPriority.length > 0)
+      this.setState({
+        priority: selectedPriority[0].name
+      })
   }
 
 
@@ -211,7 +221,31 @@ class ViewTicketBundleDetailsForm extends React.Component {
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Status :</Col><Col style={{ textAlign: 'left' }}><Badge color={getTicketStatusColorCode(this.props.ticket.status)}>{this.props.ticket.status.toUpperCase()}</Badge></Col>
             </Row>
             <Row>
-              <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Priority :</Col><Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.priority}</Col>
+              <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Priority :</Col>
+              <Col><Row style={{ marginTop: '2%' }}>
+                <Col size='auto' style={{ textAlign: 'center' }}>
+                  <Fragment>
+                    <Typeahead
+                      disabled={this.props.assignAndUpdateTicketAPICallStatus.requested}
+                      onChange={(selectedOption) => this.onPrioritySelection(selectedOption)}
+                      bsSize='sm'
+                      labelKey={option => `${option.name}`}
+                      dropup={true}
+                      /*  optionsBackup={[{ name: Priority.HIGH},{ name: Priority.MEDIUM},{ name: Priority.LOW}]} */
+                      options={PriorityArrary.map(priorityItem => {
+                        return {
+                          name: priorityItem.name,
+                          code: priorityItem.code
+                        }
+                      })}
+                      placeholder={this.props.ticket.priority}
+                    />
+                  </Fragment>
+                </Col>
+
+              </Row>
+              </Col>
+              {/* <Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.priority}</Col> */}
             </Row>
             <Row>
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Open since :</Col><Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}><Badge style={{ width: '20%', height: '90%' }} color="secondary">24</Badge> Days</Col>
