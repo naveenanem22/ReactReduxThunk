@@ -6,26 +6,28 @@ class SuccessToast extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: true
+      show: true
     };
 
-    this.onDismiss = this.onDismiss.bind(this);
+    this.toggle = this.toggle.bind(this);
   }
 
-  onDismiss() {
-    this.setState({ visible: false });
+  toggle() {
+    this.setState({
+      show: !this.state.show
+    });
   }
 
   render() {
     return (
-      <Toast>
-        <ToastHeader icon={<Spinner size="sm" />}>
-          Reactstrap
-        </ToastHeader>
-        <ToastBody>
-          This is a toast with a custom icon — check it out!
-        </ToastBody>
-      </Toast>
+      <div>
+        <Toast isOpen={this.state.show}>
+          <ToastHeader toggle={this.toggle}>Toast title</ToastHeader>
+          <ToastBody>
+            This is a toast with a custom icon — check it out!
+          </ToastBody>
+        </Toast>
+      </div>
     );
   }
 }

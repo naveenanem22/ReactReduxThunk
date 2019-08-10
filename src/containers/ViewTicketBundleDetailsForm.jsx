@@ -264,7 +264,6 @@ class ViewTicketBundleDetailsForm extends React.Component {
               <div>
                 {this.state.isAssignButtonSectionVisible &&
                   <div>
-                    <SuccessToast></SuccessToast>
                     <Row style={{ marginTop: '5%' }}>
                       <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Assigned To:</Col>
                     </Row>
