@@ -33,8 +33,9 @@ class ViewTicketBundleDetailsForm extends React.Component {
       commentedOn: '',
       isUpload: false,
       assignedTo: '',
-      showSelectTicketMsg: this.props.showSelectTicketMsg,
+      isSelectTicketMsgVisibleInit: true,
       isAlertSectionVisibleInit: false,
+      isTicketDetailsSectionVisibleInit: false,
       priority: ''
 
     };
@@ -119,6 +120,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
     this.setState((prevState, props) => ({
       status: TicketStatus.OPEN,
       isAlertSectionVisibleInit: true,
+      isTicketDetailsSectionVisibleInit: false
     }), () => {
       this.props.assignTicket(this.props.ticket.id, {
         status: this.state.status,
@@ -146,9 +148,10 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
     //Show SelectTicketMessage if search-string contains the key: status
     if (localStorage.getItem('role') === Role.ROLE_MANAGER)
-      if (!params.ticketId) {
+      if (params.ticketId) {
         this.setState({
-          showSelectTicketMsg: true
+          isSelectTicketMsgVisibleInit: false,
+          isTicketDetailsSectionVisibleInit: true
         });
       }
 
@@ -197,9 +200,11 @@ class ViewTicketBundleDetailsForm extends React.Component {
             />
           </div>
         }
-        {(this.props.fetchTicketDetailsAPICallStatus.success
+        {this.state.isTicketDetailsSectionVisibleInit
+        &&
+        (this.props.fetchTicketDetailsAPICallStatus.success
           || this.props.fetchAssignedTicketDetailsAPICallStatus.success
-        ) && !this.state.showSelectTicketMsg && this.props.ticket.id && <div style={{ overflowY: 'auto', overflowX: 'hidden', height: '84.5vh', border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '10px', paddingLeft: '10px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+        ) && <div style={{ overflowY: 'auto', overflowX: 'hidden', height: '84.5vh', border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '10px', paddingLeft: '10px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
             <Row>
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Ticket Number:</Col>
             </Row>
@@ -405,7 +410,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
           </div>}
 
         {/* Show SelectTicket section when no ticket is selected */}
-        {this.state.showSelectTicketMsg && <BlankForm></BlankForm>}
+        {this.state.isSelectTicketMsgVisibleInit && <BlankForm></BlankForm>}
 
 
         {/* Show succcess or failure alert */}
