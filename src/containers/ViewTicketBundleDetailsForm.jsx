@@ -34,8 +34,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
       isUpload: false,
       assignedTo: '',
       showSelectTicketMsg: this.props.showSelectTicketMsg,
-      isAlertSectionVisible: false,
-      isAssignButtonSectionVisible: true,
+      isAlertSectionVisibleInit: false,
       priority: ''
 
     };
@@ -119,8 +118,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
     e.preventDefault();
     this.setState((prevState, props) => ({
       status: TicketStatus.OPEN,
-      //isAlertSectionVisible: true,
-      isAssignButtonSectionVisible: false
+      isAlertSectionVisibleInit: true,
     }), () => {
       this.props.assignTicket(this.props.ticket.id, {
         status: this.state.status,
@@ -182,7 +180,11 @@ class ViewTicketBundleDetailsForm extends React.Component {
     console.log("Inside viewticktbundledetailsform");
     console.log(this.props);
     console.log(this.state);
-    const showAssignSection = !this.props.assignAndUpdateTicketAPICallStatus.requested;
+    const isAssignButtonSectionVisible = !this.props.assignAndUpdateTicketAPICallStatus.requested;
+    const isAlertSectionVisible = (this.props.assignAndUpdateTicketAPICallStatus.success ||
+      this.props.assignAndUpdateTicketAPICallStatus.error)
+
+
     return (
       <div>
         {(this.props.fetchTicketDetailsAPICallStatus.requested
@@ -263,7 +265,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
               (this.props.managerCioKey === 'AST') &&
 
               <div>
-                {showAssignSection &&
+                {isAssignButtonSectionVisible &&
                   <div>
                     <Row style={{ marginTop: '5%' }}>
                       <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Assigned To:</Col>
@@ -288,7 +290,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
                     </Row>
                   </div>}
-                {showAssignSection &&
+                {isAssignButtonSectionVisible &&
                   (localStorage.getItem('role') === Role.ROLE_MANAGER) &&
                   (this.props.managerCioKey === 'AST') &&
 
@@ -304,7 +306,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
                         }} size="sm" outline color="success">Assign</Button>
                     </Col>
                   </Row>}
-                {!showAssignSection
+                {!isAssignButtonSectionVisible
                   && <Row style={{ marginTop: '2%' }}>
                     <Col sm='8'
                       style={{ textAlign: 'right' }}>
@@ -403,13 +405,13 @@ class ViewTicketBundleDetailsForm extends React.Component {
           </div>}
 
         {/* Show SelectTicket section when no ticket is selected */}
-        {this.state.showSelectTicketMsg && !this.state.isAlertSectionVisible && <BlankForm></BlankForm>}
-        
-        
+        {this.state.showSelectTicketMsg && <BlankForm></BlankForm>}
+
+
         {/* Show succcess or failure alert */}
-        {this.state.isAlertSectionVisible
-          &&
-          this.props.assignAndUpdateTicketAPICallStatus.success
+        {this.state.isAlertSectionVisibleInit
+          && isAlertSectionVisible
+          && this.props.assignAndUpdateTicketAPICallStatus.success
           && <Row style={{ marginTop: '2%' }}>
             <Col
               style={{ textAlign: 'center' }}>
@@ -417,9 +419,9 @@ class ViewTicketBundleDetailsForm extends React.Component {
               </SuccessAlertWithTick>
             </Col>
           </Row>}
-        {this.state.isAlertSectionVisible
-          &&
-          this.props.assignAndUpdateTicketAPICallStatus.error
+        {this.state.isAlertSectionVisibleInit
+          && isAlertSectionVisible
+          && this.props.assignAndUpdateTicketAPICallStatus.error
           && <Row style={{ marginTop: '2%' }}>
             <Col
               style={{ textAlign: 'center' }}>
