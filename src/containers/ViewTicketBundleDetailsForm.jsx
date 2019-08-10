@@ -119,7 +119,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
     e.preventDefault();
     this.setState((prevState, props) => ({
       status: TicketStatus.OPEN,
-      isAlertSectionVisible: true,
+      //isAlertSectionVisible: true,
       isAssignButtonSectionVisible: false
     }), () => {
       this.props.assignTicket(this.props.ticket.id, {
@@ -182,6 +182,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
     console.log("Inside viewticktbundledetailsform");
     console.log(this.props);
     console.log(this.state);
+    const showAssignSection = !this.props.assignAndUpdateTicketAPICallStatus.requested;
     return (
       <div>
         {(this.props.fetchTicketDetailsAPICallStatus.requested
@@ -262,7 +263,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
               (this.props.managerCioKey === 'AST') &&
 
               <div>
-                {this.state.isAssignButtonSectionVisible &&
+                {showAssignSection &&
                   <div>
                     <Row style={{ marginTop: '5%' }}>
                       <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Assigned To:</Col>
@@ -287,7 +288,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
                     </Row>
                   </div>}
-                {this.state.isAssignButtonSectionVisible &&
+                {showAssignSection &&
                   (localStorage.getItem('role') === Role.ROLE_MANAGER) &&
                   (this.props.managerCioKey === 'AST') &&
 
@@ -303,7 +304,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
                         }} size="sm" outline color="success">Assign</Button>
                     </Col>
                   </Row>}
-                {this.props.assignAndUpdateTicketAPICallStatus.requested
+                {!showAssignSection
                   && <Row style={{ marginTop: '2%' }}>
                     <Col sm='8'
                       style={{ textAlign: 'right' }}>
@@ -327,29 +328,9 @@ class ViewTicketBundleDetailsForm extends React.Component {
                       </HalfCircleSpinner>
                     </Col>
                   </Row>}
-                {this.state.isAlertSectionVisible
-                  &&
-                  this.props.assignAndUpdateTicketAPICallStatus.success
-                  && <Row style={{ marginTop: '2%' }}>
-                    <Col
-                      style={{ textAlign: 'center' }}>
-                      <SuccessAlertWithTick>
-                      </SuccessAlertWithTick>
-                    </Col>
-                  </Row>}
-                {this.state.isAlertSectionVisible
-                  &&
-                  this.props.assignAndUpdateTicketAPICallStatus.error
-                  && <Row style={{ marginTop: '2%' }}>
-                    <Col
-                      style={{ textAlign: 'center' }}>
-                      <FailureAlertWithIcon>
-                      </FailureAlertWithIcon>
-                    </Col>
-                  </Row>}
               </div>}
             <hr style={{
-              marginTop:'10%'
+              marginTop: '10%'
             }}></hr>
             <Row style={{ marginTop: '5%' }}>
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Attachments:</Col>
@@ -367,9 +348,9 @@ class ViewTicketBundleDetailsForm extends React.Component {
                 </Card>
               </Col>
             </Row>)}
-            {(localStorage.getItem('role') === Role.ROLE_ENGINEER || 
-            localStorage.getItem('role') === Role.ROLE_MANAGER)
-            &&
+            {(localStorage.getItem('role') === Role.ROLE_ENGINEER ||
+              localStorage.getItem('role') === Role.ROLE_MANAGER)
+              &&
               <div>
                 <Row style={{ marginTop: '5%' }}>
                   <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Actions:</Col>
@@ -379,7 +360,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
                     <Input style={{ marginTop: '2%', fontSize: '70%' }} type="textarea" name="text" id="exampleText" />
                   </Col>
 
-                </Row>                
+                </Row>
                 {this.state.isUpload &&
                   <Row>
                     <Col>
@@ -421,7 +402,31 @@ class ViewTicketBundleDetailsForm extends React.Component {
             }
           </div>}
 
-        {this.state.showSelectTicketMsg && <BlankForm></BlankForm>}
+        {/* Show SelectTicket section when no ticket is selected */}
+        {this.state.showSelectTicketMsg && !this.state.isAlertSectionVisible && <BlankForm></BlankForm>}
+        
+        
+        {/* Show succcess or failure alert */}
+        {this.state.isAlertSectionVisible
+          &&
+          this.props.assignAndUpdateTicketAPICallStatus.success
+          && <Row style={{ marginTop: '2%' }}>
+            <Col
+              style={{ textAlign: 'center' }}>
+              <SuccessAlertWithTick>
+              </SuccessAlertWithTick>
+            </Col>
+          </Row>}
+        {this.state.isAlertSectionVisible
+          &&
+          this.props.assignAndUpdateTicketAPICallStatus.error
+          && <Row style={{ marginTop: '2%' }}>
+            <Col
+              style={{ textAlign: 'center' }}>
+              <FailureAlertWithIcon>
+              </FailureAlertWithIcon>
+            </Col>
+          </Row>}
 
 
 
