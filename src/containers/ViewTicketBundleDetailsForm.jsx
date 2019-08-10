@@ -18,6 +18,7 @@ import FailureAlertWithIcon from '../components/FailureAlertWithIcon';
 import { HalfCircleSpinner } from 'react-epic-spinners';
 import { getURLParams, getTicketStatusColorCode } from '../util/UIUtils';
 import BlankForm from '../components/BlankForm';
+import SuccessToast from '../components/SuccessToast';
 
 class ViewTicketBundleDetailsForm extends React.Component {
 
@@ -263,6 +264,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
               <div>
                 {this.state.isAssignButtonSectionVisible &&
                   <div>
+                    <SuccessToast></SuccessToast>
                     <Row style={{ marginTop: '5%' }}>
                       <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Assigned To:</Col>
                     </Row>
