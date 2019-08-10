@@ -228,7 +228,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
                     <Typeahead
                       disabled={this.props.assignAndUpdateTicketAPICallStatus.requested}
                       onChange={(selectedOption) => this.onPrioritySelection(selectedOption)}
-                      bsSize='sm'
+                      bsSize='small'
                       labelKey={option => `${option.name}`}
                       dropup={true}
                       /*  optionsBackup={[{ name: Priority.HIGH},{ name: Priority.MEDIUM},{ name: Priority.LOW}]} */
@@ -256,71 +256,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
             <Row>
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Updated On :</Col><Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.updatedDate}</Col>
             </Row>
-            <Row style={{ marginTop: '5%' }}>
-              <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Attachments:</Col>
-            </Row>
-            <Row style={{ marginTop: '5%' }}>
-              <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Conversation:</Col>
-            </Row>
-            {this.props.ticket.ticketHistory.map((historyItem) => <Row style={{ marginTop: '4%' }}>
-              <Col >
-                <Card >
-                  <CardHeader style={{ color: '#0000008a', verticalAlign: 'middle', fontSize: '80%', paddingLeft: '2%', paddingRight: '0', paddingTop: '1%', paddingBottom: '1%' }}>{historyItem.authorName}</CardHeader>
-                  <CardBody style={{ padding: '2%' }}>
-                    <CardText style={{ fontSize: '75%' }}>{historyItem.comment}</CardText>
-                  </CardBody>
-                </Card>
-              </Col>
-            </Row>)}
-            {localStorage.getItem('role') === Role.ROLE_ENGINEER &&
-              <div>
-                <Row style={{ marginTop: '5%' }}>
-                  <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Engineer Action:</Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <Input style={{ marginTop: '2%', fontSize: '70%' }} type="textarea" name="text" id="exampleText" />
-                  </Col>
 
-                </Row>
-                {this.state.isUpload && <Row>
-                  <Col>
-                    <Label size='sm' style={{ fontSize: '70%', marginBottom: '0' }} for="attachments">Attachments</Label>
-                    <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file1" id="file1" onChange={this.onFileUpload} />
-                    <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file2" id="file2" onChange={this.onFileUpload} />
-                    <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file3" id="file3" onChange={this.onFileUpload} />
-                  </Col>
-                </Row>}
-                <Row>
-                  <Col size='auto' style={{ textAlign: 'left' }}>
-                    <Button
-                      style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }}
-                      onClick={this.toggleUpload}
-                      type="submit"
-                      outline
-                      color="secondary"
-                      size="sm"
-                    >Files</Button>
-                  </Col>
-                  <Col size='auto' style={{ textAlign: 'center' }}>
-                    <Button
-                      style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm"
-                      outline
-                      color="success">Close</Button>
-                  </Col>
-
-                  <Col size='auto' style={{ textAlign: 'center' }}>
-                    <Button
-                      style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginLeft: '1%' }}
-                      size="sm"
-                      outline
-                      color="warning">Message</Button>
-                  </Col>
-                </Row>
-
-
-              </div>
-            }
             {localStorage.getItem('role') === Role.ROLE_MANAGER &&
               (this.props.managerCioKey === 'AST') &&
 
@@ -341,10 +277,8 @@ class ViewTicketBundleDetailsForm extends React.Component {
                             dropup={true}
                             options={this.props.engineers}
                             /* options={[{ firstName: 'Art', lastName: 'Blakey', userName: 'art.blakey@pmapi.com' },
-                            { firstName: 'Jimmy', lastName: 'Cobb', userName: 'jimmy.cobb@pmapi.com' },
-                            { firstName: 'Elvin', lastName: 'Jones', userName: 'elvin.jones@pmapi.com' },
-                            { firstName: 'Max', lastName: 'Roach', userName: 'max.roach@pmapi.com' },
-                            { firstName: 'Tony', lastName: 'Williams', userName: 'tony.williams@pmapi.com' }]} */
+                            { firstName: 'Jimmy', lastName: 'Cobb', userName: 'jimmy.cobb@pmapi.com' },                            
+                            { firstName: 'Tony', lastName: 'Williams', userName: 'tony.williams@pmapi.com'}]} */
                             placeholder="Choose an Engineer..."
                           />
                         </Fragment>
@@ -413,6 +347,77 @@ class ViewTicketBundleDetailsForm extends React.Component {
                     </Col>
                   </Row>}
               </div>}
+            <hr style={{
+              marginTop:'10%'
+            }}></hr>
+            <Row style={{ marginTop: '5%' }}>
+              <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Attachments:</Col>
+            </Row>
+            <Row style={{ marginTop: '5%' }}>
+              <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Conversation:</Col>
+            </Row>
+            {this.props.ticket.ticketHistory.map((historyItem) => <Row style={{ marginTop: '4%' }}>
+              <Col >
+                <Card >
+                  <CardHeader style={{ color: '#0000008a', verticalAlign: 'middle', fontSize: '80%', paddingLeft: '2%', paddingRight: '0', paddingTop: '1%', paddingBottom: '1%' }}>{historyItem.authorName}</CardHeader>
+                  <CardBody style={{ padding: '2%' }}>
+                    <CardText style={{ fontSize: '75%' }}>{historyItem.comment}</CardText>
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>)}
+            {(localStorage.getItem('role') === Role.ROLE_ENGINEER || 
+            localStorage.getItem('role') === Role.ROLE_MANAGER)
+            &&
+              <div>
+                <Row style={{ marginTop: '5%' }}>
+                  <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Actions:</Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <Input style={{ marginTop: '2%', fontSize: '70%' }} type="textarea" name="text" id="exampleText" />
+                  </Col>
+
+                </Row>                
+                {this.state.isUpload &&
+                  <Row>
+                    <Col>
+                      <Label size='sm' style={{ fontSize: '70%', marginBottom: '0' }} for="attachments">Attachments</Label>
+                      <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file1" id="file1" onChange={this.onFileUpload} />
+                      <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file2" id="file2" onChange={this.onFileUpload} />
+                      <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file3" id="file3" onChange={this.onFileUpload} />
+                    </Col>
+                  </Row>}
+                <Row>
+                  <Col size='auto' style={{ textAlign: 'left' }}>
+                    <Button
+                      style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }}
+                      onClick={this.toggleUpload}
+                      type="submit"
+                      outline
+                      color="secondary"
+                      size="sm"
+                    >Files</Button>
+                  </Col>
+                  <Col size='auto' style={{ textAlign: 'center' }}>
+                    <Button
+                      style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm"
+                      outline
+                      color="success">Close</Button>
+                  </Col>
+
+                  <Col size='auto' style={{ textAlign: 'center' }}>
+                    <Button
+                      style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginLeft: '1%' }}
+                      size="sm"
+                      outline
+                      color="warning">Message</Button>
+                  </Col>
+                </Row>
+
+
+              </div>
+            }
           </div>}
 
         {this.state.showSelectTicketMsg && <BlankForm></BlankForm>}
