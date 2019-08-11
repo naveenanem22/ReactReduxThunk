@@ -119,8 +119,8 @@ class ViewTicketBundleDetailsForm extends React.Component {
     e.preventDefault();
     this.setState((prevState, props) => ({
       status: TicketStatus.OPEN,
-      isAlertSectionVisibleInit: true,
-      isTicketDetailsSectionVisibleInit: false
+      isAlertSectionVisibleInit: true
+      //isTicketDetailsSectionVisibleInit: false
     }), () => {
       this.props.assignTicket(this.props.ticket.id, {
         status: this.state.status,
@@ -136,6 +136,15 @@ class ViewTicketBundleDetailsForm extends React.Component {
     this.setState({
       [e.target.name]: e.target.files[0]
     })
+  }
+
+  componentDidUpdate(prevProps){
+    if(this.props.assignAndUpdateTicketAPICallStatus.requested !== 
+      prevProps.assignAndUpdateTicketAPICallStatus.requested &&
+      !this.props.assignAndUpdateTicketAPICallStatus.requested)
+      this.setState({
+        isTicketDetailsSectionVisibleInit: false
+      });
   }
 
   componentDidMount() {
@@ -311,7 +320,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
                         }} size="sm" outline color="success">Assign</Button>
                     </Col>
                   </Row>}
-                {!isAssignButtonSectionVisible
+                {this.props.assignAndUpdateTicketAPICallStatus.requested
                   && <Row style={{ marginTop: '2%' }}>
                     <Col sm='8'
                       style={{ textAlign: 'right' }}>
