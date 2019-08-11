@@ -138,8 +138,8 @@ class ViewTicketBundleDetailsForm extends React.Component {
     })
   }
 
-  componentDidUpdate(prevProps){
-    if(this.props.assignAndUpdateTicketAPICallStatus.requested !== 
+  componentDidUpdate(prevProps) {
+    if (this.props.assignAndUpdateTicketAPICallStatus.requested !==
       prevProps.assignAndUpdateTicketAPICallStatus.requested &&
       !this.props.assignAndUpdateTicketAPICallStatus.requested)
       this.setState({
@@ -192,7 +192,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
     console.log("Inside viewticktbundledetailsform");
     console.log(this.props);
     console.log(this.state);
-    const isAssignButtonSectionVisible = !this.props.assignAndUpdateTicketAPICallStatus.requested;
+    //    const isAssignButtonSectionVisible = !this.props.assignAndUpdateTicketAPICallStatus.requested;
     const isAlertSectionVisible = (this.props.assignAndUpdateTicketAPICallStatus.success ||
       this.props.assignAndUpdateTicketAPICallStatus.error)
 
@@ -210,10 +210,10 @@ class ViewTicketBundleDetailsForm extends React.Component {
           </div>
         }
         {this.state.isTicketDetailsSectionVisibleInit
-        &&
-        (this.props.fetchTicketDetailsAPICallStatus.success
-          || this.props.fetchAssignedTicketDetailsAPICallStatus.success
-        ) && <div style={{ overflowY: 'auto', overflowX: 'hidden', height: '84.5vh', border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '10px', paddingLeft: '10px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
+          &&
+          (this.props.fetchTicketDetailsAPICallStatus.success
+            || this.props.fetchAssignedTicketDetailsAPICallStatus.success
+          ) && <div style={{ overflowY: 'auto', overflowX: 'hidden', height: '84.5vh', border: '1px solid #E8EAED', borderRadius: '10px', paddingRight: '10px', paddingLeft: '10px', paddingTop: '5px', paddingBottom: '5px', backgroundColor: '#ffffff' }}>
             <Row>
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Ticket Number:</Col>
             </Row>
@@ -279,7 +279,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
               (this.props.managerCioKey === 'AST') &&
 
               <div>
-                {isAssignButtonSectionVisible &&
+                {true &&
                   <div>
                     <Row style={{ marginTop: '5%' }}>
                       <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Assigned To:</Col>
@@ -304,7 +304,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
                     </Row>
                   </div>}
-                {isAssignButtonSectionVisible &&
+                {!this.props.assignAndUpdateTicketAPICallStatus.requested &&
                   (localStorage.getItem('role') === Role.ROLE_MANAGER) &&
                   (this.props.managerCioKey === 'AST') &&
 
