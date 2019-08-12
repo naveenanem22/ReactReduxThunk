@@ -122,13 +122,21 @@ class ViewTicketBundleDetailsForm extends React.Component {
       isAlertSectionVisibleInit: true
       //isTicketDetailsSectionVisibleInit: false
     }), () => {
-      this.props.assignTicket(this.props.ticket.id, {
-        status: this.state.status,
-        assignedTo: {
-          userName: this.state.assignedTo
-        }
+
+        var params = {};
+        params.status = this.state.status;
+        if (this.state.assignedTo)
+          params.assignedTo = {
+            userName: this.state.assignedTo
+          }
+        if (this.state.status)
+          params.status = this.state.status;
+
+        if (this.state.priority)
+          params.priority = this.state.priority
+
+        this.props.assignTicket(this.props.ticket.id, params);
       });
-    });
   }
 
   onFileUpload(e) {
