@@ -36,7 +36,10 @@ class ViewTicketBundleDetailsForm extends React.Component {
       isSelectTicketMsgVisibleInit: true,
       isAlertSectionVisibleInit: false,
       isTicketDetailsSectionVisibleInit: false,
-      priority: ''
+      priority: '',
+      department: {
+        name: ''
+      }
 
     };
 
@@ -49,6 +52,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
     this.onAssigneeSelection = this.onAssigneeSelection.bind(this);
     this.onSubmitAssignTicket = this.onSubmitAssignTicket.bind(this);
     this.onPrioritySelection = this.onPrioritySelection.bind(this);
+    this.onDepartmentSelection = this.onDepartmentSelection.bind(this);
   }
 
   toggleUpload() {
@@ -70,6 +74,16 @@ class ViewTicketBundleDetailsForm extends React.Component {
     if (selectedPriority.length > 0)
       this.setState({
         priority: selectedPriority[0].name
+      })
+  }
+
+  onDepartmentSelection(selectedDepartment) {
+    //selectedDepartment is returned as an array rather than an object
+    if (selectedDepartment.length > 0)
+      this.setState({
+        department: {
+          name: selectedDepartment[0].name
+        }
       })
   }
 
@@ -134,6 +148,9 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
       if (this.state.priority)
         params.priority = this.state.priority
+
+      if (this.state.department.name)
+        params.department = this.state.department
 
       this.props.assignTicket(this.props.ticket.id, params);
     });
@@ -250,28 +267,28 @@ class ViewTicketBundleDetailsForm extends React.Component {
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Priority :</Col>
               {(this.props.ticket.status !== TicketStatus.CLOSE)
                 && <Col>
-                <Row style={{ marginTop: '2%' }}>
-                  <Col size='auto' style={{ textAlign: 'center' }}>
-                    <Fragment>
-                      <Typeahead
-                        disabled={this.props.assignAndUpdateTicketAPICallStatus.requested}
-                        onChange={(selectedOption) => this.onPrioritySelection(selectedOption)}
-                        bsSize='small'
-                        labelKey={option => `${option.name}`}
-                        dropup={true}
-                        /*  optionsBackup={[{ name: Priority.HIGH},{ name: Priority.MEDIUM},{ name: Priority.LOW}]} */
-                        options={PriorityArrary.map(priorityItem => {
-                          return {
-                            name: priorityItem.name,
-                            code: priorityItem.code
-                          }
-                        })}
-                        placeholder={this.props.ticket.priority}
-                      />
-                    </Fragment>
-                  </Col>
+                  <Row style={{ marginTop: '2%' }}>
+                    <Col size='auto' style={{ textAlign: 'center' }}>
+                      <Fragment>
+                        <Typeahead
+                          disabled={this.props.assignAndUpdateTicketAPICallStatus.requested}
+                          onChange={(selectedOption) => this.onPrioritySelection(selectedOption)}
+                          bsSize='small'
+                          labelKey={option => `${option.name}`}
+                          dropup={true}
+                          /*  optionsBackup={[{ name: Priority.HIGH},{ name: Priority.MEDIUM},{ name: Priority.LOW}]} */
+                          options={PriorityArrary.map(priorityItem => {
+                            return {
+                              name: priorityItem.name,
+                              code: priorityItem.code
+                            }
+                          })}
+                          placeholder={this.props.ticket.priority}
+                        />
+                      </Fragment>
+                    </Col>
 
-                </Row>
+                  </Row>
                 </Col>}
               {(this.props.ticket.status === TicketStatus.CLOSE) &&
                 <Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.priority}</Col>
@@ -281,7 +298,28 @@ class ViewTicketBundleDetailsForm extends React.Component {
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Open since :</Col><Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}><Badge style={{ width: '20%', height: '90%' }} color="secondary">24</Badge> Days</Col>
             </Row>
             <Row>
-              <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Department :</Col><Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.department.name}</Col>
+              <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Department :</Col>
+              <Col>
+                <Row style={{ marginTop: '2%' }}>
+                  <Col size='auto' style={{ textAlign: 'center' }}>
+                    <Fragment>
+                      <Typeahead
+                        disabled={this.props.assignAndUpdateTicketAPICallStatus.requested}
+                        onChange={(selectedOption) => this.onDepartmentSelection(selectedOption)}
+                        bsSize='small'
+                        labelKey={option => `${option.name}`}
+                        dropup={true}
+                        options={this.props.departments}
+                        /* options={[{ firstName: 'Art', lastName: 'Blakey', userName: 'art.blakey@pmapi.com' },
+                        { firstName: 'Jimmy', lastName: 'Cobb', userName: 'jimmy.cobb@pmapi.com' },                            
+                        { firstName: 'Tony', lastName: 'Williams', userName: 'tony.williams@pmapi.com'}]} */
+                        placeholder={this.props.ticket.department.name}
+                      />
+                    </Fragment>
+                  </Col>
+
+                </Row></Col>
+              {this.props.ticket.status === TicketStatus.CLOSE && <Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.department.name}</Col>}
             </Row>
             <Row>
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Updated On :</Col><Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.updatedDate}</Col>
@@ -291,31 +329,30 @@ class ViewTicketBundleDetailsForm extends React.Component {
               (this.props.managerCioKey === 'AST') &&
 
               <div>
-                {true &&
-                  <div>
-                    <Row style={{ marginTop: '5%' }}>
-                      <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Assigned To:</Col>
-                    </Row>
-                    <Row style={{ marginTop: '2%' }}>
-                      <Col size='auto' style={{ textAlign: 'center' }}>
-                        <Fragment>
-                          <Typeahead
-                            disabled={this.props.assignAndUpdateTicketAPICallStatus.requested}
-                            onChange={(selectedOption) => this.onAssigneeSelection(selectedOption)}
-                            bsSize='small'
-                            labelKey={option => `${option.firstName} ${option.lastName}`}
-                            dropup={true}
-                            options={this.props.engineers}
-                            /* options={[{ firstName: 'Art', lastName: 'Blakey', userName: 'art.blakey@pmapi.com' },
-                            { firstName: 'Jimmy', lastName: 'Cobb', userName: 'jimmy.cobb@pmapi.com' },                            
-                            { firstName: 'Tony', lastName: 'Williams', userName: 'tony.williams@pmapi.com'}]} */
-                            placeholder="Choose an Engineer..."
-                          />
-                        </Fragment>
-                      </Col>
+                <div>
+                  <Row style={{ marginTop: '5%' }}>
+                    <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Assigned To:</Col>
+                  </Row>
+                  <Row style={{ marginTop: '2%' }}>
+                    <Col size='auto' style={{ textAlign: 'center' }}>
+                      <Fragment>
+                        <Typeahead
+                          disabled={this.props.assignAndUpdateTicketAPICallStatus.requested}
+                          onChange={(selectedOption) => this.onAssigneeSelection(selectedOption)}
+                          bsSize='small'
+                          labelKey={option => `${option.firstName} ${option.lastName}`}
+                          dropup={true}
+                          options={this.props.engineers}
+                          /* options={[{ firstName: 'Art', lastName: 'Blakey', userName: 'art.blakey@pmapi.com' },
+                          { firstName: 'Jimmy', lastName: 'Cobb', userName: 'jimmy.cobb@pmapi.com' },                            
+                          { firstName: 'Tony', lastName: 'Williams', userName: 'tony.williams@pmapi.com'}]} */
+                          placeholder="Choose an Engineer..."
+                        />
+                      </Fragment>
+                    </Col>
 
-                    </Row>
-                  </div>}
+                  </Row>
+                </div>
                 {!this.props.assignAndUpdateTicketAPICallStatus.requested &&
                   (localStorage.getItem('role') === Role.ROLE_MANAGER) &&
                   (this.props.managerCioKey === 'AST') &&
@@ -466,6 +503,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
 const mapStateToProps = function (state) {
   return {
+    departments: state.departments,
     ticket: state.ticketDetails.ticket,
     engineers: state.engineerList.engineers,
     managerCioKey: state.ticketList.managerTicketSearchCriteria.cioKey,
