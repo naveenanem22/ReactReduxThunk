@@ -123,20 +123,20 @@ class ViewTicketBundleDetailsForm extends React.Component {
       //isTicketDetailsSectionVisibleInit: false
     }), () => {
 
-        var params = {};
+      var params = {};
+      params.status = this.state.status;
+      if (this.state.assignedTo)
+        params.assignedTo = {
+          userName: this.state.assignedTo
+        }
+      if (this.state.status)
         params.status = this.state.status;
-        if (this.state.assignedTo)
-          params.assignedTo = {
-            userName: this.state.assignedTo
-          }
-        if (this.state.status)
-          params.status = this.state.status;
 
-        if (this.state.priority)
-          params.priority = this.state.priority
+      if (this.state.priority)
+        params.priority = this.state.priority
 
-        this.props.assignTicket(this.props.ticket.id, params);
-      });
+      this.props.assignTicket(this.props.ticket.id, params);
+    });
   }
 
   onFileUpload(e) {
@@ -248,30 +248,34 @@ class ViewTicketBundleDetailsForm extends React.Component {
             </Row>
             <Row>
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Priority :</Col>
-              <Col><Row style={{ marginTop: '2%' }}>
-                <Col size='auto' style={{ textAlign: 'center' }}>
-                  <Fragment>
-                    <Typeahead
-                      disabled={this.props.assignAndUpdateTicketAPICallStatus.requested}
-                      onChange={(selectedOption) => this.onPrioritySelection(selectedOption)}
-                      bsSize='small'
-                      labelKey={option => `${option.name}`}
-                      dropup={true}
-                      /*  optionsBackup={[{ name: Priority.HIGH},{ name: Priority.MEDIUM},{ name: Priority.LOW}]} */
-                      options={PriorityArrary.map(priorityItem => {
-                        return {
-                          name: priorityItem.name,
-                          code: priorityItem.code
-                        }
-                      })}
-                      placeholder={this.props.ticket.priority}
-                    />
-                  </Fragment>
-                </Col>
+              {(this.props.ticket.status !== TicketStatus.CLOSE)
+                && <Col>
+                <Row style={{ marginTop: '2%' }}>
+                  <Col size='auto' style={{ textAlign: 'center' }}>
+                    <Fragment>
+                      <Typeahead
+                        disabled={this.props.assignAndUpdateTicketAPICallStatus.requested}
+                        onChange={(selectedOption) => this.onPrioritySelection(selectedOption)}
+                        bsSize='small'
+                        labelKey={option => `${option.name}`}
+                        dropup={true}
+                        /*  optionsBackup={[{ name: Priority.HIGH},{ name: Priority.MEDIUM},{ name: Priority.LOW}]} */
+                        options={PriorityArrary.map(priorityItem => {
+                          return {
+                            name: priorityItem.name,
+                            code: priorityItem.code
+                          }
+                        })}
+                        placeholder={this.props.ticket.priority}
+                      />
+                    </Fragment>
+                  </Col>
 
-              </Row>
-              </Col>
-              {/* <Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.priority}</Col> */}
+                </Row>
+                </Col>}
+              {(this.props.ticket.status === TicketStatus.CLOSE) &&
+                <Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.priority}</Col>
+              }
             </Row>
             <Row>
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Open since :</Col><Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}><Badge style={{ width: '20%', height: '90%' }} color="secondary">24</Badge> Days</Col>
