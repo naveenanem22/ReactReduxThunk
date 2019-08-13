@@ -299,26 +299,28 @@ class ViewTicketBundleDetailsForm extends React.Component {
             </Row>
             <Row>
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Department :</Col>
-              <Col>
-                <Row style={{ marginTop: '2%' }}>
-                  <Col size='auto' style={{ textAlign: 'center' }}>
-                    <Fragment>
-                      <Typeahead
-                        disabled={this.props.assignAndUpdateTicketAPICallStatus.requested}
-                        onChange={(selectedOption) => this.onDepartmentSelection(selectedOption)}
-                        bsSize='small'
-                        labelKey={option => `${option.name}`}
-                        dropup={true}
-                        options={this.props.departments}
-                        /* options={[{ firstName: 'Art', lastName: 'Blakey', userName: 'art.blakey@pmapi.com' },
-                        { firstName: 'Jimmy', lastName: 'Cobb', userName: 'jimmy.cobb@pmapi.com' },                            
-                        { firstName: 'Tony', lastName: 'Williams', userName: 'tony.williams@pmapi.com'}]} */
-                        placeholder={this.props.ticket.department.name}
-                      />
-                    </Fragment>
-                  </Col>
+              {this.props.ticket.status !== TicketStatus.CLOSE
+                &&
+                <Col>
+                  <Row style={{ marginTop: '2%' }}>
+                    <Col size='auto' style={{ textAlign: 'center' }}>
+                      <Fragment>
+                        <Typeahead
+                          disabled={this.props.assignAndUpdateTicketAPICallStatus.requested}
+                          onChange={(selectedOption) => this.onDepartmentSelection(selectedOption)}
+                          bsSize='small'
+                          labelKey={option => `${option.name}`}
+                          dropup={true}
+                          options={this.props.departments}
+                          /* options={[{ firstName: 'Art', lastName: 'Blakey', userName: 'art.blakey@pmapi.com' },
+                          { firstName: 'Jimmy', lastName: 'Cobb', userName: 'jimmy.cobb@pmapi.com' },                            
+                          { firstName: 'Tony', lastName: 'Williams', userName: 'tony.williams@pmapi.com'}]} */
+                          placeholder={this.props.ticket.department.name}
+                        />
+                      </Fragment>
+                    </Col>
 
-                </Row></Col>
+                  </Row></Col>}
               {this.props.ticket.status === TicketStatus.CLOSE && <Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.department.name}</Col>}
             </Row>
             <Row>
