@@ -2,8 +2,8 @@ import React from 'react';
 import { Fragment } from 'react';
 import { assignAndUpdateTicketAPICall, addMessageAPICall, closeTicketAPICall, downloadAttachmentAPICall, fetchTicketDetailsAPICall, fetchAssignedTicketDetailsAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
-import { Badge, Row, Col, Container, Input, FormGroup, Label, FormText } from 'reactstrap';
-import { Button, Card, CardBody, CardHeader, CardText, CardTitle } from 'reactstrap';
+import { Badge, Row, Col, NavLink, Input, FormGroup, Label, FormText } from 'reactstrap';
+import { Button, Card, CardBody, CardHeader, CardText, CardTitle, CardFooter } from 'reactstrap';
 import { FaFilePdf, FaFileAlt, FaFileImage, FaFile } from 'react-icons/fa';
 import history from '../history';
 import queryString from 'query-string';
@@ -19,6 +19,8 @@ import { HalfCircleSpinner } from 'react-epic-spinners';
 import { getURLParams, getTicketStatusColorCode } from '../util/UIUtils';
 import BlankForm from '../components/BlankForm';
 import SuccessToast from '../components/SuccessToast';
+import { timeUtil, calendarUtil } from '../util/CalendarUtil';
+import { uiUtil } from '../util/UIUtils';
 
 class ViewTicketBundleDetailsForm extends React.Component {
 
@@ -29,6 +31,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
       id: this.props.ticket.id,
       status: '',
       comment: '',
+      isCommentInvalid: false,
 
       commentedOn: '',
       isUpload: false,
@@ -405,68 +408,179 @@ class ViewTicketBundleDetailsForm extends React.Component {
             <Row style={{ marginTop: '5%' }}>
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Conversation:</Col>
             </Row>
-            {this.props.ticket.ticketHistory.map((historyItem) => <Row style={{ marginTop: '4%' }}>
-              <Col >
-                <Card >
-                  <CardHeader style={{ color: '#0000008a', verticalAlign: 'middle', fontSize: '80%', paddingLeft: '2%', paddingRight: '0', paddingTop: '1%', paddingBottom: '1%' }}>{historyItem.authorName}</CardHeader>
-                  <CardBody style={{ padding: '2%' }}>
-                    <CardText style={{ fontSize: '75%' }}>{historyItem.comment}</CardText>
-                  </CardBody>
-                </Card>
-              </Col>
-            </Row>)}
+
+
+            {/* Single Add-Conversation-block when there is no history*/}
             {(localStorage.getItem('role') === Role.ROLE_ENGINEER ||
               localStorage.getItem('role') === Role.ROLE_MANAGER)
               &&
+              (this.props.ticket.ticketHistory.length === 0
+                && this.props.ticket.status !== TicketStatus.CLOSE)
+              &&
               <div>
-                <Row style={{ marginTop: '5%' }}>
-                  <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Actions:</Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <Input style={{ marginTop: '2%', fontSize: '70%' }} type="textarea" name="text" id="exampleText" />
+                <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%' }}>
+                  <Col >
+                    <FormGroup>
+                      <Input invalid={this.state.isCommentInvalid} size='sm' type="textarea" name="comment" id="comment" onChange={this.handleCommentChange} />
+                    </FormGroup>
                   </Col>
-
                 </Row>
-                {this.state.isUpload &&
-                  <Row>
-                    <Col>
-                      <Label size='sm' style={{ fontSize: '70%', marginBottom: '0' }} for="attachments">Attachments</Label>
-                      <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file1" id="file1" onChange={this.onFileUpload} />
-                      <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file2" id="file2" onChange={this.onFileUpload} />
-                      <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file3" id="file3" onChange={this.onFileUpload} />
-                    </Col>
-                  </Row>}
-                <Row>
-                  <Col size='auto' style={{ textAlign: 'left' }}>
-                    <Button
-                      style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }}
-                      onClick={this.toggleUpload}
+
+                <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%', 'marginTop': '1%' }}>
+                  <Col>
+                    <Button onClick={this.toggleUpload}
                       type="submit"
                       outline
                       color="secondary"
                       size="sm"
-                    >Files</Button>
+                    >Attach Files</Button>
                   </Col>
-                  <Col size='auto' style={{ textAlign: 'center' }}>
-                    <Button
-                      style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }} size="sm"
-                      outline
-                      color="success">Close</Button>
-                  </Col>
-
-                  <Col size='auto' style={{ textAlign: 'center' }}>
-                    <Button
-                      style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginLeft: '1%' }}
-                      size="sm"
-                      outline
-                      color="warning">Message</Button>
+                  <Col style={{ 'text-align': 'right' }}>
+                    <Button type="submit" color="link" size="sm" onClick={this.onSubmitCloseTicket}>
+                      Close Ticket</Button>or
+                 <Button type="submit" color="info" size="sm" style={{ 'marginLeft': '2%' }} onClick={this.onSubmitAddMessage}>
+                      Add Message</Button>
                   </Col>
                 </Row>
+                {this.state.isUpload && <Row>
+                  <FormGroup style={{ 'width': '90%', 'paddingLeft': '5%', 'paddingTop': '2%' }}>
+                    <Label size='sm' for="attachments">Attachments</Label>
+                    <Input size='sm' type="file" name="file1" id="file1" onChange={this.onFileUpload} />
+                    <Input size='sm' type="file" name="file2" id="file2" onChange={this.onFileUpload} />
+                    <Input size='sm' type="file" name="file3" id="file3" onChange={this.onFileUpload} />
+                    <FormText color="muted">
+                      Any files that can assist the corresponding team to resolve the issues at the earliest.
+          </FormText>
+                  </FormGroup>
 
+                </Row>}
+
+              </div>}
+
+
+            {/* Add-Conversation-block only in the first message block of the history when the history is present*/}
+            {this.props.ticket.ticketHistory.map((item) =>
+              <div>
+                <div>
+                  <Row style={{ marginTop: '4%' }}>
+                    <Col >
+                      <Card >
+                        <CardHeader style={{ verticalAlign: 'middle', paddingLeft: '2%', paddingRight: '0', paddingTop: '1%', paddingBottom: '1%' }}>
+                          <Row>
+                            <Col size='sm'>{item.author.firstName + ' ' + item.author.lastName}</Col>
+                            <Col size='sm'>
+                              <CardText>
+                                <small className="text-muted">{timeUtil.timeAgo(calendarUtil.getLocalTimeStamp(item.commentedOn))}</small>
+                              </CardText>
+                            </Col>
+                          </Row>
+                        </CardHeader>
+                        <CardBody style={{ padding: '2%' }}>
+                          <Row>
+                            <Col><CardText style={{ fontSize: '75%' }}>{item.comment}</CardText></Col>
+                          </Row>
+                          {(item.attachments.length > 0) &&
+                            <Row >
+                              <Col>Attachment(s):</Col>
+                            </Row>}
+
+                          {(item.attachments.length > 0) && item.attachments.map((attachment) =>
+                            <Row >
+                              <Col ><NavLink style={{ padding: '0%' }} onClick={this.onClickLink} href="#">{uiUtil.loadFileIcon(attachment.fileType)}<code style={{ 'color': '#c7254e' }}>{attachment.name}</code></NavLink></Col>
+                            </Row>)}
+                        </CardBody>
+                        {(this.props.ticket.ticketHistory.indexOf(item) === 0
+                          &&
+                          this.props.ticket.status !== TicketStatus.CLOSE
+                        ) &&
+                          <CardFooter>
+                            <Row >
+                              <Col style={{ padding: '0' }}>
+                                <Input invalid={this.state.isCommentInvalid} size='sm' type="textarea" name="comment" id="comment" onChange={this.handleCommentChange} />
+                              </Col>
+                            </Row>
+
+                            <Row >
+                              <Col size='auto' style={{ textAlign: 'left', padding: '0' }}>
+                                <Button onClick={this.toggleUpload}
+                                  style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }}
+                                  type="submit"
+                                  outline
+                                  color="secondary"
+                                  size="sm"
+                                >Files</Button>
+                              </Col>
+                              {this.props.closeTicketAPICallStatus.requested
+                                && <Col sm='auto' style={{
+                                  textAlign: 'right',
+                                  paddingTop: '1%',
+                                  paddingRight: '0'
+                                }}>
+                                  <HalfCircleSpinner
+                                    size='20'
+                                    color='blue'>
+                                  </HalfCircleSpinner>
+                                </Col>}
+                              <Col size='auto' style={{ textAlign: 'center', padding: '0' }}>
+                                <Button disabled={this.props.closeTicketAPICallStatus.requested}
+                                  style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }}
+                                  type="submit"
+                                  color="link"
+                                  size="sm"
+                                  outline
+                                  onClick={this.onSubmitCloseTicket}>
+                                  Close
+                                  </Button>
+                              </Col>
+
+                              {this.props.addMessageAPICallStatus.requested
+                                && <Col sm='auto' style={{
+                                  textAlign: 'right',
+                                  paddingTop: '1%',
+                                  paddingRight: '0'
+                                }}>
+                                  <HalfCircleSpinner
+                                    size='20'
+                                    color='blue'>
+                                  </HalfCircleSpinner>
+                                </Col>}
+
+                              <Col size='auto' style={{ textAlign: 'center', padding: '0' }}>
+                                <Button
+                                  style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginLeft: '1%' }}
+                                  type="submit"
+                                  color="warning"
+                                  size="sm"
+                                  disabled={this.props.addMessageAPICallStatus.requested}
+                                  onClick={this.onSubmitAddMessage}>
+                                  Message</Button>
+                              </Col>
+                            </Row>
+                            {this.state.isUpload &&
+                              <Row>
+                                <FormGroup style={{ 'width': '90%', 'paddingLeft': '5%', 'paddingTop': '2%' }}>
+                                  <Label size='sm' for="attachments">Attachments</Label>
+                                  <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file1" id="file1" onChange={this.onFileUpload} />
+                                  <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file2" id="file2" onChange={this.onFileUpload} />
+                                  <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file3" id="file3" onChange={this.onFileUpload} />
+                                  <FormText color="muted">
+                                    Any files that can assist the corresponding team to resolve the issues at the earliest.          </FormText>
+                                </FormGroup>
+
+                              </Row>}
+
+                          </CardFooter>}
+                      </Card>
+                    </Col>
+                  </Row>
+
+
+
+                </div>
 
               </div>
-            }
+            )}
+
           </div>}
 
         {/* Show SelectTicket section when no ticket is selected */}
@@ -512,6 +626,8 @@ const mapStateToProps = function (state) {
     fetchTicketDetailsAPICallStatus: state.serviceCallStatus.fetchTicketDetailsAPI,
     fetchAssignedTicketDetailsAPICallStatus: state.serviceCallStatus.fetchAssignedTicketDetailsAPI,
     fetchEngineersAPICallStatus: state.serviceCallStatus.fetchEngineersAPI,
+    closeTicketAPICallStatus: state.serviceCallStatus.closeTicketAPI,
+    addMessageAPICallStatus: state.serviceCallStatus.addMessageAPI,
     assignAndUpdateTicketAPICallStatus: state.serviceCallStatus.assignAndUpdateTicketAPI
 
   }
