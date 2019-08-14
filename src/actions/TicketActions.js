@@ -495,7 +495,7 @@ export function addMessageAPICall(params) {
     for (var name in params) {
         formData.append(name, params[name]);
     }
-    var url = new URL(PMAPI_BASE_URL+"/v0/ticket-support/tickets/" + params.id);
+    var url = new URL(PMAPI_BASE_URL+"/v0/ticketing/tickets/" + params.id);
     console.log(url);
     return function (dispatch) {
         dispatch(addMessage());
@@ -593,7 +593,7 @@ export function closeTicketAPICall(params) {
         formData.append(name, params[name]);
     }
     console.log("Formdata: " + JSON.stringify(formData));
-    var url = new URL(PMAPI_BASE_URL+"/v0/ticket-support/tickets/" + params.id);
+    var url = new URL(PMAPI_BASE_URL+"/v0/ticketing/tickets/" + params.id);
     return function (dispatch) {
         dispatch(closeTicket());
         return fetch(url, {
