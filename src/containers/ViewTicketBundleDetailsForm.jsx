@@ -1,6 +1,6 @@
 import React from 'react';
 import { Fragment } from 'react';
-import { assignAndUpdateTicketAPICall, addMessageAPICall, closeTicketAPICall, downloadAttachmentAPICall, fetchTicketDetailsAPICall, fetchAssignedTicketDetailsAPICall } from '../actions/TicketActions'
+import { assignAndUpdateTicketAPICall, addMessageAPICall, closeAndUpdateTicketAPICall, downloadAttachmentAPICall, fetchTicketDetailsAPICall, fetchAssignedTicketDetailsAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
 import { Badge, Row, Col, NavLink, Input, FormGroup, Label, FormText } from 'reactstrap';
 import { Button, Card, CardBody, CardHeader, CardText, CardTitle, CardFooter } from 'reactstrap';
@@ -56,6 +56,14 @@ class ViewTicketBundleDetailsForm extends React.Component {
     this.onSubmitAssignTicket = this.onSubmitAssignTicket.bind(this);
     this.onPrioritySelection = this.onPrioritySelection.bind(this);
     this.onDepartmentSelection = this.onDepartmentSelection.bind(this);
+    this.handleCommentChange = this.handleCommentChange.bind(this);
+  }
+
+  handleCommentChange(e) {
+    this.setState({
+      comment: e.target.value,
+      isCommentInvalid: false
+    })
   }
 
   toggleUpload() {
@@ -128,7 +136,27 @@ class ViewTicketBundleDetailsForm extends React.Component {
       file3: this.state.isUpload ? prevState.file3 : undefined
     }), () => {
       console.log(this.state);
-      this.props.closeTicket(this.state);
+      var params = {};
+      if (this.state.status)
+        params.status = this.state.status;
+      if (this.state.comment)
+        params.comment = this.state.comment;
+
+      if (this.state.isUpload && this.state.file1 && this.state.file2 && this.state.file3) {
+        params.file1 = this.state.file1;
+        params.file2 = this.state.file2;
+        params.file3 = this.state.file3;
+      }
+
+      if (this.state.commentedOn)
+        params.commentedOn = this.state.commentedOn;
+
+      if (this.state.id)
+        params.id = this.state.id;
+
+
+
+      this.props.closeTicket(params);
     });
   }
 
@@ -510,7 +538,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
                                   size="sm"
                                 >Files</Button>
                               </Col>
-                              {this.props.closeTicketAPICallStatus.requested
+                              {this.props.closeAndUpdateTicketAPICallStatus.requested
                                 && <Col sm='auto' style={{
                                   textAlign: 'right',
                                   paddingTop: '1%',
@@ -521,16 +549,16 @@ class ViewTicketBundleDetailsForm extends React.Component {
                                     color='blue'>
                                   </HalfCircleSpinner>
                                 </Col>}
+
                               <Col size='auto' style={{ textAlign: 'center', padding: '0' }}>
-                                <Button disabled={this.props.closeTicketAPICallStatus.requested}
-                                  style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }}
+                                <Button
+                                  style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginLeft: '1%' }}
                                   type="submit"
-                                  color="link"
+                                  color="success"
                                   size="sm"
-                                  outline
+                                  disabled={this.props.closeAndUpdateTicketAPICallStatus.requested}
                                   onClick={this.onSubmitCloseTicket}>
-                                  Close
-                                  </Button>
+                                  Close</Button>
                               </Col>
 
                               {this.props.addMessageAPICallStatus.requested
@@ -627,6 +655,7 @@ const mapStateToProps = function (state) {
     fetchAssignedTicketDetailsAPICallStatus: state.serviceCallStatus.fetchAssignedTicketDetailsAPI,
     fetchEngineersAPICallStatus: state.serviceCallStatus.fetchEngineersAPI,
     closeTicketAPICallStatus: state.serviceCallStatus.closeTicketAPI,
+    closeAndUpdateTicketAPICallStatus: state.serviceCallStatus.closeAndUpdateTicketAPI,
     addMessageAPICallStatus: state.serviceCallStatus.addMessageAPI,
     assignAndUpdateTicketAPICallStatus: state.serviceCallStatus.assignAndUpdateTicketAPI
 
@@ -635,7 +664,7 @@ const mapStateToProps = function (state) {
 
 const mapActionsToProps = {
   addMessage: addMessageAPICall,
-  closeTicket: closeTicketAPICall,
+  closeTicket: closeAndUpdateTicketAPICall,
   downloadAttachment: downloadAttachmentAPICall,
   fetchTicketDetails: fetchTicketDetailsAPICall,
   fetchAssignedTicketDetails: fetchAssignedTicketDetailsAPICall,
