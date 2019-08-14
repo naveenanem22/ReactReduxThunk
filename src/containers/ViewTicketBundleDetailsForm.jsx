@@ -151,12 +151,13 @@ class ViewTicketBundleDetailsForm extends React.Component {
       if (this.state.commentedOn)
         params.commentedOn = this.state.commentedOn;
 
-      if (this.state.id)
-        params.id = this.state.id;
+      params.id = this.props.ticket.id;
 
+      var queryParams = {};
+      if (localStorage.getItem('role') === Role.ROLE_MANAGER)
+        queryParams.managedByMe = true;
 
-
-      this.props.closeTicket(params);
+      this.props.closeTicket(params, queryParams);
     });
   }
 
