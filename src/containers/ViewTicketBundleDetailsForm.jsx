@@ -172,9 +172,8 @@ class ViewTicketBundleDetailsForm extends React.Component {
       var params = {};
       params.status = this.state.status;
       if (this.state.assignedTo)
-        params.assignedTo = {
-          userName: this.state.assignedTo
-        }
+        params.assignedTo = this.state.assignedTo
+
       if (this.state.status)
         params.status = this.state.status;
 
@@ -182,9 +181,14 @@ class ViewTicketBundleDetailsForm extends React.Component {
         params.priority = this.state.priority
 
       if (this.state.department.name)
-        params.department = this.state.department
+        params.departmentName = this.state.department.name
 
-      this.props.assignTicket(this.props.ticket.id, params);
+      params.id = this.props.ticket.id;
+      var queryParams = {};
+      if (localStorage.getItem('role') === Role.ROLE_MANAGER)
+        queryParams.managedByMe = true;
+
+      this.props.assignTicket(params, queryParams);
     });
   }
 

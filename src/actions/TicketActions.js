@@ -543,33 +543,46 @@ export function addMessageAPICall(params) {
     };
 }
 
-export function assignAndUpdateTicketAPICall(ticketId, params) {
-
-    console.log("assignAndUpdateTicketAPICALL params: " + JSON.stringify(params));
+export function assignAndUpdateTicketAPICall(params, queryParams) {
+    console.log("params: " + JSON.stringify(params));
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    headers.append('Content-Type', 'application/json');
-    var url = new URL(PMAPI_BASE_URL + "/v0/ticket-management/tickets/" + ticketId);
+    var formData = new FormData();
+    for (var name in params) {
+        formData.append(name, params[name]);
+    }
+    console.log("Formdata: " + JSON.stringify(formData));
+    var url = new URL(PMAPI_BASE_URL + "/v0/ticket-management/tickets/" + params.id);
+
+    //Appending the query-params if available
+    if (queryParams)
+        Object.keys(queryParams).forEach(key => url.searchParams.append(key, queryParams[key]));
     return function (dispatch) {
         dispatch(assignAndUpdateTicket());
         return fetch(url, {
             method: 'PUT',
             headers: headers,
-            body: JSON.stringify(params)
+            body: formData
         })
             .then(
                 response => {
-
                     if (response.status === 204) {
                         dispatch(assignAndUpdateTicketSuccess());
                     }
-                    if (response.status === 500) {
+                    if (response.status === 500 || response.status === 400) {
+                        console.log("Dispatching close ticket failure");
                         dispatch(assignAndUpdateTicketFailure());
                     }
 
+                },
+                error => {
+                    console.log('An error occurred.', error);
+                    dispatch(assignAndUpdateTicketFailure());
+
                 }
-            )
+            );
     };
+
 }
 
 export function assignAndUpdateMultipleTicketsAPICall(params) {
