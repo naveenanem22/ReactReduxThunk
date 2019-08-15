@@ -1,5 +1,6 @@
 import { CREATE_TICKET, CLOSE_TICKET_SUCCESS, CLOSE_TICKET_FAILURE, FETCH_ASSIGNED_TICKET_DETAILS, FETCH_ASSIGNED_TICKET_DETAILS_SUCCESS, FETCH_ASSIGNED_TICKET_DETAILS_FAILURE, CREATE_TICKET_FAILURE, CLOSE_TICKET, ASSIGN_UPDATE_MULTIPLE_TICKET, ASSIGN_UPDATE_MULTIPLE_TICKETS, ASSIGN_UPDATE_MULTIPLE_TICKETS_SUCCESS, ASSIGN_UPDATE_MULTIPLE_TICKETS_FAILURE, SET_MANAGER_TICKET_SEARCH_CRITERIA } from './ActionTypes';
 import { CLOSE_UPDATE_TICKET, CLOSE_UPDATE_TICKET_SUCCESS, CLOSE_UPDATE_TICKET_FAILURE } from './ActionTypes';
+import {MESSAGE_UPDATE_TICKET, MESSAGE_UPDATE_TICKET_FAILURE, MESSAGE_UPDATE_TICKET_SUCCESS} from './ActionTypes';
 import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS, FETCH_TICKETS, ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET_FAILURE, ASSIGN_UPDATE_TICKET } from './ActionTypes';
 import { FETCH_TICKET_DETAILS, FETCH_TICKET_DETAILS_FAILURE, FETCH_TICKET_DETAILS_SUCCESS } from './ActionTypes';
 import { ADD_MESSAGE, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE } from './ActionTypes';
@@ -223,6 +224,24 @@ export function closeAndUpdateTicketSuccess() {
 export function closeAndUpdateTicketFailure() {
     return {
         type: CLOSE_UPDATE_TICKET_FAILURE
+    }
+}
+
+export function messageAndUpdateTicket() {
+    return {
+        type: MESSAGE_UPDATE_TICKET
+    }
+}
+
+export function messageAndUpdateTicketSuccess() {
+    return {
+        type: MESSAGE_UPDATE_TICKET_SUCCESS
+    }
+}
+
+export function messageAndUpdateTicketFailure() {
+    return {
+        type: MESSAGE_UPDATE_TICKET_FAILURE
     }
 }
 
@@ -695,6 +714,45 @@ export function closeAndUpdateTicketAPICall(params, queryParams) {
     };
 }
 
+export function messageAndUpdateTicketAPICall(params, queryParams) {
+    console.log("params:");
+    console.log(params);
+    let headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    var formData = new FormData();
+    for (var name in params) {
+        formData.append(name, params[name]);
+    }
+    console.log("Formdata: " + JSON.stringify(formData));
+    var url = new URL(PMAPI_BASE_URL + "/v0/ticket-management/tickets/" + params.id);
+    //Appending the query-params
+    Object.keys(queryParams).forEach(key => url.searchParams.append(key, queryParams[key]));
+    return function (dispatch) {
+        dispatch(closeAndUpdateTicket());
+        return fetch(url, {
+            method: 'PUT',
+            headers: headers,
+            body: formData
+        })
+            .then(
+                response => {
+                    if (response.status === 204) {
+                        dispatch(closeAndUpdateTicketSuccess());
+                    }
+                    if (response.status === 500 || response.status === 400) {
+                        console.log("Dispatching close ticket failure");
+                        dispatch(closeAndUpdateTicketFailure());
+                    }
+
+                },
+                error => {
+                    console.log('An error occurred.', error);
+                    dispatch(closeAndUpdateTicketFailure());
+
+                }
+            );
+    };
+}
 
 export function downloadAttachmentAPICall(params) {
     console.log(params);

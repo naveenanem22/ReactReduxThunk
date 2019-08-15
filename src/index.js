@@ -33,6 +33,7 @@ const store = createStore(MainReducer, {
         addMessageAPI: { requested: false, success: false, error: false },
         closeTicketAPI: { requested: false, success: false, error: false },
         closeAndUpdateTicketAPI: { requested: false, success: false, error: false },
+        messageAndUpdateTicketAPI: { requested: false, success: false, error: false },
         fetchAssignedTicketsAPI: { requested: false, success: false, error: false },
         fetchCreatedTicketsAPI: { requested: false, success: false, error: false },
         fetchEngineersAPI: { requested: false, success: false, error: false },

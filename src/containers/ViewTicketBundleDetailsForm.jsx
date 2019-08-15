@@ -1,6 +1,6 @@
 import React from 'react';
 import { Fragment } from 'react';
-import { assignAndUpdateTicketAPICall, addMessageAPICall, closeAndUpdateTicketAPICall, downloadAttachmentAPICall, fetchTicketDetailsAPICall, fetchAssignedTicketDetailsAPICall } from '../actions/TicketActions'
+import { assignAndUpdateTicketAPICall, messageAndUpdateTicketAPICall, closeAndUpdateTicketAPICall, downloadAttachmentAPICall, fetchTicketDetailsAPICall, fetchAssignedTicketDetailsAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
 import { Badge, Row, Col, NavLink, Input, FormGroup, Label, FormText } from 'reactstrap';
 import { Button, Card, CardBody, CardHeader, CardText, CardTitle, CardFooter } from 'reactstrap';
@@ -118,8 +118,28 @@ class ViewTicketBundleDetailsForm extends React.Component {
       file2: this.state.isUpload ? prevState.file2 : undefined,
       file3: this.state.isUpload ? prevState.file3 : undefined
     }), () => {
-      this.props.addMessage(this.state);
-    })
+      console.log(this.state);
+      var params = {};
+      if (this.state.comment)
+        params.comment = this.state.comment;
+
+      if (this.state.isUpload && (this.state.file1 || this.state.file2 || this.state.file3)) {
+        params.file1 = this.state.file1;
+        params.file2 = this.state.file2;
+        params.file3 = this.state.file3;
+      }
+
+      if (this.state.commentedOn)
+        params.commentedOn = this.state.commentedOn;
+
+      params.id = this.props.ticket.id;
+
+      var queryParams = {};
+      if (localStorage.getItem('role') === Role.ROLE_MANAGER)
+        queryParams.managedByMe = true;
+
+      this.props.addMessage(params, queryParams);
+    });
 
 
 
@@ -566,7 +586,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
                                   Close</Button>
                               </Col>
 
-                              {this.props.addMessageAPICallStatus.requested
+                              {this.props.messageAndUpdateTicketAPICallStatus.requested
                                 && <Col sm='auto' style={{
                                   textAlign: 'right',
                                   paddingTop: '1%',
@@ -584,7 +604,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
                                   type="submit"
                                   color="warning"
                                   size="sm"
-                                  disabled={this.props.addMessageAPICallStatus.requested}
+                                  disabled={this.props.messageAndUpdateTicketAPICallStatus.requested}
                                   onClick={this.onSubmitAddMessage}>
                                   Message</Button>
                               </Col>
@@ -661,14 +681,14 @@ const mapStateToProps = function (state) {
     fetchEngineersAPICallStatus: state.serviceCallStatus.fetchEngineersAPI,
     closeTicketAPICallStatus: state.serviceCallStatus.closeTicketAPI,
     closeAndUpdateTicketAPICallStatus: state.serviceCallStatus.closeAndUpdateTicketAPI,
-    addMessageAPICallStatus: state.serviceCallStatus.addMessageAPI,
+    messageAndUpdateTicketAPICallStatus: state.serviceCallStatus.messageAndUpdateTicketAPI,
     assignAndUpdateTicketAPICallStatus: state.serviceCallStatus.assignAndUpdateTicketAPI
 
   }
 }
 
 const mapActionsToProps = {
-  addMessage: addMessageAPICall,
+  addMessage: messageAndUpdateTicketAPICall,
   closeTicket: closeAndUpdateTicketAPICall,
   downloadAttachment: downloadAttachmentAPICall,
   fetchTicketDetails: fetchTicketDetailsAPICall,

@@ -1,7 +1,8 @@
 import { CREATE_TICKET, CREATE_TICKET_SUCCESS, CREATE_TICKET_FAILURE, FETCH_TICKETS_SUCCESS, FETCH_TICKETS, FETCH_TICKETS_FAILURE, ADD_MESSAGE, ADD_MESSAGE_SUCCESS, ADD_MESSAGE_FAILURE, FETCH_ASSIGNED_TICKET_DETAILS, FETCH_ASSIGNED_TICKET_DETAILS_SUCCESS, FETCH_ASSIGNED_TICKET_DETAILS_FAILURE, FETCH_CREATED_TICKETS_SUCCESS, FETCH_CREATED_TICKETS, FETCH_CREATED_TICKETS_FAILURE, FETCH_CREATED_TICKET_DETAILS, FETCH_CREATED_TICKET_DETAILS_SUCCESS, FETCH_CREATED_TICKET_DETAILS_FAILURE, CLOSE_TICKET, CLOSE_TICKET_SUCCESS, CLOSE_TICKET_FAILURE, FETCH_ENGINEERS, FETCH_ENGINEERS_SUCCESS, FETCH_ENGINEERS_FAILURE, LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, GET_PROFILE, GET_PROFILE_SUCCESS, GET_PROFILE_FAILURE } from '../actions/ActionTypes';
 import { ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET, ASSIGN_UPDATE_TICKET_FAILURE } from '../actions/ActionTypes'
+import {MESSAGE_UPDATE_TICKET, MESSAGE_UPDATE_TICKET_FAILURE, MESSAGE_UPDATE_TICKET_SUCCESS} from '../actions/ActionTypes';
 import { SHOW_FORM_NEW_TICKET } from '../actions/ActionTypes';
-import {CLOSE_UPDATE_TICKET, CLOSE_UPDATE_TICKET_FAILURE, CLOSE_UPDATE_TICKET_SUCCESS} from '../actions/ActionTypes';
+import { CLOSE_UPDATE_TICKET, CLOSE_UPDATE_TICKET_FAILURE, CLOSE_UPDATE_TICKET_SUCCESS } from '../actions/ActionTypes';
 import { FETCH_TICKET_DETAILS, FETCH_TICKET_DETAILS_FAILURE, FETCH_TICKET_DETAILS_SUCCESS } from '../actions/ActionTypes';
 import { FETCH_DASHBOARD_DATA, FETCH_DASHBOARD_DATA_SUCCESS, FETCH_DASHBOARD_DATA_FAILURE } from '../actions/ActionTypes';
 import { FETCH_ASSIGNED_TICKETS, FETCH_ASSIGNED_TICKETS_SUCCESS, FETCH_ASSIGNED_TICKETS_FAILURE } from '../actions/ActionTypes';
@@ -143,6 +144,19 @@ export function serviceCallStatusReducer(state = {}, action) {
         case CLOSE_UPDATE_TICKET_FAILURE:
             return {
                 ...state, closeAndUpdateTicketAPI: { requested: false, success: false, error: true }
+            }
+
+        case MESSAGE_UPDATE_TICKET:
+            return {
+                ...state, messageAndUpdateTicketAPI: { requested: true, success: false, error: false }
+            }
+        case MESSAGE_UPDATE_TICKET_SUCCESS:
+            return {
+                ...state, messageAndUpdateTicketAPI: { requested: false, success: true, error: false }
+            }
+        case MESSAGE_UPDATE_TICKET_FAILURE:
+            return {
+                ...state, messageAndUpdateTicketAPI: { requested: false, success: false, error: true }
             }
 
         case FETCH_DASHBOARD_DATA:
