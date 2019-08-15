@@ -656,7 +656,8 @@ export function closeTicketAPICall(params) {
 }
 
 export function closeAndUpdateTicketAPICall(params, queryParams) {
-    console.log("params: " + JSON.stringify(params));
+    console.log("params:");
+    console.log(params);
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     var formData = new FormData();

@@ -142,7 +142,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
       if (this.state.comment)
         params.comment = this.state.comment;
 
-      if (this.state.isUpload && this.state.file1 && this.state.file2 && this.state.file3) {
+      if (this.state.isUpload && (this.state.file1 || this.state.file2 || this.state.file3)) {
         params.file1 = this.state.file1;
         params.file2 = this.state.file2;
         params.file3 = this.state.file3;
