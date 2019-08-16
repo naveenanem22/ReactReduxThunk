@@ -424,7 +424,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
                         style={{
                           paddingTop: '0',
                           paddingBottom: '0'
-                        }} size="sm" outline color="success">Assign</Button>
+                        }} size="sm" color="success">Assign</Button>
                     </Col>
                   </Row>}
                 {this.props.assignAndUpdateTicketAPICallStatus.requested
