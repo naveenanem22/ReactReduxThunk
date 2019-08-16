@@ -409,8 +409,6 @@ class ViewTicketBundleDetailsForm extends React.Component {
             </Row>
 
             {localStorage.getItem('role') === Role.ROLE_MANAGER &&
-              (this.props.managerCioKey === 'AST') &&
-
               <div>
                 <div>
                   <Row style={{ marginTop: '5%' }}>
@@ -438,8 +436,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
                 </div>
                 {!this.props.assignAndUpdateTicketAPICallStatus.requested &&
                   (localStorage.getItem('role') === Role.ROLE_MANAGER) &&
-                  (this.props.managerCioKey === 'AST') &&
-
+                  (this.props.ticket.status !== TicketStatus.CLOSE) &&
                   <Row style={{ marginTop: '2%' }}>
                     <Col sm='12'
                       style={{ textAlign: 'center' }}>
