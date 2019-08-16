@@ -441,14 +441,10 @@ class ViewTicketBundleDetailsForm extends React.Component {
                         }} size="sm" outline color="success">Assigning...</Button>
                     </Col>
                     <Col sm='4' style={{
-                      paddingTop: '2%',
-                      paddingLeft: '0px'
+                      paddingTop: '0',
+                      paddingLeft: '0'
                     }}>
-                      <HalfCircleSpinner
-                        color='green'
-                        size='20'>
-
-                      </HalfCircleSpinner>
+                      <Spinner size='sm' color="primary" />
                     </Col>
                   </Row>}
               </div>}
