@@ -728,7 +728,7 @@ export function messageAndUpdateTicketAPICall(params, queryParams) {
     //Appending the query-params
     Object.keys(queryParams).forEach(key => url.searchParams.append(key, queryParams[key]));
     return function (dispatch) {
-        dispatch(closeAndUpdateTicket());
+        dispatch(messageAndUpdateTicket());
         return fetch(url, {
             method: 'PUT',
             headers: headers,
@@ -737,17 +737,17 @@ export function messageAndUpdateTicketAPICall(params, queryParams) {
             .then(
                 response => {
                     if (response.status === 204) {
-                        dispatch(closeAndUpdateTicketSuccess());
+                        dispatch(messageAndUpdateTicketSuccess());
                     }
                     if (response.status === 500 || response.status === 400) {
                         console.log("Dispatching close ticket failure");
-                        dispatch(closeAndUpdateTicketFailure());
+                        dispatch(messageAndUpdateTicketFailure());
                     }
 
                 },
                 error => {
                     console.log('An error occurred.', error);
-                    dispatch(closeAndUpdateTicketFailure());
+                    dispatch(messageAndUpdateTicketFailure());
 
                 }
             );

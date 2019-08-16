@@ -114,6 +114,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
     e.preventDefault();
     this.setState((prevState, props) => ({
       commentedOn: new Date(Date.now()).toISOString(),
+      isAlertSectionVisibleInit: true,
       file1: this.state.isUpload ? prevState.file1 : undefined,
       file2: this.state.isUpload ? prevState.file2 : undefined,
       file3: this.state.isUpload ? prevState.file3 : undefined
@@ -151,6 +152,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
     this.setState((prevState, props) => ({
       commentedOn: new Date(Date.now()).toISOString(),
       status: TicketStatus.CLOSE,
+      isAlertSectionVisibleInit: true,
       file1: this.state.isUpload ? prevState.file1 : undefined,
       file2: this.state.isUpload ? prevState.file2 : undefined,
       file3: this.state.isUpload ? prevState.file3 : undefined
@@ -220,9 +222,23 @@ class ViewTicketBundleDetailsForm extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.assignAndUpdateTicketAPICallStatus.requested !==
+    console.log("Inside componentdidupdate of viewticketbundledetails");
+    console.log("PrevProps");
+    console.log(prevProps);
+    console.log("currentprops");
+    console.log(this.props);
+    if ((this.props.assignAndUpdateTicketAPICallStatus.requested !==
       prevProps.assignAndUpdateTicketAPICallStatus.requested &&
       !this.props.assignAndUpdateTicketAPICallStatus.requested)
+
+      || (this.props.messageAndUpdateTicketAPICallStatus.requested !==
+        prevProps.messageAndUpdateTicketAPICallStatus.requested &&
+        !this.props.messageAndUpdateTicketAPICallStatus.requested)
+
+      ||
+      (this.props.closeAndUpdateTicketAPICallStatus.requested !==
+        prevProps.closeAndUpdateTicketAPICallStatus.requested &&
+        !this.props.closeAndUpdateTicketAPICallStatus.requested))
       this.setState({
         isTicketDetailsSectionVisibleInit: false
       });
@@ -270,12 +286,21 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
 
   render() {
-    console.log("Inside viewticktbundledetailsform");
+    console.log("Rendering viewticktbundledetailsform");
     console.log(this.props);
     console.log(this.state);
     //    const isAssignButtonSectionVisible = !this.props.assignAndUpdateTicketAPICallStatus.requested;
-    const isAlertSectionVisible = (this.props.assignAndUpdateTicketAPICallStatus.success ||
+    const isAlertSectionVisible = ((this.props.assignAndUpdateTicketAPICallStatus.success ||
       this.props.assignAndUpdateTicketAPICallStatus.error)
+      || (this.props.messageAndUpdateTicketAPICallStatus.success ||
+        this.props.messageAndUpdateTicketAPICallStatus.error)
+
+      || (this.props.closeAndUpdateTicketAPICallStatus.success ||
+        this.props.closeAndUpdateTicketAPICallStatus.error)
+    );
+
+    console.log("isAlertSectionVisible value: ");
+    console.log(isAlertSectionVisible);
 
 
     return (
@@ -547,7 +572,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
                               </CardText>
                             </Col>
                             <Col sm={{ size: '7' }} style={{ textAlign: 'right' }}>
-                              <CardText style={{paddingRight:'5%'}}>
+                              <CardText style={{ paddingRight: '5%' }}>
                                 <small className="text-muted">{timeUtil.timeAgo(calendarUtil.getLocalTimeStamp(item.commentedOn))}</small>
                               </CardText>
                             </Col>
@@ -650,7 +675,11 @@ class ViewTicketBundleDetailsForm extends React.Component {
         {/* Show succcess or failure alert */}
         {this.state.isAlertSectionVisibleInit
           && isAlertSectionVisible
-          && this.props.assignAndUpdateTicketAPICallStatus.success
+          &&
+          (this.props.assignAndUpdateTicketAPICallStatus.success
+            || this.props.messageAndUpdateTicketAPICallStatus.success
+            || this.props.closeAndUpdateTicketAPICallStatus.success
+          )
           && <Row style={{ marginTop: '2%' }}>
             <Col
               style={{ textAlign: 'center' }}>
@@ -660,7 +689,9 @@ class ViewTicketBundleDetailsForm extends React.Component {
           </Row>}
         {this.state.isAlertSectionVisibleInit
           && isAlertSectionVisible
-          && this.props.assignAndUpdateTicketAPICallStatus.error
+          && (this.props.assignAndUpdateTicketAPICallStatus.error
+            || this.props.messageAndUpdateTicketAPICallStatus.error
+            || this.props.closeAndUpdateTicketAPICallStatus.error)
           && <Row style={{ marginTop: '2%' }}>
             <Col
               style={{ textAlign: 'center' }}>
