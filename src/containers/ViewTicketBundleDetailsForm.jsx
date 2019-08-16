@@ -545,9 +545,13 @@ class ViewTicketBundleDetailsForm extends React.Component {
                       <Card >
                         <CardHeader style={{ verticalAlign: 'middle', paddingLeft: '2%', paddingRight: '0', paddingTop: '1%', paddingBottom: '1%' }}>
                           <Row>
-                            <Col size='sm'>{item.author.firstName + ' ' + item.author.lastName}</Col>
-                            <Col size='sm'>
-                              <CardText>
+                            <Col sm={{ size: '5' }} style={{ textAlign: 'left' }}>
+                              <CardText >
+                                <small>{item.author.firstName + ' ' + item.author.lastName}</small>
+                              </CardText>
+                            </Col>
+                            <Col sm={{ size: '7' }} style={{ textAlign: 'right' }}>
+                              <CardText style={{paddingRight:'5%'}}>
                                 <small className="text-muted">{timeUtil.timeAgo(calendarUtil.getLocalTimeStamp(item.commentedOn))}</small>
                               </CardText>
                             </Col>
