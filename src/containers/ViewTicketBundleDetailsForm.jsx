@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import { assignAndUpdateTicketAPICall, messageAndUpdateTicketAPICall, closeAndUpdateTicketAPICall, downloadAttachmentAPICall, fetchTicketDetailsAPICall, fetchAssignedTicketDetailsAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
 import { Badge, Row, Col, NavLink, Input, FormGroup, Label, FormText } from 'reactstrap';
-import { Button, Card, CardBody, CardHeader, CardText, CardTitle, CardFooter } from 'reactstrap';
+import { Spinner, Button, Card, CardBody, CardHeader, CardText, CardTitle, CardFooter } from 'reactstrap';
 import { FaFilePdf, FaFileAlt, FaFileImage, FaFile } from 'react-icons/fa';
 import history from '../history';
 import queryString from 'query-string';
@@ -470,45 +470,70 @@ class ViewTicketBundleDetailsForm extends React.Component {
               (this.props.ticket.ticketHistory.length === 0
                 && this.props.ticket.status !== TicketStatus.CLOSE)
               &&
-              <div>
-                <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%' }}>
-                  <Col >
-                    <FormGroup>
+              <Card>
+                <CardFooter>
+                  <Row >
+                    <Col style={{ padding: '0' }}>
                       <Input invalid={this.state.isCommentInvalid} size='sm' type="textarea" name="comment" id="comment" onChange={this.handleCommentChange} />
-                    </FormGroup>
-                  </Col>
-                </Row>
+                    </Col>
+                  </Row>
 
-                <Row style={{ 'height': '8%', 'width': '99%', 'marginLeft': '1%', 'marginTop': '1%' }}>
-                  <Col>
-                    <Button onClick={this.toggleUpload}
-                      type="submit"
-                      outline
-                      color="secondary"
-                      size="sm"
-                    >Attach Files</Button>
-                  </Col>
-                  <Col style={{ 'text-align': 'right' }}>
-                    <Button type="submit" color="link" size="sm" onClick={this.onSubmitCloseTicket}>
-                      Close Ticket</Button>or
-                 <Button type="submit" color="info" size="sm" style={{ 'marginLeft': '2%' }} onClick={this.onSubmitAddMessage}>
-                      Add Message</Button>
-                  </Col>
-                </Row>
-                {this.state.isUpload && <Row>
-                  <FormGroup style={{ 'width': '90%', 'paddingLeft': '5%', 'paddingTop': '2%' }}>
-                    <Label size='sm' for="attachments">Attachments</Label>
-                    <Input size='sm' type="file" name="file1" id="file1" onChange={this.onFileUpload} />
-                    <Input size='sm' type="file" name="file2" id="file2" onChange={this.onFileUpload} />
-                    <Input size='sm' type="file" name="file3" id="file3" onChange={this.onFileUpload} />
-                    <FormText color="muted">
-                      Any files that can assist the corresponding team to resolve the issues at the earliest.
-          </FormText>
-                  </FormGroup>
+                  <Row >
+                    <Col size='auto' style={{ textAlign: 'left', padding: '0' }}>
+                      <Button onClick={this.toggleUpload}
+                        style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginRight: '1%' }}
+                        type="submit"
+                        outline
+                        color="secondary"
+                        size="sm"
+                      >Files</Button>
+                    </Col>
 
-                </Row>}
 
-              </div>}
+                    <Col size='auto' style={{ textAlign: 'center', padding: '0' }}>
+                      <Button
+                        style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginLeft: '1%' }}
+                        type="submit"
+                        color="success"
+                        size="sm"
+                        disabled={this.props.closeAndUpdateTicketAPICallStatus.requested}
+                        onClick={this.onSubmitCloseTicket}>
+                        Close</Button>
+                    </Col>
+
+
+                    <Col size='auto' style={{ textAlign: 'center', padding: '0' }}>
+                      <Button
+                        style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginLeft: '1%' }}
+                        type="submit"
+                        color="warning"
+                        size="sm"
+                        disabled={this.props.messageAndUpdateTicketAPICallStatus.requested}
+                        onClick={this.onSubmitAddMessage}>
+                        Message</Button>
+                    </Col>
+                  </Row>
+                  {(this.props.messageAndUpdateTicketAPICallStatus.requested
+                    || this.props.closeAndUpdateTicketAPICallStatus.requested)
+                    && <Row>
+                      <Col sm='12' sm={{ size: 6, offset: 5 }}><Spinner size='sm' color="primary" /></Col>
+                    </Row>}
+                  {this.state.isUpload &&
+                    <Row>
+                      <FormGroup style={{ 'width': '90%', 'paddingLeft': '5%', 'paddingTop': '2%' }}>
+                        <Label size='sm' for="attachments">Attachments</Label>
+                        <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file1" id="file1" onChange={this.onFileUpload} />
+                        <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file2" id="file2" onChange={this.onFileUpload} />
+                        <Input style={{ fontSize: '70%' }} size='sm' type="file" name="file3" id="file3" onChange={this.onFileUpload} />
+                        <FormText color="muted">
+                          Any files that can assist the corresponding team to resolve the issues at the earliest.          </FormText>
+                      </FormGroup>
+
+                    </Row>}
+
+                </CardFooter>
+
+              </Card>}
 
 
             {/* Add-Conversation-block only in the first message block of the history when the history is present*/}
