@@ -124,9 +124,16 @@ class ViewTicketsForm extends React.Component {
     console.log("From inside of componentdidupdate");
     const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
 
-    if (this.props.assignAndUpdateTicketAPICallStatus.success !==
-      prevProps.assignAndUpdateTicketAPICallStatus.success) {
-      console.log("Ticket assigned successfully. Reload the Tickets to be assigned.");
+    if ((this.props.assignAndUpdateTicketAPICallStatus.success !==
+      prevProps.assignAndUpdateTicketAPICallStatus.success)
+      ||
+      (this.props.messageAndUpdateTicketAPICallStatus.success !==
+        prevProps.messageAndUpdateTicketAPICallStatus.success)
+      ||
+      (this.props.closeAndUpdateTicketAPICallStatus.success !==
+        prevProps.closeAndUpdateTicketAPICallStatus.success)
+    ) {
+      console.log("Ticket updated successfully. Reload the Tickets to be assigned.");
       //Fetching tickets post ticket update
       if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
         this.props.fetchTickets({
@@ -249,7 +256,9 @@ const mapStateToProps = function (state) {
     engineers: state.engineerList.engineers,
     fetchTicketsAPICallStatus: state.serviceCallStatus.fetchTicketsAPI,
     fetchAssignedTicketsAPICallStatus: state.serviceCallStatus.fetchAssignedTicketsAPI,
-    assignAndUpdateTicketAPICallStatus: state.serviceCallStatus.assignAndUpdateTicketAPI
+    assignAndUpdateTicketAPICallStatus: state.serviceCallStatus.assignAndUpdateTicketAPI,
+    messageAndUpdateTicketAPICallStatus: state.serviceCallStatus.messageAndUpdateTicketAPI,
+    closeAndUpdateTicketAPICallStatus: state.serviceCallStatus.closeAndUpdateTicketAPI
 
   }
 }
