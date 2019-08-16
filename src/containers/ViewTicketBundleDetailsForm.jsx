@@ -588,17 +588,6 @@ class ViewTicketBundleDetailsForm extends React.Component {
                                   size="sm"
                                 >Files</Button>
                               </Col>
-                              {this.props.closeAndUpdateTicketAPICallStatus.requested
-                                && <Col sm='auto' style={{
-                                  textAlign: 'right',
-                                  paddingTop: '1%',
-                                  paddingRight: '0'
-                                }}>
-                                  <HalfCircleSpinner
-                                    size='20'
-                                    color='blue'>
-                                  </HalfCircleSpinner>
-                                </Col>}
 
                               <Col size='auto' style={{ textAlign: 'center', padding: '0' }}>
                                 <Button
@@ -611,18 +600,6 @@ class ViewTicketBundleDetailsForm extends React.Component {
                                   Close</Button>
                               </Col>
 
-                              {this.props.messageAndUpdateTicketAPICallStatus.requested
-                                && <Col sm='auto' style={{
-                                  textAlign: 'right',
-                                  paddingTop: '1%',
-                                  paddingRight: '0'
-                                }}>
-                                  <HalfCircleSpinner
-                                    size='20'
-                                    color='blue'>
-                                  </HalfCircleSpinner>
-                                </Col>}
-
                               <Col size='auto' style={{ textAlign: 'center', padding: '0' }}>
                                 <Button
                                   style={{ fontSize: '70%', width: '90%', paddingTop: '0', paddingBottom: '0', marginLeft: '1%' }}
@@ -634,6 +611,11 @@ class ViewTicketBundleDetailsForm extends React.Component {
                                   Message</Button>
                               </Col>
                             </Row>
+                            {(this.props.messageAndUpdateTicketAPICallStatus.requested
+                              || this.props.closeAndUpdateTicketAPICallStatus.requested)
+                              && <Row>
+                                <Col sm='12' sm={{ size: 6, offset: 5 }}><Spinner size='sm' color="primary" /></Col>
+                              </Row>}
                             {this.state.isUpload &&
                               <Row>
                                 <FormGroup style={{ 'width': '90%', 'paddingLeft': '5%', 'paddingTop': '2%' }}>
