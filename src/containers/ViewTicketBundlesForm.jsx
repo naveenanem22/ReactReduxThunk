@@ -12,7 +12,7 @@ import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
 import { Role, TicketStatus, TicketsSortBy } from '../masterdata/ApplicationMasterData';
 import { componentInfoObj, PAGINATION_START_PAGE } from '../masterdata/ApplicationMasterData';
-import CustomPagination from '../components/CustomPagination';
+import CustomPagination2 from '../components/CustomPagination';
 import { setManagerTicketSearchCriteria } from '../actions/TicketActions';
 import { setManagerActiveSideMenuOption } from '../actions/ActiveSideMenuActions';
 
@@ -200,10 +200,10 @@ class ViewTicketsForm extends React.Component {
         </Container>
         <hr />
         {(this.props.fetchTicketsAPICallStatus.success ||
-          this.props.fetchAssignedTicketsAPICallStatus.success) && <CustomPagination data={this.props.ticketList}
+          this.props.fetchAssignedTicketsAPICallStatus.success) && <CustomPagination2 data={this.props.ticketList}
             onPaginationPageChange={this.onPaginationPageChange}
             onPaginationItemsPerPageChange={this.onPaginationItemsPerPageChange}>
-          </CustomPagination>
+          </CustomPagination2>
         }
         <Container>
           {(this.props.fetchTicketsAPICallStatus.requested ||
