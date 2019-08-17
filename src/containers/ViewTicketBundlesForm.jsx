@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Badge, NavLink, Container, InputGroupAddon, InputGroup, Button, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
+import { Badge, NavLink, Container, Input, Label, Button, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 import { FaUserAlt } from 'react-icons/fa';
 import { Redirect } from 'react-router-dom';
 import SearchInput from '../components/SearchInput';
@@ -12,7 +12,7 @@ import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
 import { Role, TicketStatus, TicketsSortBy } from '../masterdata/ApplicationMasterData';
 import { componentInfoObj, PAGINATION_START_PAGE } from '../masterdata/ApplicationMasterData';
-import CustomPagination2 from '../components/CustomPagination';
+import CustomPagination2 from '../components/CustomPagination2';
 import { setManagerTicketSearchCriteria } from '../actions/TicketActions';
 import { setManagerActiveSideMenuOption } from '../actions/ActiveSideMenuActions';
 
@@ -200,10 +200,40 @@ class ViewTicketsForm extends React.Component {
         </Container>
         <hr />
         {(this.props.fetchTicketsAPICallStatus.success ||
-          this.props.fetchAssignedTicketsAPICallStatus.success) && <CustomPagination2 data={this.props.ticketList}
-            onPaginationPageChange={this.onPaginationPageChange}
-            onPaginationItemsPerPageChange={this.onPaginationItemsPerPageChange}>
-          </CustomPagination2>
+          this.props.fetchAssignedTicketsAPICallStatus.success) &&
+          <Row>
+            <Col sm='auto'>
+              <CustomPagination2 data={this.props.ticketList}
+                onPaginationPageChange={this.onPaginationPageChange}
+                onPaginationItemsPerPageChange={this.onPaginationItemsPerPageChange}>
+              </CustomPagination2>
+            </Col>
+            <Col sm='auto' style={{
+              marginTop: '2%',
+              paddingRight: '0'
+            }}>
+              <Label size='sm'>Sort By:</Label>
+            </Col>
+            <Col sm='auto' style={{
+            marginTop: '2%'
+          }}>
+            <Input size='sm' 
+            value={this.state.itemsPerPage} 
+            type="select"
+             name="sortBy" 
+             id="sortBy"
+             onChange = {this.handleItemsPerPageChange}
+            >
+              <option>Created By</option>
+              <option>Last Updated</option>
+              <option>Status</option>
+              <option>Title</option>
+              <option>Ticket Id</option>
+            </Input>
+          </Col>
+            
+          </Row>
+
         }
         <Container>
           {(this.props.fetchTicketsAPICallStatus.requested ||

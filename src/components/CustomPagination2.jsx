@@ -45,7 +45,7 @@ class CustomPagination2 extends Component {
     return (
       <div>
         <Row>
-          <Col sm='6'>
+          <Col sm='auto'>
             <Pagination size='sm'
               activePage={this.props.data.number}
               itemsCountPerPage={this.props.data.size}
@@ -58,7 +58,7 @@ class CustomPagination2 extends Component {
             marginTop: '2%',
             paddingRight: '0'
           }}>
-            <Label>Items per Page:</Label>
+            <Label size='sm'>Page Size:</Label>
           </Col>
           <Col sm='auto' style={{
             marginTop: '2%'
