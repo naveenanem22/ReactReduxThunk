@@ -69,6 +69,23 @@ export const uiUtil = {
 
   },
 
+  getTicketsSortByDisplayName: function (ticketsSortByCode) {
+    console.log("ticketsSortByCode: "+ticketsSortByCode)
+    var matchedOptionsArray = TicketsSortByAsArray.filter(item => {
+      return item.code === ticketsSortByCode;
+    });
+
+    if (matchedOptionsArray.length === 1) {
+      console.log("matchedOptionsArray:");
+      console.log(matchedOptionsArray);
+      return matchedOptionsArray[0].displayName;
+    }
+
+    else
+      return false;
+
+  },
+
   truncate: function (n, useWordBoundary) {
     if (this.length <= n) { return this; }
     var subString = this.substr(0, n - 1);

@@ -15,7 +15,7 @@ import { componentInfoObj, PAGINATION_START_PAGE } from '../masterdata/Applicati
 import CustomPagination2 from '../components/CustomPagination2';
 import { setManagerTicketSearchCriteria } from '../actions/TicketActions';
 import { setManagerActiveSideMenuOption } from '../actions/ActiveSideMenuActions';
-import {uiUtil} from '../util/UIUtils';
+import { uiUtil } from '../util/UIUtils';
 
 
 
@@ -25,7 +25,8 @@ class ViewTicketsForm extends React.Component {
     super(props);
 
     this.state = {
-      tickets: this.props.tickets
+      tickets: this.props.tickets,
+      sortBy: this.props.ticketList.managerTicketSearchCriteria.sortBy
     };
     this.handleTicketBundleClick = this.handleTicketBundleClick.bind(this);
     this.handleListViewClick = this.handleListViewClick.bind(this);
@@ -37,25 +38,31 @@ class ViewTicketsForm extends React.Component {
 
   handleSort(e) {
 
-    if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
-      history.push({
-        pathname: '/ticketmanage/tickets'
-      });
+    this.setState({
+      [e.target.name]: e.target.value
+    }, () => {
+      if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
+        history.push({
+          pathname: '/ticketmanage/tickets'
+        });
 
-      const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
-      this.props.setManagerTicketSearchCriteria({
-        //this is updated with new value
-        sortBy: uiUtil.getTicketsSortByCode(e.target.value),
+        const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
+        this.props.setManagerTicketSearchCriteria({
+          //this is updated with new value
+          sortBy: uiUtil.getTicketsSortByCode(this.state.sortBy),
 
-        //the following retains the same values
-        cioKey: searchCriteria.cioKey,
-        status: searchCriteria.status,
-        pageSize: searchCriteria.pageSize,
-        sortOrder: searchCriteria.sortOrder,
-        pageNumber: searchCriteria.pageNumber,
-        isLoad: true
-      })
-    }
+          //the following retains the same values
+          cioKey: searchCriteria.cioKey,
+          status: searchCriteria.status,
+          pageSize: searchCriteria.pageSize,
+          sortOrder: searchCriteria.sortOrder,
+          pageNumber: searchCriteria.pageNumber,
+          isLoad: true
+        })
+      }
+    });
+
+
   }
 
   handleListViewClick() {
@@ -199,6 +206,10 @@ class ViewTicketsForm extends React.Component {
 
   render() {
     //Initialize suggestions array with names from engineers array
+    console.log("Inside viewticketbundlesform render...");
+    console.log("State: ")
+    console.log(this.state);
+
     var suggestions = [];
     this.props.engineers.forEach(engineer => {
       suggestions.push({ name: engineer.userFullName });
@@ -243,13 +254,14 @@ class ViewTicketsForm extends React.Component {
               marginTop: '2%'
             }}>
               <Input size='sm'
-                value={this.state.sortBy}
+                //value={this.state.sortBy}
+                value={uiUtil.getTicketsSortByDisplayName(this.state.sortBy)}
                 type="select"
                 name="sortBy"
                 id="sortBy"
                 onChange={this.handleSort}
               >
-                <option>{TicketsSortByDisplayName.TICKET_TITLE}</option>
+                <option>{TicketsSortByDisplayName.TICKET_ID}</option>
                 <option>{TicketsSortByDisplayName.TICKET_UPDATED_DATE}</option>
                 <option>{TicketsSortByDisplayName.TICKET_STATUS}</option>
                 <option>{TicketsSortByDisplayName.TICKET_TITLE}</option>
