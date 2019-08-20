@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Badge, NavLink, Container, Input, Label, Button, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
-import { FaUserAlt } from 'react-icons/fa';
+import { FaLongArrowAltUp, FaLongArrowAltDown } from 'react-icons/fa';
 import { Redirect } from 'react-router-dom';
 import SearchInput from '../components/SearchInput';
 import { fetchAssignedTicketsAPICall } from '../actions/TicketActions';
@@ -10,7 +10,7 @@ import TicketDetailCard from '../components/TicketDetailCard';
 import { fetchTicketsAPICall } from '../actions/TicketActions';
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
-import { Role, TicketStatus, TicketsSortBy, TicketsSortByDisplayName } from '../masterdata/ApplicationMasterData';
+import { Role, TicketStatus, TicketsSortBy, TicketsSortByDisplayName, SortOrder } from '../masterdata/ApplicationMasterData';
 import { componentInfoObj, PAGINATION_START_PAGE } from '../masterdata/ApplicationMasterData';
 import CustomPagination2 from '../components/CustomPagination2';
 import { setManagerTicketSearchCriteria } from '../actions/TicketActions';
@@ -26,14 +26,44 @@ class ViewTicketsForm extends React.Component {
 
     this.state = {
       tickets: this.props.tickets,
-      sortBy: this.props.ticketList.managerTicketSearchCriteria.sortBy
+      sortBy: this.props.ticketList.managerTicketSearchCriteria.sortBy,
+      sortOrder: this.props.ticketList.managerTicketSearchCriteria.sortOrder
     };
     this.handleTicketBundleClick = this.handleTicketBundleClick.bind(this);
     this.handleListViewClick = this.handleListViewClick.bind(this);
     this.onPaginationPageChange = this.onPaginationPageChange.bind(this);
     this.onPaginationItemsPerPageChange = this.onPaginationItemsPerPageChange.bind(this);
     this.handleSort = this.handleSort.bind(this);
+    this.handleSortOrder = this.handleSortOrder.bind(this);
 
+  }
+
+  handleSortOrder(sortOrder) {
+
+    this.setState({
+      sortOrder: sortOrder
+    }, () => {
+      if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
+        history.push({
+          pathname: '/ticketmanage/tickets'
+        });
+
+        const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
+        this.props.setManagerTicketSearchCriteria({
+          //this is updated with new value
+          sortOrder: this.state.sortOrder,
+
+          //the following retains the same values
+          cioKey: searchCriteria.cioKey,
+          status: searchCriteria.status,
+          pageSize: searchCriteria.pageSize,
+          sortOrder: searchCriteria.sortOrder,
+          sortBy: searchCriteria.sortBy,
+          pageNumber: searchCriteria.pageNumber,
+          isLoad: true
+        })
+      }
+    });
   }
 
   handleSort(e) {
@@ -266,6 +296,17 @@ class ViewTicketsForm extends React.Component {
                 <option>{TicketsSortByDisplayName.TICKET_STATUS}</option>
                 <option>{TicketsSortByDisplayName.TICKET_TITLE}</option>
               </Input>
+            </Col>
+            <Col sm='auto' style={{
+              marginTop: '2%',
+              paddingRight: '0'
+            }}>
+              <FaLongArrowAltUp style={{
+                cursor: 'pointer'
+              }} onClick={() => {
+                this.handleSortOrder(SortOrder.DESCENDING);
+              }
+              }></FaLongArrowAltUp>
             </Col>
 
           </Row>
