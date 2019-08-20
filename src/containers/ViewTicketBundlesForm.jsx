@@ -10,11 +10,12 @@ import TicketDetailCard from '../components/TicketDetailCard';
 import { fetchTicketsAPICall } from '../actions/TicketActions';
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
-import { Role, TicketStatus, TicketsSortBy } from '../masterdata/ApplicationMasterData';
+import { Role, TicketStatus, TicketsSortBy, TicketsSortByDisplayName } from '../masterdata/ApplicationMasterData';
 import { componentInfoObj, PAGINATION_START_PAGE } from '../masterdata/ApplicationMasterData';
 import CustomPagination2 from '../components/CustomPagination2';
 import { setManagerTicketSearchCriteria } from '../actions/TicketActions';
 import { setManagerActiveSideMenuOption } from '../actions/ActiveSideMenuActions';
+import {uiUtil} from '../util/UIUtils';
 
 
 
@@ -30,7 +31,31 @@ class ViewTicketsForm extends React.Component {
     this.handleListViewClick = this.handleListViewClick.bind(this);
     this.onPaginationPageChange = this.onPaginationPageChange.bind(this);
     this.onPaginationItemsPerPageChange = this.onPaginationItemsPerPageChange.bind(this);
+    this.handleSort = this.handleSort.bind(this);
 
+  }
+
+  handleSort(e) {
+
+    if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
+      history.push({
+        pathname: '/ticketmanage/tickets'
+      });
+
+      const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
+      this.props.setManagerTicketSearchCriteria({
+        //this is updated with new value
+        sortBy: uiUtil.getTicketsSortByCode(e.target.value),
+
+        //the following retains the same values
+        cioKey: searchCriteria.cioKey,
+        status: searchCriteria.status,
+        pageSize: searchCriteria.pageSize,
+        sortOrder: searchCriteria.sortOrder,
+        pageNumber: searchCriteria.pageNumber,
+        isLoad: true
+      })
+    }
   }
 
   handleListViewClick() {
@@ -215,23 +240,22 @@ class ViewTicketsForm extends React.Component {
               <Label size='sm'>Sort By:</Label>
             </Col>
             <Col sm='auto' style={{
-            marginTop: '2%'
-          }}>
-            <Input size='sm' 
-            value={this.state.itemsPerPage} 
-            type="select"
-             name="sortBy" 
-             id="sortBy"
-             onChange = {this.handleItemsPerPageChange}
-            >
-              <option>Created By</option>
-              <option>Last Updated</option>
-              <option>Status</option>
-              <option>Title</option>
-              <option>Ticket Id</option>
-            </Input>
-          </Col>
-            
+              marginTop: '2%'
+            }}>
+              <Input size='sm'
+                value={this.state.sortBy}
+                type="select"
+                name="sortBy"
+                id="sortBy"
+                onChange={this.handleSort}
+              >
+                <option>{TicketsSortByDisplayName.TICKET_TITLE}</option>
+                <option>{TicketsSortByDisplayName.TICKET_UPDATED_DATE}</option>
+                <option>{TicketsSortByDisplayName.TICKET_STATUS}</option>
+                <option>{TicketsSortByDisplayName.TICKET_TITLE}</option>
+              </Input>
+            </Col>
+
           </Row>
 
         }

@@ -2,7 +2,7 @@ import { FaFilePdf, FaFileAlt, FaFileImage, FaFile, FaFileWord } from 'react-ico
 import React from 'react';
 import history from '../history';
 import queryString from 'query-string';
-import { TicketStatus, TicketStatusColorCode, Priority, TicketPriorityColorCode } from '../masterdata/ApplicationMasterData';
+import { TicketStatus, TicketStatusColorCode, Priority, TicketPriorityColorCode, TicketsSortByAsArray } from '../masterdata/ApplicationMasterData';
 
 export const uiUtil = {
 
@@ -50,6 +50,23 @@ export const uiUtil = {
         return TicketPriorityColorCode.LOW;
 
     }
+  },
+
+  getTicketsSortByCode: function (ticketsSortByDisplayName) {
+    console.log("ticketsSortByDisplayName: "+ticketsSortByDisplayName)
+    var matchedOptionsArray = TicketsSortByAsArray.filter(item => {
+      return item.displayName === ticketsSortByDisplayName;
+    });
+
+    if (matchedOptionsArray.length === 1) {
+      console.log("matchedOptionsArray:");
+      console.log(matchedOptionsArray);
+      return matchedOptionsArray[0].code;
+    }
+
+    else
+      return false;
+
   },
 
   truncate: function (n, useWordBoundary) {

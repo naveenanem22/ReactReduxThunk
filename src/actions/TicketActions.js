@@ -346,7 +346,8 @@ export function fetchTicketsAPICall(queryParams) {
     var url = new URL(PMAPI_BASE_URL + "/v0/ticket-management/tickets");
     var params = {
         status: queryParams.status, pageNumber: queryParams.pageNumber,
-        pageSize: queryParams.pageSize, createdByMe: queryParams.createdByMe
+        pageSize: queryParams.pageSize, createdByMe: queryParams.createdByMe,
+        sortBy: queryParams.sortBy, sortOrder: queryParams.sortOrder
     };
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 

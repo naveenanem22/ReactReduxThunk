@@ -34,6 +34,18 @@ export const TicketsSortBy = {
 
 }
 
+export const TicketsSortByDisplayName = {
+    TICKET_ID: 'Ticket Id', TICKET_STATUS: 'Status', TICKET_UPDATED_DATE: 'Last Updated',
+    TICKET_TITLE: 'Title'
+}
+
+export const TicketsSortByAsArray = [
+    {code:'ticketId', displayName:'Ticket Id'},
+    {code:'ticketStatus', displayName:'Status'},
+    {code:'ticketUpdatedDate', displayName:'Last Updated'},
+    {code:'ticketTitle', displayName:'Title'}
+]
+
 export const TicketStatus = {
     OPEN: 'Open', CLOSE: 'Closed', NEW: 'New', IN_PROCESS: 'Processing', PENDING: 'Pending',
     AWAIT_RESPONSE: 'AwaitingResponse', ALL: 'all'

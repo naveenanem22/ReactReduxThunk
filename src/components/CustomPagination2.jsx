@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import Pagination from "react-js-pagination";
 import { Row, Col, Input, Label, DropdownMenu, DropdownItem } from 'reactstrap'
 import { timingSafeEqual } from "crypto";
+import { TicketsSortBy } from "../masterdata/ApplicationMasterData";
 
 class CustomPagination2 extends Component {
   constructor(props) {
@@ -63,12 +64,12 @@ class CustomPagination2 extends Component {
           <Col sm='auto' style={{
             marginTop: '2%'
           }}>
-            <Input size='sm' 
-            value={this.state.itemsPerPage} 
-            type="select"
-             name="itemsPerPage" 
-             id="itemsPerPage"
-             onChange = {this.handleItemsPerPageChange}
+            <Input size='sm'
+              value={this.state.itemsPerPage}
+              type="select"
+              name="itemsPerPage"
+              id="itemsPerPage"
+              onChange={this.handleItemsPerPageChange}
             >
               <option>3</option>
               <option>5</option>
@@ -76,6 +77,7 @@ class CustomPagination2 extends Component {
               <option>25</option>
               <option>50</option>
               <option>100</option>
+
             </Input>
           </Col>
 
