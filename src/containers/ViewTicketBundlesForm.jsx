@@ -39,7 +39,7 @@ class ViewTicketsForm extends React.Component {
   }
 
   handleSortOrder(sortOrder) {
-
+    console.log("sortOrder: " + sortOrder);
     this.setState({
       sortOrder: sortOrder
     }, () => {
@@ -57,7 +57,6 @@ class ViewTicketsForm extends React.Component {
           cioKey: searchCriteria.cioKey,
           status: searchCriteria.status,
           pageSize: searchCriteria.pageSize,
-          sortOrder: searchCriteria.sortOrder,
           sortBy: searchCriteria.sortBy,
           pageNumber: searchCriteria.pageNumber,
           isLoad: true
@@ -239,6 +238,9 @@ class ViewTicketsForm extends React.Component {
     console.log("Inside viewticketbundlesform render...");
     console.log("State: ")
     console.log(this.state);
+    console.log("Props: ")
+    console.log(this.props);
+    
 
     var suggestions = [];
     this.props.engineers.forEach(engineer => {
@@ -301,12 +303,19 @@ class ViewTicketsForm extends React.Component {
               marginTop: '2%',
               paddingRight: '0'
             }}>
-              <FaLongArrowAltUp style={{
+              {this.props.ticketList.managerTicketSearchCriteria.sortOrder === SortOrder.ASCENDING && <FaLongArrowAltUp style={{
                 cursor: 'pointer'
               }} onClick={() => {
                 this.handleSortOrder(SortOrder.DESCENDING);
               }
-              }></FaLongArrowAltUp>
+              }></FaLongArrowAltUp>}
+
+              {this.props.ticketList.managerTicketSearchCriteria.sortOrder === SortOrder.DESCENDING && <FaLongArrowAltDown style={{
+                cursor: 'pointer'
+              }} onClick={() => {
+                this.handleSortOrder(SortOrder.ASCENDING);
+              }
+              }></FaLongArrowAltDown>}
             </Col>
 
           </Row>
