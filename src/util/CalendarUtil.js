@@ -75,6 +75,18 @@ export const timeUtil = {
     }
 
     return getFormattedDate(date); // 10. January 2017. at 10:20
+  },
+
+  daysSince: (toDate) => {
+    var oneDay = 24 * 60 * 60 * 1000;
+    var toDate = new Date(toDate + 'Z');
+    var fromDate = new Date();
+    console.log('FromDate: ' + fromDate);
+    console.log('ToDate: ' + toDate);
+    var daysDiff = Math.round(Math.abs((fromDate.getTime() - toDate.getTime()) / (oneDay)));
+    console.log('Days: ' + daysDiff);
+    return daysDiff;
+
   }
 }
 

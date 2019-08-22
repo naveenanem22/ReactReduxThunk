@@ -410,30 +410,33 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
             {localStorage.getItem('role') === Role.ROLE_MANAGER &&
               <div>
-                <div>
-                  <Row style={{ marginTop: '5%' }}>
-                    <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Assigned To:</Col>
-                  </Row>
-                  <Row style={{ marginTop: '2%' }}>
-                    <Col size='auto' style={{ textAlign: 'center' }}>
-                      <Fragment>
-                        <Typeahead
-                          disabled={this.props.assignAndUpdateTicketAPICallStatus.requested}
-                          onChange={(selectedOption) => this.onAssigneeSelection(selectedOption)}
-                          bsSize='small'
-                          labelKey={option => `${option.firstName} ${option.lastName}`}
-                          dropup={true}
-                          options={this.props.engineers}
-                          /* options={[{ firstName: 'Art', lastName: 'Blakey', userName: 'art.blakey@pmapi.com' },
-                          { firstName: 'Jimmy', lastName: 'Cobb', userName: 'jimmy.cobb@pmapi.com' },                            
-                          { firstName: 'Tony', lastName: 'Williams', userName: 'tony.williams@pmapi.com'}]} */
-                          placeholder="Choose an Engineer..."
-                        />
-                      </Fragment>
-                    </Col>
+                {!this.props.assignAndUpdateTicketAPICallStatus.requested &&
+                  (localStorage.getItem('role') === Role.ROLE_MANAGER) &&
+                  (this.props.ticket.status !== TicketStatus.CLOSE) &&
+                  <div>
+                    <Row style={{ marginTop: '5%' }}>
+                      <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Assigned To:</Col>
+                    </Row>
+                    <Row style={{ marginTop: '2%' }}>
+                      <Col size='auto' style={{ textAlign: 'center' }}>
+                        <Fragment>
+                          <Typeahead
+                            disabled={this.props.assignAndUpdateTicketAPICallStatus.requested}
+                            onChange={(selectedOption) => this.onAssigneeSelection(selectedOption)}
+                            bsSize='small'
+                            labelKey={option => `${option.firstName} ${option.lastName}`}
+                            dropup={true}
+                            options={this.props.engineers}
+                            /* options={[{ firstName: 'Art', lastName: 'Blakey', userName: 'art.blakey@pmapi.com' },
+                            { firstName: 'Jimmy', lastName: 'Cobb', userName: 'jimmy.cobb@pmapi.com' },                            
+                            { firstName: 'Tony', lastName: 'Williams', userName: 'tony.williams@pmapi.com'}]} */
+                            placeholder="Choose an Engineer..."
+                          />
+                        </Fragment>
+                      </Col>
 
-                  </Row>
-                </div>
+                    </Row>
+                  </div>}
                 {!this.props.assignAndUpdateTicketAPICallStatus.requested &&
                   (localStorage.getItem('role') === Role.ROLE_MANAGER) &&
                   (this.props.ticket.status !== TicketStatus.CLOSE) &&
