@@ -5,7 +5,7 @@ import { Badge } from 'reactstrap';
 import { getURLParams, getTicketPriorityColorCode, getTicketStatusColorCode } from '../util/UIUtils'
 import { TicketPriorityColorCode, maxCharLimit } from '../masterdata/ApplicationMasterData';
 import { uiUtil } from '../util/UIUtils';
-import { timeUtil } from '../util/CalendarUtil';
+import { timeUtil, calendarUtil } from '../util/CalendarUtil';
 
 class TicketDetailCard extends React.Component {
     constructor(props) {
@@ -50,7 +50,7 @@ class TicketDetailCard extends React.Component {
                             <Badge style={{ marginLeft: '4%' }} color={getTicketStatusColorCode(this.state.ticket.status)}>{this.state.ticket.status}</Badge></Col></Row>
                             <Row><Col sm='5' style={{ fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingRight: '0' }}><i>Days Open</i></Col><Col sm='7' style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingLeft: '0', paddingRight: '0' }}>: {timeUtil.daysSince(this.state.ticket.createdDate)}</Col></Row>
                             <Row><Col sm='5' style={{ fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingRight: '0' }}><i>Department</i></Col><Col sm='7' style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingLeft: '0', paddingRight: '0' }}>: {this.state.ticket.department.name}</Col></Row>
-                            <Row><Col sm='5' style={{ fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingRight: '0' }}><i>Updated On</i></Col><Col sm='7' style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingLeft: '0', paddingRight: '0' }}>: {this.state.ticket.updatedDate}</Col></Row>
+                            <Row><Col sm='5' style={{ fontFamily: 'Lato,Helvetica Neue,Arial,Helvetica,sans-serif', color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingRight: '0' }}><i>Updated On</i></Col><Col sm='7' style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', paddingLeft: '0', paddingRight: '0' }}>: {timeUtil.timeAgo(calendarUtil.getLocalTimeStamp(this.state.ticket.updatedDate))}</Col></Row>
                         </Col>
                     </Row>
 
