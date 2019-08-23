@@ -57,6 +57,11 @@ class ViewTicketBundleDetailsForm extends React.Component {
     this.onPrioritySelection = this.onPrioritySelection.bind(this);
     this.onDepartmentSelection = this.onDepartmentSelection.bind(this);
     this.handleCommentChange = this.handleCommentChange.bind(this);
+    this.getAssignedTo = this.getAssignedTo.bind(this);
+  }
+
+  getAssignedTo() {
+    return this.props.ticket.assignedTo ? `${this.props.ticket.assignedTo.firstName} ${this.props.ticket.assignedTo.lastName}`: 'Unassigned';
   }
 
   handleCommentChange(e) {
@@ -430,7 +435,12 @@ class ViewTicketBundleDetailsForm extends React.Component {
                             /* options={[{ firstName: 'Art', lastName: 'Blakey', userName: 'art.blakey@pmapi.com' },
                             { firstName: 'Jimmy', lastName: 'Cobb', userName: 'jimmy.cobb@pmapi.com' },                            
                             { firstName: 'Tony', lastName: 'Williams', userName: 'tony.williams@pmapi.com'}]} */
-                            placeholder="Choose an Engineer..."
+                            /* placeholder={() => {
+                              console.log("processing assignedTo");
+                              return this.props.ticket.assignedTo ? 'Unassigned' : `${this.props.ticket.assignedTo.firstName} ${this.props.ticket.assignedTo.lastName}`
+                            }
+                            } */
+                            placeholder={this.getAssignedTo()}
                           />
                         </Fragment>
                       </Col>
