@@ -410,7 +410,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
               {this.props.ticket.status === TicketStatus.CLOSE && <Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.department.name}</Col>}
             </Row>
             <Row>
-              <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Updated On :</Col><Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.updatedDate}</Col>
+              <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Updated On :</Col><Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{timeUtil.timeAgo(calendarUtil.getLocalTimeStamp(this.props.ticket.updatedDate))}</Col>
             </Row>
 
             {localStorage.getItem('role') === Role.ROLE_MANAGER &&
