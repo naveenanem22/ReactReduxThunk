@@ -32,7 +32,10 @@ class ViewTicketBundleDetailsForm extends React.Component {
       status: '',
       comment: '',
       isCommentInvalid: false,
-
+      isAssignedToInvalid: false,
+      isPriorityInvalid: false,
+      isDepartmentInvalid: false,
+      isAssignButtonDisabled: true,
       commentedOn: '',
       isUpload: false,
       assignedTo: '',
@@ -61,7 +64,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
   }
 
   getAssignedTo() {
-    return this.props.ticket.assignedTo ? `${this.props.ticket.assignedTo.firstName} ${this.props.ticket.assignedTo.lastName}`: 'Unassigned';
+    return this.props.ticket.assignedTo ? `${this.props.ticket.assignedTo.firstName} ${this.props.ticket.assignedTo.lastName}` : 'Unassigned';
   }
 
   handleCommentChange(e) {
@@ -81,15 +84,18 @@ class ViewTicketBundleDetailsForm extends React.Component {
     //selectedEngineer is returned as an array rather than an object
     if (selectedEngineer.length > 0)
       this.setState({
-        assignedTo: selectedEngineer[0].userName
+        assignedTo: selectedEngineer[0].userName,
+        isAssignButtonDisabled: false
       });
   }
 
   onPrioritySelection(selectedPriority) {
     //selectedPriority is returned as an array rather than an object
+
     if (selectedPriority.length > 0)
       this.setState({
-        priority: selectedPriority[0].name
+        priority: selectedPriority[0].name,
+        isAssignButtonDisabled: false
       })
   }
 
@@ -98,7 +104,8 @@ class ViewTicketBundleDetailsForm extends React.Component {
     if (selectedDepartment.length > 0)
       this.setState({
         department: {
-          name: selectedDepartment[0].name
+          name: selectedDepartment[0].name,
+          isAssignButtonDisabled: false
         }
       })
   }
@@ -410,7 +417,11 @@ class ViewTicketBundleDetailsForm extends React.Component {
               {this.props.ticket.status === TicketStatus.CLOSE && <Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{this.props.ticket.department.name}</Col>}
             </Row>
             <Row>
-              <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>Updated On :</Col><Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>{timeUtil.timeAgo(calendarUtil.getLocalTimeStamp(this.props.ticket.updatedDate))}</Col>
+              <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'right', fontWeight: 500, paddingRight: '0' }}>
+                Updated On :
+                </Col>
+              <Col style={{ fontSize: '80%', textAlign: 'left', fontWeight: 400 }}>
+                {timeUtil.timeAgo(calendarUtil.getLocalTimeStamp(this.props.ticket.updatedDate))}</Col>
             </Row>
 
             {localStorage.getItem('role') === Role.ROLE_MANAGER &&
@@ -454,7 +465,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
                     <Col sm='12'
                       style={{ textAlign: 'center' }}>
                       <Button
-                        disabled={false}
+                        disabled={this.state.isAssignButtonDisabled}
                         onClick={this.onSubmitAssignTicket}
                         style={{
                           paddingTop: '0',
