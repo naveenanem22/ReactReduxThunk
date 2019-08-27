@@ -21,6 +21,7 @@ import BlankForm from '../components/BlankForm';
 import SuccessToast from '../components/SuccessToast';
 import { timeUtil, calendarUtil } from '../util/CalendarUtil';
 import { uiUtil } from '../util/UIUtils';
+import MessageModal from '../components/MessageModal';
 
 class ViewTicketBundleDetailsForm extends React.Component {
 
@@ -29,6 +30,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
     this.state = {
       id: this.props.ticket.id,
+      isMessageModalVisible: false,
       status: '',
       comment: '',
       isCommentInvalid: false,
@@ -61,6 +63,23 @@ class ViewTicketBundleDetailsForm extends React.Component {
     this.onDepartmentSelection = this.onDepartmentSelection.bind(this);
     this.handleCommentChange = this.handleCommentChange.bind(this);
     this.getAssignedTo = this.getAssignedTo.bind(this);
+    this.handlePopout = this.handlePopout.bind(this);
+
+    this.handleMessageModalToggle = this.handleMessageModalToggle.bind(this);
+
+  }
+
+  handleMessageModalToggle() {
+    this.setState({
+      isMessageModalVisible : false
+    })
+  }
+
+  handlePopout() {
+    this.setState({
+      isMessageModalVisible: true
+    });
+
   }
 
   getAssignedTo() {
@@ -326,6 +345,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
     return (
       <div>
+
         {(this.props.fetchTicketDetailsAPICallStatus.requested
           || this.props.fetchAssignedTicketDetailsAPICallStatus.requested
         ) &&
@@ -512,6 +532,19 @@ class ViewTicketBundleDetailsForm extends React.Component {
             <Row style={{ marginTop: '5%' }}>
               <Col style={{ color: '#0000008a', fontSize: '80%', textAlign: 'left', fontWeight: 700 }}>Conversation:</Col>
             </Row>
+            <Row>
+              <Col>
+                <Badge color="dark" pill onClick={this.handlePopout}>Popout</Badge>
+              </Col>
+            </Row>
+
+            {this.state.isMessageModalVisible &&
+              <div>
+                <MessageModal data={{
+                  isOpen: true
+                }} handleToggle={this.handleMessageModalToggle} ></MessageModal>
+              </div>
+            }
 
 
             {/* Single Add-Conversation-block when there is no history*/}
@@ -590,7 +623,9 @@ class ViewTicketBundleDetailsForm extends React.Component {
             {/* Add-Conversation-block only in the first message block of the history when the history is present*/}
             {this.props.ticket.ticketHistory.map((item) =>
               <div>
+
                 <div>
+
                   <Row style={{ marginTop: '4%' }}>
                     <Col >
                       <Card >
