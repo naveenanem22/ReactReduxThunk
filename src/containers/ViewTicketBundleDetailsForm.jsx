@@ -66,12 +66,12 @@ class ViewTicketBundleDetailsForm extends React.Component {
     this.handlePopout = this.handlePopout.bind(this);
 
     this.handleMessageModalToggle = this.handleMessageModalToggle.bind(this);
-
+    this.handleSubmitAddMessageFromModal = this.handleSubmitAddMessageFromModal.bind(this);
   }
 
   handleMessageModalToggle() {
     this.setState({
-      isMessageModalVisible : false
+      isMessageModalVisible: false
     })
   }
 
@@ -139,6 +139,21 @@ class ViewTicketBundleDetailsForm extends React.Component {
     this.setState({
       [e.target.name]: e.target.value
     });
+  }
+
+  handleSubmitAddMessageFromModal(modalParams) {
+    console.log('modalParams: ');
+    console.log(modalParams);
+    var params = modalParams;
+
+    var queryParams = {};
+    if (localStorage.getItem('role') === Role.ROLE_MANAGER)
+      queryParams.managedByMe = true;
+
+    this.props.addMessage(params, queryParams);
+
+
+
   }
 
   onSubmitAddMessage(e) {
@@ -542,7 +557,8 @@ class ViewTicketBundleDetailsForm extends React.Component {
               <div>
                 <MessageModal data={{
                   isOpen: true
-                }} handleToggle={this.handleMessageModalToggle} ></MessageModal>
+                }} handleToggle={this.handleMessageModalToggle}
+                  handleSubmitAddMessageFromModal={this.handleSubmitAddMessageFromModal} ></MessageModal>
               </div>
             }
 

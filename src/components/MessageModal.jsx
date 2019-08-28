@@ -3,6 +3,7 @@ import { Button, Container, Modal, FormText, Row, Col, ModalHeader, ModalBody, M
 import { HalfCircleSpinner } from 'react-epic-spinners';
 import { addMessageAPICall, closeTicketAPICall, downloadAttachmentAPICall, fetchCreatedTicketDetailsAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
+import { TicketStatus } from '../masterdata/ApplicationMasterData';
 
 class MessageModal extends React.Component {
     constructor(props) {
@@ -10,12 +11,68 @@ class MessageModal extends React.Component {
         this.state = {
             modal: this.props.data.isOpen,
             unmountOnClose: true,
-            isUpload: false
+            isUpload: false,
+            isCommentInvalid: false,
+            commentedOn: '',
+            id: this.props.ticket.id,
+            status: ''
         };
 
         this.toggle = this.toggle.bind(this);
         this.changeUnmountOnClose = this.changeUnmountOnClose.bind(this);
+        this.toggleUpload = this.toggleUpload.bind(this);
+        this.handleCommentChange = this.handleCommentChange.bind(this);
+        this.handleAddMessage = this.handleAddMessage.bind(this);
+        this.onFileUpload = this.onFileUpload.bind(this);
     }
+
+    onFileUpload(e) {
+        e.preventDefault();
+        this.setState({
+            [e.target.name]: e.target.files[0]
+        })
+    }
+
+    handleCommentChange(e) {
+        this.setState({
+            comment: e.target.value,
+            isCommentInvalid: false
+        })
+    }
+
+    handleAddMessage() {
+        var params = {};
+        if (this.state.comment === '') {
+            this.setState({
+                isCommentInvalid: true
+            });
+        }
+        else {
+            params.comment = this.state.comment;
+            params.commentedOn = new Date(Date.now()).toISOString();
+            params.id = this.props.ticket.id;
+            if (this.state.isUpload) {
+                if (this.state.file1)
+                    params.file1 = this.state.file1;
+                if (this.state.file2)
+                    params.file2 = this.state.file2;
+                if (this.state.file2)
+                    params.file3 = this.state.file2;
+            }
+            this.props.handleSubmitAddMessageFromModal(params);
+
+        }
+
+
+    }
+
+    toggleUpload() {
+
+        this.setState(prevState => ({
+            isUpload: !prevState.isUpload
+        }));
+    }
+
 
     toggle() {
         this.setState(prevState => ({
@@ -113,7 +170,7 @@ class MessageModal extends React.Component {
                                         size="sm"
                                         disabled={this.props.addMessageAPICallStatus.requested}
                                         style={{ 'marginLeft': '2%' }}
-                                        onClick={this.onSubmitAddMessage}>
+                                        onClick={this.handleAddMessage}>
                                         Message</Button>
                                 </Col>
                             </Row>
