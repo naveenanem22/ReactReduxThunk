@@ -193,6 +193,9 @@ class ViewTicketsForm extends React.Component {
       ||
       (this.props.closeAndUpdateTicketAPICallStatus.success !==
         prevProps.closeAndUpdateTicketAPICallStatus.success)
+      ||
+      (this.props.modalMessageAndUpdateTicketAPICallStatus.success !==
+        prevProps.modalMessageAndUpdateTicketAPICallStatus.success)
     ) {
       console.log("Ticket updated successfully. Reload the Tickets to be assigned.");
       //Fetching tickets post ticket update
@@ -240,7 +243,7 @@ class ViewTicketsForm extends React.Component {
     console.log(this.state);
     console.log("Props: ")
     console.log(this.props);
-    
+
 
     var suggestions = [];
     this.props.engineers.forEach(engineer => {
@@ -374,6 +377,7 @@ const mapStateToProps = function (state) {
     fetchAssignedTicketsAPICallStatus: state.serviceCallStatus.fetchAssignedTicketsAPI,
     assignAndUpdateTicketAPICallStatus: state.serviceCallStatus.assignAndUpdateTicketAPI,
     messageAndUpdateTicketAPICallStatus: state.serviceCallStatus.messageAndUpdateTicketAPI,
+    modalMessageAndUpdateTicketAPICallStatus: state.serviceCallStatus.modalMessageAndUpdateTicketAPI,
     closeAndUpdateTicketAPICallStatus: state.serviceCallStatus.closeAndUpdateTicketAPI
 
   }
