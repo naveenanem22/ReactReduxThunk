@@ -48,7 +48,8 @@ class ViewTicketBundleDetailsForm extends React.Component {
       priority: '',
       department: {
         name: ''
-      }
+      },
+      modalMessageAndUpdateTicketAPICallStatus: ''
 
     };
 
@@ -67,7 +68,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
     this.handlePopout = this.handlePopout.bind(this);
 
     this.handleMessageModalToggle = this.handleMessageModalToggle.bind(this);
-    this.handleSubmitAddMessageFromModal = this.handleSubmitAddMessageFromModal.bind(this);
+    this.handleAddMessageFromModalCompleted = this.handleAddMessageFromModalCompleted.bind(this);
   }
 
   handleMessageModalToggle() {
@@ -142,24 +143,15 @@ class ViewTicketBundleDetailsForm extends React.Component {
     });
   }
 
-  handleSubmitAddMessageFromModal(modalParams) {
+  handleAddMessageFromModalCompleted(modalMessageAndUpdateTicketAPICallStatus) {
 
     this.setState((prevState, props) => ({
-      isAlertSectionVisibleInit: true
+      isAlertSectionVisibleInit: true,
+      isTicketDetailsSectionVisibleInit: false,
+      isMessageModalVisible: false,
+      modalMessageAndUpdateTicketAPICallStatus: modalMessageAndUpdateTicketAPICallStatus
     }), () => {
-      console.log('modalParams: ');
-      console.log(modalParams);
-      var params = modalParams;
-
-      var queryParams = {};
-      if (localStorage.getItem('role') === Role.ROLE_MANAGER)
-        queryParams.managedByMe = true;
-
-      this.props.addMessage(params, queryParams);
     });
-
-
-
 
   }
 
@@ -359,6 +351,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
       || (this.props.closeAndUpdateTicketAPICallStatus.success ||
         this.props.closeAndUpdateTicketAPICallStatus.error)
+      || this.state.modalMessageAndUpdateTicketAPICallStatus
     );
 
     console.log("isAlertSectionVisible value: ");
@@ -565,7 +558,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
                 <MessageModal data={{
                   isOpen: true
                 }} handleToggle={this.handleMessageModalToggle}
-                  handleSubmitAddMessageFromModal={this.handleSubmitAddMessageFromModal} ></MessageModal>
+                  handleAddMessageComplete={this.handleAddMessageFromModalCompleted} ></MessageModal>
               </div>
             }
 
@@ -767,6 +760,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
           (this.props.assignAndUpdateTicketAPICallStatus.success
             || this.props.messageAndUpdateTicketAPICallStatus.success
             || this.props.closeAndUpdateTicketAPICallStatus.success
+            || this.state.modalMessageAndUpdateTicketAPICallStatus.success
           )
           && <Row style={{ marginTop: '2%' }}>
             <Col
@@ -779,7 +773,8 @@ class ViewTicketBundleDetailsForm extends React.Component {
           && isAlertSectionVisible
           && (this.props.assignAndUpdateTicketAPICallStatus.error
             || this.props.messageAndUpdateTicketAPICallStatus.error
-            || this.props.closeAndUpdateTicketAPICallStatus.error)
+            || this.props.closeAndUpdateTicketAPICallStatus.error
+            || this.state.modalMessageAndUpdateTicketAPICallStatus.error)
           && <Row style={{ marginTop: '2%' }}>
             <Col
               style={{ textAlign: 'center' }}>

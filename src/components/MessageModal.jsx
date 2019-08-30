@@ -90,6 +90,10 @@ class MessageModal extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+        if(prevProps.modalMessageAndUpdateTicketAPICallStatus.success !== 
+            this.props.modalMessageAndUpdateTicketAPICallStatus.success 
+            && this.props.modalMessageAndUpdateTicketAPICallStatus.success)
+            this.props.handleAddMessageComplete(this.props.modalMessageAndUpdateTicketAPICallStatus);
     }
 
     render() {
