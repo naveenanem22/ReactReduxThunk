@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, Container, Modal, FormText, Row, Col, ModalHeader, ModalBody, ModalFooter, Input, Label, CardFooter, Form, FormGroup } from 'reactstrap';
 import { HalfCircleSpinner } from 'react-epic-spinners';
-import { addMessageAPICall, closeTicketAPICall, downloadAttachmentAPICall, fetchCreatedTicketDetailsAPICall } from '../actions/TicketActions'
+import { modalMessageAndUpdateTicketAPICall, closeTicketAPICall, downloadAttachmentAPICall, fetchCreatedTicketDetailsAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
-import { TicketStatus } from '../masterdata/ApplicationMasterData';
+import { TicketStatus, Role } from '../masterdata/ApplicationMasterData';
 
 class MessageModal extends React.Component {
     constructor(props) {
@@ -59,7 +59,11 @@ class MessageModal extends React.Component {
                 if (this.state.file2)
                     params.file3 = this.state.file2;
             }
-            this.props.handleSubmitAddMessageFromModal(params);
+
+            var queryParams = {};
+            //if (localStorage.getItem('role') === Role.ROLE_MANAGER)
+                queryParams.managedByMe = true;
+            this.props.addMessage(params, queryParams);
 
         }
 
@@ -151,7 +155,7 @@ class MessageModal extends React.Component {
                                 }}>
                                     or
                         </Col>
-                                {this.props.addMessageAPICallStatus.requested
+                                {this.props.modalMessageAndUpdateTicketAPICallStatus.requested
                                     && <Col sm='auto' style={{
                                         textAlign: 'right',
                                         paddingTop: '1%',
@@ -168,7 +172,7 @@ class MessageModal extends React.Component {
                                         type="submit"
                                         color="info"
                                         size="sm"
-                                        disabled={this.props.addMessageAPICallStatus.requested}
+                                        disabled={this.props.modalMessageAndUpdateTicketAPICallStatus.requested}
                                         style={{ 'marginLeft': '2%' }}
                                         onClick={this.handleAddMessage}>
                                         Message</Button>
@@ -205,8 +209,9 @@ class MessageModal extends React.Component {
 const mapStateToProps = function (state) {
     return {
         ticket: state.ticketDetails.ticket,
-        addMessageAPICallStatus: state.serviceCallStatus.addMessageAPI,
-        closeTicketAPICallStatus: state.serviceCallStatus.closeTicketAPI
+        modalMessageAndUpdateTicketAPICallStatus: state.serviceCallStatus.modalMessageAndUpdateTicketAPI,
+        closeTicketAPICallStatus: state.serviceCallStatus.closeTicketAPI,
+
     }
 }
 
@@ -216,8 +221,8 @@ const mapActionsToProps = dispatch => {
 
     return {
 
-        addMessage: (params) => {
-            dispatch(addMessageAPICall(params));
+        addMessage: (params,queryParams) => {
+            dispatch(modalMessageAndUpdateTicketAPICall(params, queryParams));
         },
         closeTicket: (params) => {
             dispatch(closeTicketAPICall(params));
