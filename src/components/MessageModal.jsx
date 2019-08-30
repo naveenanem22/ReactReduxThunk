@@ -210,13 +210,6 @@ const mapStateToProps = function (state) {
     }
 }
 
-/* const mapActionsToProps = {
-  addMessage: addMessageAPICall,
-  closeTicket: closeTicketAPICall,
-  downloadAttachment: downloadAttachmentAPICall,
-  fetchTicketDetails: fetchTicketDetailsAPICall,
-  fetchCreatedTicketDetails: fetchCreatedTicketDetailsAPICall
-} */
 
 
 const mapActionsToProps = dispatch => {

@@ -26,6 +26,7 @@ import MessageModal from '../components/MessageModal';
 class ViewTicketBundleDetailsForm extends React.Component {
 
   constructor(props) {
+    console.log("Inside the ViewTicketBundleDetailsForm constructor");
     super(props);
 
     this.state = {
@@ -142,15 +143,21 @@ class ViewTicketBundleDetailsForm extends React.Component {
   }
 
   handleSubmitAddMessageFromModal(modalParams) {
-    console.log('modalParams: ');
-    console.log(modalParams);
-    var params = modalParams;
 
-    var queryParams = {};
-    if (localStorage.getItem('role') === Role.ROLE_MANAGER)
-      queryParams.managedByMe = true;
+    this.setState((prevState, props) => ({
+      isAlertSectionVisibleInit: true
+    }), () => {
+      console.log('modalParams: ');
+      console.log(modalParams);
+      var params = modalParams;
 
-    this.props.addMessage(params, queryParams);
+      var queryParams = {};
+      if (localStorage.getItem('role') === Role.ROLE_MANAGER)
+        queryParams.managedByMe = true;
+
+      this.props.addMessage(params, queryParams);
+    });
+
 
 
 
