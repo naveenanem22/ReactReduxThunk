@@ -223,14 +223,20 @@ class ViewTicketsForm extends React.Component {
     ) {
       console.log("Manager Search criteria changed...reload the tickets");
       if (this.props.ticketList.loadManagerTickets) {
-        this.props.fetchTickets({
-          status: searchCriteria.status,
-          sortBy: searchCriteria.sortBy,
-          sortOrder: searchCriteria.sortOrder,
-          pageNumber: searchCriteria.pageNumber,
-          pageSize: searchCriteria.pageSize,
-          createdByMe: componentInfoObj.getInfo(searchCriteria.cioKey).createdByMe
-        });
+        var params = {};
+        params.status = searchCriteria.status;
+        params.sortBy = searchCriteria.sortBy;
+        params.sortOrder = searchCriteria.sortOrder;
+        params.pageNumber = searchCriteria.pageNumber;
+        params.pageSize = searchCriteria.pageSize;
+        if (searchCriteria.createdByMe)
+          params.createdByMe = searchCriteria.createdByMe;
+        if (searchCriteria.managedByMe)
+          params.managedByMe = searchCriteria.managedByMe;
+        if (searchCriteria.assignedToMe)
+          params.assignedToMe = searchCriteria.assignedToMe;
+
+        this.props.fetchTickets(params);
       }
     }
 

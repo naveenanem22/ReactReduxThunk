@@ -94,8 +94,11 @@ const store = createStore(MainReducer, {
             pageNumber: '',
             pageSize: '',
             isLoad: false,
-            sortBy:'',
-            sortOrder: ''
+            sortBy: '',
+            sortOrder: '',
+            createdByMe: '',
+            managedByMe: '',
+            assignedToMe: ''
         },
         loadManagerTickets: false
 

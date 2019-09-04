@@ -8,7 +8,7 @@ import { SHOW_FORM_NEW_TICKET } from './ActionTypes';
 import { FETCH_ASSIGNED_TICKETS_SUCCESS, FETCH_ASSIGNED_TICKETS_FAILURE, FETCH_ASSIGNED_TICKETS } from './ActionTypes'
 import { FETCH_CREATED_TICKETS_SUCCESS, FETCH_CREATED_TICKETS_FAILURE, FETCH_CREATED_TICKETS } from './ActionTypes'
 import { FETCH_CREATED_TICKET_DETAILS_SUCCESS, FETCH_CREATED_TICKET_DETAILS_FAILURE, FETCH_CREATED_TICKET_DETAILS } from './ActionTypes';
-import {MODAL_MESSAGE_UPDATE_TICKET, MODAL_MESSAGE_UPDATE_TICKET_FAILURE, MODAL_MESSAGE_UPDATE_TICKET_SUCCESS} from './ActionTypes';
+import { MODAL_MESSAGE_UPDATE_TICKET, MODAL_MESSAGE_UPDATE_TICKET_FAILURE, MODAL_MESSAGE_UPDATE_TICKET_SUCCESS } from './ActionTypes';
 import { showLoadingScreen, dismissLoadingScreen } from './LoadingScreenActions';
 import FileSaver from 'file-saver';
 import { PMAPI_BASE_URL } from '../masterdata/EnvironmentConfig';
@@ -366,9 +366,16 @@ export function fetchTicketsAPICall(queryParams) {
     var url = new URL(PMAPI_BASE_URL + "/v0/ticket-management/tickets");
     var params = {
         status: queryParams.status, pageNumber: queryParams.pageNumber,
-        pageSize: queryParams.pageSize, createdByMe: queryParams.createdByMe,
+        pageSize: queryParams.pageSize,
         sortBy: queryParams.sortBy, sortOrder: queryParams.sortOrder
     };
+    if (queryParams.createdByMe)
+        params.createdByMe = queryParams.createdByMe;
+    if (queryParams.assignedToMe)
+        params.assignedToMe = queryParams.assignedToMe;
+    if (queryParams.managedByMe)
+        params.managedByMe = queryParams.managedByMe;
+
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
     return function (dispatch) {
