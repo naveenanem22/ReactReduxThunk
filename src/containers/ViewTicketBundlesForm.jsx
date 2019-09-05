@@ -285,12 +285,12 @@ class ViewTicketsForm extends React.Component {
                 onPaginationItemsPerPageChange={this.onPaginationItemsPerPageChange}>
               </CustomPagination2>
             </Col>
-            <Col sm='auto' style={{
+            {/* <Col sm='auto' style={{
               marginTop: '2%',
               paddingRight: '0'
             }}>
               <Label size='sm'>Sort By:</Label>
-            </Col>
+            </Col> */}
             <Col sm='auto' style={{
               marginTop: '2%'
             }}>
