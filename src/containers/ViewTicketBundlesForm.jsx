@@ -302,10 +302,10 @@ class ViewTicketsForm extends React.Component {
                 id="sortBy"
                 onChange={this.handleSort}
               >
-                <option>{TicketsSortByDisplayName.TICKET_ID}</option>
-                <option>{TicketsSortByDisplayName.TICKET_UPDATED_DATE}</option>
-                <option>{TicketsSortByDisplayName.TICKET_STATUS}</option>
-                <option>{TicketsSortByDisplayName.TICKET_TITLE}</option>
+                <option value={TicketsSortByDisplayName.TICKET_ID}>{'Sort By: ' + TicketsSortByDisplayName.TICKET_ID}</option>
+                <option value={TicketsSortByDisplayName.TICKET_UPDATED_DATE} >{'Sort By: ' + TicketsSortByDisplayName.TICKET_UPDATED_DATE}</option>
+                <option value={TicketsSortByDisplayName.TICKET_STATUS}>{'Sort By: ' + TicketsSortByDisplayName.TICKET_STATUS}</option>
+                <option value={TicketsSortByDisplayName.TICKET_TITLE}>{'Sort By: ' + TicketsSortByDisplayName.TICKET_TITLE}</option>
               </Input>
             </Col>
             <Col sm='auto' style={{
