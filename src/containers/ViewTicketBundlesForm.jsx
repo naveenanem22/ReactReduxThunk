@@ -39,10 +39,9 @@ class ViewTicketsForm extends React.Component {
 
   }
 
-  handleSortOrder(sortOrder) {
-    console.log("sortOrder: " + sortOrder);
+  handleSortOrder(e) {
     this.setState({
-      sortOrder: sortOrder
+      [e.target.name]: e.target.value
     }, () => {
       if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
         history.push({
@@ -279,15 +278,22 @@ class ViewTicketsForm extends React.Component {
         <hr />
         {(this.props.fetchTicketsAPICallStatus.success ||
           this.props.fetchAssignedTicketsAPICallStatus.success) &&
-          <Row>
-            {/* <Col sm='auto' style={{
-              marginTop: '2%',
-              paddingRight: '0'
+          <Row style={{
+            marginTop: '2%',
+            marginBottom: '2%'
+          }}>
+            <Col sm='6' style={{
+
             }}>
-              <Label size='sm'>Sort By:</Label>
-            </Col> */}
-            <Col sm='auto' style={{
-              marginTop: '2.4%',
+              <Input
+                size='sm'
+                type="search"
+                name="search"
+                id="exampleSearch"
+                placeholder="search placeholder"
+              />
+            </Col>
+            <Col sm='4' style={{
               paddingRight: '1%'
             }}>
               <Input size='sm'
@@ -304,24 +310,19 @@ class ViewTicketsForm extends React.Component {
                 <option value={TicketsSortByDisplayName.TICKET_TITLE}>{'Sort By: ' + TicketsSortByDisplayName.TICKET_TITLE}</option>
               </Input>
             </Col>
-            <Col sm='auto' style={{
-              marginTop: '2%',
-              paddingRight: '0',
-              paddingLeft: '0'
+            <Col sm='2' style={{
+              paddingRight: '1%'
             }}>
-              {this.props.ticketList.managerTicketSearchCriteria.sortOrder === SortOrder.ASCENDING && <FaLongArrowAltUp style={{
-                cursor: 'pointer'
-              }} onClick={() => {
-                this.handleSortOrder(SortOrder.DESCENDING);
-              }
-              }></FaLongArrowAltUp>}
-
-              {this.props.ticketList.managerTicketSearchCriteria.sortOrder === SortOrder.DESCENDING && <FaLongArrowAltDown style={{
-                cursor: 'pointer'
-              }} onClick={() => {
-                this.handleSortOrder(SortOrder.ASCENDING);
-              }
-              }></FaLongArrowAltDown>}
+              <Input size='sm'
+                value={this.props.ticketList.managerTicketSearchCriteria.sortOrder}
+                type="select"
+                name="sortOrder"
+                id="sortOrder"
+                onChange={this.handleSortOrder}
+              >
+                <option value={SortOrder.ASCENDING}>{'ASC'}</option>
+                <option value={SortOrder.DESCENDING}>{'DESC'}</option>
+              </Input>
             </Col>
 
           </Row>
