@@ -47,7 +47,7 @@ class CustomPagination2 extends Component {
       <div>
         <Row>
           <Col sm='auto'>
-            <Pagination size='sm'
+            <Pagination class="pagination pagination-sm"
               activePage={this.props.data.number}
               itemsCountPerPage={this.props.data.size}
               totalItemsCount={this.props.data.totalElements}

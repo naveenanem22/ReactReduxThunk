@@ -16,6 +16,7 @@ import CustomPagination2 from '../components/CustomPagination2';
 import { setManagerTicketSearchCriteria } from '../actions/TicketActions';
 import { setManagerActiveSideMenuOption } from '../actions/ActiveSideMenuActions';
 import { uiUtil } from '../util/UIUtils';
+import CustomPagination from '../components/CustomPagination';
 
 
 
@@ -279,12 +280,6 @@ class ViewTicketsForm extends React.Component {
         {(this.props.fetchTicketsAPICallStatus.success ||
           this.props.fetchAssignedTicketsAPICallStatus.success) &&
           <Row>
-            <Col sm='auto'>
-              <CustomPagination2 data={this.props.ticketList}
-                onPaginationPageChange={this.onPaginationPageChange}
-                onPaginationItemsPerPageChange={this.onPaginationItemsPerPageChange}>
-              </CustomPagination2>
-            </Col>
             {/* <Col sm='auto' style={{
               marginTop: '2%',
               paddingRight: '0'
@@ -293,7 +288,7 @@ class ViewTicketsForm extends React.Component {
             </Col> */}
             <Col sm='auto' style={{
               marginTop: '2.4%',
-              paddingRight:'1%'
+              paddingRight: '1%'
             }}>
               <Input size='sm'
                 //value={this.state.sortBy}
@@ -312,7 +307,7 @@ class ViewTicketsForm extends React.Component {
             <Col sm='auto' style={{
               marginTop: '2%',
               paddingRight: '0',
-              paddingLeft:'0'
+              paddingLeft: '0'
             }}>
               {this.props.ticketList.managerTicketSearchCriteria.sortOrder === SortOrder.ASCENDING && <FaLongArrowAltUp style={{
                 cursor: 'pointer'
@@ -366,6 +361,15 @@ class ViewTicketsForm extends React.Component {
                 </Col>
               </Row>
             )}
+          {true &&
+            <Row>
+              <Col sm='12'>
+                <CustomPagination data={this.props.ticketList}
+                  onPaginationPageChange={this.onPaginationPageChange}
+                  onPaginationItemsPerPageChange={this.onPaginationItemsPerPageChange}>
+                </CustomPagination>
+              </Col>
+            </Row>}
         </Container>
 
       </div>
