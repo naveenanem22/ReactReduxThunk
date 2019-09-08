@@ -55,16 +55,17 @@ class CustomPagination2 extends Component {
               onChange={this.handlePageChange}
             />
           </Col>
-         {/*  <Col sm='auto' style={{
+          {/*  <Col sm='auto' style={{
             marginTop: '2%',
             paddingRight: '0'
           }}>
             <Label size='sm'>Page Size:</Label>
           </Col> */}
           <Col sm='auto' style={{
-            marginTop: '2%'
+            marginTop: '3.5%'
           }}>
-            <Input size='sm'
+            <Input
+              bsSize='sm'
               value={this.state.itemsPerPage}
               type="select"
               name="itemsPerPage"

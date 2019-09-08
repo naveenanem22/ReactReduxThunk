@@ -292,7 +292,8 @@ class ViewTicketsForm extends React.Component {
               <Label size='sm'>Sort By:</Label>
             </Col> */}
             <Col sm='auto' style={{
-              marginTop: '2%'
+              marginTop: '2.4%',
+              paddingRight:'1%'
             }}>
               <Input size='sm'
                 //value={this.state.sortBy}
@@ -310,7 +311,8 @@ class ViewTicketsForm extends React.Component {
             </Col>
             <Col sm='auto' style={{
               marginTop: '2%',
-              paddingRight: '0'
+              paddingRight: '0',
+              paddingLeft:'0'
             }}>
               {this.props.ticketList.managerTicketSearchCriteria.sortOrder === SortOrder.ASCENDING && <FaLongArrowAltUp style={{
                 cursor: 'pointer'
