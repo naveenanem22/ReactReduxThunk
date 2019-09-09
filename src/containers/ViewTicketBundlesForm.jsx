@@ -311,7 +311,6 @@ class ViewTicketsForm extends React.Component {
               </Input>
             </Col>
             <Col sm='2' style={{
-              paddingRight: '1%'
             }}>
               <Input size='sm'
                 value={this.props.ticketList.managerTicketSearchCriteria.sortOrder}
