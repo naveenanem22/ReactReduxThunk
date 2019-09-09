@@ -361,7 +361,9 @@ class ViewTicketsForm extends React.Component {
                 </Col>
               </Row>
             )}
-          {true &&
+          {(this.props.fetchTicketsAPICallStatus.success ||
+            this.props.fetchAssignedTicketsAPICallStatus.success)
+            &&
             <Row>
               <Col sm='12'>
                 <CustomPagination data={this.props.ticketList}
