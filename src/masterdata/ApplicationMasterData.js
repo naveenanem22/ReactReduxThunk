@@ -322,6 +322,10 @@ managerSideMenuOptions.ASSIGN_TICKETS,managerSideMenuOptions.NEW_TICKET, manager
 managerSideMenuOptions.CLOSED_TICKETS]
 /***** Manager SideMenu Options END *****/
 
+/***** Placeholders text START *****/
+export const placeholderTextSearchBox = 'Search tickets...'
+/***** Placeholders text END *****/
+
 
 
 

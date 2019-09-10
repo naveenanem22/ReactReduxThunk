@@ -10,7 +10,7 @@ import TicketDetailCard from '../components/TicketDetailCard';
 import { fetchTicketsAPICall } from '../actions/TicketActions';
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
-import { Role, TicketStatus, TicketsSortBy, TicketsSortByDisplayName, SortOrder, TicketSearchField } from '../masterdata/ApplicationMasterData';
+import { Role, TicketStatus, TicketsSortBy, TicketsSortByDisplayName, SortOrder, TicketSearchField, placeholderTextSearchBox } from '../masterdata/ApplicationMasterData';
 import { componentInfoObj, PAGINATION_START_PAGE } from '../masterdata/ApplicationMasterData';
 import CustomPagination2 from '../components/CustomPagination2';
 import { setManagerTicketSearchCriteria } from '../actions/TicketActions';
@@ -342,7 +342,7 @@ class ViewTicketsForm extends React.Component {
                 type="searchText"
                 name="searchText"
                 id="searchText"
-                placeholder="search placeholder"
+                placeholder={placeholderTextSearchBox}
                 value={this.state.searchText}
                 onChange={this.handleSearchTextChange}
                 onBlur={this.handleSearch}
