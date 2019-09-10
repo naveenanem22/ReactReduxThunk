@@ -10,7 +10,7 @@ import TicketDetailCard from '../components/TicketDetailCard';
 import { fetchTicketsAPICall } from '../actions/TicketActions';
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
-import { Role, TicketStatus, TicketsSortBy, TicketsSortByDisplayName, SortOrder, TicketSearchField, placeholderTextSearchBox } from '../masterdata/ApplicationMasterData';
+import { Role, TicketStatus, TicketsSortBy, TicketsSortByDisplayName, SortOrder, TicketSearchField, placeholderTextSearchBox, TICKETS_PER_PAGE_MANAGER } from '../masterdata/ApplicationMasterData';
 import { componentInfoObj, PAGINATION_START_PAGE } from '../masterdata/ApplicationMasterData';
 import CustomPagination2 from '../components/CustomPagination2';
 import { setManagerTicketSearchCriteria } from '../actions/TicketActions';
@@ -63,10 +63,10 @@ class ViewTicketsForm extends React.Component {
         //the following retains the same values
         cioKey: searchCriteria.cioKey,
         status: searchCriteria.status,
-        pageSize: searchCriteria.pageSize,
-        sortBy: searchCriteria.sortBy,
-        pageNumber: searchCriteria.pageNumber,
-        sortOrder: searchCriteria.sortOrder,
+        pageSize: TICKETS_PER_PAGE_MANAGER,
+        sortBy: TicketsSortBy.TICKET_UPDATED_DATE,
+        pageNumber: PAGINATION_START_PAGE,
+        sortOrder: SortOrder.DESCENDING,
         isLoad: true
       })
     }
