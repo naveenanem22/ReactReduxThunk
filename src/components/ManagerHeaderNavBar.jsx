@@ -20,7 +20,7 @@ import { fetchTicketsAPICall } from '../actions/TicketActions';
 import { TicketStatus, TICKETS_PER_PAGE_MANAGER, SortOrder, PAGINATION_START_PAGE, TicketsSortBy } from '../masterdata/ApplicationMasterData';
 import { setManagerActiveSideMenuOption } from '../actions/ActiveSideMenuActions';
 import { managerSideMenuOptions } from '../masterdata/ApplicationMasterData';
-import {setManagerTicketSearchCriteria} from '../actions/TicketActions';
+import { setManagerTicketSearchCriteria } from '../actions/TicketActions';
 
 
 class HeaderNavBar extends React.Component {
@@ -75,8 +75,11 @@ class HeaderNavBar extends React.Component {
       pageSize: TICKETS_PER_PAGE_MANAGER,
       sortBy: TicketsSortBy.TICKET_UPDATED_DATE,
       sortOrder: SortOrder.DESCENDING,
+      isSearch: false,
+      searchText: '',
+      searchFieldsListString: '',
       isLoad: true,
-      createdByMe: true      
+      createdByMe: true
     });
 
   }
