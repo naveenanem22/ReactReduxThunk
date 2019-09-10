@@ -10,7 +10,7 @@ import TicketDetailCard from '../components/TicketDetailCard';
 import { fetchTicketsAPICall } from '../actions/TicketActions';
 import queryString from 'query-string';
 import { ScaleLoader } from 'react-spinners';
-import { Role, TicketStatus, TicketsSortBy, TicketsSortByDisplayName, SortOrder } from '../masterdata/ApplicationMasterData';
+import { Role, TicketStatus, TicketsSortBy, TicketsSortByDisplayName, SortOrder, TicketSearchField } from '../masterdata/ApplicationMasterData';
 import { componentInfoObj, PAGINATION_START_PAGE } from '../masterdata/ApplicationMasterData';
 import CustomPagination2 from '../components/CustomPagination2';
 import { setManagerTicketSearchCriteria } from '../actions/TicketActions';
@@ -28,7 +28,8 @@ class ViewTicketsForm extends React.Component {
     this.state = {
       tickets: this.props.tickets,
       sortBy: this.props.ticketList.managerTicketSearchCriteria.sortBy,
-      sortOrder: this.props.ticketList.managerTicketSearchCriteria.sortOrder
+      sortOrder: this.props.ticketList.managerTicketSearchCriteria.sortOrder,
+      searchText: ''
     };
     this.handleTicketBundleClick = this.handleTicketBundleClick.bind(this);
     this.handleListViewClick = this.handleListViewClick.bind(this);
@@ -36,7 +37,39 @@ class ViewTicketsForm extends React.Component {
     this.onPaginationItemsPerPageChange = this.onPaginationItemsPerPageChange.bind(this);
     this.handleSort = this.handleSort.bind(this);
     this.handleSortOrder = this.handleSortOrder.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
 
+  }
+
+  handleSearch(e) {
+    console.log(e.target.value);
+    if (e.target.value.length >= 2)
+      this.setState({
+        searchText: e.target.value
+      }, () => {
+        if (localStorage.getItem('role') === Role.ROLE_MANAGER) {
+          history.push({
+            pathname: '/ticketmanage/tickets'
+          });
+
+          const searchCriteria = this.props.ticketList.managerTicketSearchCriteria;
+          this.props.setManagerTicketSearchCriteria({
+            //this is updated with new value
+            searchText: this.state.searchText,
+            isSearch: true,
+            searchFieldsListString: TicketSearchField.TicketId,
+
+            //the following retains the same values
+            cioKey: searchCriteria.cioKey,
+            status: searchCriteria.status,
+            pageSize: searchCriteria.pageSize,
+            sortBy: searchCriteria.sortBy,
+            pageNumber: searchCriteria.pageNumber,
+            sortOrder: searchCriteria.sortOrder,
+            isLoad: true
+          })
+        }
+      });
   }
 
   handleSortOrder(e) {
@@ -173,6 +206,9 @@ class ViewTicketsForm extends React.Component {
           sortOrder: searchCriteria.sortOrder,
           pageNumber: searchCriteria.pageNumber,
           pageSize: searchCriteria.pageSize,
+          isSearch : searchCriteria.isSearch,
+          searchText : searchCriteria.searchText,
+          searchFieldsListString : searchCriteria.searchFieldsListString,
           createdByMe: componentInfoObj.getInfo(searchCriteria.cioKey).createdByMe
         });
       }
@@ -220,6 +256,7 @@ class ViewTicketsForm extends React.Component {
       || prevProps.ticketList.managerTicketSearchCriteria.isLoad !== this.props.ticketList.managerTicketSearchCriteria.isLoad
       || prevProps.ticketList.managerTicketSearchCriteria.sortBy !== this.props.ticketList.managerTicketSearchCriteria.sortBy
       || prevProps.ticketList.managerTicketSearchCriteria.sortOrder !== this.props.ticketList.managerTicketSearchCriteria.sortOrder
+      || prevProps.ticketList.managerTicketSearchCriteria.isSearch !== this.props.ticketList.managerTicketSearchCriteria.isSearch
     ) {
       console.log("Manager Search criteria changed...reload the tickets");
       if (this.props.ticketList.loadManagerTickets) {
@@ -229,6 +266,9 @@ class ViewTicketsForm extends React.Component {
         params.sortOrder = searchCriteria.sortOrder;
         params.pageNumber = searchCriteria.pageNumber;
         params.pageSize = searchCriteria.pageSize;
+        params.isSearch = searchCriteria.isSearch;
+        params.searchText = searchCriteria.searchText;
+        params.searchFieldsListString = searchCriteria.searchFieldsListString;
         if (searchCriteria.createdByMe)
           params.createdByMe = searchCriteria.createdByMe;
         if (searchCriteria.managedByMe)
@@ -289,8 +329,9 @@ class ViewTicketsForm extends React.Component {
                 size='sm'
                 type="search"
                 name="search"
-                id="exampleSearch"
+                id="search"
                 placeholder="search placeholder"
+                onChange={this.handleSearch}
               />
             </Col>
             <Col sm='4' style={{

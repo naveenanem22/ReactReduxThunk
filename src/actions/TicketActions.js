@@ -313,7 +313,10 @@ export function setManagerTicketSearchCriteria(params) {
                     pageSize: params.pageSize,
                     isLoad: params.isLoad,
                     sortBy: params.sortBy,
-                    sortOrder: params.sortOrder
+                    sortOrder: params.sortOrder,
+                    isSearch: params.isSearch,
+                    searchText: params.searchText,
+                    searchFieldsListString: params.searchFieldsListString
                 },
                 loadManagerTickets: params.isLoad
             }
@@ -367,7 +370,9 @@ export function fetchTicketsAPICall(queryParams) {
     var params = {
         status: queryParams.status, pageNumber: queryParams.pageNumber,
         pageSize: queryParams.pageSize,
-        sortBy: queryParams.sortBy, sortOrder: queryParams.sortOrder
+        sortBy: queryParams.sortBy, sortOrder: queryParams.sortOrder,
+        isSearch: queryParams.isSearch, searchText : queryParams.searchText,
+        searchFieldsListString: queryParams.searchFieldsListString
     };
     if (queryParams.createdByMe)
         params.createdByMe = queryParams.createdByMe;

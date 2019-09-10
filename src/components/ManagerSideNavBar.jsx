@@ -82,6 +82,9 @@ class SideNavBar extends React.Component {
       pageSize: TICKETS_PER_PAGE_MANAGER,
       sortBy: TicketsSortBy.TICKET_UPDATED_DATE,
       sortOrder: SortOrder.DESCENDING,
+      isSearch: false,
+      searchText: '',
+      searchFieldsListString: '',
       isLoad: true
     });
 

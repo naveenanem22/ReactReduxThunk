@@ -98,7 +98,10 @@ const store = createStore(MainReducer, {
             sortOrder: '',
             createdByMe: '',
             managedByMe: '',
-            assignedToMe: ''
+            assignedToMe: '',
+            isSearch:false,
+            searchText:'',
+            searchFieldsListString:''
         },
         loadManagerTickets: false
 
