@@ -254,6 +254,9 @@ class ViewTicketsForm extends React.Component {
           sortOrder: searchCriteria.sortOrder,
           pageNumber: searchCriteria.pageNumber,
           pageSize: searchCriteria.pageSize,
+          isSearch: false,
+          searchText: searchCriteria.searchText,
+          searchFieldsListString: searchCriteria.searchFieldsListString,
           createdByMe: componentInfoObj.getInfo(searchCriteria.cioKey).createdByMe
         });
       }
