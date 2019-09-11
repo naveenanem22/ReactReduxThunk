@@ -1,86 +1,155 @@
 import React from 'react';
-import { Container, Label, Row, Col, Nav, NavItem, NavLink, Navbar } from 'reactstrap';
-import { FaUser, FaAngleDoubleRight, FaChartLine, FaClock, FaTicketAlt, FaRegClock, FaFileAlt, FaRegFileAlt, FaListAlt, FaRegListAlt } from 'react-icons/fa';
+import { Nav, NavItem, NavLink, ListGroup, ListGroupItem, Label } from 'reactstrap';
+import { FaUser, FaAngleDoubleRight, FaChartLine, FaTasks } from 'react-icons/fa';
 import history from '../history';
 import { connect } from 'react-redux';
-import { fetchTicketsAPICall, showFormNewTicket } from '../actions/TicketActions'
+import { fetchTicketsAPICall, showFormNewTicket, setManagerTicketSearchCriteria } from '../actions/TicketActions'
 import { fetchDashboardDataAPICall, fetchDashboardDataMultipleAPICall } from '../actions/DashboardActions';
-import { TicketStatus } from '../masterdata/ApplicationMasterData'
+import { TicketStatus, managerSideMenuOptions, TICKETS_PER_PAGE_MANAGER, TicketsSortBy, SortOrder } from '../masterdata/ApplicationMasterData';
+import { FaTimesCircle, FaListAlt, FaPlusSquare } from 'react-icons/fa';
+import { PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE } from '../masterdata/ApplicationMasterData';
+import { managerSideMenuOptionsArray, employeeSideMenuOptions } from '../masterdata/ApplicationMasterData';
+import { setManagerActiveSideMenuOption } from '../actions/ActiveSideMenuActions';
 
 
 class SideNavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      menuItemState: {
+        focused: [],
+        unfocused: managerSideMenuOptionsArray
+
+      }
     };
     this.handleClosedTicketsClick = this.handleClosedTicketsClick.bind(this);
-    this.handleAssignedTicketsClick = this.handleAssignedTicketsClick.bind(this);
-    this.handleAwaitResponseClick = this.handleAwaitResponseClick.bind(this);
+    this.handleAssignTicketsClick = this.handleAssignTicketsClick.bind(this);
+    this.handleAllTicketsClick = this.handleAllTicketsClick.bind(this);
+    this.getMenuOptionStyle = this.getMenuOptionStyle.bind(this);
     this.handleDashboard = this.handleDashboard.bind(this);
     this.handleNewTicket = this.handleNewTicket.bind(this);
+    this.getInactiveSideMenuItems = this.getInactiveSideMenuItems.bind(this);
   }
 
   handleDashboard(e) {
+    //history.push({pathname: "/ticketmanage/dashboard"});
     history.push({
-      pathname: '/ticketmaint/dashboard',
-      search: '?cioKey=ENDB'
+      pathname: "/ticketmanage/dashboard",
+      search: "?cioKey=MDB"
     });
-    //this.props.fetchDashboardData();
+
+    //Set Active Item for Employee-SideMenu
+    this.props.setActiveSideMenuItem(managerSideMenuOptions.DASHBOARD);
   }
 
-  handleAwaitResponseClick() {
-    //history.push("/ticketmaint/tickets?status=" + TicketStatus.AWAIT_RESPONSE);
-    history.push({
-      pathname: '/ticketmaint/tickets',
-      search: 'status=' + TicketStatus.AWAIT_RESPONSE + '&' + 'cioKey=AWT'
-    });
+  getMenuOptionStyle(menuItem) {
+    //check if it is present in focused list and return focusStyle
+    return this.state.menuItemState.focused.includes(menuItem) ?
+      { padding: '0', margin: '0', color: '#17a2b8', fontWeight: 600 } :
+      { padding: '0', margin: '0', color: '#111111' }
   }
 
   handleClosedTicketsClick() {
-    //history.push("/ticketmaint/tickets?status=" + TicketStatus.CLOSE);
     history.push({
-      pathname: '/ticketmaint/tickets',
-      search: 'status=' + TicketStatus.TicketStatus.CLOSE + '&' + 'cioKey=CLT'
+      pathname: "/ticketmanage/tickets"
     });
-    this.props.fetchTickets({
+
+    //set managerTicketSearchCriteria
+    this.props.setManagerTicketSearchCriteria({
+      cioKey: 'CLT',
       status: TicketStatus.CLOSE,
-      sortBy: 'ticketId'
+      pageNumber: PAGINATION_START_PAGE,
+      pageSize: TICKETS_PER_PAGE_MANAGER,
+      sortBy: TicketsSortBy.TICKET_UPDATED_DATE,
+      sortOrder: SortOrder.DESCENDING,
+      isSearch: false,
+      searchText: '',
+      searchFieldsListString: '',
+      isLoad: true
     });
+
+    //Set Active Item for Employee-SideMenu
+    this.props.setActiveSideMenuItem(managerSideMenuOptions.CLOSED_TICKETS);
   }
 
-  /* handleAssignTicketsClick() {
-    //history.push("/ticketmaint/tickets?status=" + TicketStatus.NEW);
-    history.push({ 
-      pathname: '/ticketmaint/tickets',
-      search :'status='+TicketStatus.NEW+'&'+'cioKey=AWT'
-     });
-    this.props.fetchTickets({
-      status: TicketStatus.NEW,
-      sortBy: 'ticketId'
-    });
-
-  } */
-
-  handleAssignedTicketsClick() {
-    //history.push("/ticketmaint/tickets?status=" + TicketStatus.ALL);
+  handleAssignTicketsClick() {
     history.push({
-      pathname: '/ticketmaint/tickets',
-      search: 'status=' + TicketStatus.ALL + '&' + 'cioKey=AST'
+      pathname: "/ticketmanage/tickets"
     });
-    /* this.props.fetchTickets({
-      status: 'all',
-      sortBy: 'ticketId'
-    }); */
+
+    //set managerTicketSearchCriteria
+    this.props.setManagerTicketSearchCriteria({
+      cioKey: 'AST',
+      status: TicketStatus.NEW,
+      pageNumber: PAGINATION_START_PAGE,
+      pageSize: TICKETS_PER_PAGE_MANAGER,
+      sortBy: TicketsSortBy.TICKET_UPDATED_DATE,
+      sortOrder: SortOrder.DESCENDING,
+      isSearch: false,
+      searchText: '',
+      searchFieldsListString: '',
+      isLoad: true
+    });
+
+    //Set Active Item for Employee-SideMenu
+    this.props.setActiveSideMenuItem(managerSideMenuOptions.ASSIGN_TICKETS);
+
+  }
+
+  handleAllTicketsClick() {
+    history.push({
+      pathname: "/ticketmanage/tickets"
+    });
+
+    //set managerTicketSearchCriteria
+    this.props.setManagerTicketSearchCriteria({
+      cioKey: 'ALT',
+      status: TicketStatus.ALL,
+      pageNumber: PAGINATION_START_PAGE,
+      pageSize: TICKETS_PER_PAGE_MANAGER,
+      sortBy: TicketsSortBy.TICKET_UPDATED_DATE,
+      sortOrder: SortOrder.DESCENDING,
+      isSearch: false,
+      searchText: '',
+      searchFieldsListString: '',
+      isLoad: true
+    });
+
+    //Set Active Item for Employee-SideMenu
+    this.props.setActiveSideMenuItem(managerSideMenuOptions.ALL_TICKETS);
 
   }
 
   handleNewTicket() {
-    //history.push("/ticketmaint/newticket");
     history.push({
-      pathname: '/ticketmaint/newticket',
-      search: 'cioKey=NT'
+      pathname: "/ticketmanage/newticket",
+      search: '?cioKey=NT'
     });
-    //this.props.showNewTicketForm();
+
+    //Set Active Item for Employee-SideMenu
+    this.props.setActiveSideMenuItem(managerSideMenuOptions.NEW_TICKET);
+  }
+
+  getInactiveSideMenuItems(value) {
+    return value !== this.props.activeSideMenuItem
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log("inside componentdidupdate - Manager Side Menu");
+    console.log(prevProps);
+    if (prevProps.activeSideMenuItem !== this.props.activeSideMenuItem) {
+      console.log("Change in Active-Menu-Item and setting the state");
+      this.setState({
+        menuItemState: {
+          focused: [this.props.activeSideMenuItem],
+          unfocused: managerSideMenuOptionsArray.filter(this.getInactiveSideMenuItems)
+        }
+
+      });
+
+    }
+
+
   }
 
   componentDidMount() {
@@ -91,137 +160,89 @@ class SideNavBar extends React.Component {
   render() {
 
     return (
-      <div class='sidenavbar' style={{ height: '100%', width: '100%' }}>
-      <Container>
-        <Row>
-          <Col style={{
-          }}>
-            <Label style={{
-              marginTop:'1%',
-              marginBottom:'1%',
-              color:'#5C5B5A',
-              fontWeight:'600'
-            }}>Action Bar</Label>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Nav vertical >
-              <NavItem >
-                <NavLink href="#" onClick={this.handleDashboard}
-                  style={{
-                    textDecoration: 'none',
-                    color: '#546e7a',
-                    fontSize: '1vw'
+      <div class='sidenavbar' style={{}}>
 
-                  }}>
-                  <Row style={{
-                    padding: '0',
-                    margin: '0'
-                  }}>
-                    <Col sm='2' style={{
-                      padding: '0',
-                      margin: '0'
-                    }}>
-                      <FaChartLine style={{ color: '#546e7a' }} />
-                    </Col>
-                    <Col sm='10' style={{
-                      padding: '0',
-                      margin: '0'
-                    }}>
-                      Dashboard
-                </Col>
-                  </Row>
+        <div class='sidemenu'>
+          <ListGroup size='sm'>
 
-                </NavLink>
-              </NavItem>
+            <ListGroupItem style={{
+              cursor: 'pointer',
+              paddingTop: '5%',
+              paddingBottom: '5%',
+              borderRadius: '0'
+            }}><NavLink href='#' onClick={this.handleDashboard} style={this.getMenuOptionStyle(managerSideMenuOptions.DASHBOARD)}><FaChartLine style={{
+              marginBottom: '3%',
+              marginRight: '5%'
+            }}></FaChartLine> <Label style={{
+              margin: '0',
+              padding: '0'
+            }}
+              size='sm'>{managerSideMenuOptions.DASHBOARD}</Label></NavLink>
+            </ListGroupItem>
 
-              <NavItem>
-                <NavLink href="#" onClick={this.handleAwaitResponseClick}
-                  style={{
-                    textDecoration: 'none',
-                    color: '#546e7a',
-                    fontSize: '1vw'
-                  }}>
-                  <Row style={{
-                    padding: '0',
-                    margin: '0'
-                  }}>
-                    <Col sm='2' style={{
-                      padding: '0',
-                      margin: '0'
-                    }}>
-                      <FaRegClock style={{ color: '#546e7a' }} />
-                    </Col>
-                    <Col sm='10' style={{
-                      padding: '0',
-                      margin: '0'
-                    }}>
-                      Awaiting
-                </Col>
-                  </Row>
-                </NavLink>
-              </NavItem>
+            <ListGroupItem style={{
+              cursor: 'pointer',
+              paddingTop: '5%',
+              paddingBottom: '5%',
+              borderRadius: '0'
+            }}><NavLink onClick={this.handleAssignTicketsClick} href='#' style={this.getMenuOptionStyle(managerSideMenuOptions.ASSIGN_TICKETS)}><FaTasks style={{
+              marginBottom: '3%',
+              marginRight: '5%'
+            }}></FaTasks> <Label style={{
+              margin: '0',
+              padding: '0'
+            }}
+              size='sm'>{managerSideMenuOptions.ASSIGN_TICKETS}</Label></NavLink>
+            </ListGroupItem>
 
-              <NavItem>
-                <NavLink href="#" onClick={this.handleNewTicket}
-                  style={{
-                    textDecoration: 'none',
-                    color: '#546e7a',
-                    fontSize: '1vw'
-                  }}>
-                  <Row style={{
-                    padding: '0',
-                    margin: '0'
-                  }}>
-                    <Col sm='2' style={{
-                      padding: '0',
-                      margin: '0'
-                    }}>
-                      <FaRegFileAlt style={{ color: '#546e7a' }} />
-                    </Col>
-                    <Col sm='10' style={{
-                      padding: '0',
-                      margin: '0'
-                    }}>
-                      New Ticket
-                </Col>
-                  </Row>
-                </NavLink>
-              </NavItem>
+            <ListGroupItem style={{
+              cursor: 'pointer',
+              paddingTop: '5%',
+              paddingBottom: '5%',
+              borderRadius: '0'
+            }}><NavLink active onClick={this.handleNewTicket} href='#' style={this.getMenuOptionStyle(managerSideMenuOptions.NEW_TICKET)}><FaPlusSquare style={{
+              marginBottom: '3%',
+              marginRight: '5%'
+            }}></FaPlusSquare> <Label style={{
+              margin: '0',
+              padding: '0'
+            }}
+              size='sm'>{managerSideMenuOptions.NEW_TICKET}</Label></NavLink>
+            </ListGroupItem>
 
-              <NavItem>
-                <NavLink href="#" onClick={this.handleAssignedTicketsClick}
-                  style={{
-                    textDecoration: 'none',
-                    color: '#546e7a',
-                    fontSize: '1vw'
-                  }}>
-                  <Row style={{
-                    padding: '0',
-                    margin: '0'
-                  }}>
-                    <Col sm='2' style={{
-                      padding: '0',
-                      margin: '0'
-                    }}>
-                      <FaRegListAlt style={{ color: '#546e7a' }} />
-                    </Col>
-                    <Col sm='10' style={{
-                      padding: '0',
-                      margin: '0'
-                    }}>
-                      Assigned
-                </Col>
-                  </Row>
-                </NavLink>
-              </NavItem>
-            </Nav>
-          </Col>
-        </Row>
+            <ListGroupItem style={{
+              cursor: 'pointer',
+              paddingTop: '5%',
+              paddingBottom: '5%',
+              borderRadius: '0'
+            }}><NavLink active onClick={this.handleAllTicketsClick} href='#' style={this.getMenuOptionStyle(managerSideMenuOptions.ALL_TICKETS)}><FaListAlt style={{
+              marginBottom: '3%',
+              marginRight: '5%'
+            }}></FaListAlt> <Label style={{
+              margin: '0',
+              padding: '0'
+            }}
+              size='sm'>{managerSideMenuOptions.ALL_TICKETS}</Label></NavLink></ListGroupItem>
 
+            <ListGroupItem style={{
+              cursor: 'pointer',
+              paddingTop: '5%',
+              paddingBottom: '5%',
+              borderRadius: '0'
+            }}><NavLink active onClick={this.handleClosedTicketsClick} href='#' style={this.getMenuOptionStyle(managerSideMenuOptions.CLOSED_TICKETS)}><FaTimesCircle style={{
+              marginBottom: '3%',
+              marginRight: '5%'
+            }}></FaTimesCircle>
+                <Label style={{
+                  margin: '0',
+                  padding: '0'
+                }}
+                  size='sm'>{managerSideMenuOptions.CLOSED_TICKETS}</Label>
+              </NavLink>
+            </ListGroupItem>
+          </ListGroup>
+        </div>
 
-        </Container>
       </div>
     );
   }
@@ -240,13 +261,21 @@ const mapDispatchToProps = dispatch => {
     },
     showNewTicketForm: () => {
       dispatch(showFormNewTicket());
+    },
+    setActiveSideMenuItem: (activeSideMenuItem) => {
+      dispatch(setManagerActiveSideMenuOption(activeSideMenuItem));
+    },
+    setManagerTicketSearchCriteria: (searchCriteria) => {
+      dispatch(setManagerTicketSearchCriteria(searchCriteria));
     }
 
   };
 }
 
 const mapStateToProps = function (state) {
-
+  return {
+    activeSideMenuItem: state.activeSideMenuItem.managerView.activeSideMenuOption
+  }
 };
 
 

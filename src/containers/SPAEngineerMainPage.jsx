@@ -70,7 +70,7 @@ class SPAEngineerMainPage extends React.Component {
                 <SideNavBar></SideNavBar>
               </Col>
             </Row>
-            <hr></hr>
+            {/* <hr></hr>
             <Row style={{
               margin: '0',
               padding: '0'
@@ -82,7 +82,7 @@ class SPAEngineerMainPage extends React.Component {
               }}>
                 <ActivityForm ></ActivityForm>
               </Col>
-            </Row>
+            </Row> */}
           </Col>
 
           <Route path="/ticketmaint/newticket"
