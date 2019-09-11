@@ -238,9 +238,23 @@ class ViewTicketBundleDetailsForm extends React.Component {
 
       var params = {};
       params.status = this.state.status;
-      if (this.state.assignedTo &&
+      console.log("State and props.ticket");
+      console.log(this.state);
+      console.log(this.props.ticket);
+      if (this.props.ticket.assignedTo) {
+        //when assignee is already there
+        if (this.state.assignedTo !== this.props.ticket.assignedTo.userName)
+          params.assignedTo = this.state.assignedTo;
+      }
+      else {
+        //when no assignee is present..means NEW
+        if (this.state.assignedTo)
+          params.assignedTo = this.state.assignedTo;
+      }
+
+      /* if (this.state.assignedTo &&
         this.state.assignedTo.userName !== this.props.ticket.assignedTo.userName)
-        params.assignedTo = this.state.assignedTo
+        params.assignedTo = this.state.assignedTo */
 
       if (this.state.status)
         params.status = this.state.status;
@@ -263,7 +277,7 @@ class ViewTicketBundleDetailsForm extends React.Component {
       if (params.assignedTo || params.priority || params.departmentName) {
         console.log("params inside making call:");
         console.log(params);
-        //this.props.assignTicket(params, queryParams);
+        this.props.assignTicket(params, queryParams);
       }
     });
   }
