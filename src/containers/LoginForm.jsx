@@ -41,8 +41,8 @@ class LoginForm extends React.Component {
     switch (this.props.user.profile.role) {
       case Role.ROLE_ENGINEER:
         history.push({
-          pathname: "/ticketmaint/dashboard",
-          search: "?cioKey=ENDB"
+          pathname: "/ticketmaint/newticket",
+          search: "?cioKey=NT"
         });
         //Unfocus all the side-menu options for Employee view
         this.props.setEmployeeActiveSideMenuItem('');

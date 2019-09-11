@@ -1,14 +1,19 @@
 import React from 'react';
-import { Container, Row, Col, Button, Form, FormGroup, Label, Input, FormText, Alert } from 'reactstrap';
+import { Container, UncontrolledTooltip, Row, Col, Button, Form, FormGroup, Label, Input, FormText, Alert } from 'reactstrap';
 import history from '../history';
 import { createTicketAPICall } from '../actions/TicketActions'
 import { connect } from 'react-redux';
 import { ScaleLoader } from 'react-spinners';
-import { TicketStatus, TicketStatusCode, TicketType, TicketTypeCode, Priority, PriorityCode } from '../masterdata/ApplicationMasterData';
-import { componentInfoObj } from '../masterdata/ApplicationMasterData';
+import { TicketStatus, TicketStatusCode, TicketType, TicketTypeCode, Priority, PriorityCode, Role, applicationMessages, toolTips } from '../masterdata/ApplicationMasterData';
+import { componentInfoObj, TicketsSortBy, PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE, SortOrder } from '../masterdata/ApplicationMasterData';
 import queryString from 'query-string';
-import 'react-perfect-scrollbar/dist/css/styles.css';
-import PerfectScrollbar from 'react-perfect-scrollbar';
+import { HalfCircleSpinner } from 'react-epic-spinners';
+import CustomAlert from '../components/CustomAlert';
+import { glbColorCodes, employeeSideMenuOptions } from '../masterdata/ApplicationMasterData';
+import { FaExclamationCircle } from 'react-icons/fa';
+import { setEmployeeActiveSideMenuOption } from '../actions/ActiveSideMenuActions';
+import PerfectScrollbar from 'react-perfect-scrollbar'
+
 
 class CreateNewTicketForm extends React.Component {
 
@@ -45,10 +50,25 @@ class CreateNewTicketForm extends React.Component {
   onDismissAlert() {
     this.setState({ isAlertVisible: false });
     this.setState((prevState, props) => ({
-      isAlertVisible: false
+      isAlertSectionVisible: false
     }), () => {
-      history.push("/ticketing/tickets?status=" + TicketStatus.ALL);
+      if (localStorage.getItem('role') === Role.ROLE_MANAGER)
+        history.push("/ticketmanage/tickets?status=" + TicketStatus.ALL);
+      if (localStorage.getItem('role') === Role.ROLE_EMPLOYEE) {
+        history.push({
+          pathname: '/ticketing/tickets',
+          search: '?status=' + TicketStatus.ALL + '&' +
+            'cioKey=ALT' + '&' +
+            'pageNumber=' + PAGINATION_START_PAGE + '&' + 'pageSize=' + TICKETS_PER_PAGE_EMPLOYEE + '&' +
+            'sortOrder=' + SortOrder.DESCENDING + '&' + 'sortBy=' + TicketsSortBy.TICKET_UPDATED_DATE
+        });
+      }
     });
+
+    //Set focus MyTickets Item for Employee-SideMenu
+    if (localStorage.getItem('role') === Role.ROLE_EMPLOYEE) {
+      this.props.setActiveSideMenuItem(employeeSideMenuOptions.MY_TICKETS);
+    }
   }
 
 
@@ -62,7 +82,7 @@ class CreateNewTicketForm extends React.Component {
     e.preventDefault();
     this.setState((prevState, props) => ({
       status: TicketStatus.NEW,
-      isCreateTicketFormVisible: false,
+      //isCreateTicketFormVisible: false,
       isAlertSectionVisible: true
 
     }), () => {
@@ -78,8 +98,30 @@ class CreateNewTicketForm extends React.Component {
       [e.target.name]: e.target.files[0]
     })
   }
+
+  componentDidUpdate(prevProps) {
+    //Check the change in value(false -> true) for createTicketAPICallStatus.success 
+    //and createTicketAPICallStatus.error.
+    if (this.props.createTicketAPICallStatus.success === true &&
+      this.props.createTicketAPICallStatus.success !== prevProps.createTicketAPICallStatus.success) {
+      console.log("Create ticket success. Now hide the CreateTicketForm");
+      this.setState({
+        isCreateTicketFormVisible: false
+      })
+    }
+
+    if (this.props.createTicketAPICallStatus.error === true &&
+      this.props.createTicketAPICallStatus.error !== prevProps.createTicketAPICallStatus.error) {
+      console.log("Create ticket failure. Now hide the CreateTicketForm");
+      this.setState({
+        isCreateTicketFormVisible: false
+      })
+    }
+  }
   render() {
     //Processing ttsKey to fetch Form Title and SubTitle data
+    console.log("From Create Ticket");
+    console.log(this.state);
     const params = queryString.parse(history.location.search);
 
     const title = params.cioKey ? componentInfoObj.getInfo(params.cioKey).title : componentInfoObj.getDefaultInfo().title;
@@ -90,13 +132,12 @@ class CreateNewTicketForm extends React.Component {
       <PerfectScrollbar style={{
         height: '100%'
       }}>
-        <div style={{
-          marginLeft: '1%',
-          marginRight: '1%'
-        }}>
 
 
-          {this.state.isCreateTicketFormVisible && <Form>
+
+        {this.state.isCreateTicketFormVisible
+          &&
+          <Form>
             <FormGroup>
               <Container style={{ marginTop: '2%' }}>
                 <Row style={{ textAlign: 'left' }}>
@@ -110,19 +151,35 @@ class CreateNewTicketForm extends React.Component {
             </FormGroup>
             <Container style={{ marginTop: '3%' }}>
               <FormGroup>
-                <Label for="ticketTitle">Title</Label>
-                <Input type="text" name="ticketTitle" id="ticketTitle"
+                <Label size='sm' style={{ paddingRight: '4px' }} for="ticketTitle">Title</Label>
+                <span id='titleToolTip' href='#'>
+                  <FaExclamationCircle style={{
+                    marginBottom: '1px'
+                  }}></FaExclamationCircle></span>
+
+                <UncontrolledTooltip placement="right" target="titleToolTip">
+                  {toolTips.createTicketForm.TITLE}
+                </UncontrolledTooltip>
+                <Input size='sm' type="text" name="ticketTitle" id="ticketTitle"
                   value={this.state.ticketTitle} onChange={this.handleChange} required />
               </FormGroup>
               <FormGroup>
-                <Label for="ticketDescription">Description</Label>
-                <Input type="textarea" name="ticketDescription" id="ticketDescription"
+                <Label size='sm' style={{ paddingRight: '4px' }} for="ticketDescription">Description</Label>
+                <span id='descriptionToolTip' href='#'>
+                  <FaExclamationCircle style={{
+                    marginBottom: '1px'
+                  }}></FaExclamationCircle></span>
+
+                <UncontrolledTooltip placement="right" target="descriptionToolTip">
+                  {toolTips.createTicketForm.DESCRIPTION}
+                </UncontrolledTooltip>
+                <Input size='sm' type="textarea" name="ticketDescription" id="ticketDescription"
                   value={this.state.titleDescription}
                   onChange={this.handleChange} required />
               </FormGroup>
               <FormGroup>
-                <Label for="department">Department</Label>
-                <Input type="select" name="department" id="department" value={this.state.department} onChange={this.handleChange} required>
+                <Label size='sm' for="department">Department</Label>
+                <Input size='sm' type="select" name="department" id="department" value={this.state.department} onChange={this.handleChange} required>
                   <option>Choose department...</option>
                   {this.props.departments.map((department) =>
                     <option>{department.name}</option>
@@ -131,8 +188,8 @@ class CreateNewTicketForm extends React.Component {
                 </Input>
               </FormGroup>
               <FormGroup>
-                <Label for="priority">Priority</Label>
-                <Input type="select" name="priority" id="priority" value={this.state.priority} onChange={this.handleChange} required>
+                <Label size='sm' for="priority">Priority</Label>
+                <Input size='sm' type="select" name="priority" id="priority" value={this.state.priority} onChange={this.handleChange} required>
                   <option>Choose priority...</option>
                   <option>{Priority.HIGH}</option>
                   <option>{Priority.LOW}</option>
@@ -140,8 +197,8 @@ class CreateNewTicketForm extends React.Component {
                 </Input>
               </FormGroup>
               <FormGroup>
-                <Label for="serviceCategory">Category</Label>
-                <Input type="select" name="serviceCategory" id="serviceCategory" value={this.state.serviceCategory}
+                <Label size='sm' for="serviceCategory">Category</Label>
+                <Input size='sm' type="select" name="serviceCategory" id="serviceCategory" value={this.state.serviceCategory}
                   onChange={this.handleChange}
                   required>
                   <option>Choose category...</option>
@@ -151,8 +208,8 @@ class CreateNewTicketForm extends React.Component {
                 </Input>
               </FormGroup>
               <FormGroup>
-                <Label for="officeLocation">Office</Label>
-                <Input type="select" name="officeLocation" id="officeLocation" value={this.state.officeLocation}
+                <Label size='sm' for="officeLocation">Office</Label>
+                <Input size='sm' type="select" name="officeLocation" id="officeLocation" value={this.state.officeLocation}
                   onChange={this.handleChange}
                   required>
                   <option>Choose office...</option>
@@ -162,15 +219,15 @@ class CreateNewTicketForm extends React.Component {
                 </Input>
               </FormGroup>
               <FormGroup>
-                <Label for="deskNumber">Desk</Label>
-                <Input type="text" name="deskNumber" id="deskNumber"
+                <Label size='sm' for="deskNumber">Desk</Label>
+                <Input size='sm' type="text" name="deskNumber" id="deskNumber"
                   value={this.state.deskNumber}
                   onChange={this.handleChange}
                 />
               </FormGroup>
               <FormGroup>
-                <Label for="serviceType">Type</Label>
-                <Input type="select" name="serviceType" id="serviceType"
+                <Label size='sm' for="serviceType">Type</Label>
+                <Input size='sm' type="select" name="serviceType" id="serviceType"
                   value={this.state.serviceType}
                   onChange={this.handleChange}
                   required>
@@ -181,59 +238,117 @@ class CreateNewTicketForm extends React.Component {
                 </Input>
               </FormGroup>
               <FormGroup>
-                <Label for="notes">Additional Information</Label>
-                <Input type="textarea" name="additionalInfo" id="additionalInfo"
+                <Label size='sm' style={{ paddingRight: '4px' }} for="notes">Additional Information</Label>
+                <span id='additionalInfoToolTip' href='#'>
+                  <FaExclamationCircle style={{
+                    marginBottom: '1px'
+                  }}></FaExclamationCircle></span>
+
+                <UncontrolledTooltip placement="right" target="additionalInfoToolTip">
+                  {toolTips.createTicketForm.ADDITIONAL_INFO}
+                </UncontrolledTooltip>
+                <Input size='sm' type="textarea" name="additionalInfo" id="additionalInfo"
                   value={this.state.additionalInfo}
                   onChange={this.handleChange}
                 />
               </FormGroup>
               <FormGroup>
-                <Label for="attachments">Attachments</Label>
-                <Input type="file" name="file1" id="file1" onChange={this.onFileUpload} />
-                <Input type="file" name="file2" id="file2" onChange={this.onFileUpload} />
-                <Input type="file" name="file3" id="file3" onChange={this.onFileUpload} />
-                <FormText color="muted">
+                <Label size='sm' for="attachments">Attachments</Label>
+                <Input size='sm' type="file" name="file1" id="file1" onChange={this.onFileUpload} />
+                <Input size='sm' type="file" name="file2" id="file2" onChange={this.onFileUpload} />
+                <Input size='sm' type="file" name="file3" id="file3" onChange={this.onFileUpload} />
+                <FormText size='sm' color="muted">
                   Any files that can assist the corresponding team to resolve the issues at the earliest.
           </FormText>
               </FormGroup>
-              <Button color="success" type="submit" bsSize="large"
-                onClick={this.onSubmitCreateTicket}>Create Ticket</Button>
+              <Row>
+                <Col sm='auto'>
+                  <Button size='sm' color="success" type="submit" bsSize="large"
+                    onClick={this.onSubmitCreateTicket}>Create Ticket</Button>
+                </Col>
+                {this.props.createTicketAPICallStatus.requested
+                  &&
+                  <Col sm='auto' style={{
+                    paddingTop: '1%'
+                  }}>
+                    <HalfCircleSpinner
+                      size='20'
+                      color='green'>
+
+                    </HalfCircleSpinner>
+
+                  </Col>}
+
+
+              </Row>
             </Container>
           </Form>}
 
-          {this.props.createTicketAPICallStatus.requested && <div className='view-ticket-loading'>
-            <ScaleLoader
-              color='#00d8ff'
-              loading='true'
-            />
-          </div>
-          }
-
-
-          {this.state.isAlertSectionVisible && this.props.createTicketAPICallStatus.success && <div>
-            <Alert color="success" isOpen={this.state.isAlertVisible} toggle={this.onDismissAlert}>
-              <h4 className="alert-heading">Well done!</h4>
-              <p>
-                Aww yeah, you successfully read this important alert message. This example text is going
-                to run a bit longer so that you can see how spacing within an alert works with this kind
-                of content.
-        </p>
-              <hr />
-              <p className="mb-0">
-                Whenever you need to, be sure to use margin utilities to keep things nice and tidy.
-        </p>
-            </Alert>
-          </div>}
-
-
+        {false && this.props.createTicketAPICallStatus.requested && <div className='view-ticket-loading'>
+          <ScaleLoader
+            color='#00d8ff'
+            loading='true'
+          />
         </div>
+        }
+
+        {this.state.isAlertSectionVisible && this.props.createTicketAPICallStatus.success && <div>
+          <CustomAlert data={{
+            alertColor: glbColorCodes.SUCCESS,
+            isOpen: true,
+            messageHeader: applicationMessages.messageHeaders.TICKET_CREATION_SUCCESS,
+            detailedMessage: applicationMessages.successMessages.TICKET_CREATION_SUCCESS,
+            defaultFooterMessage: applicationMessages.defaultFooterMessages.TICKET_CREATION_SUCCESS
+          }} toggle={this.onDismissAlert} >
+
+          </CustomAlert>
+        </div>}
+
+        {this.state.isAlertSectionVisible && this.props.createTicketAPICallStatus.error && <div>
+          <CustomAlert data={{
+            alertColor: glbColorCodes.DANGER,
+            isOpen: true,
+            messageHeader: applicationMessages.messageHeaders.TICKET_CREATION_FAILURE,
+            detailedMessage: applicationMessages.errorMessages.TICKET_CREATION_FAILURE,
+            defaultFooterMessage: applicationMessages.defaultFooterMessages.TICKET_CREATION_FAILURE
+          }} toggle={this.onDismissAlert} >
+
+          </CustomAlert>
+          {/* <Alert color="danger" isOpen={true} toggle={this.onDismissAlert}>
+            <h4 className="alert-heading">Failure!</h4>
+            <p>
+              Ticket creation unsuccessful.
+        </p>
+            <hr />
+            <p className="mb-0">
+              Please try again.
+        </p>
+          </Alert> */}
+        </div>}
+
+
       </PerfectScrollbar>
     );
   }
 }
 
-const mapActionsToProps = {
+/* const mapActionsToProps = {
   onCreateTicket: createTicketAPICall
+}
+ */
+const mapActionsToProps = dispatch => {
+
+  return {
+    setActiveSideMenuItem: (activeSideMenuItem) => {
+      dispatch(setEmployeeActiveSideMenuOption(activeSideMenuItem));
+    },
+
+    onCreateTicket: (params) => {
+      dispatch(createTicketAPICall(params));
+    }
+
+
+  };
 }
 
 const mapStateToProps = function (state) {
