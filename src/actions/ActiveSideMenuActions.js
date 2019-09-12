@@ -1,4 +1,4 @@
-import {SET_EMPLOYEE_ACTIVE_SIDE_MENU_ITEM, SET_MANAGER_ACTIVE_SIDE_MENU_ITEM} from './ActionTypes';
+import {SET_EMPLOYEE_ACTIVE_SIDE_MENU_ITEM, SET_MANAGER_ACTIVE_SIDE_MENU_ITEM, SET_ENGINEER_ACTIVE_SIDE_MENU_ITEM} from './ActionTypes';
 
 export function setEmployeeActiveSideMenuOption(activeSideMenuOption) {
     return {
@@ -13,6 +13,16 @@ export function setEmployeeActiveSideMenuOption(activeSideMenuOption) {
 export function setManagerActiveSideMenuOption(activeSideMenuOption) {
     return {
         type: SET_MANAGER_ACTIVE_SIDE_MENU_ITEM,
+        payLoad: {
+            activeSideMenuOption : activeSideMenuOption
+        }
+    }
+
+}
+
+export function setEngineerActiveSideMenuOption(activeSideMenuOption) {
+    return {
+        type: SET_ENGINEER_ACTIVE_SIDE_MENU_ITEM,
         payLoad: {
             activeSideMenuOption : activeSideMenuOption
         }

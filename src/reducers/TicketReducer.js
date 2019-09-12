@@ -1,4 +1,4 @@
-import { CREATE_TICKET, CREATE_TICKET_SUCCESS, CREATE_TICKET_FAILURE, FETCH_TICKETS_SUCCESS, FETCH_TICKETS, FETCH_CREATED_TICKETS_SUCCESS, FETCH_CREATED_TICKETS, SET_MANAGER_TICKET_SEARCH_CRITERIA } from '../actions/ActionTypes';
+import { CREATE_TICKET, CREATE_TICKET_SUCCESS, CREATE_TICKET_FAILURE, FETCH_TICKETS_SUCCESS, FETCH_TICKETS, FETCH_CREATED_TICKETS_SUCCESS, FETCH_CREATED_TICKETS, SET_MANAGER_TICKET_SEARCH_CRITERIA, SET_TICKET_SEARCH_CRITERIA } from '../actions/ActionTypes';
 import { ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET, ASSIGN_UPDATE_TICKET_FAILURE } from '../actions/ActionTypes'
 import { SHOW_FORM_NEW_TICKET } from '../actions/ActionTypes';
 import { FETCH_ASSIGNED_TICKETS, FETCH_ASSIGNED_TICKETS_FAILURE, FETCH_ASSIGNED_TICKETS_SUCCESS } from '../actions/ActionTypes';
@@ -72,6 +72,22 @@ export function ticketReducer(state = {}, action) {
                     searchText: action.payload.ticketList.managerTicketSearchCriteria.searchText,
                     searchFieldsListString: action.payload.ticketList.managerTicketSearchCriteria.searchFieldsListString
                 }, loadManagerTickets: action.payload.ticketList.loadManagerTickets
+            };
+
+        case SET_TICKET_SEARCH_CRITERIA:
+            return {
+                ...state, ticketSearchCriteria: {
+                    cioKey: action.payload.ticketList.ticketSearchCriteria.cioKey,
+                    status: action.payload.ticketList.ticketSearchCriteria.status,
+                    pageNumber: action.payload.ticketList.ticketSearchCriteria.pageNumber,
+                    pageSize: action.payload.ticketList.ticketSearchCriteria.pageSize,
+                    isLoad: action.payload.ticketList.ticketSearchCriteria.isLoad,
+                    sortBy: action.payload.ticketList.ticketSearchCriteria.sortBy,
+                    sortOrder: action.payload.ticketList.ticketSearchCriteria.sortOrder,
+                    isSearch: action.payload.ticketList.ticketSearchCriteria.isSearch,
+                    searchText: action.payload.ticketList.ticketSearchCriteria.searchText,
+                    searchFieldsListString: action.payload.ticketList.ticketSearchCriteria.searchFieldsListString
+                }, loadTickets: action.payload.ticketList.loadTickets
             };
 
 

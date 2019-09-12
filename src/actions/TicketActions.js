@@ -1,4 +1,4 @@
-import { CREATE_TICKET, CLOSE_TICKET_SUCCESS, CLOSE_TICKET_FAILURE, FETCH_ASSIGNED_TICKET_DETAILS, FETCH_ASSIGNED_TICKET_DETAILS_SUCCESS, FETCH_ASSIGNED_TICKET_DETAILS_FAILURE, CREATE_TICKET_FAILURE, CLOSE_TICKET, ASSIGN_UPDATE_MULTIPLE_TICKET, ASSIGN_UPDATE_MULTIPLE_TICKETS, ASSIGN_UPDATE_MULTIPLE_TICKETS_SUCCESS, ASSIGN_UPDATE_MULTIPLE_TICKETS_FAILURE, SET_MANAGER_TICKET_SEARCH_CRITERIA } from './ActionTypes';
+import { CREATE_TICKET, CLOSE_TICKET_SUCCESS, CLOSE_TICKET_FAILURE, FETCH_ASSIGNED_TICKET_DETAILS, FETCH_ASSIGNED_TICKET_DETAILS_SUCCESS, FETCH_ASSIGNED_TICKET_DETAILS_FAILURE, CREATE_TICKET_FAILURE, CLOSE_TICKET, ASSIGN_UPDATE_MULTIPLE_TICKET, ASSIGN_UPDATE_MULTIPLE_TICKETS, ASSIGN_UPDATE_MULTIPLE_TICKETS_SUCCESS, ASSIGN_UPDATE_MULTIPLE_TICKETS_FAILURE, SET_MANAGER_TICKET_SEARCH_CRITERIA, SET_TICKET_SEARCH_CRITERIA } from './ActionTypes';
 import { CLOSE_UPDATE_TICKET, CLOSE_UPDATE_TICKET_SUCCESS, CLOSE_UPDATE_TICKET_FAILURE } from './ActionTypes';
 import { MESSAGE_UPDATE_TICKET, MESSAGE_UPDATE_TICKET_FAILURE, MESSAGE_UPDATE_TICKET_SUCCESS } from './ActionTypes';
 import { CREATE_TICKET_SUCCESS, FETCH_TICKETS_SUCCESS, FETCH_TICKETS, ASSIGN_UPDATE_TICKET_SUCCESS, ASSIGN_UPDATE_TICKET_FAILURE, ASSIGN_UPDATE_TICKET } from './ActionTypes';
@@ -319,6 +319,29 @@ export function setManagerTicketSearchCriteria(params) {
                     searchFieldsListString: params.searchFieldsListString
                 },
                 loadManagerTickets: params.isLoad
+            }
+        }
+    }
+}
+
+export function setTicketSearchCriteria(params) {
+    return {
+        type: SET_TICKET_SEARCH_CRITERIA,
+        payload: {
+            ticketList: {
+                ticketSearchCriteria: {
+                    cioKey: params.cioKey,
+                    status: params.status,
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    isLoad: params.isLoad,
+                    sortBy: params.sortBy,
+                    sortOrder: params.sortOrder,
+                    isSearch: params.isSearch,
+                    searchText: params.searchText,
+                    searchFieldsListString: params.searchFieldsListString
+                },
+                loadTickets: params.isLoad
             }
         }
     }
