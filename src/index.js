@@ -88,6 +88,7 @@ const store = createStore(MainReducer, {
         isCreateTicketFailureFormVisible: false,
         isViewTicketsFormVisible: false,
         isSuccessAlertVisible: false,
+        //managerTicketSearchCriteria will be depricated as the common ticketSearchCriteriaObject should be used.
         managerTicketSearchCriteria: {
             cioKey: '',
             status: '',
@@ -103,7 +104,24 @@ const store = createStore(MainReducer, {
             searchText:'',
             searchFieldsListString:''
         },
-        loadManagerTickets: false
+        loadManagerTickets: false,
+
+        ticketSearchCriteria: {
+            cioKey: '',
+            status: '',
+            pageNumber: '',
+            pageSize: '',
+            isLoad: false,
+            sortBy: '',
+            sortOrder: '',
+            createdByMe: '',
+            managedByMe: '',
+            assignedToMe: '',
+            isSearch:false,
+            searchText:'',
+            searchFieldsListString:''
+        },
+        loadTickets: false
 
     },
 

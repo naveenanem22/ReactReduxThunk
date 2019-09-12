@@ -322,6 +322,21 @@ managerSideMenuOptions.ASSIGN_TICKETS,managerSideMenuOptions.NEW_TICKET, manager
 managerSideMenuOptions.CLOSED_TICKETS]
 /***** Manager SideMenu Options END *****/
 
+/***** Engineer SideMenu Options START *****/
+export const engineerSideMenuOptions = {
+    DASHBOARD : 'Dashboard',
+    ASSIGNED_TICKETS : 'Assigned',
+    NEW_TICKET: 'New Ticket',
+    AWAITING_RESPONSE: 'Awaiting Response',
+    CLOSED_TICKETS: 'Closed Tickets'
+
+}
+export const engineerSideMenuOptionsArray = [engineerSideMenuOptions.DASHBOARD,
+    engineerSideMenuOptions.ASSIGN_TICKETS,engineerSideMenuOptions.NEW_TICKET, engineerSideMenuOptions.ALL_TICKETS,
+    engineerSideMenuOptions.CLOSED_TICKETS]
+/***** Engineer SideMenu Options END *****/
+
+
 /***** Placeholders text START *****/
 export const placeholderTextSearchBox = 'Search tickets...'
 /***** Placeholders text END *****/

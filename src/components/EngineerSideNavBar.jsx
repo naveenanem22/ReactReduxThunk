@@ -5,7 +5,7 @@ import history from '../history';
 import { connect } from 'react-redux';
 import { fetchTicketsAPICall, showFormNewTicket, setManagerTicketSearchCriteria } from '../actions/TicketActions'
 import { fetchDashboardDataAPICall, fetchDashboardDataMultipleAPICall } from '../actions/DashboardActions';
-import { TicketStatus, managerSideMenuOptions, TICKETS_PER_PAGE_MANAGER, TicketsSortBy, SortOrder } from '../masterdata/ApplicationMasterData';
+import { TicketStatus, managerSideMenuOptions, TICKETS_PER_PAGE_MANAGER, TicketsSortBy, SortOrder, engineerSideMenuOptions } from '../masterdata/ApplicationMasterData';
 import { FaTimesCircle, FaListAlt, FaPlusSquare } from 'react-icons/fa';
 import { PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE } from '../masterdata/ApplicationMasterData';
 import { managerSideMenuOptionsArray, employeeSideMenuOptions } from '../masterdata/ApplicationMasterData';
@@ -74,7 +74,7 @@ class SideNavBar extends React.Component {
 
   handleAssignTicketsClick() {
     history.push({
-      pathname: "/ticketmanage/tickets"
+      pathname: "/ticketmaint/tickets"
     });
 
     //set managerTicketSearchCriteria
@@ -177,7 +177,7 @@ class SideNavBar extends React.Component {
               margin: '0',
               padding: '0'
             }}
-              size='sm'>{managerSideMenuOptions.DASHBOARD}</Label></NavLink>
+              size='sm'>{engineerSideMenuOptions.DASHBOARD}</Label></NavLink>
             </ListGroupItem>
 
             <ListGroupItem style={{
@@ -192,7 +192,7 @@ class SideNavBar extends React.Component {
               margin: '0',
               padding: '0'
             }}
-              size='sm'>{managerSideMenuOptions.ASSIGN_TICKETS}</Label></NavLink>
+              size='sm'>{engineerSideMenuOptions.ASSIGNED_TICKETS}</Label></NavLink>
             </ListGroupItem>
 
             <ListGroupItem style={{
@@ -207,7 +207,7 @@ class SideNavBar extends React.Component {
               margin: '0',
               padding: '0'
             }}
-              size='sm'>{managerSideMenuOptions.NEW_TICKET}</Label></NavLink>
+              size='sm'>{engineerSideMenuOptions.NEW_TICKET}</Label></NavLink>
             </ListGroupItem>
 
             <ListGroupItem style={{
@@ -222,7 +222,7 @@ class SideNavBar extends React.Component {
               margin: '0',
               padding: '0'
             }}
-              size='sm'>{managerSideMenuOptions.ALL_TICKETS}</Label></NavLink></ListGroupItem>
+              size='sm'>{engineerSideMenuOptions.AWAITING_RESPONSE}</Label></NavLink></ListGroupItem>
 
             <ListGroupItem style={{
               cursor: 'pointer',
@@ -237,7 +237,7 @@ class SideNavBar extends React.Component {
                   margin: '0',
                   padding: '0'
                 }}
-                  size='sm'>{managerSideMenuOptions.CLOSED_TICKETS}</Label>
+                  size='sm'>{engineerSideMenuOptions.CLOSED_TICKETS}</Label>
               </NavLink>
             </ListGroupItem>
           </ListGroup>
