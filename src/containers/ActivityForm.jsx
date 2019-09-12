@@ -56,7 +56,167 @@ class ActivityForm extends React.Component {
         width: '100%'
       }}>
         <div>
-          <Row style={{
+
+          <Card style={{
+            marginTop:'1%'
+          }}>
+            <CardHeader style={{
+                  margin: '0',
+                  paddingLeft: '2%',
+                  paddingRight: '2%',
+                  paddingTop:'1%',
+                  paddingBottom:'1%'
+
+                }}>
+              <Label size='sm' style={{
+                margin: '0',
+                padding: '0'
+              }}>TicketID: 112233</Label>
+            </CardHeader>
+            <CardBody style={{
+                  margin: '0',
+                  paddingLeft: '2%',
+                  paddingRight: '2%',
+                  paddingTop:'0',
+                  paddingBottom:'0'
+                }}>
+                <CardText style={{
+                  margin: '0',
+                  padding: '0'
+                }}><Label size='sm' style={{
+                  margin: '0',
+                  padding: '0'
+                }}>With supporting text below as a natural lead-in to additional content</Label></CardText>
+              </CardBody>
+          </Card>
+
+          <Card style={{
+            marginTop:'1%'
+          }}>
+            <CardHeader style={{
+                  margin: '0',
+                  paddingLeft: '2%',
+                  paddingRight: '2%',
+                  paddingTop:'1%',
+                  paddingBottom:'1%'
+
+                }}>
+              <Label size='sm' style={{
+                margin: '0',
+                padding: '0'
+              }}>TicketID: 112233</Label>
+            </CardHeader>
+            <CardBody style={{
+                  margin: '0',
+                  paddingLeft: '2%',
+                  paddingRight: '2%',
+                  paddingTop:'0',
+                  paddingBottom:'0'
+                }}>
+                <CardText style={{
+                  margin: '0',
+                  padding: '0'
+                }}><Label size='sm' style={{
+                  margin: '0',
+                  padding: '0'
+                }}>With supporting text below as a natural lead-in to additional content</Label></CardText>
+              </CardBody>
+          </Card><Card style={{
+            marginTop:'1%'
+          }}>
+            <CardHeader style={{
+                  margin: '0',
+                  paddingLeft: '2%',
+                  paddingRight: '2%',
+                  paddingTop:'1%',
+                  paddingBottom:'1%'
+
+                }}>
+              <Label size='sm' style={{
+                margin: '0',
+                padding: '0'
+              }}>TicketID: 112233</Label>
+            </CardHeader>
+            <CardBody style={{
+                  margin: '0',
+                  paddingLeft: '2%',
+                  paddingRight: '2%',
+                  paddingTop:'0',
+                  paddingBottom:'0'
+                }}>
+                <CardText style={{
+                  margin: '0',
+                  padding: '0'
+                }}><Label size='sm' style={{
+                  margin: '0',
+                  padding: '0'
+                }}>With supporting text below as a natural lead-in to additional content</Label></CardText>
+              </CardBody>
+          </Card><Card style={{
+            marginTop:'1%'
+          }}>
+            <CardHeader style={{
+                  margin: '0',
+                  paddingLeft: '2%',
+                  paddingRight: '2%',
+                  paddingTop:'1%',
+                  paddingBottom:'1%'
+
+                }}>
+              <Label size='sm' style={{
+                margin: '0',
+                padding: '0'
+              }}>TicketID: 112233</Label>
+            </CardHeader>
+            <CardBody style={{
+                  margin: '0',
+                  paddingLeft: '2%',
+                  paddingRight: '2%',
+                  paddingTop:'0',
+                  paddingBottom:'0'
+                }}>
+                <CardText style={{
+                  margin: '0',
+                  padding: '0'
+                }}><Label size='sm' style={{
+                  margin: '0',
+                  padding: '0'
+                }}>With supporting text below as a natural lead-in to additional content</Label></CardText>
+              </CardBody>
+          </Card><Card style={{
+            marginTop:'1%'
+          }}>
+            <CardHeader style={{
+                  margin: '0',
+                  paddingLeft: '2%',
+                  paddingRight: '2%',
+                  paddingTop:'1%',
+                  paddingBottom:'1%'
+
+                }}>
+              <Label size='sm' style={{
+                margin: '0',
+                padding: '0'
+              }}>TicketID: 112233</Label>
+            </CardHeader>
+            <CardBody style={{
+                  margin: '0',
+                  paddingLeft: '2%',
+                  paddingRight: '2%',
+                  paddingTop:'0',
+                  paddingBottom:'0'
+                }}>
+                <CardText style={{
+                  margin: '0',
+                  padding: '0'
+                }}><Label size='sm' style={{
+                  margin: '0',
+                  padding: '0'
+                }}>With supporting text below as a natural lead-in to additional content</Label></CardText>
+              </CardBody>
+          </Card>
+
+            {/*  <Row style={{
             margin: '0',
             padding: '0'
           }}>
@@ -111,25 +271,25 @@ class ActivityForm extends React.Component {
             padding: '0'
           }}>
             <Col><hr></hr></Col>
-          </Row>
+          </Row> */}
         </div>
       </PerfectScrollbar>
 
-    );
-  }
-}
-
+        );
+      }
+    }
+    
 const mapStateToProps = function (state) {
   return {
-    ticket: state.ticketDetails.ticket
-  }
-}
-
+          ticket: state.ticketDetails.ticket
+      }
+    }
+    
 const mapActionsToProps = {
-  addMessage: addMessageAPICall,
-  closeTicket: closeTicketAPICall,
-  downloadAttachment: downloadAttachmentAPICall,
-  fetchTicketDetails: fetchTicketDetailsAPICall
-}
-
+          addMessage: addMessageAPICall,
+        closeTicket: closeTicketAPICall,
+        downloadAttachment: downloadAttachmentAPICall,
+        fetchTicketDetails: fetchTicketDetailsAPICall
+      }
+      
 export default connect(mapStateToProps, mapActionsToProps)(ActivityForm);

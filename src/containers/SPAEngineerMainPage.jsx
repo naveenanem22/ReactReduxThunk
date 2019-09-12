@@ -70,7 +70,6 @@ class SPAEngineerMainPage extends React.Component {
                 <SideNavBar></SideNavBar>
               </Col>
             </Row>
-            <hr></hr>
             <Row style={{
               margin: '0',
               padding: '0'
