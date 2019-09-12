@@ -3,13 +3,13 @@ import { Nav, NavItem, NavLink, ListGroup, ListGroupItem, Label } from 'reactstr
 import { FaUser, FaAngleDoubleRight, FaChartLine, FaTasks } from 'react-icons/fa';
 import history from '../history';
 import { connect } from 'react-redux';
-import { fetchTicketsAPICall, showFormNewTicket, setManagerTicketSearchCriteria } from '../actions/TicketActions'
+import { fetchTicketsAPICall, showFormNewTicket, setTicketSearchCriteria } from '../actions/TicketActions'
 import { fetchDashboardDataAPICall, fetchDashboardDataMultipleAPICall } from '../actions/DashboardActions';
-import { TicketStatus, managerSideMenuOptions, TICKETS_PER_PAGE_MANAGER, TicketsSortBy, SortOrder, engineerSideMenuOptions } from '../masterdata/ApplicationMasterData';
+import { TicketStatus, managerSideMenuOptions, TICKETS_PER_PAGE_MANAGER, TicketsSortBy, SortOrder, engineerSideMenuOptions, engineerSideMenuOptionsArray, TICKETS_PER_PAGE_ENGINEER } from '../masterdata/ApplicationMasterData';
 import { FaTimesCircle, FaListAlt, FaPlusSquare } from 'react-icons/fa';
 import { PAGINATION_START_PAGE, TICKETS_PER_PAGE_EMPLOYEE } from '../masterdata/ApplicationMasterData';
 import { managerSideMenuOptionsArray, employeeSideMenuOptions } from '../masterdata/ApplicationMasterData';
-import { setManagerActiveSideMenuOption } from '../actions/ActiveSideMenuActions';
+import { setEngineerActiveSideMenuOption } from '../actions/ActiveSideMenuActions';
 
 
 class SideNavBar extends React.Component {
@@ -18,12 +18,12 @@ class SideNavBar extends React.Component {
     this.state = {
       menuItemState: {
         focused: [],
-        unfocused: managerSideMenuOptionsArray
+        unfocused: engineerSideMenuOptionsArray
 
       }
     };
     this.handleClosedTicketsClick = this.handleClosedTicketsClick.bind(this);
-    this.handleAssignTicketsClick = this.handleAssignTicketsClick.bind(this);
+    this.handleAssignedTicketsClick = this.handleAssignedTicketsClick.bind(this);
     this.handleAllTicketsClick = this.handleAllTicketsClick.bind(this);
     this.getMenuOptionStyle = this.getMenuOptionStyle.bind(this);
     this.handleDashboard = this.handleDashboard.bind(this);
@@ -72,27 +72,28 @@ class SideNavBar extends React.Component {
     this.props.setActiveSideMenuItem(managerSideMenuOptions.CLOSED_TICKETS);
   }
 
-  handleAssignTicketsClick() {
+  handleAssignedTicketsClick() {
     history.push({
       pathname: "/ticketmaint/tickets"
     });
 
     //set managerTicketSearchCriteria
-    this.props.setManagerTicketSearchCriteria({
+    this.props.setTicketSearchCriteria({
       cioKey: 'AST',
-      status: TicketStatus.NEW,
+      status: TicketStatus.ALL,
       pageNumber: PAGINATION_START_PAGE,
-      pageSize: TICKETS_PER_PAGE_MANAGER,
+      pageSize: TICKETS_PER_PAGE_ENGINEER,
       sortBy: TicketsSortBy.TICKET_UPDATED_DATE,
       sortOrder: SortOrder.DESCENDING,
       isSearch: false,
       searchText: '',
       searchFieldsListString: '',
-      isLoad: true
+      isLoad: true,
+      assignedToMe: true
     });
 
-    //Set Active Item for Employee-SideMenu
-    this.props.setActiveSideMenuItem(managerSideMenuOptions.ASSIGN_TICKETS);
+    //Set Active Item for Engineer-SideMenu
+    this.props.setActiveSideMenuItem(engineerSideMenuOptions.ASSIGNED_TICKETS);
 
   }
 
@@ -116,18 +117,18 @@ class SideNavBar extends React.Component {
     });
 
     //Set Active Item for Employee-SideMenu
-    this.props.setActiveSideMenuItem(managerSideMenuOptions.ALL_TICKETS);
+    this.props.setActiveSideMenuItem(engineerSideMenuOptions.ALL_TICKETS);
 
   }
 
   handleNewTicket() {
     history.push({
-      pathname: "/ticketmanage/newticket",
+      pathname: "/ticketmaint/newticket",
       search: '?cioKey=NT'
     });
 
-    //Set Active Item for Employee-SideMenu
-    this.props.setActiveSideMenuItem(managerSideMenuOptions.NEW_TICKET);
+    //Set Active Item for Engineer-SideMenu
+    this.props.setActiveSideMenuItem(engineerSideMenuOptions.NEW_TICKET);
   }
 
   getInactiveSideMenuItems(value) {
@@ -185,7 +186,7 @@ class SideNavBar extends React.Component {
               paddingTop: '5%',
               paddingBottom: '5%',
               borderRadius: '0'
-            }}><NavLink onClick={this.handleAssignTicketsClick} href='#' style={this.getMenuOptionStyle(managerSideMenuOptions.ASSIGN_TICKETS)}><FaTasks style={{
+            }}><NavLink onClick={this.handleAssignedTicketsClick} href='#' style={this.getMenuOptionStyle(engineerSideMenuOptions.ASSIGNED_TICKETS)}><FaTasks style={{
               marginBottom: '3%',
               marginRight: '5%'
             }}></FaTasks> <Label style={{
@@ -200,7 +201,7 @@ class SideNavBar extends React.Component {
               paddingTop: '5%',
               paddingBottom: '5%',
               borderRadius: '0'
-            }}><NavLink active onClick={this.handleNewTicket} href='#' style={this.getMenuOptionStyle(managerSideMenuOptions.NEW_TICKET)}><FaPlusSquare style={{
+            }}><NavLink active onClick={this.handleNewTicket} href='#' style={this.getMenuOptionStyle(engineerSideMenuOptions.NEW_TICKET)}><FaPlusSquare style={{
               marginBottom: '3%',
               marginRight: '5%'
             }}></FaPlusSquare> <Label style={{
@@ -263,10 +264,10 @@ const mapDispatchToProps = dispatch => {
       dispatch(showFormNewTicket());
     },
     setActiveSideMenuItem: (activeSideMenuItem) => {
-      dispatch(setManagerActiveSideMenuOption(activeSideMenuItem));
+      dispatch(setEngineerActiveSideMenuOption(activeSideMenuItem));
     },
-    setManagerTicketSearchCriteria: (searchCriteria) => {
-      dispatch(setManagerTicketSearchCriteria(searchCriteria));
+    setTicketSearchCriteria: (searchCriteria) => {
+      dispatch(setTicketSearchCriteria(searchCriteria));
     }
 
   };
@@ -274,7 +275,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = function (state) {
   return {
-    activeSideMenuItem: state.activeSideMenuItem.managerView.activeSideMenuOption
+    activeSideMenuItem: state.activeSideMenuItem.engineerView.activeSideMenuOption
   }
 };
 
