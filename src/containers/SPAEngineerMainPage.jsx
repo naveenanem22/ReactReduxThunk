@@ -63,26 +63,26 @@ class SPAEngineerMainPage extends React.Component {
               padding: '0'
             }}>
               <Col sm='12' style={{
-                height: '30vh',
+                height: '37vh',
                 padding: '0',
                 margin: '0'
               }}>
                 <SideNavBar></SideNavBar>
               </Col>
             </Row>
-            {/* <hr></hr>
+            <hr></hr>
             <Row style={{
               margin: '0',
               padding: '0'
             }}>
               <Col sm='12' style={{
-                height: '59vh',
+                height: '52vh',
                 margin: '0',
                 padding: '0.5vw'
               }}>
                 <ActivityForm ></ActivityForm>
               </Col>
-            </Row> */}
+            </Row>
           </Col>
 
           <Route path="/ticketmaint/newticket"
