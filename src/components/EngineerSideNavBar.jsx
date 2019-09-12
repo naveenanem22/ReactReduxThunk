@@ -24,7 +24,7 @@ class SideNavBar extends React.Component {
     };
     this.handleClosedTicketsClick = this.handleClosedTicketsClick.bind(this);
     this.handleAssignedTicketsClick = this.handleAssignedTicketsClick.bind(this);
-    this.handleAllTicketsClick = this.handleAllTicketsClick.bind(this);
+    this.handleAwaitResponseClick = this.handleAwaitResponseClick.bind(this);
     this.getMenuOptionStyle = this.getMenuOptionStyle.bind(this);
     this.handleDashboard = this.handleDashboard.bind(this);
     this.handleNewTicket = this.handleNewTicket.bind(this);
@@ -34,12 +34,12 @@ class SideNavBar extends React.Component {
   handleDashboard(e) {
     //history.push({pathname: "/ticketmanage/dashboard"});
     history.push({
-      pathname: "/ticketmanage/dashboard",
+      pathname: "/ticketmaint/dashboard",
       search: "?cioKey=MDB"
     });
 
     //Set Active Item for Employee-SideMenu
-    this.props.setActiveSideMenuItem(managerSideMenuOptions.DASHBOARD);
+    this.props.setActiveSideMenuItem(engineerSideMenuOptions.DASHBOARD);
   }
 
   getMenuOptionStyle(menuItem) {
@@ -51,11 +51,11 @@ class SideNavBar extends React.Component {
 
   handleClosedTicketsClick() {
     history.push({
-      pathname: "/ticketmanage/tickets"
+      pathname: "/ticketmaint/tickets"
     });
 
     //set managerTicketSearchCriteria
-    this.props.setManagerTicketSearchCriteria({
+    this.props.setTicketSearchCriteria({
       cioKey: 'CLT',
       status: TicketStatus.CLOSE,
       pageNumber: PAGINATION_START_PAGE,
@@ -65,11 +65,12 @@ class SideNavBar extends React.Component {
       isSearch: false,
       searchText: '',
       searchFieldsListString: '',
-      isLoad: true
+      isLoad: true,
+      managedByMe:true
     });
 
     //Set Active Item for Employee-SideMenu
-    this.props.setActiveSideMenuItem(managerSideMenuOptions.CLOSED_TICKETS);
+    this.props.setActiveSideMenuItem(engineerSideMenuOptions.CLOSED_TICKETS);
   }
 
   handleAssignedTicketsClick() {
@@ -97,13 +98,13 @@ class SideNavBar extends React.Component {
 
   }
 
-  handleAllTicketsClick() {
+  handleAwaitResponseClick() {
     history.push({
-      pathname: "/ticketmanage/tickets"
+      pathname: "/ticketmaint/tickets"
     });
 
     //set managerTicketSearchCriteria
-    this.props.setManagerTicketSearchCriteria({
+    this.props.setTicketSearchCriteria({
       cioKey: 'ALT',
       status: TicketStatus.ALL,
       pageNumber: PAGINATION_START_PAGE,
@@ -113,11 +114,12 @@ class SideNavBar extends React.Component {
       isSearch: false,
       searchText: '',
       searchFieldsListString: '',
-      isLoad: true
+      isLoad: true,
+      assignedToMe:true
     });
 
     //Set Active Item for Employee-SideMenu
-    this.props.setActiveSideMenuItem(engineerSideMenuOptions.ALL_TICKETS);
+    this.props.setActiveSideMenuItem(engineerSideMenuOptions.AWAITING_RESPONSE);
 
   }
 
@@ -171,7 +173,7 @@ class SideNavBar extends React.Component {
               paddingTop: '5%',
               paddingBottom: '5%',
               borderRadius: '0'
-            }}><NavLink href='#' onClick={this.handleDashboard} style={this.getMenuOptionStyle(managerSideMenuOptions.DASHBOARD)}><FaChartLine style={{
+            }}><NavLink href='#' onClick={this.handleDashboard} style={this.getMenuOptionStyle(engineerSideMenuOptions.DASHBOARD)}><FaChartLine style={{
               marginBottom: '3%',
               marginRight: '5%'
             }}></FaChartLine> <Label style={{
@@ -216,7 +218,7 @@ class SideNavBar extends React.Component {
               paddingTop: '5%',
               paddingBottom: '5%',
               borderRadius: '0'
-            }}><NavLink active onClick={this.handleAllTicketsClick} href='#' style={this.getMenuOptionStyle(managerSideMenuOptions.ALL_TICKETS)}><FaListAlt style={{
+            }}><NavLink active onClick={this.handleAwaitResponseClick} href='#' style={this.getMenuOptionStyle(engineerSideMenuOptions.AWAITING_RESPONSE)}><FaListAlt style={{
               marginBottom: '3%',
               marginRight: '5%'
             }}></FaListAlt> <Label style={{
@@ -230,7 +232,7 @@ class SideNavBar extends React.Component {
               paddingTop: '5%',
               paddingBottom: '5%',
               borderRadius: '0'
-            }}><NavLink active onClick={this.handleClosedTicketsClick} href='#' style={this.getMenuOptionStyle(managerSideMenuOptions.CLOSED_TICKETS)}><FaTimesCircle style={{
+            }}><NavLink active onClick={this.handleClosedTicketsClick} href='#' style={this.getMenuOptionStyle(engineerSideMenuOptions.CLOSED_TICKETS)}><FaTimesCircle style={{
               marginBottom: '3%',
               marginRight: '5%'
             }}></FaTimesCircle>
