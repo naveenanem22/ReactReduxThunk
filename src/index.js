@@ -1,22 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { applyMiddleware, compose, createStore } from 'redux';
-import { Provider } from 'react-redux';
 import App from './App';
 import { MainReducer } from './reducers/MainReducer'
 import thunk from 'redux-thunk';
-import { Router, Route, Link } from 'react-router-dom'
 import registerServiceWorker from './registerServiceWorker';
-import SPAMainPage from './containers/SPAMainPage';
-import ViewTicketDetailsPage from './containers/ViewTicketDetailsPage';
-import LoginPage from './containers/LoginPage';
-import HomePage from './containers/HomePage';
-import history from './history';
-import DashboardPage from './containers/DashboardPage';
-import SPAEngineerMainPage from './containers/SPAEngineerMainPage';
-import SPAManagerMainPage from './containers/SPAManagerMainPage';
-import SPAEmployeeMainPage from './containers/SPAEmployeeMainPage';
-import { employeeSideMenuOptions } from './masterdata/ApplicationMasterData';
+
+
+
 
 const allStoreEnhancers = compose(
     applyMiddleware(thunk)
@@ -68,7 +59,7 @@ const store = createStore(MainReducer, {
     activeSideMenuItem: {
         employeeView: { activeSideMenuOption: '' },
         managerView: { activeSideMenuOption: '' },
-        engineerView: {activeSideMenuOption: ''}
+        engineerView: { activeSideMenuOption: '' }
     },
     departments: [{ id: '1', name: 'ITS' }, { id: '2', name: 'RMG' }, { id: '3', name: 'HR' }],
     serviceCategories: [{ id: '1', name: 'Network' }, { id: '2', name: 'Printer' }, { id: '3', name: 'Desktop/Laptop' }, { id: '4', name: 'Software/OS' }],
@@ -100,9 +91,9 @@ const store = createStore(MainReducer, {
             createdByMe: '',
             managedByMe: '',
             assignedToMe: '',
-            isSearch:false,
-            searchText:'',
-            searchFieldsListString:''
+            isSearch: false,
+            searchText: '',
+            searchFieldsListString: ''
         },
         loadManagerTickets: false,
 
@@ -117,9 +108,9 @@ const store = createStore(MainReducer, {
             createdByMe: '',
             managedByMe: '',
             assignedToMe: '',
-            isSearch:false,
-            searchText:'',
-            searchFieldsListString:''
+            isSearch: false,
+            searchText: '',
+            searchFieldsListString: ''
         },
         loadTickets: false
 
@@ -136,24 +127,6 @@ const store = createStore(MainReducer, {
     }
 }, allStoreEnhancers);
 
-
-ReactDOM.render(
-    /*<Provider store={store}>
-        <App ownPropTest="react-redux-app"/>
-    </Provider>, document.getElementById('root'));*/
-    <Provider store={store}>
-        <Router history={history}>
-            <div>
-                <Route path="/ticketmaint" component={SPAEngineerMainPage}></Route>
-                <Route path="/ticketmanage" component={SPAManagerMainPage}></Route>
-                <Route path="/ticketing" component={SPAEmployeeMainPage}></Route>
-                <Route path="/home" component={HomePage}></Route>
-                <Route path="/login" component={LoginPage}></Route>
-                {/* <Route path="/tickets" component={SPAMainPage}></Route> */}
-                <Route path="/ticketdetails" component={ViewTicketDetailsPage}></Route>
-                <Route path="/dashboard" component={DashboardPage}></Route>
-            </div>
-        </Router>
-    </Provider>, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 
 registerServiceWorker();
