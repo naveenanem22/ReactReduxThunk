@@ -1,0 +1,12 @@
+div.dd-wrapper {
+    border: 0.5px;        
+    border-style: solid;
+    width: 20%;    
+
+}
+
+div.dd-list{
+    border:0.5px;
+    border-style: solid;
+    width: 100%
+}
