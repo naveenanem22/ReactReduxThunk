@@ -1,24 +1,19 @@
-import React, { Component } from 'react';
-import FunctionalDemo from './components/FunctionalDemo/FunctionalDemo'
-import DropDown from './components/DropDown/DropDown';
-//import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-//import './App.css';
+import React, { Component } from "react";
+import FunctionalDemo from "./components/FunctionalDemo/FunctionalDemo";
+import DropDown from "./components/DropDown/DropDown";
 
 const items = [
-  { "id": 1, "value": "Red" },
-  { "id": 2, "value": "Blue" },
-  { "id": 3, "value": "Green" }
-
+  { id: 1, value: "Red" },
+  { id: 2, value: "Blue" },
+  { id: 3, value: "Green" },
 ];
 
 export default class App extends Component {
-
   constructor(props) {
     super(props);
   }
 
   render() {
-
     return (
       <React.Fragment>
         <h1> Hello, World!!!</h1>
@@ -27,9 +22,5 @@ export default class App extends Component {
         <DropDown items={items} title="Custom DropDown"></DropDown>
       </React.Fragment>
     );
-
-
   }
-
-
 }
