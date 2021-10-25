@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import FunctionalDemo from './components/FunctionalDemo/FunctionalDemo'
+import DropDown from './components/DropDown/DropDown';
 //import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 //import './App.css';
 
+const items = [
+  { "id": 1, "value": "Red" },
+  { "id": 2, "value": "Blue" },
+  { "id": 3, "value": "Green" }
+
+];
 
 export default class App extends Component {
 
@@ -12,11 +19,14 @@ export default class App extends Component {
 
   render() {
 
-    return <div>
-      <h1> Hello, World!!!</h1>
-      <p>The component below is a functional component.</p>
-      <FunctionalDemo></FunctionalDemo>
-    </div>;
+    return (
+      <React.Fragment>
+        <h1> Hello, World!!!</h1>
+        <p>The component below is a functional component.</p>
+        <FunctionalDemo></FunctionalDemo>
+        <DropDown items={items} title="Custom DropDown"></DropDown>
+      </React.Fragment>
+    );
 
 
   }
