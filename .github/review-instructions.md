@@ -1,1 +1,2 @@
 - Alert if the code contains the hardcoded values.
+- The component file should not cross more than 40 lines of code.

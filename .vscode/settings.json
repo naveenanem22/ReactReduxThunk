@@ -9,6 +9,7 @@
     }
   ],
   "github.copilot.chat.reviewSelection.instructions": [
+
     {
       "file": "review-instructions.md" // import instructions from file `code-style.md`
     },
@@ -21,5 +22,10 @@
     
   ],
 
-  "github.copilot.chat.codeGeneration.useInstructionFiles": true
+  "github.copilot.chat.codeGeneration.useInstructionFiles": true,
+  "github.copilot.chat.pullRequestDescriptionGeneration.instructions": [
+    {
+      "file": ".copilot-pull-request-description-instructions.md"
+    }
+  ]
 }
