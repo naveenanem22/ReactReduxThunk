@@ -17,6 +17,31 @@ export default function SimpleApp() {
      <div id="result" className={`box ${size}`}>
        {size}
      </div>
+      <div className="buttons">
+        <button onClick={changeSize.bind(null, "big")}>Big</button>
+        <button onClick={changeSize.bind(null, "small")}>Small</button>
+        <button onClick={changeSize.bind(null, "normal")}>Normal</button>
+        <button onClick={changeSize.bind(null, "You didn't press any button yet")}>
+          Reset
+        </button>
+        </div>
+     <div className="buttons">
+        <button onClick={changeSize.bind(null, "big")}>Big</button>
+        <button onClick={changeSize.bind(null, "small")}>Small</button>
+        <button onClick={changeSize.bind(null, "normal")}>Normal</button>
+        <button onClick={changeSize.bind(null, "You didn't press any button yet")}>
+          Reset
+        </button>
+      </div>
+     <div className="buttons">
+        <button onClick={changeSize.bind(null, "big")}>Big</button>
+        <button onClick={changeSize.bind(null, "small")}>Small</button>
+        <button onClick={changeSize.bind(null, "normal")}>Normal</button>
+        <button onClick={changeSize.bind(null, "You didn't press any button yet")}>
+          Reset
+        </button>
+      </div>
+
    </div>
  );
 }
