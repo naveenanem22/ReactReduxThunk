@@ -1,0 +1,1 @@
+- Alert if the code contains the hardcoded values.

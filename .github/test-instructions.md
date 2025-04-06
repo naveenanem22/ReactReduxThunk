@@ -1,0 +1,1 @@
+- When asked to generate test, ask for the component name to generate the tests.

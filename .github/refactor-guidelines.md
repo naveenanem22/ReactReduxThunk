@@ -1,0 +1,2 @@
+- This is a list of code refactor guideliene.
+- When asked to refactor a block of code, check whats the criticality of the piece of code if user not specified.
